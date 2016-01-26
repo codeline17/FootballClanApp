@@ -8,25 +8,11 @@ namespace Objects
 {
     public class Clan
     {
-        private string _name;
-        private List<User> _users;
-        private DateTime _createdOn;
+        public string Name { get; set; }
 
-        public string Name
-        {
-            get { return _name; }
-            set { _name = value; }
-        }
-        public List<User> Users
-        {
-            get { return _users; }
-            set { _users = value; }
-        }
-        public DateTime CreatedOn
-        {
-            get { return _createdOn; }
-            set { _createdOn = value; }
-        }
+        public List<User> Users { get; set; }
+
+        public DateTime CreatedOn { get; set; }
 
         public Clan(string name, List<User> users, DateTime createdOn)
         {

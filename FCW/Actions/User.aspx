@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="User.aspx.cs" Inherits="FCW.Actions.WebForm1" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="User.aspx.cs" Inherits="FCW.Actions.User" %>
 
 <!DOCTYPE html>
 

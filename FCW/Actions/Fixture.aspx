@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Game.aspx.cs" Inherits="FCW.Actions.WebForm1" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Fixture.aspx.cs" Inherits="FCW.Actions.Fixture" %>
 
 <!DOCTYPE html>
 

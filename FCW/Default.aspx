@@ -79,7 +79,13 @@
     
     <div class="subfooter">
       <div class="container inner">
-        <p class="pull-left">© 2013 Seabird. All rights reserved. Theme by <a href="http://elemisfreebies.com">elemis</a>.</p>
+        <p class="pull-left">© <script language="JavaScript" type="text/javascript"> 
+                                   now = new Date
+                                   theYear = now.getYear()
+                                   if (theYear < 1900)
+                                       theYear = theYear + 1900
+                                   document.write(theYear)
+                               </script> Football Clans. All rights reserved.</p>
         <ul class="social pull-right">
           <li><a href="#"><i class="icon-s-rss"></i></a></li>
           <li><a href="#"><i class="icon-s-twitter"></i></a></li>

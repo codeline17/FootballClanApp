@@ -40,8 +40,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Clan.cs" />
+    <Compile Include="Competition.cs" />
     <Compile Include="Fixture.cs" />
+    <Compile Include="Game.cs" />
     <Compile Include="League.cs" />
+    <Compile Include="Outcome.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Team.cs" />
     <Compile Include="User.cs" />

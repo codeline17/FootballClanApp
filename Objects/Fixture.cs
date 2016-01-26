@@ -9,76 +9,38 @@ namespace Objects
 {
     public class Fixture
     {
-        private Team _homeTeam;
-        private Team _awayTeam;
-        private List<Event> _events;
-        private string _minute;
-        private League _league;
+        public int ID { get; set; }
+        public Team HomeTeam { get; set; }
 
+        public Team AwayTeam { get; set; }
 
-        public Team HomeTeam
+        public List<Event> Events { get; set; }
+
+        public string Minute { get; set; }
+
+        public Competition League { get; set; }
+
+        public List<Game> Games { get; set; }
+
+        public Fixture(int id, Team hometeam, Team awayteam, List<Event> events, string minute, Competition league, List<Game> games)
         {
-            get { return _homeTeam; }
-            set { _homeTeam = value; }
-        }
-
-        public Team AwayTeam
-        {
-            get { return _awayTeam; }
-            set { _awayTeam = value; }
-        }
-
-        public List<Event> Events
-        {
-            get { return _events; }
-            set { _events = value; }
-        }
-
-        public string Minute
-        {
-            get { return _minute; }
-            set { _minute = value; }
-        }
-
-        public League League
-        {
-            get { return _league; }
-            set { _league = value; }
-        }
-
-        public Fixture(Team hometeam, Team awayteam, List<Event> events, string minute, League league)
-        {
+            ID = id;
             HomeTeam = hometeam;
             AwayTeam = awayteam;
             Events = events;
             Minute = minute;
-        }
-
+            League = league;
+            Games = games;
+        } 
     }
 
     public class Event
     {
-        private string _type;
-        private int _value;
-        private string _minute;
+        public string Type { get; set; }
 
-        public string Type
-        {
-            get { return _type; }
-            set { _type = value; }
-        }
+        public int Value { get; set; }
 
-        public int Value
-        {
-            get { return _value; }
-            set { _value = value; }
-        }
-
-        public string Minute
-        {
-            get { return _minute; }
-            set { _minute = value; }
-        }
+        public string Minute { get; set; }
 
         public Event(string type, int value, string minute)
         {

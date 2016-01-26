@@ -20,6 +20,7 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
+    <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -40,6 +41,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -58,6 +61,8 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Service\MainService.svc" />
+    <Content Include="style.css" />
     <Content Include="style\type\fontello\fontello-social.eot" />
     <Content Include="style\type\fontello\fontello-social.ttf" />
     <Content Include="style\type\fontello\fontello-social.woff" />
@@ -73,7 +78,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Actions\User.aspx" />
-    <Content Include="Actions\Game.aspx" />
+    <Content Include="Actions\Fixture.aspx" />
     <Content Include="Actions\Login.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
@@ -192,12 +197,12 @@
     <Compile Include="Actions\User.aspx.designer.cs">
       <DependentUpon>User.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Actions\Game.aspx.cs">
-      <DependentUpon>Game.aspx</DependentUpon>
+    <Compile Include="Actions\Fixture.aspx.cs">
+      <DependentUpon>Fixture.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Actions\Game.aspx.designer.cs">
-      <DependentUpon>Game.aspx</DependentUpon>
+    <Compile Include="Actions\Fixture.aspx.designer.cs">
+      <DependentUpon>Fixture.aspx</DependentUpon>
     </Compile>
     <Compile Include="Actions\Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
@@ -224,6 +229,10 @@
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\IMainService.cs" />
+    <Compile Include="Service\MainService.svc.cs">
+      <DependentUpon>MainService.svc</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
