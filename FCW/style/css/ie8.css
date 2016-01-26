@@ -1,0 +1,39 @@
+body {
+    background: transparent url(../images/bg/bg1.jpg) repeat fixed
+}
+.body-wrapper {
+    width: 1140px;
+    margin: 0 auto;
+}
+.box {
+    width: 1040px;
+    margin-left: -1px;
+    display: block;
+    margin-bottom: 50px;
+}
+.box-border {
+    border: 1px solid #ddd
+}
+.menu ul li {
+    border: 1px solid #ddd;
+    border-right-color: transparent;
+}
+header {
+    padding: 25px 0 25px 99px;
+    margin: 0px auto;
+    width: 1140px;
+}
+.menu {
+    float: left;
+    width: auto;
+    margin: 0;
+}
+.menu ul#tiny {
+    display: block
+}
+.services .tab .icon:before {
+	display: none;
+}
+.services .tab.active .icon:before {
+	display: block;
+}

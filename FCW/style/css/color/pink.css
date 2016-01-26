@@ -1,0 +1,145 @@
+a {
+    color: #d487be;
+}	
+.post-title a:hover {
+	color: #d487be;
+}
+h4.post-title a:hover {
+	color: #d487be;
+}
+blockquote small {
+    color: #d487be;
+}
+.lite {
+    color: #d487be;
+}
+ul.check li:before {
+    color: #d487be;
+}
+i.large {
+	color: #d487be;
+}
+.black-wrapper a:hover {
+	color: #d487be;
+} 
+.black-wrapper h1,
+.black-wrapper h2,
+.black-wrapper h3,
+.black-wrapper h4,
+.black-wrapper h5,
+.black-wrapper h6 {
+	color: #d487be;
+} 
+.contact-info a:hover {
+	color: #d487be;
+}
+.btn,
+.btn-group > .btn {
+    background: #d487be;
+}
+.portfolio-filter .btn:hover,
+.portfolio-filter .btn:focus,
+.portfolio-filter .btn:active,
+.portfolio-filter .btn.active,
+.btn-group.open .btn.dropdown-toggle {
+    background-color: #d487be;
+}
+.dropdown-menu:before {
+    border-bottom: 6px solid #d487be;
+}
+.dropdown-menu li {
+    background: #d487be;
+}
+.pagination ul > li > a,
+.pagination ul > li > span {
+    background-color: #d487be;
+}
+.menu ul li ul li a:hover {
+    color: #d487be;
+}
+.subfooter a:hover {
+    color: #d487be
+}
+i.contact {
+	color: #d487be;
+}
+.tparrows:hover {
+    background: #d487be;
+}
+.tp-bullets.simplebullets.round .bullet.selected,
+.tp-bullets.simplebullets.round .bullet:hover {
+    background: #d487be
+}
+.services .tab:hover .icon i.icn,
+.services .tab.active .icon i.icn {
+	background: #d487be;
+}
+.services .tab:hover h4,
+.services .tab.active h4 {
+	color: #d487be;
+}
+.services .tab .icon:before {
+	border-bottom: 6px solid #d487be;
+}
+.tabs-top .tab a:hover,
+.tabs-top .tab.active a {
+    color: #d487be;
+}
+.tabs-side .tab a:hover,
+.tabs-side .tab.active a {
+    color: #d487be;
+}
+.meta a:hover {
+	color: #d487be;
+}
+.sb-navigation-left:hover,
+.sb-navigation-right:hover {
+    background: #d487be;
+}
+.sidebox a:hover {
+    color: #d487be
+}
+.border-list li a:hover {
+    color: #d487be
+}
+.item-details span {
+    color: #d487be;
+}
+.item-details a:hover {
+    color: #d487be
+}
+.accordion-heading a:hover h5 {
+    color: #d487be
+}
+.nav > li > a:hover,
+.nav > li > a:focus {
+    color: #d487be;
+}
+.nav-tabs > .active > a,
+.nav-tabs > .active > a:hover,
+.nav-tabs > .active > a:focus {
+    color: #d487be;
+}
+.fancybox-close:hover,
+.fancybox-prev span:hover,
+.fancybox-next span:hover {
+    background: #d487be !important;
+}
+.pricing .plan h4 span {
+    color: #d487be
+}
+.progress-list li em {
+    color: #d487be;
+}
+.progress.plain .bar { 
+    background: #d487be;
+}
+#comments .info h2 a:hover {
+    color: #d487be
+}
+#comments a.reply-link:hover {
+    color: #d487be
+}
+.overlay a div {
+    background: rgba(212,135,190,0.95);
+}

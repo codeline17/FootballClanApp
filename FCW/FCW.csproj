@@ -1,0 +1,269 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{6D3D286D-7323-4493-A516-C423EEE047F0}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FCW</RootNamespace>
+    <AssemblyName>FCW</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="style\type\fontello\fontello-social.eot" />
+    <Content Include="style\type\fontello\fontello-social.ttf" />
+    <Content Include="style\type\fontello\fontello-social.woff" />
+    <Content Include="style\type\fontello\fontello.eot" />
+    <Content Include="style\type\fontello\fontello.ttf" />
+    <Content Include="style\type\fontello\fontello.woff" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Actions\User.aspx" />
+    <Content Include="Actions\Game.aspx" />
+    <Content Include="Actions\Login.aspx" />
+    <Content Include="Default.aspx" />
+    <Content Include="Global.asax" />
+    <Content Include="js\genBase.js" />
+    <Content Include="Login.aspx" />
+    <Content Include="stuff.txt" />
+    <Content Include="style\css\bootstrap.css" />
+    <Content Include="style\css\bootstrap.min.css" />
+    <Content Include="style\css\color\blue.css" />
+    <Content Include="style\css\color\green.css" />
+    <Content Include="style\css\color\orange.css" />
+    <Content Include="style\css\color\pink.css" />
+    <Content Include="style\css\color\purple.css" />
+    <Content Include="style\css\color\rose.css" />
+    <Content Include="style\css\custom.css" />
+    <Content Include="style\css\ie8.css" />
+    <Content Include="style\css\login.css" />
+    <Content Include="style\css\settings.css" />
+    <Content Include="style\images\art\a1.jpg" />
+    <Content Include="style\images\art\a2.jpg" />
+    <Content Include="style\images\art\a3.jpg" />
+    <Content Include="style\images\art\a4.jpg" />
+    <Content Include="style\images\art\b1-wide.jpg" />
+    <Content Include="style\images\art\b1.jpg" />
+    <Content Include="style\images\art\b2-wide.jpg" />
+    <Content Include="style\images\art\b2.jpg" />
+    <Content Include="style\images\art\b3.jpg" />
+    <Content Include="style\images\art\b4.jpg" />
+    <Content Include="style\images\art\b5.jpg" />
+    <Content Include="style\images\art\b6.jpg" />
+    <Content Include="style\images\art\c1.jpg" />
+    <Content Include="style\images\art\c2.jpg" />
+    <Content Include="style\images\art\c3.jpg" />
+    <Content Include="style\images\art\c4.jpg" />
+    <Content Include="style\images\art\c5.jpg" />
+    <Content Include="style\images\art\c6.jpg" />
+    <Content Include="style\images\art\c7.jpg" />
+    <Content Include="style\images\art\c8.jpg" />
+    <Content Include="style\images\art\p1.jpg" />
+    <Content Include="style\images\art\p2.jpg" />
+    <Content Include="style\images\art\p3.jpg" />
+    <Content Include="style\images\art\p4.jpg" />
+    <Content Include="style\images\art\p5.jpg" />
+    <Content Include="style\images\art\p6.jpg" />
+    <Content Include="style\images\art\p7.jpg" />
+    <Content Include="style\images\art\p8.jpg" />
+    <Content Include="style\images\art\p9.jpg" />
+    <Content Include="style\images\art\pps1.jpg" />
+    <Content Include="style\images\art\pps2.jpg" />
+    <Content Include="style\images\art\pps3.jpg" />
+    <Content Include="style\images\art\slider-bg1.jpg" />
+    <Content Include="style\images\art\slider-bg2.jpg" />
+    <Content Include="style\images\art\slider-bg3.jpg" />
+    <Content Include="style\images\art\slider-mobile.png" />
+    <Content Include="style\images\art\slider-pages.png" />
+    <Content Include="style\images\art\slider-transparent.png" />
+    <Content Include="style\images\art\t1.jpg" />
+    <Content Include="style\images\art\t2.jpg" />
+    <Content Include="style\images\art\t3.jpg" />
+    <Content Include="style\images\art\team1.jpg" />
+    <Content Include="style\images\art\team2.jpg" />
+    <Content Include="style\images\art\team3.jpg" />
+    <Content Include="style\images\art\th1.jpg" />
+    <Content Include="style\images\art\th2.jpg" />
+    <Content Include="style\images\art\th3.jpg" />
+    <Content Include="style\images\art\u1.jpg" />
+    <Content Include="style\images\art\u2.jpg" />
+    <Content Include="style\images\art\u3.jpg" />
+    <Content Include="style\images\bg\bg1.jpg" />
+    <Content Include="style\images\bg\bg2.jpg" />
+    <Content Include="style\images\bg\bg3.jpg" />
+    <Content Include="style\images\bg\bg4.jpg" />
+    <Content Include="style\images\bg\bg5.jpg" />
+    <Content Include="style\images\bg\bg6.jpg" />
+    <Content Include="style\images\favicon.png" />
+    <Content Include="style\images\loading%402x.gif" />
+    <Content Include="style\images\loading.gif" />
+    <Content Include="style\images\logo%402x.png" />
+    <Content Include="style\images\logo.png" />
+    <Content Include="style\images\timer.png" />
+    <Content Include="style\js\bootstrap.min.js" />
+    <Content Include="style\js\ddsmoothmenu.js" />
+    <Content Include="style\js\fancybox\blank.gif" />
+    <Content Include="style\js\fancybox\fancybox_overlay.png" />
+    <Content Include="style\js\fancybox\helpers\jquery.fancybox-media.js" />
+    <Content Include="style\js\fancybox\helpers\jquery.fancybox-thumbs.css" />
+    <Content Include="style\js\fancybox\helpers\jquery.fancybox-thumbs.js" />
+    <Content Include="style\js\fancybox\jquery.fancybox.css" />
+    <Content Include="style\js\google-code-prettify\prettify.css" />
+    <Content Include="style\js\google-code-prettify\prettify.js" />
+    <Content Include="style\js\html5shiv.js" />
+    <Content Include="style\js\jquery.easytabs.min.js" />
+    <Content Include="style\js\jquery.fancybox.pack.js" />
+    <Content Include="style\js\jquery.fitvids.js" />
+    <Content Include="style\js\jquery.hoverdir.min.js" />
+    <Content Include="style\js\jquery.isotope.min.js" />
+    <Content Include="style\js\jquery.js" />
+    <Content Include="style\js\jquery.meanmenu.2.0.min.js" />
+    <Content Include="style\js\jquery.slickforms.js" />
+    <Content Include="style\js\jquery.themepunch.plugins.min.js" />
+    <Content Include="style\js\jquery.themepunch.revolution.min.js" />
+    <Content Include="style\js\jquery.themepunch.showbizpro.min.js" />
+    <Content Include="style\js\login.js" />
+    <Content Include="style\js\scripts.js" />
+    <Content Include="style\js\twitter-bootstrap-hover-dropdown.min.js" />
+    <Content Include="style\type\fontello.css" />
+    <Content Include="style\type\fontello\fontello-social.svg" />
+    <Content Include="style\type\fontello\fontello.svg" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Actions\User.aspx.cs">
+      <DependentUpon>User.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Actions\User.aspx.designer.cs">
+      <DependentUpon>User.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Actions\Game.aspx.cs">
+      <DependentUpon>Game.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Actions\Game.aspx.designer.cs">
+      <DependentUpon>Game.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Actions\Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Actions\Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Objects\Objects.csproj">
+      <Project>{a607431c-5b7a-4966-b6e9-2c1389b47303}</Project>
+      <Name>Objects</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>52888</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:52888/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
