@@ -17,7 +17,6 @@
 <link href="style/js/fancybox/helpers/jquery.fancybox-thumbs.css?v=1.0.2" rel="stylesheet" type="text/css" />
 <link href="style.css" rel="stylesheet">
 <link href="style/css/custom.css" rel="stylesheet">
-<link href="style/css/color/green.css" rel="stylesheet">
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700' rel='stylesheet' type='text/css'>
 <link href="style/type/fontello.css" rel="stylesheet">
 <!--[if IE 8]>
@@ -67,9 +66,7 @@
   <div class="box box-border pull-left">
     <div class="light-wrapper">
       <div id="mainContainer" class="container inner">
-          <div class="row-fluid">
-          adfsafjksd;f ;dfkh ;daskfjh ;sdafh ;asdfh adsfhldsyhtelrqkhtlkdjhf 
-          </div>    
+             
       </div>
       <!--/.container--> 
     </div>

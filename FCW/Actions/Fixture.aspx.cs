@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Linq;
 using System.Web.Script.Serialization;
 using Objects;
@@ -26,7 +27,7 @@ namespace FCW.Actions
                 switch (requestType)
                 {
                     case "UDM": //UserDailyMatches
-
+                        UserDailyMatches(user);
                         break;
                     default :
                         break;
@@ -46,7 +47,7 @@ namespace FCW.Actions
                 using (var cmd = new SqlCommand("FixturesGetByUser", conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@userGuid", SqlDbType.VarChar, 36).Value = user.Guid;
+                    cmd.Parameters.Add("@userGuid", SqlDbType.UniqueIdentifier).Value = user.Guid;
 
                     var fixtures = new List<Objects.Fixture>();
                     conn.Open();
@@ -56,21 +57,44 @@ namespace FCW.Actions
                         var fixture = fixtures.FirstOrDefault(x => x.ID == Convert.ToInt32(reader["Id"]));
                         if (fixture == null)
                         {
-                            fixture = new Objects.Fixture(
+                            fixtures.Add(new Objects.Fixture(
                                     Convert.ToInt32(reader["id"]),
                                     new Team(reader["HomeTeam"].ToString()), 
                                     new Team(reader["AwayTeam"].ToString()),
                                     new List<Event>(), reader["Status"].ToString(),
                                     new Competition(reader["LeagueName"].ToString(),
                                     reader["Country"].ToString()), 
-                                    new List<Game>());   
+                                    new List<Game>
+                                    {
+                                        new Game(reader["GameName"].ToString(),reader["Slug"].ToString(),new List<Outcome>
+                                        {
+                                            new Outcome(reader["OutcomeName"].ToString())
+                                        })
+                                    }
+                                    ));
                         }
                         else
                         {
-                            fixture.Games.Add(new Game(reader["GameName"].ToString(),reader));
+                            var game = fixture.Games.FirstOrDefault(x => x.Slug == reader["Slug"].ToString());
+
+                            if (game == null)
+                            {
+                               fixture.Games.Add(new Game(reader["GameName"].ToString(),reader["Slug"].ToString(),new List<Outcome>
+                               {
+                                   new Outcome(reader["OutcomeName"].ToString())
+                               }));
+                            }
+                            else
+                            {
+                                var outcome =
+                                    game.Outcomes.FirstOrDefault(x => x.Name == reader["OutcomeName"].ToString());
+                                if (outcome == null)
+                                {
+                                    game.Outcomes.Add(new Outcome(reader["OutcomeName"].ToString()));
+                                }
+                            }
                         }
                     }
-
                     var json = new JavaScriptSerializer().Serialize(fixtures);
                     Response.ClearContent();
                     Response.ClearHeaders();

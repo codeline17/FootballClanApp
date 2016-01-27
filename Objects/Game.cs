@@ -16,7 +16,14 @@ namespace Objects
 
         public Game(string name, string slug, List<Outcome> outcomes)
         {
+            Name = name;
+            Slug = slug;
             Outcomes = outcomes;
+        }
+
+        public Game()
+        {
+            
         }
     }
 }
