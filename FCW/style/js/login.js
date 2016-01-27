@@ -26,7 +26,6 @@ function keypress(e) {
 }
 
 function afterAjax(user) {
-    console.log(user.Username);
     if (!user.Username) {
         var err = document.getElementById("loginErrorMsg");
         err.className = "alert alert-error";

@@ -2,3 +2,18 @@ div#mainContainer {
     min-height: 700px;
 }
 
+a.bet {
+    color: orangered;
+}
+
+a.odd {
+    cursor: pointer;
+}
+
+a.unbet {
+    
+}
+
+.alert-error {
+    color: orangered;
+}

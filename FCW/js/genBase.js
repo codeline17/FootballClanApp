@@ -14,6 +14,7 @@ window.onload = function (e) {
         console.log(menus[i]);
         menus[i].addEventListener("click", getContent);
     }
+    genMatches();
 }
 
  function getContent(e){
@@ -72,7 +73,7 @@ window.onload = function (e) {
                 for (var j = 0; j < matches[i].Games.length; j++) {
                     inMatchGroups += "<td>";
                     for (var k = 0; k < matches[i].Games[j].Outcomes.length; k++) {
-                        inMatchGroups += "<a href=\"#\" onclick=\"setPrediction(this)\" data-odd=\"" + matches[i].ID + "|" + matches[i].Games[j].Slug + "|" + matches[i].Games[j].Outcomes[k].Name + "\" >" + matches[i].Games[j].Outcomes[k].Name + " </a> ";
+                        inMatchGroups += "<a class=\"odd\" onclick=\"setPrediction(this)\" data-group=\"" + matches[i].Games[j].Slug + "\" data-odd=\"" + matches[i].ID + "|" + matches[i].Games[j].Outcomes[k].Name + "\" >" + matches[i].Games[j].Outcomes[k].Name + " </a> ";
                     }
                     inMatchGroups += "</td>";
                 }
@@ -128,8 +129,21 @@ window.onload = function (e) {
      
  }
 
-function setPredictions(e) {
+function setPrediction(e) {
+    //remove all other selected
+    var matchId = e.getAttribute("data-odd").split('|')[0];
+    var row = document.getElementById("rid" + matchId);
+    var allAs = row.querySelectorAll("[data-odd]");
+    var as = [];
     
-    var
+    console.log(as);
+
+    for (var i = 0; i < allAs.length; i++) {
+        if (allAs[i].getAttribute("data-group") == e.getAttribute("data-group")) {
+            allAs[i].className = "odd";
+        }
+    }
+
+    e.className = "odd bet";
 
 }

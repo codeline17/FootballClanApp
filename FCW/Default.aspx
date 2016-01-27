@@ -76,12 +76,12 @@
     
     <div class="subfooter">
       <div class="container inner">
-        <p class="pull-left">© <script language="JavaScript" type="text/javascript"> 
-                                   now = new Date
-                                   theYear = now.getYear()
+        <p class="pull-left">© <script type="text/javascript">
+                                   now = new Date;
+                                   theYear = now.getYear();
                                    if (theYear < 1900)
-                                       theYear = theYear + 1900
-                                   document.write(theYear)
+                                       theYear = theYear + 1900;
+                                   document.write(theYear);
                                </script> Football Clans. All rights reserved.</p>
         <ul class="social pull-right">
           <li><a href="#"><i class="icon-s-rss"></i></a></li>
