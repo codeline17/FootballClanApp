@@ -12,6 +12,7 @@
 <link rel="shortcut icon" type="image/x-icon" href="style/images/favicon.png" />
 <link href="style/css/bootstrap.css" rel="stylesheet">
 <link href="style/css/settings.css" rel="stylesheet">
+<link href="style/css/datepicker.css" rel="stylesheet">
 <link href="style/js/google-code-prettify/prettify.css" rel="stylesheet">
 <link href="style/js/fancybox/jquery.fancybox.css" rel="stylesheet" type="text/css" media="all" />
 <link href="style/js/fancybox/helpers/jquery.fancybox-thumbs.css?v=1.0.2" rel="stylesheet" type="text/css" />
@@ -116,10 +117,12 @@
 <script src="style/js/jquery.easytabs.min.js"></script> 
 <script src="style/js/jquery.hoverdir.min.js"></script> 
 <script src="style/js/scripts.js"></script>
+<script src="style/js/moment.js"></script>
 <script src="style/js/tooltip.js"></script>
 <script src="style/js/transitions.js"></script>
 <script src="style/js/confirmation.js"></script>
 <script src="style/js/bootstrap-tooltip.js"></script>
+<script src="style/js/bootstrap-datepicker.js"></script>
 <script src="js/genBase.js"></script>
 </body>
 </html>

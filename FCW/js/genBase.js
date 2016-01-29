@@ -6,6 +6,8 @@
  **livescore
  **account*/
 
+var state;
+
 window.onload = function (e) {
     var menus = $("li[content-type]");
     for (i = 0; i < menus.length; i++) {
@@ -16,13 +18,26 @@ window.onload = function (e) {
 
  function getContent(e){
      var type = this.getAttribute("content-type");
+
+     $("li[content-type]").each(function() {
+         this.className = "";
+     });
+
+     this.className = "active";
+
+     var mainC = document.getElementById("mainContainer");
+     mainC.innerHTML = "";
+
      switch (type) 
      {
          case "matches":
+             state = true;
              genMatches();
              break;
          case "predictions":
-            genPredictions();
+             state = false;
+             addFilterHead();
+             genPredictions(getFullDate(new Date()));
              break;
          case "leagues":
             genLeagues();
@@ -45,66 +60,18 @@ window.onload = function (e) {
      $.post("Actions/Fixture.aspx", { type:"UDM" },
         function (e) {
             var matches = JSON.parse(e);
-
-            var mainC = document.getElementById("mainContainer");
-            mainC.innerHTML = "";
-            var rFluid = document.createElement("div");
-            rFluid.className = "row-fluid";
-            var opts = "";
-
-            for (var i = 0; i < matches[0].Games.length; i++) {
-                opts += "<th><span data-toggle=\"tooltip\" data-placement=\"top\" title=\"" + matches[0].Games[i].Name + "\" >" + matches[0].Games[i].Slug + "</span></th>";
-            }
-            var tableTxt = "<table class=\"table table-hover\" id=\"bootstrap-table\">\
-                            <thead>\
-                            <tr>\
-                                <th>Match</th>\
-                                <th>Time</th>\
-                                <th>League</th>\
-                                " + opts + "</tr>\
-                            </thead>\
-                            <tbody>";
-
-            for (var h = 0; h < matches.length; h++) {
-                var inMatchGroups = "";
-                for (var j = 0; j < matches[h].Games.length; j++) {
-                    inMatchGroups += "<td>";
-                    for (var k = 0; k < matches[h].Games[j].Outcomes.length; k++) {
-                        var cl = (matches[h].Games[j].Sealed ? "greyed" : "");
-                        cl += (matches[h].Games[j].Outcomes[k].Selected ? " closed" : "");
-                        var event = !matches[h].Games[j].Sealed;
-                        inMatchGroups += "<a class=\"odd " + cl + "\" " + (event ? "onclick = \"setPrediction(this)\"" : "") + " data-toggle=\"tooltip\" data-placement=\"top\" title=\"" + getShortTeamName(matches[h].Games[j].Outcomes[k].Name, matches[h], 100) + "\" data-group=\"" + matches[h].Games[j].Slug + "\" data-odd=\"" + matches[h].ID + "|" + matches[h].Games[j].Slug + "|" + matches[h].Games[j].Outcomes[k].Name + "\" >" + getShortTeamName(matches[h].Games[j].Outcomes[k].Name, matches[h], 5) + "</a> ";
-                    }
-                    inMatchGroups += "</td>";
-                }
-
-                tableTxt += "<tr id = \"rid"+ matches[h].ID + "\"> \
-                            <td><span data-toggle=\"tooltip\" data-placement=\"top\" title=\"" + matches[h].HomeTeam.Name + "-" + matches[h].AwayTeam.Name + "\">" + getFixtureName(matches[h]) + "</td> \
-                            <td>" + matches[h].ShortTime + "</td> \
-                            <td><span data-toggle=\"tooltip\" data-placement=\"top\" title=\"" + matches[h].League.Name + "\">" + matches[h].League.Name     + "</span></td>\
-                            " + inMatchGroups;
-                tableTxt += "</tr>";
-            }
-
-            tableTxt += "</tbody>\
-                        </table><a id=\"predictionSubmit\" data-toggle=\"confirmation\" class=\"btn btn-block btn-success\" href=\"#\">Submit</a>";
-            
-
-            rFluid.innerHTML = tableTxt;
-            mainC.appendChild(rFluid);
-            
-            /***After Event Assignments***/
-            $('[data-toggle="tooltip"]').tooltip();
-            $('[data-toggle="confirmation"]').confirmation({ popout: true });
-            var submitBtn = document.getElementById("predictionSubmit");
-            submitBtn.addEventListener("click", sendPredictions);
-            /****************************/
-
+            genGrid(matches);
+            addPredSubmitBtn();
         });
  }
 
- function genPredictions(){
-     
+ function genPredictions(date) {
+     console.log(date);
+     $.post("Actions/Fixture.aspx", { type: "PREDS", date : date },
+   function (e) {
+       var matches = JSON.parse(e);
+       genGrid(matches);
+   });
  }
 
  function genLeagues(){
@@ -143,16 +110,19 @@ function setPrediction(e) {
 }
 
 function sendPredictions() {
-    var ps = document.getElementsByClassName("odd bet");
-    var pString = "" ;
+    var r = confirm("Submit these predictions?");
+    if (r === true) {
+        var ps = document.getElementsByClassName("odd bet");
+        var pString = "";
 
-    for (var i = 0; i < ps.length; i++) {
-        pString += ps[i].getAttribute("data-odd") + ";";
+        for (var i = 0; i < ps.length; i++) {
+            pString += ps[i].getAttribute("data-odd") + ";";
+        }
+
+        $.post("Actions/Fixture.aspx", { type: "SNDPD", pds: pString.substring(0, pString.length - 1) });
+
+        genMatches();
     }
-
-    $.post("Actions/Fixture.aspx", { type: "SNDPD", pds: pString.substring(0, pString.length - 1) });
-
-    genMatches();
 }
 
 function getShortTeamName(name, match, length) {
@@ -165,4 +135,124 @@ function getShortTeamName(name, match, length) {
 
 function getFixtureName(match) {
     return match.HomeTeam.Name.substring(0, 10) + "-" + match.AwayTeam.Name.substring(0, 10);
+}
+
+function genGrid(matches) {
+    var mainC = document.getElementById("mainContainer");
+    var rFluid = document.createElement("div");
+    rFluid.id = "tblContainer";
+    rFluid.className = "row-fluid";
+    var opts = "";
+
+    var exGrid = document.getElementById("match-table");
+    if (exGrid) {
+        exGrid.parentNode.removeChild(exGrid);
+    }
+
+    for (var i = 0; i < matches[0].Games.length; i++) {
+        opts += "<th><span data-toggle=\"tooltip\" data-placement=\"top\" title=\"" + matches[0].Games[i].Name + "\" >" + matches[0].Games[i].Slug + "</span></th>";
+    }
+    var tableTxt = "<table class=\"table table-hover\" id=\"match-table\">\
+                            <thead>\
+                            <tr>\
+                                <th>Match</th>\
+                                <th>Time</th>\
+                                <th>League</th>\
+                                " + opts + "</tr>\
+                            </thead>\
+                            <tbody>";
+
+    for (var h = 0; h < matches.length; h++) {
+        var inMatchGroups = "";
+        for (var j = 0; j < matches[h].Games.length; j++) {
+            inMatchGroups += "<td>";
+            for (var k = 0; k < matches[h].Games[j].Outcomes.length; k++) {
+                var cl = (matches[h].Games[j].Sealed ? "greyed" : "");
+                cl += (matches[h].Games[j].Outcomes[k].Selected ? " closed" : "");
+                var event = !matches[h].Games[j].Sealed && state;
+                inMatchGroups += "<a class=\"odd " + cl + "\" " + (event ? "onclick = \"setPrediction(this)\"" : "") +
+                    " data-toggle=\"tooltip\" data-placement=\"top\" title=\"" +
+                    getShortTeamName(matches[h].Games[j].Outcomes[k].Name, matches[h], 100) + "\" data-group=\"" +
+                    matches[h].Games[j].Slug + "\" data-odd=\"" + matches[h].ID + "|" + matches[h].Games[j].Slug + "|" +
+                    matches[h].Games[j].Outcomes[k].Name + "\" >" + getShortTeamName(matches[h].Games[j].Outcomes[k].Name, matches[h], 5) +
+                    "</a> ";
+            }
+            inMatchGroups += "</td>";
+        }
+
+        tableTxt += "<tr id = \"rid" + matches[h].ID + "\"> \
+                            <td><span data-toggle=\"tooltip\" data-placement=\"top\" title=\"" + matches[h].HomeTeam.Name + "-" + matches[h].AwayTeam.Name + "\">" + getFixtureName(matches[h]) + "</td> \
+                            <td>" + matches[h].ShortTime + "</td> \
+                            <td><span data-toggle=\"tooltip\" data-placement=\"top\" title=\"" + matches[h].League.Name + "\">" + matches[h].League.Name + "</span></td>\
+                            " + inMatchGroups;
+        tableTxt += "</tr>";
+    }
+
+    tableTxt += "</tbody>\
+                        </table>";
+
+
+    rFluid.innerHTML = tableTxt;
+    mainC.appendChild(rFluid);
+
+    /***After Event Assignments***/
+    $('[data-toggle="tooltip"]').tooltip();
+    /****************************/
+}
+
+function addPredSubmitBtn() {
+    var rFluid = document.getElementById("tblContainer");
+    var btnSb = document.createElement("a");
+    btnSb.className = "btn btn-block btn-success";
+    btnSb.id = "predictionSubmit";
+    btnSb.innerText = "Submit";
+
+    rFluid.appendChild(btnSb);
+    var submitBtn = document.getElementById("predictionSubmit");
+    submitBtn.addEventListener("click", sendPredictions);
+}
+
+function addFilterHead() {
+    var mainC = document.getElementById("mainContainer");
+    var filterHead = document.createElement("div");
+    filterHead.className = "row";
+
+    var htmlTxt = "<div class=\"panel panel-default\">\
+                            <div class=\"panel-body\">\
+                                <form class=\"form-inline\" role=\"form\">\
+                                    <div class=\"form-group\">\
+                                        <input type=\"datetime\" placeholder=\"Date (dd/mm/yyyy)\" class=\"form-control input-sm\" id=\"pref-search\">\
+                                    </div><!-- form group [search] -->\
+                                    <div class=\"form-group\">\
+                                        <!--button id=\"predSBtn\" value=\"\" type=\"submit\" class=\"btn btn-default filter-col\">\
+                                            <span class=\"glyphicon glyphicon-record\"></span> Search\
+                                        </button -->\
+                                    </div>\
+                                </form>\
+                            </div>";
+
+    filterHead.innerHTML = htmlTxt;
+    mainC.appendChild(filterHead);
+    $("#pref-search").datepicker({
+        format: "dd/mm/yyyy"
+    }).on("changeDate", function (e) {
+        console.log(e);
+        var dt = e.date;
+        genPredictions(getFullDate(dt));
+    });
+    //$("#predSBtn").click(function () { genPredictions($("#pref-search").text) })
+}
+
+function getFullDate(date) {
+    var dd = date.getDate();
+    var mm = date.getMonth() + 1; //January is 0!
+
+    var yyyy = date.getFullYear();
+    if (dd < 10) {
+        dd = "0" + dd;
+    }
+    if (mm < 10) {
+        mm = "0" + mm;
+    }
+    return dd + "/" + mm + "/" + yyyy;
 }

@@ -63,6 +63,16 @@
   <ItemGroup>
     <Content Include="Service\MainService.svc" />
     <Content Include="style.css" />
+    <Content Include="style\css\datepicker.css" />
+    <Content Include="style\css\tbl-style.css" />
+    <Content Include="style\js\bootstrap-datepicker.js" />
+    <Content Include="style\js\bootstrap-tooltip.js" />
+    <Content Include="style\js\bootstrap.min.js" />
+    <Content Include="style\js\confirmation.js" />
+    <Content Include="style\js\jquery.bdt.min.js" />
+    <Content Include="style\js\jquery.sortelements.js" />
+    <Content Include="style\js\tooltip.js" />
+    <Content Include="style\js\transitions.js" />
     <Content Include="style\type\fontello\fontello-social.eot" />
     <Content Include="style\type\fontello\fontello-social.ttf" />
     <Content Include="style\type\fontello\fontello-social.woff" />

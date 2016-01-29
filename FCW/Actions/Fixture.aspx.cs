@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Web.Script.Serialization;
 using Objects;
@@ -31,6 +32,9 @@ namespace FCW.Actions
                         break;
                     case "SNDPD":
                         InsertPredictions(user);
+                        break;
+                    case "PREDS":
+                        GetPredictions(user);
                         break;
                     default :
                         break;
@@ -153,6 +157,74 @@ namespace FCW.Actions
                     cmd.Parameters.Add("@userGuid", SqlDbType.UniqueIdentifier).Value = user.Guid;
                     conn.Open();
                     cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        private void GetPredictions(Objects.User user)
+        {
+            var date = DateTime.Now;
+            DateTime.TryParseExact(Request.Params["date"], "dd/MM/yyyy",CultureInfo.InvariantCulture,DateTimeStyles.None, out date);
+
+            using (var conn = new SqlConnection(_connectionstring))
+            {
+                using (var cmd = new SqlCommand("PredictionsGetByUser", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@userGuid", SqlDbType.UniqueIdentifier).Value = user.Guid;
+                    cmd.Parameters.Add("@data", SqlDbType.DateTime).Value = date;
+
+                    var fixtures = new List<Objects.Fixture>();
+                    conn.Open();
+                    var reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        var fixture = fixtures.FirstOrDefault(x => x.ID == Convert.ToInt32(reader["Id"]));
+                        if (fixture == null)
+                        {
+                            fixtures.Add(new Objects.Fixture(
+                                    Convert.ToInt32(reader["id"]),
+                                    new Team(reader["HomeTeam"].ToString()),
+                                    new Team(reader["AwayTeam"].ToString()),
+                                    new List<Event>(), reader["Status"].ToString(),
+                                    new Competition(reader["LeagueName"].ToString(),
+                                    reader["Country"].ToString()),
+                                    new List<Game>
+                                    {
+                                        new Game(reader["GameName"].ToString(),reader["Slug"].ToString(),new List<Outcome>
+                                        {
+                                            new Outcome(reader["OutcomeName"].ToString(),Convert.ToBoolean(reader["IsSelected"]))
+                                        })
+                                    }
+                                    , Convert.ToDateTime(reader["StartDate"])));
+                        }
+                        else
+                        {
+                            var game = fixture.Games.FirstOrDefault(x => x.Slug == reader["Slug"].ToString());
+
+                            if (game == null)
+                            {
+                                fixture.Games.Add(new Game(reader["GameName"].ToString(), reader["Slug"].ToString(), new List<Outcome>
+                               {
+                                   new Outcome(reader["OutcomeName"].ToString(),Convert.ToBoolean(reader["IsSelected"]))
+                               }));
+                            }
+                            else
+                            {
+                                var outcome =
+                                    game.Outcomes.FirstOrDefault(x => x.Name == reader["OutcomeName"].ToString());
+                                if (outcome == null)
+                                {
+                                    game.AddOutcome(new Outcome(reader["OutcomeName"].ToString(), Convert.ToBoolean(reader["IsSelected"])));
+                                }
+                            }
+                        }
+                    }
+                    var json = new JavaScriptSerializer().Serialize(fixtures);
+                    Response.ClearContent();
+                    Response.ClearHeaders();
+                    Response.Write(json);
+
                 }
             }
         }
