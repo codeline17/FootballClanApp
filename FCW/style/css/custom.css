@@ -3,11 +3,16 @@ div#mainContainer {
 }
 
 a.bet {
-    color: orangered;
+    background-color: orangered !important;
+    color: #eee !important;
 }
 
 a.odd {
     cursor: pointer;
+    padding: 1px 2px;
+    margin: 1px;
+    background-color: #eee;
+    color: #222;
 }
 
 a.unbet {

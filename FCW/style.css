@@ -292,7 +292,7 @@ i.large {
     padding-bottom: 50px;
 }
 header {
-    padding: 25px 0;
+    padding: 10px 0 10px 0;
     margin: 0px auto;
     width: 940px;
 }
@@ -2556,7 +2556,7 @@ media_tag_5 {
 	    border: 1px solid rgba(0,0,0,0.08)
 	}
 	header {
-	    padding: 25px 0 25px 99px;
+	    padding: 10px 0 10px 0;
 	    margin: 0px auto;
 	    width: 1140px;
 	}

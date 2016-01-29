@@ -22,7 +22,11 @@ namespace Objects
 
         public List<Game> Games { get; set; }
 
-        public Fixture(int id, Team hometeam, Team awayteam, List<Event> events, string minute, Competition league, List<Game> games)
+        public DateTime StartTime { get; set; }
+
+        public string ShortTime => StartTime.ToString("HH:mm");
+
+        public Fixture(int id, Team hometeam, Team awayteam, List<Event> events, string minute, Competition league, List<Game> games, DateTime starttime)
         {
             ID = id;
             HomeTeam = hometeam;
@@ -31,6 +35,7 @@ namespace Objects
             Minute = minute;
             League = league;
             Games = games;
+            StartTime = starttime;
         } 
     }
 

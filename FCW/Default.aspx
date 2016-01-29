@@ -116,6 +116,10 @@
 <script src="style/js/jquery.easytabs.min.js"></script> 
 <script src="style/js/jquery.hoverdir.min.js"></script> 
 <script src="style/js/scripts.js"></script>
+<script src="style/js/tooltip.js"></script>
+<script src="style/js/transitions.js"></script>
+<script src="style/js/confirmation.js"></script>
+<script src="style/js/bootstrap-tooltip.js"></script>
 <script src="js/genBase.js"></script>
 </body>
 </html>

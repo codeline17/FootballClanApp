@@ -7,19 +7,15 @@
  **account*/
 
 window.onload = function (e) {
-    console.log('kalova');
     var menus = $("li[content-type]");
-    console.log(menus);
     for (i = 0; i < menus.length; i++) {
-        console.log(menus[i]);
         menus[i].addEventListener("click", getContent);
     }
     genMatches();
 }
 
  function getContent(e){
-     var type = this.getAttribute('content-type');
-     console.log(type);
+     var type = this.getAttribute("content-type");
      switch (type) 
      {
          case "matches":
@@ -49,14 +45,15 @@ window.onload = function (e) {
      $.post("Actions/Fixture.aspx", { type:"UDM" },
         function (e) {
             var matches = JSON.parse(e);
-            console.log(matches);
 
             var mainC = document.getElementById("mainContainer");
+            mainC.innerHTML = "";
             var rFluid = document.createElement("div");
             rFluid.className = "row-fluid";
             var opts = "";
+
             for (var i = 0; i < matches[0].Games.length; i++) {
-                opts += "<th>" + matches[0].Games[i].Name + "</th>";
+                opts += "<th><span data-toggle=\"tooltip\" data-placement=\"top\" title=\"" + matches[0].Games[i].Name + "\" >" + matches[0].Games[i].Slug + "</span></th>";
             }
             var tableTxt = "<table class=\"table table-hover\" id=\"bootstrap-table\">\
                             <thead>\
@@ -67,45 +64,39 @@ window.onload = function (e) {
                                 " + opts + "</tr>\
                             </thead>\
                             <tbody>";
-            for (var i = 0; i < matches.length; i++) {
 
+            for (var h = 0; h < matches.length; h++) {
                 var inMatchGroups = "";
-                for (var j = 0; j < matches[i].Games.length; j++) {
+                for (var j = 0; j < matches[h].Games.length; j++) {
                     inMatchGroups += "<td>";
-                    for (var k = 0; k < matches[i].Games[j].Outcomes.length; k++) {
-                        inMatchGroups += "<a class=\"odd\" onclick=\"setPrediction(this)\" data-group=\"" + matches[i].Games[j].Slug + "\" data-odd=\"" + matches[i].ID + "|" + matches[i].Games[j].Outcomes[k].Name + "\" >" + matches[i].Games[j].Outcomes[k].Name + " </a> ";
+                    for (var k = 0; k < matches[h].Games[j].Outcomes.length; k++) {
+                        inMatchGroups += "<a class=\"odd\" onclick=\"setPrediction(this)\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"" + getShortTeamName(matches[h].Games[j].Outcomes[k].Name, matches[h], 100) + "\" data-group=\"" + matches[h].Games[j].Slug + "\" data-odd=\"" + matches[h].ID + "|" + matches[h].Games[j].Slug + "|" + matches[h].Games[j].Outcomes[k].Name + "\" >" + getShortTeamName(matches[h].Games[j].Outcomes[k].Name, matches[h], 5) + "</a> ";
                     }
                     inMatchGroups += "</td>";
                 }
 
-                tableTxt += "<tr id = \"rid"+ matches[i].ID + "\"> \
-                            <td>" + matches[i].HomeTeam.Name + "-" + matches[i].AwayTeam.Name + "</td> \
-                            <td>18:45" /*+ matches[i].AwayTeam.Name +*/ + "</td> \
-                            <td>" + matches[i].League.Name + "</td>\
+                tableTxt += "<tr id = \"rid"+ matches[h].ID + "\"> \
+                            <td><span data-toggle=\"tooltip\" data-placement=\"top\" title=\"" + matches[h].HomeTeam.Name + "-" + matches[h].AwayTeam.Name + "\">" + getFixtureName(matches[h]) + "</td> \
+                            <td>" + matches[h].ShortTime + "</td> \
+                            <td><span data-toggle=\"tooltip\" data-placement=\"top\" title=\"" + matches[h].League.Name + "\">" + matches[h].League.Name     + "</span></td>\
                             " + inMatchGroups;
                 tableTxt += "</tr>";
             }
 
             tableTxt += "</tbody>\
-                        </table><a class=\"btn btn-block btn-success\" href=\"#\">Submit</a>";
+                        </table><a id=\"predictionSubmit\" data-toggle=\"confirmation\" class=\"btn btn-block btn-success\" href=\"#\">Submit</a>";
             
 
             rFluid.innerHTML = tableTxt;
-
-
-
-            /*
-                <table class="table table-hover" id="bootstrap-table">
-                <thead>
-                <tr>
-                    <th>#ID</th>
-                    <th>Username</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                </tr>
-                </thead>
-            */
             mainC.appendChild(rFluid);
+            
+            /***After Event Assignments***/
+            $('[data-toggle="tooltip"]').tooltip();
+            $('[data-toggle="confirmation"]').confirmation({ popout: true });
+            var submitBtn = document.getElementById("predictionSubmit");
+            submitBtn.addEventListener("click", sendPredictions);
+            /****************************/
+
         });
  }
 
@@ -134,16 +125,45 @@ function setPrediction(e) {
     var matchId = e.getAttribute("data-odd").split('|')[0];
     var row = document.getElementById("rid" + matchId);
     var allAs = row.querySelectorAll("[data-odd]");
-    var as = [];
+    var prevClass = e.className;
     
-    console.log(as);
-
     for (var i = 0; i < allAs.length; i++) {
-        if (allAs[i].getAttribute("data-group") == e.getAttribute("data-group")) {
+        if (allAs[i].getAttribute("data-group") === e.getAttribute("data-group")) {
             allAs[i].className = "odd";
         }
     }
 
-    e.className = "odd bet";
+    if (prevClass === "odd bet")
+        return;
 
+    e.className = "odd bet";
+}
+
+function sendPredictions() {
+    var ps = document.getElementsByClassName("odd bet");
+    var pString = "" ;
+
+    for (var i = 0; i < ps.length; i++) {
+        pString += ps[i].getAttribute("data-odd") + ";";
+    }
+
+    console.log(pString);
+    console.log(pString.substring(0, pString.length - 1));
+
+    /*$.post("Actions/Fixture.aspx", { type: "SNDPD", pds: pString.substring(0, pString.length - 1) },
+        function(e) {
+            console.log(e);
+        });*/
+}
+
+function getShortTeamName(name, match, length) {
+    if (length === 100) {
+        return name.replace("[Home]", match.HomeTeam.Name).replace("[Away]", match.AwayTeam.Name).replace("[Draw]", "Draw").replace(" ", "");
+    } else {
+        return name.replace("[Home]", match.HomeTeam.Name).replace("[Away]", match.AwayTeam.Name).replace("[Draw]", "Draw").replace(" ", "").substring(0, 8);
+    }
+}
+
+function getFixtureName(match) {
+    return match.HomeTeam.Name.substring(0, 10) + "-" + match.AwayTeam.Name.substring(0, 10);
 }

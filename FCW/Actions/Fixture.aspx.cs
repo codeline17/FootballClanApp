@@ -29,6 +29,9 @@ namespace FCW.Actions
                     case "UDM": //UserDailyMatches
                         UserDailyMatches(user);
                         break;
+                    case "SNDPD":
+                        InsertPredictions(user);
+                        break;
                     default :
                         break;
                 }
@@ -71,7 +74,7 @@ namespace FCW.Actions
                                             new Outcome(reader["OutcomeName"].ToString())
                                         })
                                     }
-                                    ));
+                                    ,Convert.ToDateTime(reader["StartDate"])));
                         }
                         else
                         {
@@ -100,6 +103,54 @@ namespace FCW.Actions
                     Response.ClearHeaders();
                     Response.Write(json);
                     Response.End();
+                }
+            }
+        }
+
+        private void InsertPredictions(Objects.User user)
+        {
+            var r = "Success";
+            try
+            {
+                var pds = Request.Params["pds"].Split(';');
+
+                foreach (var pd in pds)
+                {
+                    try
+                    {
+                        InsertPrediction(user, pd);
+                    }
+                    catch (Exception ex)
+                    {
+                        r = "Partial Exeption";
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                r = "Exeption";
+            }
+
+            Response.ClearContent();
+            Response.ClearHeaders();
+            Response.Write(r);
+            Response.End();
+
+        }
+
+        private void InsertPrediction(Objects.User user, string prediction)
+        {
+            using (var conn = new SqlConnection(_connectionstring))
+            {
+                using (var cmd = new SqlCommand("PredictionInsert", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@FixtureId", SqlDbType.BigInt).Value = prediction.Split('|')[0];
+                    cmd.Parameters.Add("@GameSlug", SqlDbType.VarChar,10).Value = prediction.Split('|')[1];
+                    cmd.Parameters.Add("@OutcomeName", SqlDbType.VarChar, 10).Value = prediction.Split('|')[2];
+                    cmd.Parameters.Add("@userGuid", SqlDbType.UniqueIdentifier).Value = user.Guid;
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
                 }
             }
         }
