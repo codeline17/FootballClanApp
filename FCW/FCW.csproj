@@ -159,7 +159,7 @@
     <Content Include="style\images\logo%402x.png" />
     <Content Include="style\images\logo.png" />
     <Content Include="style\images\timer.png" />
-    <Content Include="style\js\bootstrap.min.js" />
+    <Content Include="style\js\google-code-prettify\bootstrap.min.js" />
     <Content Include="style\js\ddsmoothmenu.js" />
     <Content Include="style\js\fancybox\blank.gif" />
     <Content Include="style\js\fancybox\fancybox_overlay.png" />

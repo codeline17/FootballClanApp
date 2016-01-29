@@ -36,10 +36,12 @@ namespace FCW.Actions
                         break;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 //None
             }
+
+            Response.End();
 
         }
 
@@ -71,7 +73,7 @@ namespace FCW.Actions
                                     {
                                         new Game(reader["GameName"].ToString(),reader["Slug"].ToString(),new List<Outcome>
                                         {
-                                            new Outcome(reader["OutcomeName"].ToString())
+                                            new Outcome(reader["OutcomeName"].ToString(),Convert.ToBoolean(reader["IsSelected"]))
                                         })
                                     }
                                     ,Convert.ToDateTime(reader["StartDate"])));
@@ -84,7 +86,7 @@ namespace FCW.Actions
                             {
                                fixture.Games.Add(new Game(reader["GameName"].ToString(),reader["Slug"].ToString(),new List<Outcome>
                                {
-                                   new Outcome(reader["OutcomeName"].ToString())
+                                   new Outcome(reader["OutcomeName"].ToString(),Convert.ToBoolean(reader["IsSelected"]))
                                }));
                             }
                             else
@@ -93,7 +95,7 @@ namespace FCW.Actions
                                     game.Outcomes.FirstOrDefault(x => x.Name == reader["OutcomeName"].ToString());
                                 if (outcome == null)
                                 {
-                                    game.Outcomes.Add(new Outcome(reader["OutcomeName"].ToString()));
+                                    game.AddOutcome(new Outcome(reader["OutcomeName"].ToString(), Convert.ToBoolean(reader["IsSelected"])));
                                 }
                             }
                         }
@@ -102,7 +104,7 @@ namespace FCW.Actions
                     Response.ClearContent();
                     Response.ClearHeaders();
                     Response.Write(json);
-                    Response.End();
+                    
                 }
             }
         }
@@ -131,11 +133,11 @@ namespace FCW.Actions
                 r = "Exeption";
             }
 
+
+            var json = new JavaScriptSerializer().Serialize(r);
             Response.ClearContent();
             Response.ClearHeaders();
-            Response.Write(r);
-            Response.End();
-
+            Response.Write(json);
         }
 
         private void InsertPrediction(Objects.User user, string prediction)

@@ -70,7 +70,10 @@ window.onload = function (e) {
                 for (var j = 0; j < matches[h].Games.length; j++) {
                     inMatchGroups += "<td>";
                     for (var k = 0; k < matches[h].Games[j].Outcomes.length; k++) {
-                        inMatchGroups += "<a class=\"odd\" onclick=\"setPrediction(this)\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"" + getShortTeamName(matches[h].Games[j].Outcomes[k].Name, matches[h], 100) + "\" data-group=\"" + matches[h].Games[j].Slug + "\" data-odd=\"" + matches[h].ID + "|" + matches[h].Games[j].Slug + "|" + matches[h].Games[j].Outcomes[k].Name + "\" >" + getShortTeamName(matches[h].Games[j].Outcomes[k].Name, matches[h], 5) + "</a> ";
+                        var cl = (matches[h].Games[j].Sealed ? "greyed" : "");
+                        cl += (matches[h].Games[j].Outcomes[k].Selected ? " closed" : "");
+                        var event = !matches[h].Games[j].Sealed;
+                        inMatchGroups += "<a class=\"odd " + cl + "\" " + (event ? "onclick = \"setPrediction(this)\"" : "") + " data-toggle=\"tooltip\" data-placement=\"top\" title=\"" + getShortTeamName(matches[h].Games[j].Outcomes[k].Name, matches[h], 100) + "\" data-group=\"" + matches[h].Games[j].Slug + "\" data-odd=\"" + matches[h].ID + "|" + matches[h].Games[j].Slug + "|" + matches[h].Games[j].Outcomes[k].Name + "\" >" + getShortTeamName(matches[h].Games[j].Outcomes[k].Name, matches[h], 5) + "</a> ";
                     }
                     inMatchGroups += "</td>";
                 }
@@ -147,13 +150,9 @@ function sendPredictions() {
         pString += ps[i].getAttribute("data-odd") + ";";
     }
 
-    console.log(pString);
-    console.log(pString.substring(0, pString.length - 1));
+    $.post("Actions/Fixture.aspx", { type: "SNDPD", pds: pString.substring(0, pString.length - 1) });
 
-    /*$.post("Actions/Fixture.aspx", { type: "SNDPD", pds: pString.substring(0, pString.length - 1) },
-        function(e) {
-            console.log(e);
-        });*/
+    genMatches();
 }
 
 function getShortTeamName(name, match, length) {

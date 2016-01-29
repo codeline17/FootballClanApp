@@ -7,6 +7,10 @@ a.bet {
     color: #eee !important;
 }
 
+a.closed {
+    background: #FF0!important;
+}
+
 a.odd {
     cursor: pointer;
     padding: 1px 2px;
@@ -15,8 +19,8 @@ a.odd {
     color: #222;
 }
 
-a.unbet {
-    
+a.greyed {
+       color: #222 !important;
 }
 
 .alert-error {
