@@ -26,7 +26,12 @@ namespace Objects
 
         public string ShortTime => StartTime.ToString("HH:mm");
 
-        public Fixture(int id, Team hometeam, Team awayteam, List<Event> events, string minute, Competition league, List<Game> games, DateTime starttime)
+        public bool Sealed { get; set; }
+
+        public Fixture(int id, Team hometeam, 
+                        Team awayteam, List<Event> events, 
+                        string minute, Competition league, 
+                        List<Game> games, DateTime starttime, bool mSealed)
         {
             ID = id;
             HomeTeam = hometeam;
@@ -36,6 +41,7 @@ namespace Objects
             League = league;
             Games = games;
             StartTime = starttime;
+            Sealed = mSealed;
         } 
     }
 

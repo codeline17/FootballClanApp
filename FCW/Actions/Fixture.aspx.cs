@@ -78,9 +78,10 @@ namespace FCW.Actions
                                         new Game(reader["GameName"].ToString(),reader["Slug"].ToString(),new List<Outcome>
                                         {
                                             new Outcome(reader["OutcomeName"].ToString(),Convert.ToBoolean(reader["IsSelected"]))
-                                        })
+                                        }
+                                        ,reader["Repeater"].ToString())
                                     }
-                                    ,Convert.ToDateTime(reader["StartDate"])));
+                                    ,Convert.ToDateTime(reader["StartDate"]),Convert.ToBoolean(reader["Sealed"])));
                         }
                         else
                         {
@@ -91,7 +92,8 @@ namespace FCW.Actions
                                fixture.Games.Add(new Game(reader["GameName"].ToString(),reader["Slug"].ToString(),new List<Outcome>
                                {
                                    new Outcome(reader["OutcomeName"].ToString(),Convert.ToBoolean(reader["IsSelected"]))
-                               }));
+                               }
+                               ,reader["Repeater"].ToString()));
                             }
                             else
                             {
@@ -194,9 +196,10 @@ namespace FCW.Actions
                                         new Game(reader["GameName"].ToString(),reader["Slug"].ToString(),new List<Outcome>
                                         {
                                             new Outcome(reader["OutcomeName"].ToString(),Convert.ToBoolean(reader["IsSelected"]))
-                                        })
+                                        }
+                                        ,reader["Repeater"].ToString())
                                     }
-                                    , Convert.ToDateTime(reader["StartDate"])));
+                                    ,Convert.ToDateTime(reader["StartDate"]), Convert.ToBoolean(reader["Sealed"])));
                         }
                         else
                         {
@@ -207,7 +210,8 @@ namespace FCW.Actions
                                 fixture.Games.Add(new Game(reader["GameName"].ToString(), reader["Slug"].ToString(), new List<Outcome>
                                {
                                    new Outcome(reader["OutcomeName"].ToString(),Convert.ToBoolean(reader["IsSelected"]))
-                               }));
+                               }
+                               ,reader["Repeater"].ToString()));
                             }
                             else
                             {

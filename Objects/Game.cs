@@ -14,25 +14,19 @@ namespace Objects
 
         public List<Outcome> Outcomes { get; set; }
 
-        public bool Sealed { get; set; }
+        public string Repeater { get; set; }
 
-        public Game(string name, string slug, List<Outcome> outcomes)
+        public Game(string name, string slug, List<Outcome> outcomes, string repeater)
         {
             Name = name;
             Slug = slug;
             Outcomes = outcomes;
-            SetSealed();
+            Repeater = repeater;
         }
 
         public void AddOutcome(Outcome outcome)
         {
             Outcomes.Add(outcome);
-            SetSealed();
-        }
-
-        public void SetSealed()
-        {
-            Sealed = Outcomes.Any(x => x.Selected);
         }
 
         public Game()

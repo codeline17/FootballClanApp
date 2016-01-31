@@ -43,8 +43,8 @@ namespace FCW.Actions
                         Response.End();
                     }
                 }
-            }
-            catch (Exception)
+            }   
+            catch (Exception ex)
             {
                 //throw ex;
             }

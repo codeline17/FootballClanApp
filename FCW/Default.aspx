@@ -29,9 +29,9 @@
 </head>
 <body>
 <header>
-  <div class="logo pull-left"> <a href="index.html"><img src="style/images/logo.png" alt="" /></a> </div>
+  <div class="logo pull-left"> <a href="#"><img src="style/images/logo.png" alt="" /></a> </div>
   <ul class="contact-info pull-right">
-    <li><i class="icon-user"></i><a href="#">Filan Fisteku</a></li>
+    <li><i class="icon-user"></i><a href="#" id="username">Username</a> [Score 1] | [Score 2]</li>
     <!--li><i class="icon-phone-1"></i>+00 (123) 456 78 90</li -->
   </ul>
 </header>

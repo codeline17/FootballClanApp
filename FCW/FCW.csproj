@@ -79,6 +79,7 @@
     <Content Include="style\type\fontello\fontello.eot" />
     <Content Include="style\type\fontello\fontello.ttf" />
     <Content Include="style\type\fontello\fontello.woff" />
+    <None Include="Properties\PublishProfiles\FCW.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

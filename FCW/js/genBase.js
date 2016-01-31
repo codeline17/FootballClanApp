@@ -167,9 +167,9 @@ function genGrid(matches) {
         for (var j = 0; j < matches[h].Games.length; j++) {
             inMatchGroups += "<td>";
             for (var k = 0; k < matches[h].Games[j].Outcomes.length; k++) {
-                var cl = (matches[h].Games[j].Sealed ? "greyed" : "");
-                cl += (matches[h].Games[j].Outcomes[k].Selected ? " closed" : "");
-                var event = !matches[h].Games[j].Sealed && state;
+                var cl = (matches[h].Sealed ? "greyed" : "");
+                cl += (matches[h].Sealed ? " closed" : "");
+                var event = !matches[h].Sealed && state;
                 inMatchGroups += "<a class=\"odd " + cl + "\" " + (event ? "onclick = \"setPrediction(this)\"" : "") +
                     " data-toggle=\"tooltip\" data-placement=\"top\" title=\"" +
                     getShortTeamName(matches[h].Games[j].Outcomes[k].Name, matches[h], 100) + "\" data-group=\"" +
@@ -183,7 +183,7 @@ function genGrid(matches) {
         tableTxt += "<tr id = \"rid" + matches[h].ID + "\"> \
                             <td><span data-toggle=\"tooltip\" data-placement=\"top\" title=\"" + matches[h].HomeTeam.Name + "-" + matches[h].AwayTeam.Name + "\">" + getFixtureName(matches[h]) + "</td> \
                             <td>" + matches[h].ShortTime + "</td> \
-                            <td><span data-toggle=\"tooltip\" data-placement=\"top\" title=\"" + matches[h].League.Name + "\">" + matches[h].League.Name + "</span></td>\
+                            <td><span data-toggle=\"tooltip\" data-placement=\"top\" title=\"" + matches[h].League.Name + "\">" + matches[h].League.Name.substring(0,8) + "</span></td>\
                             " + inMatchGroups;
         tableTxt += "</tr>";
     }

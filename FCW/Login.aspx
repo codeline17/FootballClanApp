@@ -11,6 +11,7 @@
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"/>   
 </head>
 <body>
+<div class="logo pull-left"> <a href="#"><img src="style/images/logo.png" alt="" /></a> </div>
      <div id="login-overlay" class="modal-dialog">
       <div class="modal-content">
           <div class="modal-header">
@@ -22,18 +23,18 @@
                       <div class="well">
                               <div class="form-group">
                                   <label for="username" class="control-label">Username</label>
-                                  <input type="text" class="form-control" id="username" name="username" value="" required="" title="Please enter you username" placeholder="example@gmail.com">
+                                  <input type="text" class="form-control" id="username" name="username" value="" required="" title="Please enter you username" placeholder="example@gmail.com" />
                                   <span id="userError" class="help-block"></span>
                               </div>
                               <div class="form-group">
                                   <label for="password" class="control-label">Password</label>
-                                  <input type="password" class="form-control" id="password" name="password" value="" required="" title="Please enter your password">
+                                  <input type="password" class="form-control" id="password" name="password" value="" required="" title="Please enter your password" />
                                   <span id="passError" class="help-block"></span>
                               </div>
                               <div id="loginErrorMsg" class="alert alert-error hide">Wrong username or password</div>
                               <div class="checkbox">
                                   <label>
-                                      <input type="checkbox" name="remember" id="remember"> Remember login
+                                      <input type="checkbox" name="remember" id="remember" /> Remember login
                                   </label>
                                   <p class="help-block">(if this is a private computer)</p>
                               </div>
