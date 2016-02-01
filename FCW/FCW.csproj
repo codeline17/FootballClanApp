@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.1.1\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.1.1\build\Microsoft.Net.Compilers.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -21,6 +22,7 @@
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
     <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
+    <NuGetPackageImportStamp>8a22d9a6</NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -62,6 +64,31 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Admin\Admin.aspx" />
+    <Content Include="Admin\css\bootstrap-rtl.css" />
+    <Content Include="Admin\css\bootstrap-rtl.min.css" />
+    <Content Include="Admin\css\bootstrap.css" />
+    <Content Include="Admin\css\bootstrap.min.css" />
+    <Content Include="Admin\css\plugins\morris.css" />
+    <Content Include="Admin\css\sb-admin-rtl.css" />
+    <Content Include="Admin\css\sb-admin.css" />
+    <Content Include="Admin\font-awesome\css\font-awesome.css" />
+    <Content Include="Admin\font-awesome\css\font-awesome.min.css" />
+    <Content Include="Admin\font-awesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="Admin\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Admin\js\bootstrap.js" />
+    <Content Include="Admin\js\bootstrap.min.js" />
+    <Content Include="Admin\js\jquery.js" />
+    <Content Include="Admin\js\plugins\flot\excanvas.min.js" />
+    <Content Include="Admin\js\plugins\flot\flot-data.js" />
+    <Content Include="Admin\js\plugins\flot\jquery.flot.js" />
+    <Content Include="Admin\js\plugins\flot\jquery.flot.pie.js" />
+    <Content Include="Admin\js\plugins\flot\jquery.flot.resize.js" />
+    <Content Include="Admin\js\plugins\flot\jquery.flot.tooltip.min.js" />
+    <Content Include="Admin\js\plugins\morris\morris-data.js" />
+    <Content Include="Admin\js\plugins\morris\morris.js" />
+    <Content Include="Admin\js\plugins\morris\morris.min.js" />
+    <Content Include="Admin\js\plugins\morris\raphael.min.js" />
+    <Content Include="js\genTable.js" />
     <Content Include="Service\MainService.svc" />
     <Content Include="style.css" />
     <Content Include="style\css\datepicker.css" />
@@ -80,6 +107,42 @@
     <Content Include="style\type\fontello\fontello.eot" />
     <Content Include="style\type\fontello\fontello.ttf" />
     <Content Include="style\type\fontello\fontello.woff" />
+    <Content Include="Admin\Admin.Master" />
+    <Content Include="Admin\font-awesome\fonts\fontawesome-webfont.eot" />
+    <Content Include="Admin\font-awesome\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Admin\font-awesome\fonts\fontawesome-webfont.woff" />
+    <Content Include="Admin\font-awesome\fonts\FontAwesome.otf" />
+    <Content Include="Admin\font-awesome\less\bordered-pulled.less" />
+    <Content Include="Admin\font-awesome\less\core.less" />
+    <Content Include="Admin\font-awesome\less\fixed-width.less" />
+    <Content Include="Admin\font-awesome\less\font-awesome.less" />
+    <Content Include="Admin\font-awesome\less\icons.less" />
+    <Content Include="Admin\font-awesome\less\larger.less" />
+    <Content Include="Admin\font-awesome\less\list.less" />
+    <Content Include="Admin\font-awesome\less\mixins.less" />
+    <Content Include="Admin\font-awesome\less\path.less" />
+    <Content Include="Admin\font-awesome\less\rotated-flipped.less" />
+    <Content Include="Admin\font-awesome\less\spinning.less" />
+    <Content Include="Admin\font-awesome\less\stacked.less" />
+    <Content Include="Admin\font-awesome\less\variables.less" />
+    <Content Include="Admin\font-awesome\scss\font-awesome.scss" />
+    <Content Include="Admin\font-awesome\scss\_bordered-pulled.scss" />
+    <Content Include="Admin\font-awesome\scss\_core.scss" />
+    <Content Include="Admin\font-awesome\scss\_fixed-width.scss" />
+    <Content Include="Admin\font-awesome\scss\_icons.scss" />
+    <Content Include="Admin\font-awesome\scss\_larger.scss" />
+    <Content Include="Admin\font-awesome\scss\_list.scss" />
+    <Content Include="Admin\font-awesome\scss\_mixins.scss" />
+    <Content Include="Admin\font-awesome\scss\_path.scss" />
+    <Content Include="Admin\font-awesome\scss\_rotated-flipped.scss" />
+    <Content Include="Admin\font-awesome\scss\_spinning.scss" />
+    <Content Include="Admin\font-awesome\scss\_stacked.scss" />
+    <Content Include="Admin\font-awesome\scss\_variables.scss" />
+    <Content Include="Admin\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Admin\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Admin\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Admin\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="packages.config" />
     <None Include="Properties\PublishProfiles\FCW.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -230,6 +293,13 @@
     <Compile Include="Admin\Admin.aspx.designer.cs">
       <DependentUpon>Admin.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Admin\Admin.Master.cs">
+      <DependentUpon>Admin.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Admin.Master.designer.cs">
+      <DependentUpon>Admin.Master</DependentUpon>
+    </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -287,6 +357,12 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.1.1\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.1.1\build\Microsoft.Net.Compilers.props'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

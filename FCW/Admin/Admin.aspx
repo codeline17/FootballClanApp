@@ -1,15 +1,8 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Admin.aspx.cs" Inherits="FCW.Admin.Admin" %>
-
-<!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title>Football Clan Admin</title>
-</head>
-<body>
-    <form id="form1" runat="server">
-    <div>
-    </div>
-    </form>
-</body>
-</html>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin/Admin.Master" AutoEventWireup="true" CodeBehind="Admin.aspx.cs" Inherits="FCW.Admin.Admin" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="ContentHead" runat="server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentTitle" runat="server">
+    Ndeshjet
+</asp:Content>
+<asp:Content ID="Content3" ContentPlaceHolderID="ContentContent" runat="server">
+</asp:Content>

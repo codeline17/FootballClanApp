@@ -7,6 +7,7 @@
  **account*/
 
 var state;
+var mObjs = new Array();
 
 window.onload = function (e) {
     var menus = $("li[content-type]");
