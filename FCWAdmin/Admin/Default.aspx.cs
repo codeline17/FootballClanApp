@@ -17,8 +17,18 @@ namespace FCWAdmin.Admin
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (IsPostBack) return;
-            BindGrid(DateTime.Now);
+            if (!IsPostBack)
+            {
+                dtNdeshjet.SelectedDate = DateTime.Now;
+                txtCalendar.Text = DateTime.Now.ToString("dd/MM/yyyy");
+                BindGrid();
+            }
+            else
+            {
+                DateTime dt = DateTime.Now;
+                DateTime.TryParseExact(txtCalendar.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out dt);
+                dtNdeshjet.SelectedDate = dt;
+            } 
         }        
 
         protected void txtCalendar_TextChanged(object sender, EventArgs e)
@@ -26,12 +36,18 @@ namespace FCWAdmin.Admin
             
         }
 
+        private void BindGrid()
+        {
+            var dtStr = Request.Form[txtCalendar.UniqueID] ?? txtCalendar.Text;
+            var dt = DateTime.Now;
+            if (!DateTime.TryParseExact(dtStr,"dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out dt))
+                dt = DateTime.Now;
+            BindGrid(dt);
+        }
+
         protected void btnFilter_Click(object sender, EventArgs e)
         {
-            var dtStr = Request.Form[txtCalendar.UniqueID];
-            var dt = DateTime.Now;
-            dt = DateTime.Parse(dtStr);
-            BindGrid(dt);
+            BindGrid();
         }
 
         private void BindGrid(DateTime? date)
@@ -60,19 +76,21 @@ namespace FCWAdmin.Admin
         }
 
         protected void gdView_RowDataBound(object sender, GridViewRowEventArgs e)
-        {
-            if (e.Row.RowType != DataControlRowType.DataRow) return;
-            var ddlCities = (DropDownList) e.Row.FindControl("ddlPacks");
-            var query = "select * from FixturePacks";
-            var cmd = new SqlCommand(query);
-            ddlCities.DataSource = GetData(cmd);
-            ddlCities.DataTextField = "Name";
-            ddlCities.DataValueField = "Id";
-            if (ddlCities.Items.Count != 0) return;
-            ddlCities.DataBind();
-            var label = e.Row.FindControl("lblPack") as Label;
-            if (label != null)
-                ddlCities.Items.FindByText(label.Text).Selected = true;
+        {            
+            if (e.Row.RowType == DataControlRowType.DataRow && gdView.EditIndex == e.Row.RowIndex)                
+            {               
+                var ddlCities = (DropDownList)e.Row.FindControl("ddlPacks");
+                var query = "select * from FixturePacks";
+                var cmd = new SqlCommand(query);
+                ddlCities.DataSource = GetData(cmd);
+                ddlCities.DataTextField = "Name";
+                ddlCities.DataValueField = "Id";
+                if (ddlCities.Items.Count != 0) return;
+                ddlCities.DataBind();
+                var label = e.Row.FindControl("lblPack") as Label;
+                if (label != null)
+                    ddlCities.Items.FindByText(label.Text).Selected = true;               
+            }
         }
 
         private DataTable GetData(SqlCommand cmd)
@@ -97,14 +115,12 @@ namespace FCWAdmin.Admin
         protected void gdView_RowEditing(object sender, GridViewEditEventArgs e)
         {
             gdView.EditIndex = e.NewEditIndex;
-            /*var dtStr = Request.Form[txtCalendar.UniqueID];
-            var dt = DateTime.Now;
-            dt = DateTime.Parse(dtStr);
-            BindGrid(dt);*/
+            BindGrid();
         }
 
         protected void gdView_RowUpdating(object sender, GridViewUpdateEventArgs e)
         {
+            gdView.EditIndex = -1;
             try
             {                
                 var row = gdView.Rows[e.RowIndex];
@@ -121,14 +137,14 @@ namespace FCWAdmin.Admin
                     _dsMatches.UpdateParameters.Add("packId", DbType.Int32, ddlPacks.SelectedValue);
                     _dsMatches.Update();
                 }
-                BindGrid(dtNdeshjet.SelectedDate);
-
             }
             catch (Exception)
             {
 
                 throw;
             }
+            gdView.EditIndex = -1;
+            btnFilter_Click(null, EventArgs.Empty);
         }
 
         protected void gdView_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)

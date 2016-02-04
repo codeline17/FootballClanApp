@@ -8,18 +8,29 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentContent" runat="server">
     <script type="text/javascript">
+        function OnStart() {
+        var d = $find("dtNdeshjet").get_selectedDate();
+            console.log(d);
+            $get('<%=txtCalendar.ClientID %>').value = d.toUTCString();
+            $get('<%=btnFilter.ClientID %>').click();
+        }
+
         function DateChanged() {
-            $get('<%=txtCalendar.ClientID %>').value = $find('dtNdeshjet').get_selectedDate().toUTCString();
-            console.log($find('dtNdeshjet').get_selectedDate().toLocaleDateString());
             $get('<%=btnFilter.ClientID %>').click();
        }
     </script>
     <asp:TextBox ID="txtCalendar" runat="server" OnTextChanged="txtCalendar_TextChanged" ClientIDMode="Static"></asp:TextBox>
     <asp:Button ID="btnFilter" runat="server" Text="Button" OnClick="btnFilter_Click" ClientIDMode="Static" />
-    <ajaxToolkit:CalendarExtender ClientIDMode="Static" ID="dtNdeshjet" runat="server" Format="dd/MM/yyyy" TargetControlID="txtCalendar" OnClientDateSelectionChanged="DateChanged" />
-    <asp:GridView ID="gdView" Width="50%" AutoGenerateEditButton="true" runat="server" PageSize="50" AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False" CellPadding="4" DataKeyNames="Id" ForeColor="#333333" GridLines="None" OnRowDataBound="gdView_RowDataBound" OnRowEditing="gdView_RowEditing" OnRowCancelingEdit="gdView_RowCancelingEdit" OnRowUpdating="gdView_RowUpdating" OnPageIndexChanging="gdView_PageIndexChanging">
+    <ajaxToolkit:CalendarExtender ClientIDMode="Static" ID="dtNdeshjet" runat="server" 
+        Format="dd/MM/yyyy" TargetControlID="txtCalendar" OnClientDateSelectionChanged="DateChanged" />
+    <asp:GridView ID="gdView" Width="80%" runat="server" 
+        PageSize="50" AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False" 
+        CellPadding="4" DataKeyNames="Id" ForeColor="#333333" GridLines="None" OnRowDataBound="gdView_RowDataBound" 
+        OnRowEditing="gdView_RowEditing" OnRowCancelingEdit="gdView_RowCancelingEdit" OnRowUpdating="gdView_RowUpdating" 
+        OnPageIndexChanging="gdView_PageIndexChanging">
         <AlternatingRowStyle BackColor="White" />
         <Columns>
+            <asp:CommandField ShowEditButton="True" />
             <asp:BoundField DataField="Id" HeaderText="Id" InsertVisible="False" ReadOnly="True" SortExpression="Id" Visible="false" />
             <asp:TemplateField>
                 <ItemTemplate>
@@ -43,7 +54,7 @@
                 </ItemTemplate>
                 <EditItemTemplate>
                     <asp:Label ID="lblPack" runat="server" Text='<%# Eval("PackName")%>' Visible="false"></asp:Label>
-                    <asp:DropDownList ID="ddlPacks" runat="server" AutoPostBack="True">
+                    <asp:DropDownList ID="ddlPacks" runat="server" AutoPostBack="False">
                     </asp:DropDownList>
                 </EditItemTemplate>
             </asp:TemplateField>
