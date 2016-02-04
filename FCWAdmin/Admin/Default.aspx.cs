@@ -13,19 +13,12 @@ namespace FCWAdmin.Admin
 {
     public partial class Default : System.Web.UI.Page
     {
-        private SqlDataSource dsMatches = new SqlDataSource();
+        private readonly SqlDataSource _dsMatches = new SqlDataSource();
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
-            {
-                if (dtNdeshjet.SelectedDate == null)
-                {
-                    dtNdeshjet.SelectedDate = DateTime.Now.Date;
-                }
-                BindGrid(dtNdeshjet.SelectedDate);
-            }       
-                 
+            if (IsPostBack) return;
+            BindGrid(DateTime.Now);
         }        
 
         protected void txtCalendar_TextChanged(object sender, EventArgs e)
@@ -36,13 +29,9 @@ namespace FCWAdmin.Admin
         protected void btnFilter_Click(object sender, EventArgs e)
         {
             var dtStr = Request.Form[txtCalendar.UniqueID];
-            DateTime dt = DateTime.Now;
-            DateTime.TryParseExact(dtStr, "dd/MM/yyyy",CultureInfo.InvariantCulture, DateTimeStyles.None, out dt);
-
-            DateTime time;
-            var matchingCulture = CultureInfo.GetCultures(CultureTypes.AllCultures).FirstOrDefault(ci => DateTime.TryParse(dtStr, ci, DateTimeStyles.None, out time));
-            //DateTime.TryParseExact(dtStr, matchingCulture, DateTimeStyles.None, out dt);
-            BindGrid(Convert.ToDateTime(dtStr));
+            var dt = DateTime.Now;
+            dt = DateTime.Parse(dtStr);
+            BindGrid(dt);
         }
 
         private void BindGrid(DateTime? date)
@@ -51,53 +40,51 @@ namespace FCWAdmin.Admin
                    return;
 
             
-            dsMatches.ID = "dsMatches";
-            Page.Controls.Add(dsMatches);
-            dsMatches.ConnectionString = ConfigurationManager.ConnectionStrings["AdminConnectionString"].ConnectionString;
-            dsMatches.SelectCommandType = SqlDataSourceCommandType.StoredProcedure;
-            dsMatches.SelectCommand = "MatchGetByDate";
-            if (dsMatches.SelectParameters.Count == 0)
+            _dsMatches.ID = "dsMatches";
+            Page.Controls.Add(_dsMatches);
+            _dsMatches.ConnectionString = ConfigurationManager.ConnectionStrings["AdminConnectionString"].ConnectionString;
+            _dsMatches.SelectCommandType = SqlDataSourceCommandType.StoredProcedure;
+            _dsMatches.SelectCommand = "MatchGetByDate";
+            if (_dsMatches.SelectParameters.Count == 0)
             {
-                dsMatches.SelectParameters.Add("startDate", TypeCode.DateTime, ((DateTime)date).ToString("yyyy-MM-dd HH:mm:ss"));
+                _dsMatches.SelectParameters.Add("startDate", TypeCode.DateTime, ((DateTime)date).ToString("yyyy-MM-dd HH:mm:ss"));
             }
             else
             {
-                dsMatches.SelectParameters["startDate"].DefaultValue = ((DateTime)date).ToString("yyyy-MM-dd HH:mm:ss");
+                _dsMatches.SelectParameters["startDate"].DefaultValue = ((DateTime)date).ToString("yyyy-MM-dd HH:mm:ss");
             }
             
-            gdView.DataSource = dsMatches;
+            gdView.DataSource = _dsMatches;
             gdView.DataBind();
 
         }
 
         protected void gdView_RowDataBound(object sender, GridViewRowEventArgs e)
         {
-            if (e.Row.RowType == DataControlRowType.DataRow && gdView.EditIndex == e.Row.RowIndex)
-            {
-                DropDownList ddlCities = (DropDownList)e.Row.FindControl("ddlPacks");
-                string query = "select * from FixturePacks";
-                SqlCommand cmd = new SqlCommand(query);
-                ddlCities.DataSource = GetData(cmd);
-                ddlCities.DataTextField = "Name";
-                ddlCities.DataValueField = "Id";
-                if (ddlCities.Items.Count == 0)
-                {
-                    ddlCities.DataBind();
-                    ddlCities.Items.FindByText((e.Row.FindControl("lblPack") as Label).Text).Selected = true;
-                }                
-            }
+            if (e.Row.RowType != DataControlRowType.DataRow) return;
+            var ddlCities = (DropDownList) e.Row.FindControl("ddlPacks");
+            var query = "select * from FixturePacks";
+            var cmd = new SqlCommand(query);
+            ddlCities.DataSource = GetData(cmd);
+            ddlCities.DataTextField = "Name";
+            ddlCities.DataValueField = "Id";
+            if (ddlCities.Items.Count != 0) return;
+            ddlCities.DataBind();
+            var label = e.Row.FindControl("lblPack") as Label;
+            if (label != null)
+                ddlCities.Items.FindByText(label.Text).Selected = true;
         }
 
         private DataTable GetData(SqlCommand cmd)
         {
-            string strConnString = ConfigurationManager.ConnectionStrings["AdminConnectionString"].ConnectionString;
-            using (SqlConnection con = new SqlConnection(strConnString))
+            var strConnString = ConfigurationManager.ConnectionStrings["AdminConnectionString"].ConnectionString;
+            using (var con = new SqlConnection(strConnString))
             {
-                using (SqlDataAdapter sda = new SqlDataAdapter())
+                using (var sda = new SqlDataAdapter())
                 {
                     cmd.Connection = con;
                     sda.SelectCommand = cmd;
-                    using (DataTable dt = new DataTable())
+                    using (var dt = new DataTable())
                     {
                         sda.Fill(dt);
                         return dt;
@@ -110,29 +97,29 @@ namespace FCWAdmin.Admin
         protected void gdView_RowEditing(object sender, GridViewEditEventArgs e)
         {
             gdView.EditIndex = e.NewEditIndex;
-            var dtStr = Request.Form[txtCalendar.UniqueID];
-            DateTime dt = DateTime.Now;
-            DateTime.TryParseExact(dtStr, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out dt);
-            BindGrid(Convert.ToDateTime(dtStr));
+            /*var dtStr = Request.Form[txtCalendar.UniqueID];
+            var dt = DateTime.Now;
+            dt = DateTime.Parse(dtStr);
+            BindGrid(dt);*/
         }
 
         protected void gdView_RowUpdating(object sender, GridViewUpdateEventArgs e)
         {
             try
             {                
-                GridViewRow row = gdView.Rows[e.RowIndex];
-                DropDownList ddlPacks = (DropDownList)row.FindControl("ddlPacks");
-                HiddenField hfId = (HiddenField)row.FindControl("hdId");
+                var row = gdView.Rows[e.RowIndex];
+                var ddlPacks = (DropDownList)row.FindControl("ddlPacks");
+                var hfId = (HiddenField)row.FindControl("hdId");
                 var fixtureId = hfId.Value;
 
-                dsMatches.ConnectionString = ConfigurationManager.ConnectionStrings["AdminConnectionString"].ConnectionString;
-                dsMatches.UpdateCommandType = SqlDataSourceCommandType.StoredProcedure;
-                dsMatches.UpdateCommand = "FixturePackUpdate";
-                if (dsMatches.UpdateParameters.Count == 0)
+                _dsMatches.ConnectionString = ConfigurationManager.ConnectionStrings["AdminConnectionString"].ConnectionString;
+                _dsMatches.UpdateCommandType = SqlDataSourceCommandType.StoredProcedure;
+                _dsMatches.UpdateCommand = "FixturePackUpdate";
+                if (_dsMatches.UpdateParameters.Count == 0)
                 {
-                    dsMatches.UpdateParameters.Add("fixtureId", DbType.Int32, fixtureId);
-                    dsMatches.UpdateParameters.Add("packId", DbType.Int32, ddlPacks.SelectedValue);
-                    dsMatches.Update();
+                    _dsMatches.UpdateParameters.Add("fixtureId", DbType.Int32, fixtureId);
+                    _dsMatches.UpdateParameters.Add("packId", DbType.Int32, ddlPacks.SelectedValue);
+                    _dsMatches.Update();
                 }
                 BindGrid(dtNdeshjet.SelectedDate);
 
@@ -142,14 +129,17 @@ namespace FCWAdmin.Admin
 
                 throw;
             }
-
-            
-
         }
 
         protected void gdView_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
         {
+            gdView.EditIndex = -1;
+            btnFilter_Click(null, EventArgs.Empty);
+        }
 
+        protected void gdView_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gdView.PageIndex = e.NewPageIndex;
         }
     }
 }
