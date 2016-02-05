@@ -14,6 +14,8 @@ namespace FCWAdmin.Admin
     public partial class Default : System.Web.UI.Page
     {
         private readonly SqlDataSource _dsMatches = new SqlDataSource();
+        private int NormalMatches = 0;
+        private int ExtraMatches = 0;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -38,6 +40,8 @@ namespace FCWAdmin.Admin
 
         private void BindGrid()
         {
+            NormalMatches = 0;
+            ExtraMatches = 0;
             var dtStr = Request.Form[txtCalendar.UniqueID] ?? txtCalendar.Text;
             var dt = DateTime.Now;
             if (!DateTime.TryParseExact(dtStr,"dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out dt))
@@ -76,24 +80,34 @@ namespace FCWAdmin.Admin
         }
 
         protected void gdView_RowDataBound(object sender, GridViewRowEventArgs e)
-        {            
+        {
+            var label = e.Row.FindControl("lblPack") as Label;
+            switch (label?.Text)
+            {
+                case "Normal":
+                    NormalMatches++;
+                    break;
+                case "Extra":
+                    ExtraMatches++;
+                    break;
+            }
+            lblState.Text = string.Format("[{0} - Normal]    [{1} - Extra]",NormalMatches,ExtraMatches);
             if (e.Row.RowType == DataControlRowType.DataRow && gdView.EditIndex == e.Row.RowIndex)                
             {               
                 var ddlCities = (DropDownList)e.Row.FindControl("ddlPacks");
-                var query = "select * from FixturePacks";
+                const string query = "select * from FixturePacks";
                 var cmd = new SqlCommand(query);
                 ddlCities.DataSource = GetData(cmd);
                 ddlCities.DataTextField = "Name";
                 ddlCities.DataValueField = "Id";
                 if (ddlCities.Items.Count != 0) return;
                 ddlCities.DataBind();
-                var label = e.Row.FindControl("lblPack") as Label;
                 if (label != null)
                     ddlCities.Items.FindByText(label.Text).Selected = true;               
             }
         }
 
-        private DataTable GetData(SqlCommand cmd)
+        private static DataTable GetData(SqlCommand cmd)
         {
             var strConnString = ConfigurationManager.ConnectionStrings["AdminConnectionString"].ConnectionString;
             using (var con = new SqlConnection(strConnString))
@@ -156,6 +170,7 @@ namespace FCWAdmin.Admin
         protected void gdView_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             gdView.PageIndex = e.NewPageIndex;
+            btnFilter_Click(null, EventArgs.Empty);
         }
     }
 }

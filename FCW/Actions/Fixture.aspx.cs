@@ -77,7 +77,10 @@ namespace FCW.Actions
                                     {
                                         new Game(reader["GameName"].ToString(),reader["Slug"].ToString(),new List<Outcome>
                                         {
-                                            new Outcome(reader["OutcomeName"].ToString(),Convert.ToBoolean(reader["IsSelected"]))
+                                            new Outcome(
+                                                reader["OutcomeName"].ToString(),
+                                                Convert.ToBoolean(reader["IsSelected"]),
+                                                reader["Repeater"].ToString())
                                         }
                                         ,reader["Repeater"].ToString())
                                     }
@@ -91,7 +94,10 @@ namespace FCW.Actions
                             {
                                fixture.Games.Add(new Game(reader["GameName"].ToString(),reader["Slug"].ToString(),new List<Outcome>
                                {
-                                   new Outcome(reader["OutcomeName"].ToString(),Convert.ToBoolean(reader["IsSelected"]))
+                                   new Outcome(
+                                       reader["OutcomeName"].ToString(),
+                                       Convert.ToBoolean(reader["IsSelected"]),
+                                       reader["Repeater"].ToString())
                                }
                                ,reader["Repeater"].ToString()));
                             }
@@ -101,7 +107,10 @@ namespace FCW.Actions
                                     game.Outcomes.FirstOrDefault(x => x.Name == reader["OutcomeName"].ToString());
                                 if (outcome == null)
                                 {
-                                    game.AddOutcome(new Outcome(reader["OutcomeName"].ToString(), Convert.ToBoolean(reader["IsSelected"])));
+                                    game.AddOutcome(new Outcome(
+                                        reader["OutcomeName"].ToString(), 
+                                        Convert.ToBoolean(reader["IsSelected"]), 
+                                        reader["Repeater"].ToString()));
                                 }
                             }
                         }
@@ -195,7 +204,10 @@ namespace FCW.Actions
                                     {
                                         new Game(reader["GameName"].ToString(),reader["Slug"].ToString(),new List<Outcome>
                                         {
-                                            new Outcome(reader["OutcomeName"].ToString(),Convert.ToBoolean(reader["IsSelected"]))
+                                            new Outcome(
+                                                reader["OutcomeName"].ToString(),
+                                                Convert.ToBoolean(reader["IsSelected"]),
+                                                reader["Repeater"].ToString())
                                         }
                                         ,reader["Repeater"].ToString())
                                     }
@@ -209,7 +221,10 @@ namespace FCW.Actions
                             {
                                 fixture.Games.Add(new Game(reader["GameName"].ToString(), reader["Slug"].ToString(), new List<Outcome>
                                {
-                                   new Outcome(reader["OutcomeName"].ToString(),Convert.ToBoolean(reader["IsSelected"]))
+                                   new Outcome(
+                                       reader["OutcomeName"].ToString(),
+                                       Convert.ToBoolean(reader["IsSelected"]),
+                                       reader["Repeater"].ToString())
                                }
                                ,reader["Repeater"].ToString()));
                             }
@@ -219,7 +234,10 @@ namespace FCW.Actions
                                     game.Outcomes.FirstOrDefault(x => x.Name == reader["OutcomeName"].ToString());
                                 if (outcome == null)
                                 {
-                                    game.AddOutcome(new Outcome(reader["OutcomeName"].ToString(), Convert.ToBoolean(reader["IsSelected"])));
+                                    game.AddOutcome(new Outcome(
+                                        reader["OutcomeName"].ToString(), 
+                                        Convert.ToBoolean(reader["IsSelected"]), 
+                                        reader["Repeater"].ToString()));
                                 }
                             }
                         }

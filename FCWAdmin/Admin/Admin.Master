@@ -66,7 +66,7 @@
             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
-                    <li class="active">
+                    <li class="active" >
                         <a href="Default.aspx"><i class="fa fa-fw fa-soccer-ball-o"></i> Fixtures</a>
                     </li>
                     <li>
@@ -89,14 +89,9 @@
                     <div class="col-lg-12">
                         <h1 class="page-header">
                             <asp:ContentPlaceHolder ID="ContentTitle" runat="server">
-        
+                                
                             </asp:ContentPlaceHolder>
                         </h1>
-                        <ol class="breadcrumb">
-                            <li class="active">
-                                <i class="fa fa-dashboard"></i> Dashboard
-                            </li>
-                        </ol>
                     </div>
                 </div>
                 <div class="row">
