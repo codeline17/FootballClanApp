@@ -4,45 +4,56 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentHead" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentTitle" runat="server">
-    Ndeshjet <asp:Label ID="lblState" runat="server" Text="Label" Font-Size="16px"></asp:Label>
+    Ndeshjet
+    <asp:Label ID="lblState" runat="server" Text="Label" Font-Size="16px"></asp:Label>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentContent" runat="server">
     <style type="text/css">
-    .GridPager a, .GridPager span
-    {
-        display: block;
-        height: 15px;
-        width: 15px;
-        font-weight: bold;
-        text-align: center;
-        text-decoration: none;
-        font-size: 12px;
-    }
-    .GridPager a
-    {
-        background-color: #f5f5f5;
-        color: #969696;
-        border: 1px solid #969696;
-        font-size: 12px;
-    }
-    .GridPager span
-    {
-        background-color: #A1DCF2;
-        color: #000;
-        border: 1px solid #3AC0F2;
-        font-size: 12px;
-    }
-</style>
-    <script type="text/javascript" src="js/default.js" ></script>
-       
-    
+        .GridPager a, .GridPager span {
+            display: block;
+            height: 15px;
+            width: 15px;
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none;
+            font-size: 12px;
+        }
+
+        .GridPager a {
+            background-color: #f5f5f5;
+            color: #969696;
+            border: 1px solid #969696;
+            font-size: 12px;
+        }
+
+        .GridPager span {
+            background-color: #A1DCF2;
+            color: #000;
+            border: 1px solid #3AC0F2;
+            font-size: 12px;
+        }
+    </style>
+    <script type="text/javascript">
+        function OnStart() {
+            var d = $find("dtNdeshjet").get_selectedDate();
+            console.log(d);
+            $get('<%=txtCalendar.ClientID %>').value = d.toUTCString();
+            $get('<%=btnFilter.ClientID %>').click();
+        }
+
+        function DateChanged() {
+            $get('<%=btnFilter.ClientID %>').click();
+        }
+    </script>
+
+
     <asp:TextBox ID="txtCalendar" runat="server" OnTextChanged="txtCalendar_TextChanged" ClientIDMode="Static"></asp:TextBox>
-    <asp:Button ID="btnFilter" runat="server" Text="Button" OnClick="btnFilter_Click" ClientIDMode="Static" />
-    <ajaxToolkit:CalendarExtender ClientIDMode="Static" ID="dtNdeshjet" runat="server" 
+    <asp:Button ID="btnFilter" runat="server" Text="Filter" OnClick="btnFilter_Click" ClientIDMode="Static" />
+    <ajaxToolkit:CalendarExtender ClientIDMode="Static" ID="dtNdeshjet" runat="server"
         Format="dd/MM/yyyy" TargetControlID="txtCalendar" OnClientDateSelectionChanged="DateChanged" />
-    <asp:GridView ID="gdView" Width="80%" runat="server" AllowSorting="True" AutoGenerateColumns="False" 
-        CellPadding="4" DataKeyNames="Id" ForeColor="#333333" GridLines="None" OnRowDataBound="gdView_RowDataBound" 
-        OnRowEditing="gdView_RowEditing" OnRowCancelingEdit="gdView_RowCancelingEdit" OnRowUpdating="gdView_RowUpdating" 
+    <asp:GridView ID="gdView" Width="80%" runat="server" AllowSorting="True" AutoGenerateColumns="False"
+        CellPadding="4" DataKeyNames="Id" ForeColor="#333333" GridLines="None" OnRowDataBound="gdView_RowDataBound"
+        OnRowEditing="gdView_RowEditing" OnRowCancelingEdit="gdView_RowCancelingEdit" OnRowUpdating="gdView_RowUpdating"
         OnPageIndexChanging="gdView_PageIndexChanging">
         <AlternatingRowStyle BackColor="White" />
         <Columns>
@@ -77,7 +88,7 @@
         </Columns>
         <FooterStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
         <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
-        <PagerStyle HorizontalAlign = "Right" CssClass = "GridPager" />
+        <PagerStyle HorizontalAlign="Right" CssClass="GridPager" />
         <RowStyle BackColor="#FFFBD6" ForeColor="#333333" />
         <SelectedRowStyle BackColor="#FFCC66" Font-Bold="True" ForeColor="Navy" />
         <SortedAscendingCellStyle BackColor="#FDF5AC" />

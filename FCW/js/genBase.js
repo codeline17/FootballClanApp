@@ -6,7 +6,7 @@
  **livescore
  **account*/
 
-var state;
+var state = true;
 var mObjs = new Array();
 
 window.onload = function (e) {
@@ -193,7 +193,9 @@ function genGrid(matches) {
                         </table>";
 
 
-    rFluid.innerHTML = tableTxt;
+   // rFluid.innerHTML = tableTxt;
+
+    rFluid.appendChild(genTable("match-table", matches, state));
     mainC.appendChild(rFluid);
 
     /***After Event Assignments***/

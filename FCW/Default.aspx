@@ -124,5 +124,6 @@
 <script src="style/js/bootstrap-tooltip.js"></script>
 <script src="style/js/bootstrap-datepicker.js"></script>
 <script src="js/genBase.js"></script>
+<script src="js/genTable.js"></script>
 </body>
 </html>

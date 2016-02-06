@@ -1,4 +1,4 @@
-﻿function genTable(id, matches) {
+﻿function genTable(id, matches, state) {
 
     var head = getHead(matches[0]);
 
@@ -20,16 +20,18 @@
         hElement.appendChild(hSpan);
         hRow.appendChild(hElement);
     }
-    tHead.appendChild(tHead);
+    tHead.appendChild(hRow);
     
     //body
     var tBody = document.createElement("tbody");
-    for (var j = 0; j < matches; j++) {
-        tBody.appendChild(getMatchRow(matches[i]));
+    for (var j = 0; j < matches.length; j++) {
+        tBody.appendChild(getMatchRow(matches[j], state));
     }
 
     mainTag.appendChild(tHead);
     mainTag.appendChild(tBody);
+
+    return mainTag;
 }
 
 
@@ -43,7 +45,7 @@ function getHead(sMatch) {
     el = { Title: "League", Text: "League" };
     r.push(el);
 
-    for (var i = 0; i < sMatch.Games; i++) {
+    for (var i = 0; i < sMatch.Games.length; i++) {
         el = { Title: sMatch.Games[i].Name, Text: sMatch.Games[i].Slug }
         r.push(el);
     }
@@ -51,11 +53,11 @@ function getHead(sMatch) {
     return r;
 }
 
-function getMatchRow(match) {
+function getMatchRow(match, state) {
     var tr = document.createElement("tr");
     var td = document.createElement("td");
     var span = document.createElement("span");
-
+    
     /**fixed**/
     //Match Name
     span.setAttribute("data-toggle", "tooltip");
@@ -63,32 +65,62 @@ function getMatchRow(match) {
     span.setAttribute("title", match.HomeTeam.Name + "-" + match.AwayTeam.Name);
     span.innerText = getFixtureName(match);
     td.appendChild(span);
-    tr.appendChild(span);
-    //Match Name
+    tr.appendChild(td);
+    //Match Time
     td = document.createElement("td");
+    span = document.createElement("span");
     span.setAttribute("data-toggle", "tooltip");
     span.setAttribute("data-placement", "top");
     span.setAttribute("title", match.ShortTime);
     span.innerText = match.ShortTime;
     td.appendChild(span);
-    tr.appendChild(span);
-    //Match Name
+    tr.appendChild(td);
+    //Match League
     td = document.createElement("td");
+    span = document.createElement("span");
     span.setAttribute("data-toggle", "tooltip");
     span.setAttribute("data-placement", "top");
     span.setAttribute("title", match.League.Name);
     span.innerText = match.League.Name.substring(0, 8);
     td.appendChild(span);
-    tr.appendChild(span);
+    tr.appendChild(td);
     /*********/
 
+    for (var i = 0; i < match.Games.length; i++) {
+        tr.appendChild(getGameCell(match.ID, match.HomeTeam.Name, match.AwayTeam.Name, match.Sealed, match.Games[i], state));
+    }
 
+    return tr;
 }
 
-function getGameCell(game) {
+function getGameCell(matchId, home, away, sealed, game, state) {
+    var event = !sealed && state;
+    var td = document.createElement("td");
+    if (game.Repeater === "a") {
+        for (var i = 0; i < game.Outcomes.length; i++) {
+            var odd = document.createElement("a");
+            odd.className = (sealed ? "odd greyed closed" : "odd");
+            if (event)
+                odd.addEventListener("click", setPrediction(this));
+            odd.onclick = (event ? "setPrediction(this)" : "");
+            odd.setAttribute("data-toogle", "tooltip");
+            odd.setAttribute("data-placement", "top");
+            odd.setAttribute("data-group", game.Slug);
+            odd.setAttribute("data-odd", matchId + "|" + game.Slug + "|" + game.Outcomes[i].Name);
+            odd.innerText = game.Outcomes[i].Name.replace("[Home]", home).replace("[Away]", away).replace("[Draw]", "Draw").replace(" ", "").substring(0, 8);
+            td.appendChild(odd);
+        }
+    }
+    else if(game.Repeater === "option") {
+        
+    }
+    else if (game.Repeater === "input") {
+        
+    }
 
-    
-     /*for (var j = 0; j < matches[h].Games.length; j++) {
+    return td;
+    //var event = !matches[h].Sealed && state;
+    /*for (var j = 0; j < matches[h].Games.length; j++) {
             inMatchGroups += "<td>";
             for (var k = 0; k < matches[h].Games[j].Outcomes.length; k++) {
                 var cl = (matches[h].Sealed ? "greyed" : "");
@@ -103,5 +135,5 @@ function getGameCell(game) {
             }
             inMatchGroups += "</td>";
         }*/
-    
+    //<input id="user_lic" type="number" min="5" max="30" step="5" value ="5"/>
 }
