@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin/Admin.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="FCWAdmin.Admin.Default" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin/Admin.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="FCWAdmin.Admin.Default" MaintainScrollPositionOnPostback="True" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentHead" runat="server">
@@ -33,18 +33,9 @@
         font-size: 12px;
     }
 </style>
-    <script type="text/javascript">
-        function OnStart() {
-        var d = $find("dtNdeshjet").get_selectedDate();
-            console.log(d);
-            $get('<%=txtCalendar.ClientID %>').value = d.toUTCString();
-            $get('<%=btnFilter.ClientID %>').click();
-        }
-
-        function DateChanged() {
-            $get('<%=btnFilter.ClientID %>').click();
-       }
-    </script>
+    <script type="text/javascript" src="js/default.js" ></script>
+       
+    
     <asp:TextBox ID="txtCalendar" runat="server" OnTextChanged="txtCalendar_TextChanged" ClientIDMode="Static"></asp:TextBox>
     <asp:Button ID="btnFilter" runat="server" Text="Button" OnClick="btnFilter_Click" ClientIDMode="Static" />
     <ajaxToolkit:CalendarExtender ClientIDMode="Static" ID="dtNdeshjet" runat="server" 

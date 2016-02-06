@@ -102,6 +102,7 @@
     <Content Include="Admin\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Admin\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Admin\fonts\glyphicons-halflings-regular.woff2" />
+    <None Include="Properties\PublishProfiles\fcwa.pubxml" />
     <None Include="Properties\PublishProfiles\FCWAdmin.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -124,6 +125,7 @@
     <Content Include="Admin\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Admin\js\bootstrap.js" />
     <Content Include="Admin\js\bootstrap.min.js" />
+    <Content Include="Admin\js\default.js" />
     <Content Include="Admin\js\jquery.js" />
     <Content Include="Admin\js\plugins\flot\excanvas.min.js" />
     <Content Include="Admin\js\plugins\flot\flot-data.js" />
