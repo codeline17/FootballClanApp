@@ -94,12 +94,17 @@ function getMatchRow(match, state) {
 }
 
 function getGameCell(matchId, home, away, sealed, game, state) {
+    console.log(sealed);
+    console.log(state);
     var event = !sealed && state;
     var td = document.createElement("td");
     if (game.Repeater === "a") {
         for (var i = 0; i < game.Outcomes.length; i++) {
             var odd = document.createElement("a");
-            odd.className = (sealed ? "odd greyed closed" : "odd");
+            odd.className = (sealed ? "odd greyed" : "odd");
+            odd.className += (game.Outcomes[i].selected ? " closed" : "");
+
+            console.log(event);
             if (event)
                 odd.addEventListener("click", setPrediction(this));
             odd.onclick = (event ? "setPrediction(this)" : "");
