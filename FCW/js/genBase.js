@@ -93,13 +93,15 @@ window.onload = function (e) {
 
 function setPrediction(e) {
     //remove all other selected
-    var matchId = e.getAttribute("data-odd").split('|')[0];
+    var el = document.getElementById(e.target.id);
+    console.log(e.target.id);
+    var matchId = el.getAttribute("data-odd").split("|")[0];
     var row = document.getElementById("rid" + matchId);
     var allAs = row.querySelectorAll("[data-odd]");
-    var prevClass = e.className;
+    var prevClass = el.className;
     
     for (var i = 0; i < allAs.length; i++) {
-        if (allAs[i].getAttribute("data-group") === e.getAttribute("data-group")) {
+        if (allAs[i].getAttribute("data-group") === el.getAttribute("data-group")) {
             allAs[i].className = "odd";
         }
     }
@@ -107,7 +109,7 @@ function setPrediction(e) {
     if (prevClass === "odd bet")
         return;
 
-    e.className = "odd bet";
+    el.className = "odd bet";
 }
 
 function sendPredictions() {
@@ -258,4 +260,14 @@ function getFullDate(date) {
         mm = "0" + mm;
     }
     return dd + "/" + mm + "/" + yyyy;
+}
+
+function makeid() {
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for (var i = 0; i < 5; i++)
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+    return text;
 }

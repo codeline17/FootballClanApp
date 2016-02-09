@@ -55,6 +55,7 @@ function getHead(sMatch) {
 
 function getMatchRow(match, state) {
     var tr = document.createElement("tr");
+    tr.id = "rid" + match.ID;
     var td = document.createElement("td");
     var span = document.createElement("span");
     
@@ -94,51 +95,51 @@ function getMatchRow(match, state) {
 }
 
 function getGameCell(matchId, home, away, sealed, game, state) {
-    console.log(sealed);
-    console.log(state);
     var event = !sealed && state;
     var td = document.createElement("td");
     if (game.Repeater === "a") {
         for (var i = 0; i < game.Outcomes.length; i++) {
             var odd = document.createElement("a");
+            var nId = makeid();
             odd.className = (sealed ? "odd greyed" : "odd");
             odd.className += (game.Outcomes[i].selected ? " closed" : "");
-
-            console.log(event);
-            if (event)
-                odd.addEventListener("click", setPrediction(this));
-            odd.onclick = (event ? "setPrediction(this)" : "");
             odd.setAttribute("data-toogle", "tooltip");
             odd.setAttribute("data-placement", "top");
             odd.setAttribute("data-group", game.Slug);
             odd.setAttribute("data-odd", matchId + "|" + game.Slug + "|" + game.Outcomes[i].Name);
             odd.innerText = game.Outcomes[i].Name.replace("[Home]", home).replace("[Away]", away).replace("[Draw]", "Draw").replace(" ", "").substring(0, 8);
+            odd.id = nId;
+            if (event)
+                odd.addEventListener("click", setPrediction, false);
             td.appendChild(odd);
         }
     }
-    else if(game.Repeater === "option") {
-        
+    else if (game.Repeater === "option") {
+        var odd = document.createElement("select");
+        for (var k = 0; k < game.Outcomes.length; k++) {
+            var innerOdd = document.createElement("option");
+            var nId = makeid();
+            innerOdd.selected = game.Outcomes[k].selected;
+            innerOdd.setAttribute("data-group", game.Slug);
+            innerOdd.setAttribute("data-odd", matchId + "|" + game.Slug + "|" + game.Outcomes[k].Name);
+            innerOdd.innerText = game.Outcomes[k].Name.replace("[Home]", home).replace("[Away]", away).replace("[Draw]", "Draw").replace(" ", "").substring(0, 8);
+            innerOdd.id = nId;
+            if (event)
+                innerOdd.addEventListener("click", setPrediction, false);
+            odd.appendChild(innerOdd);
+        }
+
+        odd.selectedIndex = odd.selectedIndex ? odd.selectedIndex : odd.options[0].value;
+
+        td.appendChild(odd);
     }
     else if (game.Repeater === "input") {
-        
+        for (var j = 0; j < game.Outcomes.length; j++) {
+            var odd = document.createElement("input");
+
+
+        }
     }
 
     return td;
-    //var event = !matches[h].Sealed && state;
-    /*for (var j = 0; j < matches[h].Games.length; j++) {
-            inMatchGroups += "<td>";
-            for (var k = 0; k < matches[h].Games[j].Outcomes.length; k++) {
-                var cl = (matches[h].Sealed ? "greyed" : "");
-                cl += (matches[h].Sealed ? " closed" : "");
-                var event = !matches[h].Sealed && state;
-                inMatchGroups += "<a class=\"odd " + cl + "\" " + (event ? "onclick = \"setPrediction(this)\"" : "") +
-                    " data-toggle=\"tooltip\" data-placement=\"top\" title=\"" +
-                    getShortTeamName(matches[h].Games[j].Outcomes[k].Name, matches[h], 100) + "\" data-group=\"" +
-                    matches[h].Games[j].Slug + "\" data-odd=\"" + matches[h].ID + "|" + matches[h].Games[j].Slug + "|" +
-                    matches[h].Games[j].Outcomes[k].Name + "\" >" + getShortTeamName(matches[h].Games[j].Outcomes[k].Name, matches[h], 5) +
-                    "</a> ";
-            }
-            inMatchGroups += "</td>";
-        }*/
-    //<input id="user_lic" type="number" min="5" max="30" step="5" value ="5"/>
 }

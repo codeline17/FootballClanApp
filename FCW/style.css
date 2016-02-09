@@ -2316,6 +2316,12 @@ media_tag_5 {
 .pricing .plan {
     border: 1px solid #dedede
 }
+
+select {
+    height: 25px !important;
+    width: 70px !important;
+}
+
 .pricing .plan h3 {
     font-size: 18px;
     line-height: 45px;
