@@ -8,6 +8,8 @@
 
 var state = true;
 var mObjs = new Array();
+var username = "";
+genHeader();
 
 window.onload = function (e) {
     var menus = $("li[content-type]");
@@ -40,6 +42,9 @@ window.onload = function (e) {
              addFilterHead();
              genPredictions(getFullDate(new Date()));
              break;
+         case "clans":
+            genClans();
+             break;
          case "leagues":
             genLeagues();
              break;
@@ -62,7 +67,6 @@ window.onload = function (e) {
         function (e) {
             var matches = JSON.parse(e);
             genGrid(matches);
-            addPredSubmitBtn();
         });
  }
 
@@ -71,9 +75,16 @@ window.onload = function (e) {
      $.post("Actions/Fixture.aspx", { type: "PREDS", date : date },
    function (e) {
        var matches = JSON.parse(e);
+       console.log(e);
        genGrid(matches);
    });
  }
+
+function genClans() {
+    //ajax if user is in clan than show clan
+
+    //else show button create clan
+}
 
  function genLeagues(){
      
@@ -87,14 +98,79 @@ window.onload = function (e) {
      
  }
 
- function genAccount(){
+ function genAccount() {
+
+     var mainC = document.getElementById("mainContainer");
+
+     $.post("Actions/Fixture.aspx", { type: "GUN" },
+   function (e) {
+        var lblUserName = document.createElement("span");
+        lblUserName.innerHTML = "Username : " + e.split("|")[0] + "                      ";
+        lblUserName.style.cssFloat = "left";
+
+        var newPassword = document.createElement("input");
+        newPassword.setAttribute("placeholder", "New Password");
+        newPassword.className = "form-control input-sm";
+        newPassword.type = "text";
+
+        var confirmNewPassword = document.createElement("input");
+        confirmNewPassword.setAttribute("placeholder", "Confirm New Password");
+        confirmNewPassword.className = "form-control input-sm";
+        confirmNewPassword.type = "text";
+
+        var btnDo = document.createElement("button");
+        btnDo.type = "button";
+        btnDo.className = "btn btn-danger";
+        btnDo.innerHTML = "Confirm";
+
+        mainC.appendChild(lblUserName);
+        mainC.appendChild(newPassword);
+        mainC.appendChild(confirmNewPassword);
+        mainC.appendChild(btnDo);
+   });
+ }
+
+ function genHeader() {
+     $.post("Actions/Fixture.aspx", { type: "GUN" },
+  function (e) {
+      username = e.split("|")[0];
+      var h = document.getElementById("mainHeader");
+      var sub = document.createElement("li");
+
+      var iSub = document.createElement("i");
+      iSub.className = "icon-user";
+      sub.appendChild(iSub);
+
+      var nameSpan = document.createElement("span");
+      nameSpan.innerText = e.split("|")[0];
+      nameSpan.style = "margin-right : 15px;"
+
+      var crediti = document.createElement("i");
+      crediti.className = "icon-dribbble-circled icn";
+
+      var creditspan = document.createElement("span");
+      creditspan.innerText = e.split("|")[1];
+
+      sub.appendChild(iSub);
+      sub.appendChild(nameSpan);
+      sub.appendChild(crediti);
+      sub.appendChild(creditspan);
+
+      h.innerHTML = "";
+      h.appendChild(sub);
+  });
      
  }
 
 function setPrediction(e) {
     //remove all other selected
-    var el = document.getElementById(e.target.id);
-    console.log(e.target.id);
+    if (e.type === "click") {
+        var el = document.getElementById(e.target.id);
+
+    }
+    else if (e.type === "change") {
+        var el =  e.target.options[e.target.selectedIndex];
+    }
     var matchId = el.getAttribute("data-odd").split("|")[0];
     var row = document.getElementById("rid" + matchId);
     var allAs = row.querySelectorAll("[data-odd]");
@@ -110,90 +186,44 @@ function setPrediction(e) {
         return;
 
     el.className = "odd bet";
+    sendPredictions();
 }
 
 function sendPredictions() {
-    var r = confirm("Submit these predictions?");
-    if (r === true) {
-        var ps = document.getElementsByClassName("odd bet");
-        var pString = "";
+    var ps = document.getElementsByClassName("odd bet");
+    var pString = "";
 
-        for (var i = 0; i < ps.length; i++) {
-            pString += ps[i].getAttribute("data-odd") + ";";
-        }
+    for (var i = 0; i < ps.length; i++) {
+        pString += ps[i].getAttribute("data-odd") + ";";
 
-        $.post("Actions/Fixture.aspx", { type: "SNDPD", pds: pString.substring(0, pString.length - 1) });
-
-        genMatches();
+    $.post("Actions/Fixture.aspx", { type: "SNDPD", pds: pString.substring(0, pString.length - 1) });
     }
+    genMatches();
 }
 
 function getShortTeamName(name, match, length) {
     if (length === 100) {
         return name.replace("[Home]", match.HomeTeam.Name).replace("[Away]", match.AwayTeam.Name).replace("[Draw]", "Draw").replace(" ", "");
     } else {
-        return name.replace("[Home]", match.HomeTeam.Name).replace("[Away]", match.AwayTeam.Name).replace("[Draw]", "Draw").replace(" ", "").substring(0, 8);
+        return name.replace("[Home]", match.HomeTeam.Name).replace("[Away]", match.AwayTeam.Name).replace("[Draw]", "Draw").replace(" ", "").substring(0, 10);
     }
 }
 
 function getFixtureName(match) {
-    return match.HomeTeam.Name.substring(0, 10) + "-" + match.AwayTeam.Name.substring(0, 10);
+    return match.HomeTeam.Name.substring(0, 10) + "-" + match.AwayTeam.Name.substring(0, 80);
 }
 
 function genGrid(matches) {
     var mainC = document.getElementById("mainContainer");
     var rFluid = document.createElement("div");
     rFluid.id = "tblContainer";
-    rFluid.className = "row-fluid";
+    //rFluid.className = "row-fluid";
     var opts = "";
 
     var exGrid = document.getElementById("match-table");
     if (exGrid) {
         exGrid.parentNode.removeChild(exGrid);
     }
-
-    for (var i = 0; i < matches[0].Games.length; i++) {
-        opts += "<th><span data-toggle=\"tooltip\" data-placement=\"top\" title=\"" + matches[0].Games[i].Name + "\" >" + matches[0].Games[i].Slug + "</span></th>";
-    }
-    var tableTxt = "<table class=\"table table-hover\" id=\"match-table\">\
-                            <thead>\
-                            <tr>\
-                                <th>Match</th>\
-                                <th>Time</th>\
-                                <th>League</th>\
-                                " + opts + "</tr>\
-                            </thead>\
-                            <tbody>";
-
-    for (var h = 0; h < matches.length; h++) {
-        var inMatchGroups = "";
-        for (var j = 0; j < matches[h].Games.length; j++) {
-            inMatchGroups += "<td>";
-            for (var k = 0; k < matches[h].Games[j].Outcomes.length; k++) {
-                var cl = (matches[h].Sealed ? "greyed" : "");
-                cl += (matches[h].Sealed ? " closed" : "");
-                var event = !matches[h].Sealed && state;
-                inMatchGroups += "<a class=\"odd " + cl + "\" " + (event ? "onclick = \"setPrediction(this)\"" : "") +
-                    " data-toggle=\"tooltip\" data-placement=\"top\" title=\"" +
-                    getShortTeamName(matches[h].Games[j].Outcomes[k].Name, matches[h], 100) + "\" data-group=\"" +
-                    matches[h].Games[j].Slug + "\" data-odd=\"" + matches[h].ID + "|" + matches[h].Games[j].Slug + "|" +
-                    matches[h].Games[j].Outcomes[k].Name + "\" >" + getShortTeamName(matches[h].Games[j].Outcomes[k].Name, matches[h], 5) +
-                    "</a> ";
-            }
-            inMatchGroups += "</td>";
-        }
-
-        tableTxt += "<tr id = \"rid" + matches[h].ID + "\"> \
-                            <td><span data-toggle=\"tooltip\" data-placement=\"top\" title=\"" + matches[h].HomeTeam.Name + "-" + matches[h].AwayTeam.Name + "\">" + getFixtureName(matches[h]) + "</td> \
-                            <td>" + matches[h].ShortTime + "</td> \
-                            <td><span data-toggle=\"tooltip\" data-placement=\"top\" title=\"" + matches[h].League.Name + "\">" + matches[h].League.Name.substring(0,8) + "</span></td>\
-                            " + inMatchGroups;
-        tableTxt += "</tr>";
-    }
-
-    tableTxt += "</tbody>\
-                        </table>";
-
 
    // rFluid.innerHTML = tableTxt;
 
@@ -203,18 +233,6 @@ function genGrid(matches) {
     /***After Event Assignments***/
     $('[data-toggle="tooltip"]').tooltip();
     /****************************/
-}
-
-function addPredSubmitBtn() {
-    var rFluid = document.getElementById("tblContainer");
-    var btnSb = document.createElement("a");
-    btnSb.className = "btn btn-block btn-success";
-    btnSb.id = "predictionSubmit";
-    btnSb.innerText = "Submit";
-
-    rFluid.appendChild(btnSb);
-    var submitBtn = document.getElementById("predictionSubmit");
-    submitBtn.addEventListener("click", sendPredictions);
 }
 
 function addFilterHead() {

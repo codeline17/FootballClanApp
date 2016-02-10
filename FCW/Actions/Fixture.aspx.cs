@@ -36,6 +36,9 @@ namespace FCW.Actions
                     case "PREDS":
                         GetPredictions(user);
                         break;
+                    case "GUN":
+                        GetUserName(user);
+                        break;
                     default :
                         break;
                 }
@@ -249,6 +252,13 @@ namespace FCW.Actions
 
                 }
             }
+        }
+
+        private void GetUserName(Objects.User user)
+        {
+            Response.ClearContent();
+            Response.ClearHeaders();
+            Response.Write(string.Format("{0}|{1}",user.Username, user.Credit));
         }
     }
 }

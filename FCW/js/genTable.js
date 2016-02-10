@@ -89,6 +89,7 @@ function getMatchRow(match, state) {
 
     for (var i = 0; i < match.Games.length; i++) {
         tr.appendChild(getGameCell(match.ID, match.HomeTeam.Name, match.AwayTeam.Name, match.Sealed, match.Games[i], state));
+        tr.className = (match.Sealed ? "greyed" : "");
     }
 
     return tr;
@@ -102,12 +103,13 @@ function getGameCell(matchId, home, away, sealed, game, state) {
             var odd = document.createElement("a");
             var nId = makeid();
             odd.className = (sealed ? "odd greyed" : "odd");
-            odd.className += (game.Outcomes[i].selected ? " closed" : "");
+            odd.className += (game.Outcomes[i].Selected ? " closed" : "");
             odd.setAttribute("data-toogle", "tooltip");
             odd.setAttribute("data-placement", "top");
             odd.setAttribute("data-group", game.Slug);
             odd.setAttribute("data-odd", matchId + "|" + game.Slug + "|" + game.Outcomes[i].Name);
-            odd.innerText = game.Outcomes[i].Name.replace("[Home]", home).replace("[Away]", away).replace("[Draw]", "Draw").replace(" ", "").substring(0, 8);
+            odd.setAttribute("title", game.Outcomes[i].Name.replace("[Home]", home).replace("[Away]", away).replace("[Draw]", "Draw").replace(" ", ""))
+            odd.innerText = game.Outcomes[i].Name.replace("[Home]", home).replace("[Away]", away).replace("[Draw]", "Draw").replace(" ", "").substring(0, 12);
             odd.id = nId;
             if (event)
                 odd.addEventListener("click", setPrediction, false);
@@ -119,13 +121,13 @@ function getGameCell(matchId, home, away, sealed, game, state) {
         for (var k = 0; k < game.Outcomes.length; k++) {
             var innerOdd = document.createElement("option");
             var nId = makeid();
-            innerOdd.selected = game.Outcomes[k].selected;
+            innerOdd.selected = game.Outcomes[k].Selected;
             innerOdd.setAttribute("data-group", game.Slug);
             innerOdd.setAttribute("data-odd", matchId + "|" + game.Slug + "|" + game.Outcomes[k].Name);
             innerOdd.innerText = game.Outcomes[k].Name.replace("[Home]", home).replace("[Away]", away).replace("[Draw]", "Draw").replace(" ", "").substring(0, 8);
             innerOdd.id = nId;
             if (event)
-                innerOdd.addEventListener("click", setPrediction, false);
+                odd.addEventListener("change", setPrediction, false);
             odd.appendChild(innerOdd);
         }
 

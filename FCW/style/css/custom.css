@@ -20,9 +20,27 @@ a.odd {
 }
 
 a.greyed {
-       color: #222 !important;
+    color: #222 !important;
+    cursor: no-drop;
+}
+
+tr.greyed {
+    cursor: no-drop;
 }
 
 .alert-error {
     color: orangered;
+}
+
+#mainHeader {
+    font-size: 20px;
+    height: 25px;
+}
+
+span.credit {
+    background: url('style/images/credit.png') no-repeat;
+    background-position-x: right;
+    height: 25px;
+    width: 40px;
+    float: right;
 }

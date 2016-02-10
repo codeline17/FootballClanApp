@@ -15,7 +15,7 @@
     <RootNamespace>FCW</RootNamespace>
     <AssemblyName>FCW</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -68,6 +68,8 @@
     <Content Include="style.css" />
     <Content Include="style\css\datepicker.css" />
     <Content Include="style\css\tbl-style.css" />
+    <Content Include="style\images\credit.png" />
+    <Content Include="style\images\glyphicons_halflings.png" />
     <Content Include="style\js\bootstrap-datepicker.js" />
     <Content Include="style\js\bootstrap-tooltip.js" />
     <Content Include="style\js\bootstrap.min.js" />
@@ -273,7 +275,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>52888</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost/FCW</IISUrl>
+          <IISUrl>http://localhost:52888/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

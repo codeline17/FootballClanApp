@@ -30,7 +30,7 @@
 <body>
 <header>
   <div class="logo pull-left"> <a href="#"><img src="style/images/logo.png" alt="" /></a> </div>
-  <ul class="contact-info pull-right">
+  <ul id="mainHeader" class="contact-info pull-right">
     <li><i class="icon-user"></i><a href="#" id="username">Username</a> [Score 1] | [Score 2]</li>
     <!--li><i class="icon-phone-1"></i>+00 (123) 456 78 90</li -->
   </ul>
@@ -40,25 +40,25 @@
   <nav id="menu" class="menu">
     <ul id="tiny">
       <li class="active" content-type="matches">
-          <a href="#"><i class="icon-dribbble-circled icn"></i>My Matches</a>        
+          <a><i class="icon-dribbble-circled icn"></i>My Matches</a>        
       </li>
       <li content-type="predictions">
-          <a href="#"><i class="icon-magic icn"></i>My Predictions</a>
+          <a><i class="icon-magic icn"></i>My Predictions</a>
       </li>
       <li content-type="clans">
-          <a href="#"><i class="icon-users icn"></i>My Clans</a>
+          <a><i class="icon-users icn"></i>My Clans</a>
       </li>
       <li content-type="leagues">
-          <a href="#"><i class="icon-users-1 icn"></i>My Leagues</a>
+          <a><i class="icon-users-1 icn"></i>My Leagues</a>
       </li>
       <li content-type="leadboard">
-          <a href="#"><i class="icon-users-1 icn"></i>Leader Board</a>
+          <a><i class="icon-users-1 icn"></i>Leader Board</a>
       </li>
       <li content-type="livescore">
-          <a href="#"><i class="icon-info-circled icn"></i>Livescore</a>
+          <a><i class="icon-info-circled icn"></i>Livescore</a>
       </li>
       <li content-type="account">
-          <a href="#"><i class="icon-user icn"></i>My Account</a>
+          <a><i class="icon-user icn"></i>My Account</a>
       </li>
     </ul>
   </nav>

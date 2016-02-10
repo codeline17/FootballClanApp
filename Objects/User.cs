@@ -12,16 +12,19 @@ namespace Objects
 
         public UserDetails UserDetails { get; set; }
 
+        public int Credit { get; set; }
+
         public User()
         {
         }
 
-        public User(string username, string password, Guid guid, UserDetails userdetails)
+        public User(string username, string password, Guid guid, int credit, UserDetails userdetails)
         {
             Username = username;
             Password = password;
             Guid = guid;
             UserDetails = userdetails;
+            Credit = credit;
         }
     }
 
