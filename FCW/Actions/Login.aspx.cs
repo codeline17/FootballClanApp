@@ -30,7 +30,8 @@ namespace FCW.Actions
                         var reader = cmd.ExecuteReader();
                         while (reader.Read())
                         {
-                            user = new Objects.User(username, password, new Guid(reader["GUID"].ToString()), Convert.ToInt32(reader["Credit"]),
+                            user = new Objects.User(username, password, new Guid(reader["GUID"].ToString()), 
+                                Convert.ToInt32(reader["Credit"]), Convert.ToInt32(reader["ClanId"]),
                             new UserDetails(reader["Email"].ToString(), reader["Address"].ToString(), new City("Tirana")));
                         }
 

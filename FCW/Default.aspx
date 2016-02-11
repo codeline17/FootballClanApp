@@ -125,5 +125,6 @@
 <script src="style/js/bootstrap-datepicker.js"></script>
 <script src="js/genBase.js"></script>
 <script src="js/genTable.js"></script>
+<script src="js/genClans.js"></script>
 </body>
 </html>

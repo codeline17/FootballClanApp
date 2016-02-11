@@ -31,8 +31,8 @@ function afterAjax(user) {
     console.log(user.Username);
     if (!user.Username) {
         var err = document.getElementById("loginErrorMsg");
-        err.className = "alert alert-error";
-        setTimeout(function () { err.className = "alert alert-error hide"; }, 5000);
+        err.className = "alert alert-error orangered";
+        setTimeout(function () { err.className = "alert alert-error orangered hide"; }, 5000);
     } else {
        document.location = "Default.aspx";
     }

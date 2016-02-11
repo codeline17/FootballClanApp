@@ -14,11 +14,24 @@ namespace Objects
 
         public DateTime CreatedOn { get; set; }
 
-        public Clan(string name, List<User> users, DateTime createdOn)
+        public string Leader { get; set; }
+
+        public int UserCount { get; set; }
+
+        public Clan(string name, List<User> users, DateTime createdOn, string leader, int usercount)
         {
             Name = name;
             Users = users;
             CreatedOn = createdOn;
+            Leader = leader;
+            UserCount = usercount;
+        }
+
+        public Clan(string name, int usercount, string leader)
+        {
+            Name = name;
+            UserCount = usercount;
+            Leader = leader;
         }
     }
 }

@@ -14,17 +14,20 @@ namespace Objects
 
         public int Credit { get; set; }
 
+        public int ClanId { get; set; }
+        
         public User()
         {
         }
 
-        public User(string username, string password, Guid guid, int credit, UserDetails userdetails)
+        public User(string username, string password, Guid guid, int credit, int clanid, UserDetails userdetails)
         {
             Username = username;
             Password = password;
             Guid = guid;
             UserDetails = userdetails;
             Credit = credit;
+            ClanId = clanid;
         }
     }
 
