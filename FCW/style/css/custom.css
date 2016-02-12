@@ -44,3 +44,9 @@ span.credit {
     width: 40px;
     float: right;
 }
+
+.input-large {
+    width: 350px !important;
+    height: 35px !important;
+    margin-right: 10px !important;
+}

@@ -49,6 +49,9 @@ namespace FCW.Actions
                     case "GAU": //Get All Users
 
                         break;
+                    case "JC": //Join Clan
+                        JoinClan();
+                        break;
 
                     default:
                         break;
@@ -77,6 +80,28 @@ namespace FCW.Actions
             using (var conn = new SqlConnection(_connectionstring))
             {
                 using (var cmd = new SqlCommand("ClanCreate", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@userGuid", SqlDbType.UniqueIdentifier).Value = user.Guid;
+                    cmd.Parameters.Add("@Name", SqlDbType.VarChar, 20).Value = name;
+
+                    conn.Open();
+                    var r = Convert.ToInt32(cmd.ExecuteScalar());
+
+                    user.ClanId = r;
+                    Session["currentUser"] = user;
+                    Response.ClearContent();
+                    Response.ClearHeaders();
+                    Response.Write(r);
+                }
+            }
+        }
+        private void JoinClan()
+        {
+            var name = Request.Params["name"];
+            using (var conn = new SqlConnection(_connectionstring))
+            {
+                using (var cmd = new SqlCommand("ClanAddUser", conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add("@userGuid", SqlDbType.UniqueIdentifier).Value = user.Guid;

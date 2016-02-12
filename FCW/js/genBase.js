@@ -114,25 +114,28 @@ window.onload = function (e) {
 
                //JoinClan
                var jcPanel = createPanel("Join a clan!");
+               jcPanel.id = "jcp";
                var jcBody = jcPanel.getElementsByClassName("panel-body")[0];
 
                /*var ijc = document.createElement("input");
                ijc.setAttribute("placeholder", "Search Clan");
                ijc.className = "form-control input-sm";
                ijc.type = "text";
+               jcBody.appendChild(ijc);*/
 
                var btnJoinClan = document.createElement("button");
                btnJoinClan.type = "button";
                btnJoinClan.className = "btn btn-success";
                btnJoinClan.innerHTML = "Join Clan!";
+               btnJoinClan.addEventListener("click", JoinClan);
+               
+               var ddc = GenClanList();
+               jcBody.appendChild(ddc);
+               jcBody.appendChild(btnJoinClan);
 
-               jcBody.appendChild(ijc);
-               jcBody.appendChild(btnJoinClan);*/
-
+               //Append Everything
                mainC.appendChild(ccPanel);
                mainC.appendChild(greenArrow);
-               var ddc = GenClanList();
-               jcPanel.appendChild(ddc);
                mainC.appendChild(jcPanel);
 
            } else { //InClan : Show ClanDetails

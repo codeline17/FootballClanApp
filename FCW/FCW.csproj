@@ -65,6 +65,7 @@
   <ItemGroup>
     <Content Include="js\genClans.js" />
     <Content Include="js\genTable.js" />
+    <Content Include="js\helpers.js" />
     <Content Include="Service\MainService.svc" />
     <Content Include="style.css" />
     <Content Include="style\css\datepicker.css" />

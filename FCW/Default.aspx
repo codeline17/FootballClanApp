@@ -18,6 +18,7 @@
 <link href="style/js/fancybox/helpers/jquery.fancybox-thumbs.css?v=1.0.2" rel="stylesheet" type="text/css" />
 <link href="style.css" rel="stylesheet">
 <link href="style/css/custom.css" rel="stylesheet">
+<link href="style/css/select2.css" rel="stylesheet">
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700' rel='stylesheet' type='text/css'>
 <link href="style/type/fontello.css" rel="stylesheet">
 <!--[if IE 8]>
@@ -123,6 +124,7 @@
 <script src="style/js/confirmation.js"></script>
 <script src="style/js/bootstrap-tooltip.js"></script>
 <script src="style/js/bootstrap-datepicker.js"></script>
+<script src="style/js/select2.js"></script>
 <script src="js/genBase.js"></script>
 <script src="js/genTable.js"></script>
 <script src="js/genClans.js"></script>

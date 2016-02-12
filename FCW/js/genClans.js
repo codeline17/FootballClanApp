@@ -9,19 +9,7 @@
                 //alert alert-error
                 //<button type="button" class="close" data-dismiss="alert">×</button>
                 var ccp = document.getElementById("ccp");
-
-                var alert = document.createElement("div");
-                alert.className = "alert alert-error";
-                alert.innerText = "A Clan with this name already exists. Please try another name";
-
-                var dismiss = document.createElement("button");
-                dismiss.type = "button";
-                dismiss.className = "close";
-                dismiss.setAttribute("data-dismiss", "alert");
-                dismiss.innerText = "x";
-
-                alert.appendChild(dismiss);
-                ccp.appendChild(alert);
+                ccp.appendChild(errorBox("A Clan with this name already exists. Please try another name."));
             } else {
                 genClans();
             }
@@ -30,7 +18,22 @@
 }
 
 function JoinClan() {
-    
+    console.log("aa");
+    var name = document.getElementById("ddc");
+    name = name.options[name.selectedIndex].value;
+
+    $.post("Actions/User.aspx", { type: "JC", name: name },
+        function (e) {
+            e = JSON.parse(e);
+            if (e === 0) {
+                //alert alert-error
+                //<button type="button" class="close" data-dismiss="alert">×</button>
+                var jcp = document.getElementById("jcp");
+                jcp.appendChild(errorBox("Could not join this clan, please try later."));
+            } else {
+                genClans();
+            }
+        });
 }
 
 function GenClanDetails() {
@@ -40,7 +43,8 @@ function GenClanDetails() {
 function GenClanList() {
     var ddc = document.createElement("select");
     ddc.id = "ddc";
-    ddc.addEventListener("change", JoinClan);
+    ddc.className = "input-large";
+    //ddc.addEventListener("change", JoinClan);
     $.post("Actions/User.aspx", { type: "GAC"},
         function (e) {
             e = JSON.parse(e);
@@ -49,20 +53,11 @@ function GenClanList() {
             for (var i = 0; i < e.length; i++) {
                 var opt = document.createElement("option");
                 opt.value = e[i].Name;
-                opt.innerText = 
-
-                var cName = document.createElement("h3");
-                cName.className = "section-title";
-                cName.innerText = e[i].Name;
-
-                var cp = document.createElement("p");
-                cp.innerText = "Leader : " + e[i].Leader + " | " + e[i].Count + " Members";
-
-                opt.appendChild(cName);
-                opt.appendChild(cp);
+                opt.innerText = e[i].Name + " | Leader : " + e[i].Leader + " | " + e[i].UserCount + " members";
+                
                 ddc.appendChild(opt);
             }
-
+            $("#ddc").select2();
         });
     return ddc;
 }
