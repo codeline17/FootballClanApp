@@ -1,1 +1,10 @@
-﻿
+﻿Clan Grid
+	UserName/isLeader/MemberSince
+
+
+League
+	User/Clan / Points / Last Score
+
+
+Results
+	
