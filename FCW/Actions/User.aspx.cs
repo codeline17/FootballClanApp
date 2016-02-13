@@ -96,6 +96,7 @@ namespace FCW.Actions
                 }
             }
         }
+
         private void JoinClan()
         {
             var name = Request.Params["name"];
@@ -136,7 +137,7 @@ namespace FCW.Actions
                     {
                         clans.Add(
                             new Clan(
-                                reader["Name"].ToString(), 
+                                reader["Name"].ToString(),
                                 Convert.ToInt32(reader["Count"]),
                                 reader["Leader"].ToString()
                                 )
@@ -153,7 +154,32 @@ namespace FCW.Actions
 
         private void GetClanDetails()
         {
-            
+            var id = Convert.ToInt64(Request.Params["Id"]);
+            var clan = new Objects.Clan();
+
+            using (var conn = new SqlConnection(_connectionstring))
+            {
+                using (var cmd = new SqlCommand("ClanGetById", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@Id", SqlDbType.BigInt).Value = id;
+                    conn.Open();
+                    var reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        clan.Name = reader["ClanName"].ToString();
+                        clan.Users.Add(
+                                new Objects.User(reader["UserName"].ToString())
+                            );
+                        clan.Leader = reader["isLeader"].ToString() != "0" ? reader["UserName"].ToString() : clan.Leader;
+                    }
+                }
+            }
+            var json = new JavaScriptSerializer().Serialize(clan);
+            Response.ClearContent();
+            Response.ClearHeaders();
+            Response.Write(json);
         }
     }
 }

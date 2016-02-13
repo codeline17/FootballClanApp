@@ -86,7 +86,6 @@ window.onload = function (e) {
      $.post("Actions/User.aspx", { type: "GU"},
        function (e) {
            e = JSON.parse(e);
-           console.log(e);
            if (e.ClanId === 0) { //NoClan : Show CreateClan or JoinClan
                //CreateClan
                var ccPanel = createPanel("Create you own clan!");
@@ -139,7 +138,12 @@ window.onload = function (e) {
                mainC.appendChild(jcPanel);
 
            } else { //InClan : Show ClanDetails
-               
+               console.log(e.ClanId);
+               $.post("Actions/User.aspx", { type: "CDL", id : e.ClanId },
+                   function(c) {
+                       c = JSON.parse(c);
+                       console.log(c);
+                   });
            }
    });
     //ajax if user is in clan than show clan

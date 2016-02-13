@@ -32,6 +32,12 @@ namespace Objects
             Name = name;
             UserCount = usercount;
             Leader = leader;
+            Users = new List<User>();
+        }
+
+        public Clan()
+        {
+            Users = new List<User>();
         }
     }
 }

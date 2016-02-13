@@ -726,12 +726,13 @@ input[type="submit"].btn::-moz-focus-inner {
     display: none;
     overflow: inherit !important;
 }
-.menu ul li {
+.menu ul li {    
     position: relative;
     line-height: 1;
     margin-bottom: 10px;
     border: 1px solid rgba(0,0,0,0.08);
-    border-right-color: transparent;
+    border-right-color: rgba(0, 0, 0, 0);
+    cursor: pointer;
 }
 .menu ul li a {
     display: table-cell;

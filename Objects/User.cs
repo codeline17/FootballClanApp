@@ -20,6 +20,11 @@ namespace Objects
         {
         }
 
+        public User(string username)
+        {
+            Username = username;
+        }
+
         public User(string username, string password, Guid guid, int credit, int clanid, UserDetails userdetails)
         {
             Username = username;

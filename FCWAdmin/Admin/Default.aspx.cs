@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Globalization;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace FCWAdmin.Admin
@@ -35,7 +31,7 @@ namespace FCWAdmin.Admin
 
         protected void txtCalendar_TextChanged(object sender, EventArgs e)
         {
-            
+            BindGrid();
         }
 
         private void BindGrid()
