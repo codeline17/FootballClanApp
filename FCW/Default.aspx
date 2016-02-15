@@ -100,6 +100,7 @@
   <!--/.box--> 
 </div>
 <!--/.body-wrapper--> 
+<script src="js/prototype.js"></script> 
 <script src="style/js/jquery.js"></script> 
 <script src="style/js/bootstrap.min.js"></script> 
 <script src="style/js/twitter-bootstrap-hover-dropdown.min.js"></script> 

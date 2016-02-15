@@ -50,3 +50,11 @@ span.credit {
     height: 35px !important;
     margin-right: 10px !important;
 }
+
+tr.leader {
+    background: rgba(250, 250, 100, 0.6);
+}
+
+table#clan-table {
+    cursor: pointer;
+}

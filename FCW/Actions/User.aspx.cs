@@ -170,7 +170,10 @@ namespace FCW.Actions
                     {
                         clan.Name = reader["ClanName"].ToString();
                         clan.Users.Add(
-                                new Objects.User(reader["UserName"].ToString())
+                                new Objects.User(
+                                    reader["UserName"].ToString(), 
+                                    Convert.ToDateTime(reader["MemberSince"].ToString()).ToString("dd/MM/yyyy")
+                                    )
                             );
                         clan.Leader = reader["isLeader"].ToString() != "0" ? reader["UserName"].ToString() : clan.Leader;
                     }

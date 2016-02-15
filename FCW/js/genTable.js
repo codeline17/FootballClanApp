@@ -145,3 +145,28 @@ function getGameCell(matchId, home, away, sealed, game, state) {
 
     return td;
 }
+
+function genClanTable(e) {
+    var mainTag = document.createElement("table");
+    mainTag.id = "clan-table";
+    mainTag.className = "table table-hover";
+
+    var tHead = document.createElement("thead");
+    var hRow = document.createElement("tr");
+    hRow.append(cEl("th").append(cEl("span").attr("data-toggle", "tooltip").attr("data-placement", "top").attr("title", "Member Name").tEl("Member Name")));
+    hRow.append(cEl("th").append(cEl("span").attr("data-toggle", "tooltip").attr("data-placement", "top").attr("title", "Member Since").tEl("Member Since")));
+    tHead.appendChild(hRow);
+
+    //body
+    var tBody = document.createElement("tbody");
+
+    for (var j = 0; j < e.Users.length; j++) {
+        var row = cEl("tr").append(cEl("td").tEl(e.Users[j].Username)).append(cEl("td").tEl(e.Users[j].InClanSince));
+        row.className = e.Users[j].Username === e.Leader ? "leader" : "";
+        tBody.append(row);
+    }
+    mainTag.appendChild(tHead);
+    mainTag.appendChild(tBody);
+
+    return mainTag;
+}

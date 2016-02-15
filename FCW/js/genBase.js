@@ -143,6 +143,25 @@ window.onload = function (e) {
                    function(c) {
                        c = JSON.parse(c);
                        console.log(c);
+                       mainC.append(cEl("h3").tEl(c.Name));
+                       var rFluid = document.createElement("div");
+                       rFluid.id = "tblContainer";
+                       //rFluid.className = "row-fluid";
+                       var opts = "";
+
+                       var exGrid = document.getElementById("match-table");
+                       if (exGrid) {
+                           exGrid.parentNode.removeChild(exGrid);
+                       }
+
+                       // rFluid.innerHTML = tableTxt;
+
+                       rFluid.appendChild(genClanTable(c));
+                       mainC.appendChild(rFluid);
+
+                       /***After Event Assignments***/
+                       $('[data-toggle="tooltip"]').tooltip();
+                       /****************************/
                    });
            }
    });
