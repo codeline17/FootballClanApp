@@ -58,3 +58,12 @@ tr.leader {
 table#clan-table {
     cursor: pointer;
 }
+
+span.card {
+    margin-left: 3px;
+    margin-right: 3px;
+}
+
+td.center {
+    text-align: center;
+}

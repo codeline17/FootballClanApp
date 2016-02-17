@@ -40,7 +40,7 @@ namespace FCW.Actions
                         GetUserName(user);
                         break;
                     case "GLS": //GetLiveScore
-                        GetLiveScore();
+                        GetLiveScore(user);
                         break;
                     default :
                         break;
@@ -55,7 +55,7 @@ namespace FCW.Actions
 
         }
 
-        private void GetLiveScore()
+        private void GetLiveScore(Objects.User user)
         {
             var date = DateTime.Now;
             DateTime.TryParseExact(Request.Params["date"], "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out date);
@@ -67,6 +67,7 @@ namespace FCW.Actions
                     var fixtures = new List<Objects.Fixture>();
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add("@data", SqlDbType.DateTime).Value = date;
+                    cmd.Parameters.Add("@Guid", SqlDbType.UniqueIdentifier).Value = user.Guid;
                     conn.Open();
                     var reader = cmd.ExecuteReader();
                     while (reader.Read())

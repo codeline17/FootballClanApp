@@ -895,7 +895,7 @@ a.badge:focus {
 }
 .label-important,
 .badge-important {
-  background-color: #b94a48;
+  background-color: red;
 }
 .label-important[href],
 .badge-important[href] {
