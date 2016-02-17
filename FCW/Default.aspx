@@ -129,5 +129,6 @@
 <script src="js/genBase.js"></script>
 <script src="js/genTable.js"></script>
 <script src="js/genClans.js"></script>
+<script src="js/genLiveScore.js"></script>
 </body>
 </html>

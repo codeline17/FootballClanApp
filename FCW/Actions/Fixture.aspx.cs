@@ -30,14 +30,17 @@ namespace FCW.Actions
                     case "UDM": //UserDailyMatches
                         UserDailyMatches(user);
                         break;
-                    case "SNDPD":
+                    case "SNDPD": //InsertPredictions
                         InsertPredictions(user);
                         break;
-                    case "PREDS":
+                    case "PREDS": //GetPredictions
                         GetPredictions(user);
                         break;
-                    case "GUN":
+                    case "GUN": //GetUserName
                         GetUserName(user);
+                        break;
+                    case "GLS": //GetLiveScore
+                        GetLiveScore();
                         break;
                     default :
                         break;
@@ -50,6 +53,45 @@ namespace FCW.Actions
 
             Response.End();
 
+        }
+
+        private void GetLiveScore()
+        {
+            var date = DateTime.Now;
+            DateTime.TryParseExact(Request.Params["date"], "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out date);
+
+            using (var conn = new SqlConnection(_connectionstring))
+            {
+                using (var cmd = new SqlCommand("FixturesGetLiveScore", conn))
+                {
+                    var fixtures = new List<Objects.Fixture>();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@data", SqlDbType.DateTime).Value = date;
+                    conn.Open();
+                    var reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        fixtures.Add(new Objects.Fixture(
+                                    new Team(reader["HomeTeam"].ToString()),
+                                    new Team(reader["AwayTeam"].ToString()),
+                                    new Competition(reader["LeagueName"].ToString(),
+                                    reader["Country"].ToString()),
+                                    Convert.ToDateTime(reader["StartDate"]),
+                                    Convert.ToInt16(reader["HomeGoals"]),
+                                    Convert.ToInt16(reader["AwayGoals"]),
+                                    Convert.ToInt16(reader["HomeYellow"]),
+                                    Convert.ToInt16(reader["AwayYellow"]),
+                                    Convert.ToInt16(reader["HomeRed"]),
+                                    Convert.ToInt16(reader["AwayRed"]),
+                                    reader["Status"].ToString()
+                                    ));
+                    }
+                    var json = new JavaScriptSerializer().Serialize(fixtures);
+                    Response.ClearContent();
+                    Response.ClearHeaders();
+                    Response.Write(json);
+                }
+            }
         }
 
         private void UserDailyMatches(Objects.User user)

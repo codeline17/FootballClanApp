@@ -9,6 +9,7 @@
 var state = true;
 var mObjs = new Array();
 var username = "";
+var mode = "";
 genHeader();
 
 window.onload = function (e) {
@@ -31,6 +32,7 @@ window.onload = function (e) {
      var mainC = document.getElementById("mainContainer");
      mainC.innerHTML = "";
 
+     mode = type;
      switch (type) 
      {
          case "matches":
@@ -52,7 +54,8 @@ window.onload = function (e) {
             genLeadBoard();
              break;
          case "livescore":
-            genLiveScore();
+             addFilterHead();
+             genLiveScore(getFullDate(new Date()));
              break;
          case "account":
             genAccount();
@@ -175,10 +178,6 @@ window.onload = function (e) {
  }
 
  function genLeadBoard(){
-     
- }
-
- function genLiveScore(){
      
  }
 
@@ -328,7 +327,7 @@ function addFilterHead() {
                             <div class=\"panel-body\">\
                                 <form class=\"form-inline\" role=\"form\">\
                                     <div class=\"form-group\">\
-                                        <input type=\"datetime\" placeholder=\"Date (dd/mm/yyyy)\" class=\"form-control input-sm\" id=\"pref-search\">\
+                                        <input type=\"datetime\" placeholder=\"Pick a date\" class=\"form-control input-sm\" id=\"pref-search\" >\
                                     </div><!-- form group [search] -->\
                                     <div class=\"form-group\">\
                                         <!--button id=\"predSBtn\" value=\"\" type=\"submit\" class=\"btn btn-default filter-col\">\
@@ -343,9 +342,13 @@ function addFilterHead() {
     $("#pref-search").datepicker({
         format: "dd/mm/yyyy"
     }).on("changeDate", function (e) {
-        console.log(e);
         var dt = e.date;
-        genPredictions(getFullDate(dt));
+        if (mode==="predictions") {
+            genPredictions(getFullDate(dt));
+        }
+        else if (mode ==="livescore") {
+            genLiveScore(getFullDate(dt));
+        }
     });
     //$("#predSBtn").click(function () { genPredictions($("#pref-search").text) })
 }

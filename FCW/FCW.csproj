@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="js\genClans.js" />
+    <Content Include="js\genLiveScore.js" />
     <Content Include="js\genTable.js" />
     <Content Include="js\helpers.js" />
     <Content Include="js\prototype.js" />

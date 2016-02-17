@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.AccessControl;
 
 namespace Objects
 {
@@ -7,22 +8,20 @@ namespace Objects
     {
         public int ID { get; set; }
         public Team HomeTeam { get; set; }
-
         public Team AwayTeam { get; set; }
-
         public List<Event> Events { get; set; }
-
         public string Minute { get; set; }
-
         public Competition League { get; set; }
-
         public List<Game> Games { get; set; }
-
         public DateTime StartTime { get; set; }
-        
         public string ShortTime => StartTime.ToString("HH:mm");
-
         public bool Sealed { get; set; }
+        public int HomeGoals { get; set; }
+        public int AwayGoals { get; set; }
+        public int HomeYellow { get; set; }
+        public int AwayYellow { get; set; }
+        public int HomeRed { get; set; }
+        public int AwayRed { get; set; }
 
         public Fixture(int id, Team hometeam, 
                         Team awayteam, List<Event> events, 
@@ -38,7 +37,25 @@ namespace Objects
             Games = games;
             StartTime = starttime;
             Sealed = mSealed;
-        } 
+        }
+
+        public Fixture(Team hometeam, Team awayteam, Competition league, 
+                        DateTime starttime, int homegoals, int awaygoals, 
+                        int homeyellow, int awayyellow, int homered,
+                        int awayred, string minute)
+        {
+            HomeTeam = hometeam;
+            AwayTeam = awayteam;
+            League = league;
+            StartTime = starttime;
+            HomeGoals = homegoals;
+            AwayGoals = awaygoals;
+            HomeYellow = homeyellow;
+            AwayYellow = awayyellow;
+            HomeRed = homered;
+            AwayRed = awayred;
+            Minute = minute;
+        }
     }
 
     public class Event

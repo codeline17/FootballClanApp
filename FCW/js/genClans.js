@@ -1,6 +1,5 @@
 ﻿function CreateClan() {
     //CL
-    console.log("hyra");
     var name = document.getElementById("icc").value;
     $.post("Actions/User.aspx", { type: "CL", name : name },
         function (e) {
