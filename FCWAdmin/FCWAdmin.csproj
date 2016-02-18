@@ -137,6 +137,7 @@
     <Content Include="Admin\js\plugins\morris\morris.js" />
     <Content Include="Admin\js\plugins\morris\morris.min.js" />
     <Content Include="Admin\js\plugins\morris\raphael.min.js" />
+    <Content Include="Admin\Leagues.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -151,6 +152,13 @@
     </Compile>
     <Compile Include="Admin\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Leagues.aspx.cs">
+      <DependentUpon>Leagues.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Leagues.aspx.designer.cs">
+      <DependentUpon>Leagues.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
