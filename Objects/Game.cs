@@ -16,12 +16,26 @@ namespace Objects
 
         public string Repeater { get; set; }
 
+        public int Value { get; set; }
+
+        public int PointsWon => Outcomes.Count(x => x.isWon) * Value;
+
+
         public Game(string name, string slug, List<Outcome> outcomes, string repeater)
         {
             Name = name;
             Slug = slug;
             Outcomes = outcomes;
             Repeater = repeater;
+        }
+
+        public Game(string name, string slug, List<Outcome> outcomes, string repeater, int value)
+        {
+            Name = name;
+            Slug = slug;
+            Outcomes = outcomes;
+            Repeater = repeater;
+            Value = value;
         }
 
         public void AddOutcome(Outcome outcome)

@@ -11,12 +11,20 @@ namespace Objects
         public string Name;
         public bool Selected;
         public string Repeater;
+        public bool isWon { get; set; }
 
         public Outcome(string name, bool selected, string repeater)
         {
             Name = name;
             Selected = selected;
             Repeater = repeater;
+        }
+        public Outcome(string name, bool selected, string repeater, bool iswon)
+        {
+            Name = name;
+            Selected = selected;
+            Repeater = repeater;
+            isWon = iswon;
         }
     }
 }

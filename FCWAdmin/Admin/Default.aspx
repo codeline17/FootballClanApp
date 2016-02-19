@@ -36,7 +36,6 @@
     <script type="text/javascript">
         function OnStart() {
             var d = $find("dtNdeshjet").get_selectedDate();
-            console.log(d);
             $get('<%=txtCalendar.ClientID %>').value = d.toUTCString();
             $get('<%=btnFilter.ClientID %>').click();
         }

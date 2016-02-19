@@ -38,7 +38,6 @@
 function fnLogout() {
     $.post("Actions/User.aspx", { type: "LO" },
         function (e) {
-            console.log(e);
             window.location = "Login.aspx";
         });
 }

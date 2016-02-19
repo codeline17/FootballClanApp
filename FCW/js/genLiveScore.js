@@ -39,7 +39,6 @@ function genLiveScoreTable(e) {
             ).append(
                 getRCElement(e[j].AwayRed)
             );
-        console.log(mSpan);
 
         var row = cEl("tr").append(cEl("td").tEl(e[j].League.Name)).append(cEl("td").tEl(e[j].ShortTime))
             //.append(cEl("td").tEl(e[j].HomeTeam.Name + "-" + e[j].AwayTeam.Name))

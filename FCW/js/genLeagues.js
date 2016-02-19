@@ -19,6 +19,7 @@
     var contentEl = cEl("div").attr("class", "panel-container").attr("style", "overflow: hidden;");
 
     for (var i = 0; i < tabs.length; i++) {
+        console.log(tabs);
         var cId = makeid();
         var tabEl = cEl("li").listener("click",switchTabs, false).attr("class", "tab").append(cEl("a").attr("href", "#" + cId).tEl(tabs[i].Name));
         tabsEl.append(tabEl);
@@ -48,10 +49,10 @@ function getLeagueData() {
         for (var i = 0; i < e.length; i++) {
             if (e[i].Name) {
                 var l = { Name: e[i].Name }
-                tabs[i] = l;
+                tabs.push(l);
 
                 var c = genLeagueTable(e[i].Name,e[i].Users);
-                content[i] = c;
+                content.push(c);
             }
         }
 
@@ -92,7 +93,6 @@ function genLeagueTable(n,u) {
 }
 
 function switchTabs(e) {
-    console.log(this);
     var tabId = this.childNodes[0].getAttribute("href").replace("#", "");
 
     var cts = document.getElementsByClassName("tab-block");
@@ -108,9 +108,7 @@ function switchTabs(e) {
     var tbs = document.getElementsByClassName("tab");
 
     for (var j = 0; j < tbs.length; j++) {
-        console.log(tbs[j]);
         tbs[j].className = tbs[j].className.replace("active","").replace(" ","");
-        console.log(tbs[j]);
     }
 
     this.className = "tab active";

@@ -74,7 +74,6 @@ window.onload = function (e) {
  }
 
  function genPredictions(date) {
-     console.log(date);
      $.post("Actions/Fixture.aspx", { type: "PREDS", date : date },
    function (e) {
        var matches = JSON.parse(e);
@@ -141,11 +140,9 @@ window.onload = function (e) {
                mainC.appendChild(jcPanel);
 
            } else { //InClan : Show ClanDetails
-               console.log(e.ClanId);
                $.post("Actions/User.aspx", { type: "CDL", id : e.ClanId },
                    function(c) {
                        c = JSON.parse(c);
-                       console.log(c);
                        mainC.append(cEl("h3").tEl(c.Name));
                        var rFluid = document.createElement("div");
                        rFluid.id = "tblContainer";
@@ -309,7 +306,6 @@ function genGrid(matches) {
     }
 
    // rFluid.innerHTML = tableTxt;
-
     rFluid.appendChild(genTable("match-table", matches, state));
     mainC.appendChild(rFluid);
 

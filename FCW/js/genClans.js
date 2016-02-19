@@ -17,7 +17,6 @@
 }
 
 function JoinClan() {
-    console.log("aa");
     var name = document.getElementById("ddc");
     name = name.options[name.selectedIndex].value;
 
@@ -47,7 +46,6 @@ function GenClanList() {
     $.post("Actions/User.aspx", { type: "GAC"},
         function (e) {
             e = JSON.parse(e);
-            console.log(e);
             var clans = [];
             for (var i = 0; i < e.length; i++) {
                 var opt = document.createElement("option");

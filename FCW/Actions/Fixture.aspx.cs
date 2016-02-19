@@ -253,9 +253,11 @@ namespace FCW.Actions
                                             new Outcome(
                                                 reader["OutcomeName"].ToString(),
                                                 Convert.ToBoolean(reader["IsSelected"]),
-                                                reader["Repeater"].ToString())
+                                                reader["Repeater"].ToString()
+                                                ,Convert.ToBoolean(reader["isWon"]))
                                         }
-                                        ,reader["Repeater"].ToString())
+                                        ,reader["Repeater"].ToString()
+                                        ,Convert.ToInt16(reader["Value"]))
                                     }
                                     ,Convert.ToDateTime(reader["StartDate"]), Convert.ToBoolean(reader["GameSealed"])));
                         }

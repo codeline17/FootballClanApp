@@ -23,7 +23,6 @@ function register() {
     $.post("Actions/Register.aspx", { username: username.value, password: password.value, email:email.value},
      function (e) {
          var r = JSON.parse(e);
-         console.log(r);
          switch (r) {
              case -1:
                  showErrorAfterId("regForm", "This username is taken, try another one!");
@@ -49,7 +48,6 @@ function login() {
     $.post("Actions/Login.aspx", { username: username, password: password },
         function (e) {
             var user = JSON.parse(e);
-            console.log(user);
             afterAjax(user);
         });
 }
@@ -61,7 +59,6 @@ function keypress(e) {
 }
 
 function afterAjax(user) {
-    console.log(user.Username);
     if (!user.Username) {
         var err = document.getElementById("loginErrorMsg");
         err.className = "alert alert-error orangered";

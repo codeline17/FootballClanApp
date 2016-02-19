@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.AccessControl;
 
 namespace Objects
@@ -22,6 +23,8 @@ namespace Objects
         public int AwayYellow { get; set; }
         public int HomeRed { get; set; }
         public int AwayRed { get; set; }
+        public int PointsWon => Games.Sum(x => x.PointsWon);
+
 
         public Fixture(int id, Team hometeam, 
                         Team awayteam, List<Event> events, 

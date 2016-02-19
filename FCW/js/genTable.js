@@ -1,6 +1,6 @@
 ﻿function genTable(id, matches, state) {
 
-    var head = getHead(matches[0]);
+    var head = getHead(matches[0], state);
 
     //tags
     var mainTag = document.createElement("table");
@@ -35,7 +35,7 @@
 }
 
 
-function getHead(sMatch) {
+function getHead(sMatch, state) {
     var r = new Array();
 
     var el = { Title: "Match", Text: "Match" }
@@ -47,6 +47,11 @@ function getHead(sMatch) {
 
     for (var i = 0; i < sMatch.Games.length; i++) {
         el = { Title: sMatch.Games[i].Name, Text: sMatch.Games[i].Slug }
+        r.push(el);
+    }
+
+    if (state === false) {
+        el = { Title: "Points Won", Text: "Pts" };
         r.push(el);
     }
 
@@ -86,10 +91,22 @@ function getMatchRow(match, state) {
     td.appendChild(span);
     tr.appendChild(td);
     /*********/
-
+    
     for (var i = 0; i < match.Games.length; i++) {
         tr.appendChild(getGameCell(match.ID, match.HomeTeam.Name, match.AwayTeam.Name, match.Sealed, match.Games[i], state));
         tr.className = (match.Sealed ? "greyed" : "");
+    }
+
+    //Points Won
+    if (state === false) {
+        td = document.createElement("td");
+        span = document.createElement("span");
+        span.setAttribute("data-toggle", "tooltip");
+        span.setAttribute("data-placement", "top");
+        span.setAttribute("title", match.PointsWon);
+        span.innerText = match.PointsWon;
+        td.appendChild(span);
+        tr.appendChild(td);
     }
 
     return tr;
