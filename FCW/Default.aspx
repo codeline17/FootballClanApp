@@ -30,11 +30,11 @@
 </head>
 <body>
 <header>
-  <div class="logo pull-left"> <a href="#"><img src="style/images/logo.png" alt="" /></a> </div>
-  <ul id="mainHeader" class="contact-info pull-right">
-    <li><i class="icon-user"></i><a href="#" id="username">Username</a> [Score 1] | [Score 2]</li>
-    <!--li><i class="icon-phone-1"></i>+00 (123) 456 78 90</li -->
-  </ul>
+    <div class="row">
+        <div class="span4 logo pull-left"> <a href="#"><img src="style/images/logo.png"/></a> </div>
+        <div class="span4 pull-right" id="mainHeader">
+        </div>
+    </div>
 </header>
 <!-- /header -->
 <div class="body-wrapper">
@@ -126,10 +126,11 @@
 <script src="style/js/bootstrap-tooltip.js"></script>
 <script src="style/js/bootstrap-datepicker.js"></script>
 <script src="style/js/select2.js"></script>
-<script src="js/genBase.js"></script>
+<script src="js/helpers.js"></script>
 <script src="js/genTable.js"></script>
 <script src="js/genClans.js"></script>
 <script src="js/genLiveScore.js"></script>
 <script src="js/genLeagues.js"></script>
+<script src="js/genBase.js"></script>
 </body>
 </html>

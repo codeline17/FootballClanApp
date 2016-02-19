@@ -71,3 +71,19 @@ td.center {
 img.logo {
     margin-bottom: 20px;
 }
+
+span.creditBall {
+    width: 25px;
+    height: 25px;
+    background: url('../images/credit.png') no-repeat;
+    background-position-x: right;
+    float: left;
+}
+
+span.header-margin{
+    margin-left: 10px;
+}
+
+a.header-margin{
+    margin-left: 10px;
+}

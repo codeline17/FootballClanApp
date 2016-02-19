@@ -20,7 +20,7 @@
 
     for (var i = 0; i < tabs.length; i++) {
         var cId = makeid();
-        var tabEl = cEl("li").attr("class", "tab").append(cEl("a").attr("href", "#" + cId).tEl(tabs[i].Name));
+        var tabEl = cEl("li").listener("click",switchTabs, false).attr("class", "tab").append(cEl("a").attr("href", "#" + cId).tEl(tabs[i].Name));
         tabsEl.append(tabEl);
 
         var contEl = cEl("div").attr("class", "tab-block").attr("id", cId).append(content[i]).attr("style", "display:none;");
@@ -50,7 +50,7 @@ function getLeagueData() {
                 var l = { Name: e[i].Name }
                 tabs[i] = l;
 
-                var c = genLeagueTable(e[i].Users);
+                var c = genLeagueTable(e[i].Name,e[i].Users);
                 content[i] = c;
             }
         }
@@ -60,18 +60,19 @@ function getLeagueData() {
     });
 }
 
-function genLeagueTable(u) {
+function genLeagueTable(n,u) {
     //User-Points
     //HEADER
-    var mainTag = document.createElement("table");
-    mainTag.id = "livescore-table";
-    mainTag.className = "table table-hover";
+    var mTag = cEl("div");
+    var tTitle = cEl("h3").tEl(n);
+    var tabTag = document.createElement("table");
+    tabTag.id = "livescore-table";
+    tabTag.className = "table table-hover";
 
     var tHead = document.createElement("thead");
     var hRow = document.createElement("tr");
     hRow.append(cEl("th").append(cEl("span").attr("data-toggle", "tooltip").attr("data-placement", "top").attr("title", "League").tEl("Member")));
     hRow.append(cEl("th").append(cEl("span").attr("data-toggle", "tooltip").attr("data-placement", "top").attr("title", "Start Time").tEl("Points")));
-    //hRow.append(cEl("th").append(cEl("span").attr("data-toggle", "tooltip").attr("data-placement", "top").attr("title", "Score").tEl("Score")));
     tHead.appendChild(hRow);
 
     var tBody = document.createElement("tbody");
@@ -82,8 +83,36 @@ function genLeagueTable(u) {
         tBody.append(row);
     }
 
-    mainTag.appendChild(tHead);
-    mainTag.appendChild(tBody);
+    tabTag.appendChild(tHead);
+    tabTag.appendChild(tBody);
 
-    return mainTag;
+    mTag.append(tTitle).append(tabTag);
+
+    return mTag;
+}
+
+function switchTabs(e) {
+    console.log(this);
+    var tabId = this.childNodes[0].getAttribute("href").replace("#", "");
+
+    var cts = document.getElementsByClassName("tab-block");
+
+    for (var i = 0; i < cts.length; i++) {
+        if (cts[i].id === tabId) {
+            cts[i].attr("style", "display: block; position: static; visibility: visible;");
+        } else {
+            cts[i].attr("style", "display:none;");
+        }
+    }
+
+    var tbs = document.getElementsByClassName("tab");
+
+    for (var j = 0; j < tbs.length; j++) {
+        console.log(tbs[j]);
+        tbs[j].className = tbs[j].className.replace("active","").replace(" ","");
+        console.log(tbs[j]);
+    }
+
+    this.className = "tab active";
+
 }

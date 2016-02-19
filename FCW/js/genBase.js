@@ -213,7 +213,7 @@ window.onload = function (e) {
    });
  }
 
- function genHeader() {
+ function genHeader1() {
      $.post("Actions/Fixture.aspx", { type: "GUN" },
   function (e) {
       username = e.split("|")[0];

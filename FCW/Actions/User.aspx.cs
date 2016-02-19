@@ -31,6 +31,9 @@ namespace FCW.Actions
 
                 switch (requestType)
                 {
+                    case "LO": //Get User
+                        Logout();
+                        break;
                     case "GU": //Get User
                         GetUserDetials();
                         break;
@@ -66,6 +69,15 @@ namespace FCW.Actions
 
         }
 
+        private void Logout()
+        {
+            Session["currentUser"] = null;
+            
+            Response.ClearContent();
+            Response.ClearHeaders();
+            Response.Write("Out Motherfucker!");
+
+        }
         private void GetLeagueList(Objects.User user)
         {
             using (var conn = new SqlConnection(_connectionstring))
