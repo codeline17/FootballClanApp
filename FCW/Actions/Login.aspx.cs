@@ -32,7 +32,7 @@ namespace FCW.Actions
                         {
                             user = new Objects.User(username, password, new Guid(reader["GUID"].ToString()), 
                                 Convert.ToInt32(reader["Credit"]), Convert.ToInt32(reader["ClanId"]),
-                            new UserDetails(reader["Email"].ToString(), reader["Address"].ToString(), new City("Tirana")));
+                            new UserDetails(reader["Email"].ToString(), reader["Address"].ToString(), new City("Tirana")),Convert.ToInt32(reader["Points"]));
                         }
 
                         var json = new JavaScriptSerializer().Serialize(user);

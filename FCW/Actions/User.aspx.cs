@@ -38,7 +38,7 @@ namespace FCW.Actions
                         GetClanDetails();
                         break;
                     case "LDL": //League Details
-
+                        GetLeagueList(user);
                         break;
                     case "CL": //Create Clan
                         CreateClan();
@@ -64,6 +64,67 @@ namespace FCW.Actions
 
             Response.End();
 
+        }
+
+        private void GetLeagueList(Objects.User user)
+        {
+            using (var conn = new SqlConnection(_connectionstring))
+            {
+                using (var cmd = new SqlCommand("LeaguesGetByUserId", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add ("@UserGuid", SqlDbType.UniqueIdentifier).Value = user.Guid;
+
+                    var r = new List<Objects.League>();
+                    conn.Open();
+                    var reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        r.Add(GetLeagueDetails(Convert.ToInt32(reader["Id"])));
+                    }
+
+                    var json = new JavaScriptSerializer().Serialize(r);
+                    Response.ClearContent();
+                    Response.ClearHeaders();
+                    Response.Write(json);
+                }
+            }
+        }
+
+        private Objects.League GetLeagueDetails(int id)
+        {
+            var league = new Objects.League();
+
+            using (var conn = new SqlConnection(_connectionstring))
+            {
+                using (var cmd = new SqlCommand("[LeagueGetById]", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@LeagueId", SqlDbType.BigInt).Value = id;
+                    
+                    conn.Open();
+                    var reader = cmd.ExecuteReader();
+                    /*l.Name,l.StartDate,l.EndDate,	u.Id as 'PartId',u.UserName as 'PartName',points
+                    */
+
+                    while (reader.Read())
+                    {
+                        league.Name = reader["Name"].ToString();
+                        league.StartDate = Convert.ToDateTime(reader["StartDate"]);
+                        league.EndDate = Convert.ToDateTime(reader["EndDate"]);
+                        if (reader["LeagueTypeId"].ToString() == "1")
+                        {
+                            league.Users.Add(
+                                new Objects.User(reader["PartName"].ToString(),Convert.ToInt32(reader["Points"]))
+                                );
+                        }
+
+                    }
+                }
+            }
+
+            return league;
         }
 
         private void GetUserDetials()

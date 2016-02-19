@@ -173,8 +173,8 @@ window.onload = function (e) {
     //else show button create clan
 }
 
- function genLeagues(){
-     
+ function genLeagues() {
+     getLeagueData();
  }
 
  function genLeadBoard(){

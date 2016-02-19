@@ -130,5 +130,6 @@
 <script src="js/genTable.js"></script>
 <script src="js/genClans.js"></script>
 <script src="js/genLiveScore.js"></script>
+<script src="js/genLeagues.js"></script>
 </body>
 </html>

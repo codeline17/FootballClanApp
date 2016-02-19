@@ -14,6 +14,8 @@ namespace Objects
 
         public int Credit { get; set; }
 
+        public int Points { get; set; }
+
         public int ClanId { get; set; }
 
         public string InClanSince { get; set; }
@@ -28,7 +30,13 @@ namespace Objects
             InClanSince = inclansince;
         }
 
-        public User(string username, string password, Guid guid, int credit, int clanid, UserDetails userdetails)
+        public User(string username, int points)
+        {
+            Username = username;
+            Points = points;
+        }
+
+        public User(string username, string password, Guid guid, int credit, int clanid, UserDetails userdetails, int points)
         {
             Username = username;
             Password = password;
@@ -36,6 +44,7 @@ namespace Objects
             UserDetails = userdetails;
             Credit = credit;
             ClanId = clanid;
+            Points = points;
         }
     }
 

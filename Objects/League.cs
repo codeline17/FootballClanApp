@@ -17,6 +17,12 @@ namespace Objects
 
         public DateTime EndDate { get; set; }
 
+        public League()
+        {
+            Clans = new List<Clan>();
+            Users = new List<User>();
+        }
+
         public League(string name, int leaguetype, List<User> users, DateTime startdate, DateTime enddate)
         {
             Name = name;

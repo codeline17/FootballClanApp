@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+using Objects;
 
 namespace FCW
 {
@@ -11,7 +7,19 @@ namespace FCW
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            try
+            {
+                var user = (User)Session["currentUser"];
+                if (user.Username != null)
+                {
+                    Response.Redirect("Default.aspx");
+                }
 
+            }
+            catch (Exception)
+            {
+                
+            }
         }
     }
 }

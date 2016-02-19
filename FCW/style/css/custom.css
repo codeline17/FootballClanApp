@@ -67,3 +67,7 @@ span.card {
 td.center {
     text-align: center;
 }
+
+img.logo {
+    margin-bottom: 20px;
+}

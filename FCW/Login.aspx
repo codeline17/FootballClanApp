@@ -10,17 +10,20 @@
     <link href="style/css/settings.css" rel="stylesheet" />
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" />
     <style>
-        .alert-danger,
-        .alert-error {
-            background-color: #f2dede;
-            border-color: #eed3d7;
+        img.logo {
+            margin-bottom: 30px;
+        }
+         .alert-danger,
+         .alert-error {
+             background-color: #f2dede;
+             border-color: #eed3d7;
+             color: #b94a48;
+         }
+
+        .alert-danger h4,
+        .alert-error h4 {
             color: #b94a48;
         }
-
-            .alert-danger h4,
-            .alert-error h4 {
-                color: #b94a48;
-            }
 
         .modal-dialog {
             width: 768px;
@@ -35,13 +38,14 @@
     </style>
 </head>
 <body>
-    <div class="logo pull-left">
-        <a href="#">
-            <img src="style/images/logo.png" alt="" /></a>
-    </div>
     <div id="login-overlay" class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <img src="style/images/logo.png" class="logo" alt="" />
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-xs-6">
                         <div class="well">
