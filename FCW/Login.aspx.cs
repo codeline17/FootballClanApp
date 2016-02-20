@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web;
 using Objects;
 
 namespace FCW
@@ -9,7 +10,7 @@ namespace FCW
         {
             try
             {
-                var user = (User)Session["currentUser"];
+                var user = (User)HttpContext.Current.Session["currentUser"];
                 if (user.Username != null)
                 {
                     Response.Redirect("Default.aspx");

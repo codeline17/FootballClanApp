@@ -58,6 +58,7 @@ namespace Objects
             HomeRed = homered;
             AwayRed = awayred;
             Minute = minute;
+            Games = new List<Game>();
         }
     }
 

@@ -27,6 +27,7 @@ namespace Objects
             Slug = slug;
             Outcomes = outcomes;
             Repeater = repeater;
+            Value = 0;
         }
 
         public Game(string name, string slug, List<Outcome> outcomes, string repeater, int value)
@@ -45,7 +46,8 @@ namespace Objects
 
         public Game()
         {
-            
+            Value = 0;
+            Outcomes = new List<Outcome>();
         }
     }
 }

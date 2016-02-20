@@ -18,6 +18,7 @@ namespace Objects
             Name = name;
             Selected = selected;
             Repeater = repeater;
+            isWon = false;
         }
         public Outcome(string name, bool selected, string repeater, bool iswon)
         {

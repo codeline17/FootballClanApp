@@ -33,8 +33,8 @@ tr.greyed {
 }
 
 #mainHeader {
-    font-size: 20px;
-    height: 25px;
+    /*font-size: 20px;
+    height: 25px;*/
 }
 
 span.credit {
@@ -77,13 +77,44 @@ span.creditBall {
     height: 25px;
     background: url('../images/credit.png') no-repeat;
     background-position-x: right;
-    float: left;
+    float: right;
 }
 
 span.header-margin{
-    margin-left: 10px;
+    margin-left: 5px;
 }
 
 a.header-margin{
     margin-left: 10px;
+}
+
+.progress-bar-blue {
+    background-color: #5bc0de;
+}
+
+.progress-bar-green {
+    background-color: #5cb85c;
+}
+
+.progress-bar-orange {
+    background-color: #f0ad4e;
+}
+
+.progress-bar-red {
+    background-color: #d9534f;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    border: 0;
+}
+
+span.userCredit {
+        float: right;
 }

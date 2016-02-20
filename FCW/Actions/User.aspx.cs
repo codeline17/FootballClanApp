@@ -117,8 +117,6 @@ namespace FCW.Actions
                     
                     conn.Open();
                     var reader = cmd.ExecuteReader();
-                    /*l.Name,l.StartDate,l.EndDate,	u.Id as 'PartId',u.UserName as 'PartName',points
-                    */
 
                     while (reader.Read())
                     {

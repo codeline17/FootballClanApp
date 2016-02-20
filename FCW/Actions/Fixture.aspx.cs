@@ -272,7 +272,8 @@ namespace FCW.Actions
                                    new Outcome(
                                        reader["OutcomeName"].ToString(),
                                        Convert.ToBoolean(reader["IsSelected"]),
-                                       reader["Repeater"].ToString())
+                                       reader["Repeater"].ToString(),
+                                       Convert.ToBoolean(reader["isWon"]))
                                }
                                ,reader["Repeater"].ToString()));
                             }
@@ -285,7 +286,8 @@ namespace FCW.Actions
                                     game.AddOutcome(new Outcome(
                                         reader["OutcomeName"].ToString(), 
                                         Convert.ToBoolean(reader["IsSelected"]), 
-                                        reader["Repeater"].ToString()));
+                                        reader["Repeater"].ToString(),
+                                       Convert.ToBoolean(reader["isWon"])));
                                 }
                             }
                         }

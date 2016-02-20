@@ -1,1 +1,42 @@
-﻿<%@ Application Codebehind="Global.asax.cs" Inherits="FCW.Global" Language="C#" %>
+﻿<%@ Application Language="C#" %>
+<%@ Import Namespace="System.Diagnostics" %>
+
+<script runat="server">
+
+    void Application_Start(object sender, EventArgs e) 
+    {
+        // Code that runs on application startup
+        //BetSite.Translation.Languages.Read();
+        //BetSite.Translation.UserMassages.Read();
+    }
+    
+    void Application_End(object sender, EventArgs e) 
+    {
+        //  Code that runs on application shutdown
+
+    }
+        
+    void Application_Error(object sender, EventArgs e) 
+    { 
+        // Code that runs when an unhandled error occurs
+
+    }
+
+    void Session_Start(object sender, EventArgs e) 
+    {
+        // Code that runs when a new session is started
+        Debug.Print("SessionStarted");
+
+    }
+
+    void Session_End(object sender, EventArgs e) 
+    {
+        Debug.Print("SessionEnded");
+        // Code that runs when a session ends. 
+        // Note: The Session_End event is raised only when the sessionstate mode
+        // is set to InProc in the Web.config file. If session mode is set to StateServer 
+        // or SQLServer, the event is not raised.
+
+    }
+       
+</script>

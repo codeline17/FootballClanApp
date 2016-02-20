@@ -38,6 +38,7 @@ namespace FCW.Actions
 
                         var json = new JavaScriptSerializer().Serialize(user);
 
+                        HttpContext.Current.Session["currentUser"] = user;
                         Session["currentUser"] = user;
 
                         Response.ClearContent();
