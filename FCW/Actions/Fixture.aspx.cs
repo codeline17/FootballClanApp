@@ -275,7 +275,8 @@ namespace FCW.Actions
                                        reader["Repeater"].ToString(),
                                        Convert.ToBoolean(reader["isWon"]))
                                }
-                               ,reader["Repeater"].ToString()));
+                               ,reader["Repeater"].ToString()
+                               ,Convert.ToInt16(reader["Value"])));
                             }
                             else
                             {

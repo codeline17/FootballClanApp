@@ -42,11 +42,9 @@ function login() {
     var username = document.getElementById("username").value;
     var password = document.getElementById("password").value;
 
-    console.log(username);
-    console.log(password);
-
     $.post("Actions/Login.aspx", { username: username, password: password },
         function (e) {
+            setCookie("u", e, 1 / 8);
             var user = JSON.parse(e);
             afterAjax(user);
         });
@@ -64,7 +62,7 @@ function afterAjax(user) {
         err.className = "alert alert-error orangered";
         setTimeout(function () { err.className = "alert alert-error orangered hide"; }, 5000);
     } else {
-       document.location = "Default.aspx";
+       //document.location = "Default.aspx";
     }
 }
 

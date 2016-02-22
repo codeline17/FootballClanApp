@@ -30,10 +30,12 @@ namespace FCW.Actions
                         var reader = cmd.ExecuteReader();
                         while (reader.Read())
                         {
-                            user = new Objects.User(username, password, new Guid(reader["GUID"].ToString()), 
+                            user = new Objects.User(username, new Guid(reader["GUID"].ToString()), 
                                 Convert.ToInt32(reader["Credit"]), Convert.ToInt32(reader["ClanId"]),
                             new UserDetails(reader["Email"].ToString(), reader["Address"].ToString(), 
-                            new City("Tirana")),Convert.ToInt32(reader["Points"]),Convert.ToInt32(reader["tpreds"]),Convert.ToInt32(reader["spreds"]));
+                            new City("Tirana")),Convert.ToInt32(reader["Points"]),Convert.ToInt32(reader["tpreds"]),
+                            Convert.ToInt32(reader["spreds"]), Convert.ToInt32(reader["lastspreds"]), 
+                            Convert.ToInt32(reader["lastsspreds"]), Convert.ToInt32(reader["AvatarId"]));
                         }
 
                         var json = new JavaScriptSerializer().Serialize(user);

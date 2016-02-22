@@ -5,7 +5,7 @@
  **leadbord
  **livescore
  **account*/
-
+var cuser = "";
 var state = true;
 var mObjs = new Array();
 var username = "";
@@ -18,6 +18,8 @@ window.onload = function (e) {
         menus[i].addEventListener("click", getContent);
     }
     genMatches();
+
+    cuser = JSON.parse(getCookie("u"));
 }
 
  function getContent(e){
@@ -69,7 +71,7 @@ window.onload = function (e) {
      $.post("Actions/Fixture.aspx", { type:"UDM" },
         function (e) {
             var matches = JSON.parse(e);
-            genGrid(matches);
+            genGrid(matches,"nope");
         });
  }
 
@@ -77,98 +79,9 @@ window.onload = function (e) {
      $.post("Actions/Fixture.aspx", { type: "PREDS", date : date },
    function (e) {
        var matches = JSON.parse(e);
-       genGrid(matches);
+       genGrid(matches, date);
    });
  }
-
- function genClans() {
-     var mainC = document.getElementById("mainContainer");
-     mainC.innerHTML = "";
-
-     $.post("Actions/User.aspx", { type: "GU"},
-       function (e) {
-           e = JSON.parse(e);
-           if (e.ClanId === 0) { //NoClan : Show CreateClan or JoinClan
-               //CreateClan
-               var ccPanel = createPanel("Create you own clan!");
-               ccPanel.id = "ccp";
-               var ccBody = ccPanel.getElementsByClassName("panel-body")[0];
-
-               var icc = document.createElement("input");
-               icc.setAttribute("placeholder", "New Clan Name");
-               icc.className = "form-control input-sm";
-               icc.id = "icc";
-               icc.type = "text";
-
-               var btnCreateClan = document.createElement("button");
-               btnCreateClan.type = "button";
-               btnCreateClan.className = "btn btn-success";
-               btnCreateClan.innerHTML = "Create!";
-               btnCreateClan.addEventListener("click", CreateClan);
-
-               ccBody.appendChild(icc);
-               ccBody.appendChild(btnCreateClan);
-
-               //Arrow section
-               var greenArrow = document.createElement("hr");
-               greenArrow.className = "arrow";
-
-               //JoinClan
-               var jcPanel = createPanel("Join a clan!");
-               jcPanel.id = "jcp";
-               var jcBody = jcPanel.getElementsByClassName("panel-body")[0];
-
-               /*var ijc = document.createElement("input");
-               ijc.setAttribute("placeholder", "Search Clan");
-               ijc.className = "form-control input-sm";
-               ijc.type = "text";
-               jcBody.appendChild(ijc);*/
-
-               var btnJoinClan = document.createElement("button");
-               btnJoinClan.type = "button";
-               btnJoinClan.className = "btn btn-success";
-               btnJoinClan.innerHTML = "Join Clan!";
-               btnJoinClan.addEventListener("click", JoinClan);
-               
-               var ddc = GenClanList();
-               jcBody.appendChild(ddc);
-               jcBody.appendChild(btnJoinClan);
-
-               //Append Everything
-               mainC.appendChild(ccPanel);
-               mainC.appendChild(greenArrow);
-               mainC.appendChild(jcPanel);
-
-           } else { //InClan : Show ClanDetails
-               $.post("Actions/User.aspx", { type: "CDL", id : e.ClanId },
-                   function(c) {
-                       c = JSON.parse(c);
-                       mainC.append(cEl("h3").tEl(c.Name));
-                       var rFluid = document.createElement("div");
-                       rFluid.id = "tblContainer";
-                       //rFluid.className = "row-fluid";
-                       var opts = "";
-
-                       var exGrid = document.getElementById("match-table");
-                       if (exGrid) {
-                           exGrid.parentNode.removeChild(exGrid);
-                       }
-
-                       // rFluid.innerHTML = tableTxt;
-
-                       rFluid.appendChild(genClanTable(c));
-                       mainC.appendChild(rFluid);
-
-                       /***After Event Assignments***/
-                       $('[data-toggle="tooltip"]').tooltip();
-                       /****************************/
-                   });
-           }
-   });
-    //ajax if user is in clan than show clan
-        
-    //else show button create clan
-}
 
  function genLeagues() {
      getLeagueData();
@@ -244,12 +157,13 @@ window.onload = function (e) {
 
 function setPrediction(e) {
     //remove all other selected
+    var el = "";
     if (e.type === "click") {
-        var el = document.getElementById(e.target.id);
+        el = document.getElementById(e.target.id);
 
     }
     else if (e.type === "change") {
-        var el =  e.target.options[e.target.selectedIndex];
+        el =  e.target.options[e.target.selectedIndex];
     }
     var matchId = el.getAttribute("data-odd").split("|")[0];
     var row = document.getElementById("rid" + matchId);
@@ -293,19 +207,32 @@ function getFixtureName(match) {
     return match.HomeTeam.Name.substring(0, 10) + "-" + match.AwayTeam.Name.substring(0, 80);
 }
 
-function genGrid(matches) {
+function genGrid(matches, date) {
     var mainC = document.getElementById("mainContainer");
-    var rFluid = document.createElement("div");
-    rFluid.id = "tblContainer";
-    //rFluid.className = "row-fluid";
-    var opts = "";
+
+    if (document.getElementById("tblContainer")) {
+        document.getElementById("tblContainer").parentNode.removeChild(document.getElementById("tblContainer"));
+    }
+
+    var rFluid = cEl("div").attr("id", "tblContainer").attr("class", "row");
 
     var exGrid = document.getElementById("match-table");
     if (exGrid) {
         exGrid.parentNode.removeChild(exGrid);
     }
 
-   // rFluid.innerHTML = tableTxt;
+    if (date !== "nope") {
+        var totPoints = 0;
+
+        for (var i = 0; i < matches.length; i++) {
+            totPoints += matches[i].PointsWon;
+        }
+
+        var pEl = cEl("h3").tEl(date + " - " + totPoints + " points").attr("style","text-align:center;");
+
+        rFluid.append(pEl);
+    }
+    
     rFluid.appendChild(genTable("match-table", matches, state));
     mainC.appendChild(rFluid);
 

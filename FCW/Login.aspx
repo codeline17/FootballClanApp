@@ -116,6 +116,7 @@
 
     <script src="style/js/jquery.js"></script>
     <script src="style/js/bootstrap.min.js"></script>
+    <script src="js/prototype.js"></script>
     <script src="style/js/login.js"></script>
 </body>
 </html>

@@ -1,4 +1,100 @@
-﻿function CreateClan() {
+﻿function genClans() {
+    var mainC = document.getElementById("mainContainer");
+    mainC.innerHTML = "";
+
+    $.post("Actions/User.aspx", { type: "GU" },
+      function (e) {
+          e = JSON.parse(e);
+          console.log(e);
+          if (e.ClanId === 0) { //NoClan : Show CreateClan or JoinClan
+              //CreateClan
+              var ccPanel = createPanel("Create you own clan!");
+              ccPanel.id = "ccp";
+              var ccBody = ccPanel.getElementsByClassName("panel-body")[0];
+
+              var icc = document.createElement("input");
+              icc.setAttribute("placeholder", "New Clan Name");
+              icc.className = "form-control input-sm";
+              icc.id = "icc";
+              icc.type = "text";
+
+              var prv = cEl("input").attr("id", "tgPrv").attr("type", "checkbox").attr("data-toggle", "toggle").attr("data-on", "private").attr("data-off", "public");
+
+              var pClan = cEl("p").append(icc).append(prv);
+
+              var btnCreateClan = cEl("p").append(cEl("button").attr("type", "button").attr("class", "btn btn-success").listener("click", CreateClan).tEl("Create!"));
+
+              ccBody.append(pClan);
+              ccBody.append(btnCreateClan);
+
+              //Arrow section
+              var greenArrow = document.createElement("hr");
+              greenArrow.className = "arrow";
+
+              //JoinClan
+              var jcPanel = createPanel("Join a clan!");
+              jcPanel.id = "jcp";
+              var jcBody = jcPanel.getElementsByClassName("panel-body")[0];
+
+              /*var ijc = document.createElement("input");
+              ijc.setAttribute("placeholder", "Search Clan");
+              ijc.className = "form-control input-sm";
+              ijc.type = "text";
+              jcBody.appendChild(ijc);*/
+
+              var btnJoinClan = document.createElement("button");
+              btnJoinClan.type = "button";
+              btnJoinClan.className = "btn btn-success";
+              btnJoinClan.innerHTML = "Join Clan!";
+              btnJoinClan.addEventListener("click", JoinClan);
+
+              var ddc = GenClanList();
+              jcBody.appendChild(ddc);
+              jcBody.appendChild(btnJoinClan);
+
+              //Append Everything
+              mainC.appendChild(ccPanel);
+              mainC.appendChild(greenArrow);
+              mainC.appendChild(jcPanel);
+
+
+              /***After Event Assignments***/
+              $("#tgPrv").bootstrapToggle();
+              /****************************/
+
+          } else { //InClan : Show ClanDetails
+              $.post("Actions/User.aspx", { type: "CDL", id: e.ClanId },
+                  function (c) {
+                      console.log(c);
+                      c = JSON.parse(c);
+                      mainC.append(cEl("h3").tEl(c.Name));
+                      var rFluid = document.createElement("div");
+                      rFluid.id = "tblContainer";
+                      //rFluid.className = "row-fluid";
+                      var opts = "";
+
+                      var exGrid = document.getElementById("match-table");
+                      if (exGrid) {
+                          exGrid.parentNode.removeChild(exGrid);
+                      }
+
+                      // rFluid.innerHTML = tableTxt;
+
+                      rFluid.appendChild(genClanTable(c));
+                      mainC.appendChild(rFluid);
+
+                      /***After Event Assignments***/
+                      $('[data-toggle="tooltip"]').tooltip();
+                      /****************************/
+                  });
+          }
+      });
+    //ajax if user is in clan than show clan
+
+    //else show button create clan
+}
+
+function CreateClan() {
     //CL
     var name = document.getElementById("icc").value;
     $.post("Actions/User.aspx", { type: "CL", name : name },

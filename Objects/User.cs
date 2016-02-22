@@ -5,24 +5,18 @@ namespace Objects
     public class User
     {
         public string Username { get; set; }
-
         public string Password { get; set; }
-
         public Guid Guid { get; set; }
-
         public UserDetails UserDetails { get; set; }
-
         public int Credit { get; set; }
-
         public int Points { get; set; }
-
         public int ClanId { get; set; }
-
         public string InClanSince { get; set; }
-
-        public int PredictionsNo { get; set; }
-
+        public int TotalPredictions { get; set; }
         public int SuccessfulPredictions { get; set; }
+        public int LastPredictions { get; set; }
+        public int LastSuccessfulPredictions { get; set; }
+        public int AvatarId { get; set; }
         
         public User()
         {
@@ -40,17 +34,21 @@ namespace Objects
             Points = points;
         }
 
-        public User(string username, string password, Guid guid, int credit, int clanid, UserDetails userdetails, int points, int predictionsno, int successfulpredictions)
+        public User(string username, Guid guid, int credit, int clanid, 
+            UserDetails userdetails, int points, int predictionsno, int successfulpredictions,
+            int lastpredictions, int lastsuccessfulpredictions, int avatarid)
         {
             Username = username;
-            Password = password;
             Guid = guid;
             UserDetails = userdetails;
             Credit = credit;
             ClanId = clanid;
             Points = points;
-            PredictionsNo = predictionsno;
+            TotalPredictions = predictionsno;
             SuccessfulPredictions = successfulpredictions;
+            LastPredictions = lastpredictions;
+            LastSuccessfulPredictions = lastsuccessfulpredictions;
+            AvatarId = avatarid;
         }
     }
 

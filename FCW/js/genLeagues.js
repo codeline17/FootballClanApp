@@ -72,15 +72,19 @@ function genLeagueTable(n,u) {
 
     var tHead = document.createElement("thead");
     var hRow = document.createElement("tr");
+    hRow.append(cEl("th").append(cEl("span").attr("data-toggle", "tooltip").attr("data-placement", "top").attr("title", "#").tEl("#")));
     hRow.append(cEl("th").append(cEl("span").attr("data-toggle", "tooltip").attr("data-placement", "top").attr("title", "League").tEl("Member")));
     hRow.append(cEl("th").append(cEl("span").attr("data-toggle", "tooltip").attr("data-placement", "top").attr("title", "Start Time").tEl("Points")));
     tHead.appendChild(hRow);
 
     var tBody = document.createElement("tbody");
     for (var i = 0; i < u.length; i++) {
+        var tdRang = cEl("td").tEl(i + 1);
         var tdUsername = cEl("td").tEl(u[i].Username);
         var tdPoints = cEl("td").tEl(u[i].Points);
-        var row = cEl("tr").append(tdUsername).append(tdPoints);
+        var row = cEl("tr").append(tdRang).append(tdUsername).append(tdPoints);
+        console.log(cuser);
+        row.className = cuser.Username === u[i].Username ? "leader" : "";
         tBody.append(row);
     }
 
