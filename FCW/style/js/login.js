@@ -62,7 +62,7 @@ function afterAjax(user) {
         err.className = "alert alert-error orangered";
         setTimeout(function () { err.className = "alert alert-error orangered hide"; }, 5000);
     } else {
-       //document.location = "Default.aspx";
+       document.location = "Default.aspx";
     }
 }
 

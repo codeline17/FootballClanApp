@@ -1,11 +1,13 @@
-﻿function genHeader() {
-    setInterval(function () { getHeaderInfo() }, 30000);
+﻿var headerInterval;
+
+function genHeader() {
     getHeaderInfo();
 }
 
 function getHeaderInfo() {
     $.post("Actions/User.aspx", { type: "GU" },
      function (e) {
+         console.log("refresh");
          e = JSON.parse(e);
          var h = document.getElementById("mainHeader");
 
@@ -35,6 +37,8 @@ function getHeaderInfo() {
 
          h.innerHTML = "";
          h.appendChild(hEl);
+
+         headerInterval = setTimeout(function () { getHeaderInfo() }, 60000);
      });
 }
 
@@ -62,6 +66,7 @@ function genProgressBar(w) {
             cl += "green";
             break;
     }
+    console.log(w);
 
     var cDiv = cEl("div").attr("class", "progress").attr("style", "width:40%;float:right;").append(cEl("div").attr("class", "progress-bar " + cl).attr("role", "progressbar").attr("aria-valuenow", w * 2).attr("aria-valuemin", 0).attr("aria-valuemax", 100).attr("style", "width:" + w * 2 + "%;").tEl(Math.floor(w / 10)));
 
