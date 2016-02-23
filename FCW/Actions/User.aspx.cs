@@ -31,7 +31,7 @@ namespace FCW.Actions
 
                 switch (requestType)
                 {
-                    case "LO": //Get User
+                    case "LO": //Logout
                         Logout();
                         break;
                     case "GU": //Get User
@@ -48,6 +48,9 @@ namespace FCW.Actions
                         break;
                     case "GAC": //Get All Clans
                         GetAllClans();
+                        break;
+                    case "RFR": //Refresh UserDetails
+                        RefreshUserDetials(user.Guid);
                         break;
                     case "GAU": //Get All Users
 
@@ -66,7 +69,6 @@ namespace FCW.Actions
             }
 
             Response.End();
-
         }
 
         private void Logout()
@@ -145,9 +147,48 @@ namespace FCW.Actions
             Response.Write(json);
         }
 
+        private void RefreshUserDetials(Guid guid)
+        {
+
+            using (var conn = new SqlConnection(_connectionstring))
+            {
+                using (var cmd = new SqlCommand("UserGetById", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@Guid", SqlDbType.UniqueIdentifier).Value = guid;
+
+                    var user = new Objects.User();
+                    
+                    conn.Open();
+                    var reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        user = new Objects.User(reader["UserName"].ToString(), new Guid(reader["GUID"].ToString()),
+                            Convert.ToInt32(reader["Credit"]), Convert.ToInt32(reader["ClanId"]),
+                        new UserDetails(reader["Email"].ToString(), reader["Address"].ToString(),
+                        new City("Tirana")), Convert.ToInt32(reader["Points"]), Convert.ToInt32(reader["tpreds"]),
+                        Convert.ToInt32(reader["spreds"]), Convert.ToInt32(reader["lastspreds"]),
+                        Convert.ToInt32(reader["lastsspreds"]), Convert.ToInt32(reader["AvatarId"]));
+                    }
+
+                    var json = new JavaScriptSerializer().Serialize(user);
+                    HttpContext.Current.Session["currentUser"] = user;
+                    Session["currentUser"] = user;
+
+                    Response.ClearContent();
+                    Response.ClearHeaders();
+                    Response.Write(json);
+                    HttpContext.Current.Response.Flush(); // Sends all currently buffered output to the client.
+                    HttpContext.Current.Response.SuppressContent = true;  // Gets or sets a value indicating whether to send HTTP content to the client.
+                    HttpContext.Current.ApplicationInstance.CompleteRequest(); // Causes ASP.NET to bypass all events and filtering in the HTTP pipeline chain of execution and directly execute the EndRequest event.
+                }
+            }
+        }
+
         private void CreateClan()
         {
             var name = Request.Params["name"];
+            var prv = Request.Params["private"];
             using (var conn = new SqlConnection(_connectionstring))
             {
                 using (var cmd = new SqlCommand("ClanCreate", conn))
@@ -155,6 +196,7 @@ namespace FCW.Actions
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add("@userGuid", SqlDbType.UniqueIdentifier).Value = user.Guid;
                     cmd.Parameters.Add("@Name", SqlDbType.VarChar, 20).Value = name;
+                    cmd.Parameters.Add("@Private", SqlDbType.Bit).Value = Convert.ToBoolean(prv);
 
                     conn.Open();
                     var r = Convert.ToInt32(cmd.ExecuteScalar());
@@ -243,10 +285,13 @@ namespace FCW.Actions
                         clan.Users.Add(
                                 new Objects.User(
                                     reader["UserName"].ToString(), 
-                                    Convert.ToDateTime(reader["MemberSince"].ToString()).ToString("dd/MM/yyyy")
+                                    Convert.ToDateTime(reader["MemberSince"].ToString()).ToString("dd/MM/yyyy"),
+                                    Convert.ToBoolean(reader["Approved"]),
+                                    Convert.ToInt16(reader["Points"].ToString())
                                     )
                             );
                         clan.Leader = reader["isLeader"].ToString() != "0" ? reader["UserName"].ToString() : clan.Leader;
+                        clan.isPrivate = Convert.ToBoolean(reader["Private"]);
                     }
                 }
             }

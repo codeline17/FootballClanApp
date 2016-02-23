@@ -17,15 +17,18 @@ namespace Objects
         public int LastPredictions { get; set; }
         public int LastSuccessfulPredictions { get; set; }
         public int AvatarId { get; set; }
+        public bool isApproved { get; set; }
         
         public User()
         {
         }
 
-        public User(string username, string inclansince)
+        public User(string username, string inclansince, bool isapproved, int points)
         {
             Username = username;
             InClanSince = inclansince;
+            isApproved = isapproved;
+            Points = points;
         }
 
         public User(string username, int points)

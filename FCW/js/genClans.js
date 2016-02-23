@@ -67,7 +67,12 @@
                   function (c) {
                       console.log(c);
                       c = JSON.parse(c);
-                      mainC.append(cEl("h3").tEl(c.Name));
+
+                      var clanPts = 0;
+                      for (var i = 0; i < c.Users.length; i++) {
+                          clanPts += c.Users[i].Points;
+                      }
+                      mainC.append(cEl("h3").tEl(c.Name + "   ").append(cEl("small").tEl("[ " + clanPts + " Pts ]")).append(cEl("small").tEl("  [ " + c.Users.length + " of 11 members ]")));
                       var rFluid = document.createElement("div");
                       rFluid.id = "tblContainer";
                       //rFluid.className = "row-fluid";
@@ -97,7 +102,8 @@
 function CreateClan() {
     //CL
     var name = document.getElementById("icc").value;
-    $.post("Actions/User.aspx", { type: "CL", name : name },
+    var prv = document.getElementById("tgPrv").checked;
+    $.post("Actions/User.aspx", { type: "CL", name : name, private : prv },
         function (e) {
             e = JSON.parse(e);
             if (e === 0) {

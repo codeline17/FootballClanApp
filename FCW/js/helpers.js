@@ -5,9 +5,8 @@ function genHeader() {
 }
 
 function getHeaderInfo() {
-    $.post("Actions/User.aspx", { type: "GU" },
+    $.post("Actions/User.aspx", { type: "RFR" },
      function (e) {
-         console.log("refresh");
          e = JSON.parse(e);
          var h = document.getElementById("mainHeader");
 

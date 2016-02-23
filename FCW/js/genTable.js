@@ -171,15 +171,29 @@ function genClanTable(e) {
     var tHead = document.createElement("thead");
     var hRow = document.createElement("tr");
     hRow.append(cEl("th").append(cEl("span").attr("data-toggle", "tooltip").attr("data-placement", "top").attr("title", "Member Name").tEl("Member Name")));
+    hRow.append(cEl("th").append(cEl("span").attr("data-toggle", "tooltip").attr("data-placement", "top").attr("title", "Points").tEl("Pts")));
     hRow.append(cEl("th").append(cEl("span").attr("data-toggle", "tooltip").attr("data-placement", "top").attr("title", "Member Since").tEl("Member Since")));
+    hRow.append(cEl("th").append(cEl("span").attr("data-toggle", "tooltip").attr("data-placement", "top").attr("title", "Approve/Remove Users").tEl("Actions")));
     tHead.appendChild(hRow);
 
     //body
     var tBody = document.createElement("tbody");
+    var cUserLeader = cuser.Username === e.Leader;
 
+    var remove = cEl("i").attr("class", "icon-cancel-1").attr("style", "color:red;font-size:20px;");
+    var apprej = cEl("span").append(cEl("i").attr("class", "icon-ok").attr("style", "color:green;font-size:20px;")).append(cEl("i").attr("class", "icon-cancel-1").attr("style", "color:red;font-size:20px;margin-left:10px;"));
+    //icon-cancel-1
     for (var j = 0; j < e.Users.length; j++) {
-        var row = cEl("tr").append(cEl("td").tEl(e.Users[j].Username)).append(cEl("td").tEl(e.Users[j].InClanSince));
+        var row = cEl("tr").append(cEl("td").tEl(e.Users[j].Username)).append(cEl("td").tEl(e.Users[j].Points)).append(cEl("td").tEl(e.Users[j].InClanSince));
         row.className = e.Users[j].Username === e.Leader ? "leader" : "";
+        if (cUserLeader) {
+            if (e.Users[j].Approved) {
+                row.append(cEl("td").append(remove));
+            } else {
+                row.append(cEl("td").append(apprej));
+            }
+        }
+        
         tBody.append(row);
     }
     mainTag.appendChild(tHead);

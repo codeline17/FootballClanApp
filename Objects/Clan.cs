@@ -18,6 +18,8 @@ namespace Objects
 
         public int UserCount { get; set; }
 
+        public bool isPrivate { get; set; }
+
         public Clan(string name, List<User> users, DateTime createdOn, string leader, int usercount)
         {
             Name = name;
