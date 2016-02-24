@@ -5,7 +5,6 @@
     $.post("Actions/User.aspx", { type: "GU" },
       function (e) {
           e = JSON.parse(e);
-          console.log(e);
           if (e.ClanId === 0) { //NoClan : Show CreateClan or JoinClan
               //CreateClan
               var ccPanel = createPanel("Create you own clan!");
@@ -62,10 +61,11 @@
               $("#tgPrv").bootstrapToggle();
               /****************************/
 
+          } else if (e.ClanId === -1) {
+              mainC.append(cEl("div").attr("class","alert").tEl("You are waiting to be approved to join a clan."));
           } else { //InClan : Show ClanDetails
               $.post("Actions/User.aspx", { type: "CDL", id: e.ClanId },
-                  function (c) {
-                      console.log(c);
+                  function(c) {
                       c = JSON.parse(c);
 
                       var clanPts = 0;
@@ -73,6 +73,9 @@
                           clanPts += c.Users[i].Points;
                       }
                       mainC.append(cEl("h3").tEl(c.Name + "   ").append(cEl("small").tEl("[ " + clanPts + " Pts ]")).append(cEl("small").tEl("  [ " + c.Users.length + " of 11 members ]")));
+                      mainC.append(cEl("p").append(cEl("a").tEl("Leave Clan").listener("click", function() {
+                          removeMember(e.Leader, e.Name);
+                      })));
                       var rFluid = document.createElement("div");
                       rFluid.id = "tblContainer";
                       //rFluid.className = "row-fluid";
@@ -159,4 +162,28 @@ function GenClanList() {
             $("#ddc").select2();
         });
     return ddc;
+}
+
+function approveMember(e) {
+    var uname = e.srcElement.getAttribute("cel-uname");
+    var cname = e.srcElement.getAttribute("cel-cname");
+    $.post("Actions/User.aspx", { type: "AUC", name: uname, clanName: cname },
+        function(c) {
+            console.log(c);
+            if (c === "1") {
+                genClans();
+            }
+        });
+}
+
+function removeMember(e) {
+    var uname = e.srcElement.getAttribute("cel-uname");
+    var cname = e.srcElement.getAttribute("cel-cname");
+    $.post("Actions/User.aspx", { type: "RMUC", name : uname, clanName : cname },
+        function (c) {
+            console.log(c);
+            if (c === "1") {
+                genClans();
+            }
+        });
 }

@@ -31,23 +31,8 @@ namespace FCW.Actions
 
                 switch (requestType)
                 {
-                    case "LO": //Logout
-                        Logout();
-                        break;
-                    case "GU": //Get User
+                    case "GU": //Get User *************************************
                         GetUserDetials();
-                        break;
-                    case "CDL": //Clan Details
-                        GetClanDetails();
-                        break;
-                    case "LDL": //League Details
-                        GetLeagueList(user);
-                        break;
-                    case "CL": //Create Clan
-                        CreateClan();
-                        break;
-                    case "GAC": //Get All Clans
-                        GetAllClans();
                         break;
                     case "RFR": //Refresh UserDetails
                         RefreshUserDetials(user.Guid);
@@ -55,10 +40,30 @@ namespace FCW.Actions
                     case "GAU": //Get All Users
 
                         break;
+                    case "LO": //Logout
+                        Logout();
+                        break;
+                    case "CDL": //Clan Details**********************************
+                        GetClanDetails();
+                        break;
+                    case "CL": //Create Clan
+                        CreateClan();
+                        break;
+                    case "GAC": //Get All Clans
+                        GetAllClans();
+                        break;
                     case "JC": //Join Clan
                         JoinClan();
                         break;
-
+                    case "AUC": //Approve user
+                        ApproveUserClan(user.Guid);
+                        break;
+                    case "RMUC": //Remove user
+                        RemoveUserClan(user.Guid);
+                        break;
+                    case "LDL": //League Details**********************************
+                        GetLeagueList(user);
+                        break;
                     default:
                         break;
                 }
@@ -105,7 +110,6 @@ namespace FCW.Actions
                 }
             }
         }
-
         private Objects.League GetLeagueDetails(int id)
         {
             var league = new Objects.League();
@@ -138,7 +142,6 @@ namespace FCW.Actions
 
             return league;
         }
-
         private void GetUserDetials()
         {
             var json = new JavaScriptSerializer().Serialize(user);
@@ -146,7 +149,6 @@ namespace FCW.Actions
             Response.ClearHeaders();
             Response.Write(json);
         }
-
         private void RefreshUserDetials(Guid guid)
         {
 
@@ -184,7 +186,6 @@ namespace FCW.Actions
                 }
             }
         }
-
         private void CreateClan()
         {
             var name = Request.Params["name"];
@@ -209,7 +210,6 @@ namespace FCW.Actions
                 }
             }
         }
-
         private void JoinClan()
         {
             var name = Request.Params["name"];
@@ -232,7 +232,6 @@ namespace FCW.Actions
                 }
             }
         }
-
         private void GetAllClans()
         {
             var clans = new List<Objects.Clan>();
@@ -264,7 +263,6 @@ namespace FCW.Actions
                 }
             }
         }
-
         private void GetClanDetails()
         {
             var id = Convert.ToInt64(Request.Params["Id"]);
@@ -299,6 +297,54 @@ namespace FCW.Actions
             Response.ClearContent();
             Response.ClearHeaders();
             Response.Write(json);
+        }
+
+        private void ApproveUserClan(Guid guid)
+        {
+            var name = Request.Params["name"];
+            var clanName = Request.Params["clanName"];
+
+            using (var conn = new SqlConnection(_connectionstring))
+            {
+                using (var cmd = new SqlCommand("ClanApprovePlayer", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@SenderGuid", SqlDbType.UniqueIdentifier).Value = user.Guid;
+                    cmd.Parameters.Add("@Username", SqlDbType.VarChar, 20).Value = name;
+                    cmd.Parameters.Add("@ClanName", SqlDbType.VarChar, 20).Value = clanName;
+
+                    conn.Open();
+                    cmd.ExecuteScalar();
+
+                    Response.ClearContent();
+                    Response.ClearHeaders();
+                    Response.Write("1");
+                }
+            }
+        }
+
+        private void RemoveUserClan(Guid guid)
+        {
+            var name = Request.Params["name"];
+            var clanName = Request.Params["clanName"];
+
+            using (var conn = new SqlConnection(_connectionstring))
+            {
+                using (var cmd = new SqlCommand("ClanRemovePlayer", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@SenderGuid", SqlDbType.UniqueIdentifier).Value = user.Guid;
+                    cmd.Parameters.Add("@Username", SqlDbType.VarChar, 20).Value = name;
+                    cmd.Parameters.Add("@ClanName", SqlDbType.VarChar, 20).Value = clanName;
+
+                    conn.Open();
+                    cmd.ExecuteScalar();
+
+                    Response.ClearContent();
+                    Response.ClearHeaders();
+                    Response.Write("1");
+                }
+            }
         }
     }
 }

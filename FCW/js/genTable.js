@@ -173,29 +173,43 @@ function genClanTable(e) {
     hRow.append(cEl("th").append(cEl("span").attr("data-toggle", "tooltip").attr("data-placement", "top").attr("title", "Member Name").tEl("Member Name")));
     hRow.append(cEl("th").append(cEl("span").attr("data-toggle", "tooltip").attr("data-placement", "top").attr("title", "Points").tEl("Pts")));
     hRow.append(cEl("th").append(cEl("span").attr("data-toggle", "tooltip").attr("data-placement", "top").attr("title", "Member Since").tEl("Member Since")));
-    hRow.append(cEl("th").append(cEl("span").attr("data-toggle", "tooltip").attr("data-placement", "top").attr("title", "Approve/Remove Users").tEl("Actions")));
+    hRow.append(cEl("th").append(cEl("span").attr("data-toggle", "tooltip").attr("data-placement", "top").attr("title", "Roles and Actions").tEl("###")));
     tHead.appendChild(hRow);
 
     //body
     var tBody = document.createElement("tbody");
     var cUserLeader = cuser.Username === e.Leader;
 
-    var remove = cEl("i").attr("class", "icon-cancel-1").attr("style", "color:red;font-size:20px;");
-    var apprej = cEl("span").append(cEl("i").attr("class", "icon-ok").attr("style", "color:green;font-size:20px;")).append(cEl("i").attr("class", "icon-cancel-1").attr("style", "color:red;font-size:20px;margin-left:10px;"));
-    //icon-cancel-1
+    var remove = cEl("i").attr("class", "icon-cancel-1").attr("style", "color:red;font-size:20px;").listener("click",removeMember);
+
     for (var j = 0; j < e.Users.length; j++) {
+        var cun = e.Users[j].Username;
+        var cn = e.Name;
         var row = cEl("tr").append(cEl("td").tEl(e.Users[j].Username)).append(cEl("td").tEl(e.Users[j].Points)).append(cEl("td").tEl(e.Users[j].InClanSince));
         row.className = e.Users[j].Username === e.Leader ? "leader" : "";
+        if (cun === e.Leader) {
+            row.append(cEl("td").append(cEl("span").tEl("Captain")));
+        }
         if (cUserLeader) {
-            if (e.Users[j].Approved) {
-                row.append(cEl("td").append(remove));
-            } else {
-                row.append(cEl("td").append(apprej));
+            if (e.Users[j].Username !== e.Leader) {
+                if (e.Users[j].isApproved) {
+                    row.append(cEl("td").append(
+                        cEl("i").attr("class", "icon-cancel-1").attr("style", "color:red;font-size:20px;").attr("cel-uname",cun).attr("cel-cname",cn).listener("click", removeMember)
+                        ));
+                } else {
+                    row.append(cEl("td").append(
+                            cEl("span").append(
+                                cEl("i").attr("class", "icon-ok").attr("style", "color:green;font-size:20px;").attr("cel-uname", cun).attr("cel-cname", cn).listener("click", approveMember)
+                                ).append(
+                                cEl("i").attr("class", "icon-cancel-1").attr("style", "color:red;font-size:20px;margin-left:10px;").attr("cel-uname", cun).attr("cel-cname", cn).listener("click", removeMember)
+                            )
+                        ));
+                }
             }
         }
-        
-        tBody.append(row);
+    tBody.append(row);
     }
+        
     mainTag.appendChild(tHead);
     mainTag.appendChild(tBody);
 
