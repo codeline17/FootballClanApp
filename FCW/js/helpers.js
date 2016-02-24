@@ -23,12 +23,13 @@ function getHeaderInfo() {
          var btnLogout = cEl("a").attr("href", "#").attr("class", "btn btn-orange pull-right").tEl("Logout").listener("click", fnLogout, false);
          var goldenBall = cEl("span").attr("class", "creditBall header-margin");
          var userEl = cEl("h4").attr("class", "media-heading").tEl(username).append(cEl("span").attr("class", "userCredit").tEl(userCredit).append(goldenBall));
-         var credit = cEl("p").attr("style", "padding-left:5px;").tEl("Level :").append(cEl("span").attr("class", "header-margin label " + overallBadgeClass).tEl(overallBadge)).append(cEl("span").attr("style", "margin-left:13%;").tEl("Form : ")).append(genProgressBar(lastBadge));//.append(cEl("span").attr("class", "header-margin label " + lastBadgeClass).tEl(lastBadge));
-         var badges = cEl("p").append(btnLogout);
+         var credit = cEl("p").attr("class", "row-fluid").attr("style","padding: 5px;")
+             .append(cEl("div").attr("class", "row-fluid span4").tEl("Level :").append(cEl("span").attr("class", "header-margin label " + overallBadgeClass).tEl(overallBadge)))
+             .append(cEl("div").attr("class", "row-fluid span8").append(cEl("span").attr("style","float:left;margin-right:1em;").tEl("Form : ")).append(genProgressBar(lastBadge)));
+         var badges = cEl("p").attr("class", "row-fluid").append(btnLogout);
 
          var userDetailEl = cEl("div").attr("class", "media-body").append(userEl).append(credit).append(badges);
-
-         var thumbNail = cEl("a").attr("class", "thumbnail pull-left").attr("href", "#").append(cEl("img").attr("class", "media-object").attr("style", "height:60px;").attr("src", "style/images/default_avatar.png"));
+         var thumbNail = cEl("a").attr("class", "thumbnail pull-left").attr("data-toggle", "modal").attr("data-target", "#userModal").attr("href", "#").append(cEl("img").attr("class", "media-object").attr("style", "height:60px;").attr("src", "style/images/avatars/" + cuser.AvatarId + ".png"));
          var body = cEl("div").attr("class", "media-body").append(userEl);
 
          body.append(thumbNail).append(userDetailEl);
@@ -37,7 +38,7 @@ function getHeaderInfo() {
 
          h.innerHTML = "";
          h.appendChild(hEl);
-
+         genUserDetails();
          headerInterval = setTimeout(function () { getHeaderInfo() }, 60000);
      });
 }
@@ -68,7 +69,7 @@ function genProgressBar(w) {
     }
     console.log(w);
 
-    var cDiv = cEl("div").attr("class", "progress").attr("style", "width:40%;float:right;").append(cEl("div").attr("class", "progress-bar " + cl).attr("role", "progressbar").attr("aria-valuenow", w * 2).attr("aria-valuemin", 0).attr("aria-valuemax", 100).attr("style", "width:" + w * 2 + "%;").tEl(Math.floor(w / 10)));
+    var cDiv = cEl("div").attr("class", "progress").append(cEl("div").attr("class", "progress-bar " + cl).attr("role", "progressbar").attr("aria-valuenow", w * 2).attr("aria-valuemin", 0).attr("aria-valuemax", 100).attr("style", "width:" + w * 2 + "%;").tEl(Math.floor(w / 10)));
 
     return cDiv;
 }

@@ -35,6 +35,10 @@
     body.append(tabsEl).append(contentEl);
 
     mainC.append(body);
+
+    /***After Event Assignments***/
+    $('[data-toggle="tooltip"]').tooltip();
+    /****************************/
 }
 
 
@@ -50,8 +54,8 @@ function getLeagueData() {
             if (e[i].Name) {
                 var l = { Name: e[i].Name }
                 tabs.push(l);
-
-                var c = genLeagueTable(e[i].Name,e[i].Users);
+                var els = e[i].Users.length > 0 ? e[i].Users : e[i].Clans;
+                var c = genLeagueTable(e[i].Name, els);
                 content.push(c);
             }
         }
@@ -73,14 +77,14 @@ function genLeagueTable(n,u) {
     var tHead = document.createElement("thead");
     var hRow = document.createElement("tr");
     hRow.append(cEl("th").append(cEl("span").attr("data-toggle", "tooltip").attr("data-placement", "top").attr("title", "#").tEl("#")));
-    hRow.append(cEl("th").append(cEl("span").attr("data-toggle", "tooltip").attr("data-placement", "top").attr("title", "League").tEl("Member")));
-    hRow.append(cEl("th").append(cEl("span").attr("data-toggle", "tooltip").attr("data-placement", "top").attr("title", "Start Time").tEl("Points")));
+    hRow.append(cEl("th").append(cEl("span").attr("data-toggle", "tooltip").attr("data-placement", "top").attr("title", "Member").tEl("Member")));
+    hRow.append(cEl("th").append(cEl("span").attr("data-toggle", "tooltip").attr("data-placement", "top").attr("title", "Points").tEl("Points")));
     tHead.appendChild(hRow);
 
     var tBody = document.createElement("tbody");
     for (var i = 0; i < u.length; i++) {
         var tdRang = cEl("td").tEl(i + 1);
-        var tdUsername = cEl("td").tEl(u[i].Username);
+        var tdUsername = cEl("td").tEl(u[i].Username ? u[i].Username : u[i].Name);
         var tdPoints = cEl("td").tEl(u[i].Points);
         var row = cEl("tr").append(tdRang).append(tdUsername).append(tdPoints);
         console.log(cuser);

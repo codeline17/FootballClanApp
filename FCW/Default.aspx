@@ -128,6 +128,7 @@
 <script src="style/js/bootstrap-datepicker.js"></script>
 <script src="style/js/select2.js"></script>
 <script src="style/js/toggle.js"></script>
+<script src="js/user.js"></script>
 <script src="js/helpers.js"></script>
 <script src="js/genTable.js"></script>
 <script src="js/genClans.js"></script>

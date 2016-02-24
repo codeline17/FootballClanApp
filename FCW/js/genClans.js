@@ -73,9 +73,7 @@
                           clanPts += c.Users[i].Points;
                       }
                       mainC.append(cEl("h3").tEl(c.Name + "   ").append(cEl("small").tEl("[ " + clanPts + " Pts ]")).append(cEl("small").tEl("  [ " + c.Users.length + " of 11 members ]")));
-                      mainC.append(cEl("p").append(cEl("a").tEl("Leave Clan").listener("click", function() {
-                          removeMember(e.Leader, e.Name);
-                      })));
+                      mainC.append(cEl("p").append(cEl("a").attr("href","#").attr("cel-uname", c.Leader).attr("cel-cname", c.Name).tEl("Leave Clan").listener("click", removeMember)));
                       var rFluid = document.createElement("div");
                       rFluid.id = "tblContainer";
                       //rFluid.className = "row-fluid";
@@ -114,7 +112,9 @@ function CreateClan() {
                 //<button type="button" class="close" data-dismiss="alert">×</button>
                 var ccp = document.getElementById("ccp");
                 ccp.appendChild(errorBox("A Clan with this name already exists. Please try another name."));
+                genHeader();
             } else {
+                genHeader();
                 genClans();
             }
 
@@ -132,8 +132,10 @@ function JoinClan() {
                 //alert alert-error
                 //<button type="button" class="close" data-dismiss="alert">×</button>
                 var jcp = document.getElementById("jcp");
-                jcp.appendChild(errorBox("Could not join this clan, please try later."));
+                jcp.appendChild(errorBox("Could not join this clan, please try again later."));
+                genHeader();
             } else {
+                genHeader();
                 genClans();
             }
         });

@@ -178,18 +178,17 @@ function genClanTable(e) {
 
     //body
     var tBody = document.createElement("tbody");
-    var cUserLeader = cuser.Username === e.Leader;
-
-    var remove = cEl("i").attr("class", "icon-cancel-1").attr("style", "color:red;font-size:20px;").listener("click",removeMember);
-
+    var cUserLeader = cuser.Username.toLowerCase() === e.Leader.toLowerCase();
+    
     for (var j = 0; j < e.Users.length; j++) {
         var cun = e.Users[j].Username;
         var cn = e.Name;
         var row = cEl("tr").append(cEl("td").tEl(e.Users[j].Username)).append(cEl("td").tEl(e.Users[j].Points)).append(cEl("td").tEl(e.Users[j].InClanSince));
         row.className = e.Users[j].Username === e.Leader ? "leader" : "";
         if (cun === e.Leader) {
-            row.append(cEl("td").append(cEl("span").tEl("Captain")));
+           row.append(cEl("td").append(cEl("span").tEl("Captain")));
         }
+        console.log(cUserLeader);
         if (cUserLeader) {
             if (e.Users[j].Username !== e.Leader) {
                 if (e.Users[j].isApproved) {

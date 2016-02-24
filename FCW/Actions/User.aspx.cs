@@ -135,6 +135,12 @@ namespace FCW.Actions
                                 new Objects.User(reader["PartName"].ToString(),Convert.ToInt32(reader["Points"]))
                                 );
                         }
+                        else
+                        {
+                            league.Clans.Add(
+                                new Clan(reader["PartName"].ToString(), Convert.ToInt32(reader["Points"]))
+                                );
+                        }
 
                     }
                 }

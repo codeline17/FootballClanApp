@@ -118,3 +118,14 @@ a.header-margin{
 span.userCredit {
         float: right;
 }
+
+img.desaturate { 
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+}
+
+img.avatars {
+    height: 100px;
+    margin-left: 15px;
+    margin-top: 5px;
+}
