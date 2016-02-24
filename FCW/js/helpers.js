@@ -8,6 +8,7 @@ function getHeaderInfo() {
     $.post("Actions/User.aspx", { type: "RFR" },
      function (e) {
          e = JSON.parse(e);
+         cuser = e;
          var h = document.getElementById("mainHeader");
 
          var username = e.Username.toUpperCase() + "     - " + e.Points + " POINTS";
