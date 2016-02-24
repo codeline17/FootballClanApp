@@ -77,14 +77,6 @@
     <Content Include="style\css\select2.css" />
     <Content Include="style\css\tbl-style.css" />
     <Content Include="style\css\toggle.css" />
-    <Content Include="style\images\avatars\m_1.png" />
-    <Content Include="style\images\avatars\m_2.png" />
-    <Content Include="style\images\avatars\m_3.png" />
-    <Content Include="style\images\avatars\m_4.png" />
-    <Content Include="style\images\avatars\m_5.png" />
-    <Content Include="style\images\avatars\w_1.png" />
-    <Content Include="style\images\avatars\w_2.png" />
-    <Content Include="style\images\avatars\w_3.png" />
     <Content Include="style\images\credit.png" />
     <Content Include="style\images\credit_1.png" />
     <Content Include="style\images\default_avatar.png" />
@@ -282,6 +274,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="style\images\avatars\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Objects\Objects.csproj">
