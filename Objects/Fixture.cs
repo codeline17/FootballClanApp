@@ -24,12 +24,13 @@ namespace Objects
         public int HomeRed { get; set; }
         public int AwayRed { get; set; }
         public int PointsWon => Games.Sum(x => x.PointsWon);
+        public string Pack { get; set; }
 
 
         public Fixture(int id, Team hometeam, 
                         Team awayteam, List<Event> events, 
                         string minute, Competition league, 
-                        List<Game> games, DateTime starttime, bool mSealed)
+                        List<Game> games, DateTime starttime, bool mSealed, string pack)
         {
             ID = id;
             HomeTeam = hometeam;
@@ -40,6 +41,7 @@ namespace Objects
             Games = games;
             StartTime = starttime;
             Sealed = mSealed;
+            Pack = pack;
         }
 
         public Fixture(Team hometeam, Team awayteam, Competition league, 

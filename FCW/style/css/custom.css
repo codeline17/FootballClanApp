@@ -132,6 +132,8 @@ img.avatars {
 
 i.gold {
     color: #d4af37;
+    vertical-align: baseline;
+    margin-right: 30px;
 }
 
 i.silver {
@@ -140,4 +142,12 @@ i.silver {
 
 i.bronze {
     color: #cd7f32;
+}
+
+span.cups {
+    margin: 0px 20px;
+}
+
+tr.extra {
+    background-color: lightgoldenrodyellow;
 }

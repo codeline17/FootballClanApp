@@ -9,15 +9,11 @@ namespace Objects
     public class Clan
     {
         public string Name { get; set; }
-
         public List<User> Users { get; set; }
-
+        public List<Trophy> Trophies { get; set; } 
         public DateTime CreatedOn { get; set; }
-
         public string Leader { get; set; }
-
         public int UserCount { get; set; }
-
         public bool isPrivate { get; set; }
         public int Points { get; set; }
 
@@ -28,6 +24,7 @@ namespace Objects
             CreatedOn = createdOn;
             Leader = leader;
             UserCount = usercount;
+            Trophies = new List<Trophy>();
         }
 
         public Clan(string name, int usercount, string leader)
@@ -36,11 +33,13 @@ namespace Objects
             UserCount = usercount;
             Leader = leader;
             Users = new List<User>();
+            Trophies = new List<Trophy>();
         }
 
         public Clan()
         {
             Users = new List<User>();
+            Trophies = new List<Trophy>();
         }
 
         public Clan(string name, int points)

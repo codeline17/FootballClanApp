@@ -130,7 +130,9 @@ namespace FCW.Actions
                                         }
                                         ,reader["Repeater"].ToString())
                                     }
-                                    ,Convert.ToDateTime(reader["StartDate"]),Convert.ToBoolean(reader["GameSealed"])));
+                                    ,Convert.ToDateTime(reader["StartDate"]),
+                                    Convert.ToBoolean(reader["GameSealed"]),
+                                    reader["FixturePack"].ToString()));
                         }
                         else
                         {
@@ -259,7 +261,9 @@ namespace FCW.Actions
                                         ,reader["Repeater"].ToString()
                                         ,Convert.ToInt16(reader["Value"]))
                                     }
-                                    ,Convert.ToDateTime(reader["StartDate"]), Convert.ToBoolean(reader["GameSealed"])));
+                                    ,Convert.ToDateTime(reader["StartDate"]),
+                                    Convert.ToBoolean(reader["GameSealed"]),
+                                    reader["FixturePack"].ToString()));
                         }
                         else
                         {

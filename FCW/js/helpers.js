@@ -22,7 +22,7 @@ function getHeaderInfo() {
          var overallBadgeClass = "label-warning";
 
          var lastBadge = (e.LastSuccessfulPredictions / e.LastPredictions) * 200;
-         lastBadge = lastBadge ? lastBadge > 50 ? 50 : lastBadge : 10;
+         //lastBadge = lastBadge ? lastBadge > 50 ? 50 : lastBadge : 10;
 
          var btnLogout = cEl("a").attr("href", "#").attr("class", "btn btn-orange pull-right").tEl("Logout").listener("click", fnLogout, false);
          var goldenBall = cEl("span").attr("class", "creditBall header-margin");
@@ -55,24 +55,25 @@ function fnLogout() {
 
 function genProgressBar(w) {
     var cl = "progress-bar-";
+    w = w ? w : 0;
     switch (true) {
 
-        case (w < 12.5):
+        case (w < 25):
             cl += "red";
             break;
-        case (w > 12.5 && w < 25):
+        case (w > 25 && w < 50):
             cl += "orange";
             break;
-        case (w > 25 && w < 37.5):
+        case (w >= 50 && w < 70):
             cl += "blue";
             break;
-        case (w > 37.5):
+        case (w >= 70):
             cl += "green";
             break;
     }
     console.log(w);
 
-    var cDiv = cEl("div").attr("class", "progress").append(cEl("div").attr("class", "progress-bar " + cl).attr("role", "progressbar").attr("aria-valuenow", w * 2).attr("aria-valuemin", 0).attr("aria-valuemax", 100).attr("style", "width:" + w * 2 + "%;").tEl(Math.floor(w / 10)));
+    var cDiv = cEl("div").attr("class", "progress").append(cEl("div").attr("class", "progress-bar " + cl).attr("role", "progressbar").attr("aria-valuenow", w / 2).attr("aria-valuemin", 0).attr("aria-valuemax", 100).attr("style", "width:" + w + "%;").tEl(Math.floor(w)));
 
     return cDiv;
 }

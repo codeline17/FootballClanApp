@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Security.AccessControl;
 using System.Web;
 using System.Web.Script.Serialization;
 using System.Web.UI;
@@ -314,14 +315,29 @@ namespace FCW.Actions
                     while (reader.Read())
                     {
                         clan.Name = reader["ClanName"].ToString();
-                        clan.Users.Add(
+                        if (clan.Users.Count(x => x.Username == reader["UserName"].ToString()) == 0)
+                        {
+                            clan.Users.Add(
                                 new Objects.User(
-                                    reader["UserName"].ToString(), 
+                                    reader["UserName"].ToString(),
                                     Convert.ToDateTime(reader["MemberSince"].ToString()).ToString("dd/MM/yyyy"),
                                     Convert.ToBoolean(reader["Approved"]),
                                     Convert.ToInt16(reader["Points"].ToString())
                                     )
                             );
+                        }
+
+                        if (clan.Trophies.Count(x => x.Id == Convert.ToInt16(reader["TrophyId"].ToString())) == 0)
+                        {
+                            clan.Trophies.Add(
+                                new Objects.Trophy(
+                                    Convert.ToInt16(reader["TrophyCount"].ToString()), 
+                                    reader["TrophyName"].ToString(),
+                                    reader["TrophyColor"].ToString()
+                                    )
+                                );
+                        }
+                        
                         clan.Leader = reader["isLeader"].ToString() != "0" ? reader["UserName"].ToString() : clan.Leader;
                         clan.isPrivate = Convert.ToBoolean(reader["Private"]);
                     }

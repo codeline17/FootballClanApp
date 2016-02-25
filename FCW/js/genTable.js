@@ -95,6 +95,7 @@ function getMatchRow(match, state) {
     for (var i = 0; i < match.Games.length; i++) {
         tr.appendChild(getGameCell(match.ID, match.HomeTeam.Name, match.AwayTeam.Name, match.Sealed, match.Games[i], state));
         tr.className = (match.Sealed ? "greyed" : "");
+        tr.className = tr.className + " " + match.Pack.toLowerCase();
     }
 
     //Points Won
@@ -186,28 +187,31 @@ function genClanTable(e) {
         var row = cEl("tr").append(cEl("td").tEl(e.Users[j].Username)).append(cEl("td").tEl(e.Users[j].Points)).append(cEl("td").tEl(e.Users[j].InClanSince));
         row.className = e.Users[j].Username === e.Leader ? "leader" : "";
         if (cun === e.Leader) {
-           row.append(cEl("td").append(cEl("span").tEl("Captain")));
+           row.append(cEl("td").append(cEl("span").tEl("[Captain]")));
         } else {
-            row.append(cEl("td").tEl(""));
-        }
-
-        if (cUserLeader) {
-            if (e.Users[j].Username !== e.Leader) {
-                if (e.Users[j].isApproved) {
-                    row.append(cEl("td").append(
-                        cEl("i").attr("class", "icon-cancel-1").attr("style", "color:red;font-size:20px;").attr("cel-uname",cun).attr("cel-cname",cn).listener("click", removeMember)
-                        ));
-                } else {
-                    row.append(cEl("td").append(
-                            cEl("span").append(
-                                cEl("i").attr("class", "icon-ok").attr("style", "color:green;font-size:20px;").attr("cel-uname", cun).attr("cel-cname", cn).listener("click", approveMember)
-                                ).append(
-                                cEl("i").attr("class", "icon-cancel-1").attr("style", "color:red;font-size:20px;margin-left:10px;").attr("cel-uname", cun).attr("cel-cname", cn).listener("click", removeMember)
-                            )
-                        ));
+            if (cUserLeader) {
+                if (e.Users[j].Username !== e.Leader) {
+                    if (e.Users[j].isApproved) {
+                        row.append(cEl("td").append(
+                            cEl("i").attr("class", "icon-cancel-1").attr("style", "color:red;font-size:20px;").attr("cel-uname", cun).attr("cel-cname", cn).listener("click", removeMember)
+                            ));
+                    } else {
+                        row.append(cEl("td").append(
+                                cEl("span").append(
+                                    cEl("i").attr("class", "icon-ok").attr("style", "color:green;font-size:20px;").attr("cel-uname", cun).attr("cel-cname", cn).listener("click", approveMember)
+                                    ).append(
+                                    cEl("i").attr("class", "icon-cancel-1").attr("style", "color:red;font-size:20px;margin-left:10px;").attr("cel-uname", cun).attr("cel-cname", cn).listener("click", removeMember)
+                                )
+                            ));
+                    }
                 }
+            } else {
+                row.append(cEl("td").tEl(""));
             }
         }
+
+        
+
     tBody.append(row);
     }
         
