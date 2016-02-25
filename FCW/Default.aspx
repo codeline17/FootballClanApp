@@ -60,7 +60,7 @@
           <a><i class="icon-info-circled icn"></i>Livescore</a>
       </li>
       <li content-type="account">
-          <a><i class="icon-user icn"></i>My Account</a>
+          <a><i class="icon-basket icn"></i>My Store</a>
       </li>
     </ul>
   </nav>

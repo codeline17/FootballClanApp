@@ -5,6 +5,10 @@ function genHeader() {
 }
 
 function getHeaderInfo() {
+
+    if (document.getElementById("userModal") && document.getElementById("userModal").getAttribute("aria-hidden") === "false")
+        return;
+
     $.post("Actions/User.aspx", { type: "RFR" },
      function (e) {
          e = JSON.parse(e);
@@ -29,7 +33,7 @@ function getHeaderInfo() {
          var badges = cEl("p").attr("class", "row-fluid").append(btnLogout);
 
          var userDetailEl = cEl("div").attr("class", "media-body").append(userEl).append(credit).append(badges);
-         var thumbNail = cEl("a").attr("class", "thumbnail pull-left").attr("data-toggle", "modal").attr("data-target", "#userModal").attr("href", "#").append(cEl("img").attr("class", "media-object").attr("style", "height:60px;").attr("src", "style/images/avatars/" + cuser.AvatarId + ".png"));
+         var thumbNail = cEl("a").attr("class", "thumbnail pull-left").attr("href", "#").append(cEl("img").attr("class", "media-object").attr("style", "height:60px;").attr("src", "style/images/avatars/" + cuser.AvatarId + ".png")).listener("click", genUserDetails);
          var body = cEl("div").attr("class", "media-body").append(userEl);
 
          body.append(thumbNail).append(userDetailEl);
@@ -38,7 +42,6 @@ function getHeaderInfo() {
 
          h.innerHTML = "";
          h.appendChild(hEl);
-         genUserDetails();
          headerInterval = setTimeout(function () { getHeaderInfo() }, 60000);
      });
 }

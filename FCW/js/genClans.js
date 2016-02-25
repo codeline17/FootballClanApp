@@ -73,7 +73,7 @@
                           clanPts += c.Users[i].Points;
                       }
                       mainC.append(cEl("h3").tEl(c.Name + "   ").append(cEl("small").tEl("[ " + clanPts + " Pts ]")).append(cEl("small").tEl("  [ " + c.Users.length + " of 11 members ]")));
-                      mainC.append(cEl("p").append(cEl("a").attr("href","#").attr("cel-uname", c.Leader).attr("cel-cname", c.Name).tEl("Leave Clan").listener("click", removeMember)));
+                      mainC.append(cEl("p").append(cEl("a").attr("href","#").attr("cel-uname", cuser.Username).attr("cel-cname", c.Name).tEl("Leave Clan").listener("click", removeMember)));
                       var rFluid = document.createElement("div");
                       rFluid.id = "tblContainer";
                       //rFluid.className = "row-fluid";
@@ -173,6 +173,7 @@ function approveMember(e) {
         function(c) {
             console.log(c);
             if (c === "1") {
+                getHeaderInfo();
                 genClans();
             }
         });
@@ -185,6 +186,7 @@ function removeMember(e) {
         function (c) {
             console.log(c);
             if (c === "1") {
+                getHeaderInfo();
                 genClans();
             }
         });

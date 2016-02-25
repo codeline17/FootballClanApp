@@ -187,8 +187,10 @@ function genClanTable(e) {
         row.className = e.Users[j].Username === e.Leader ? "leader" : "";
         if (cun === e.Leader) {
            row.append(cEl("td").append(cEl("span").tEl("Captain")));
+        } else {
+            row.append(cEl("td").tEl(""));
         }
-        console.log(cUserLeader);
+
         if (cUserLeader) {
             if (e.Users[j].Username !== e.Leader) {
                 if (e.Users[j].isApproved) {

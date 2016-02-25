@@ -40,6 +40,9 @@ namespace FCW.Actions
                     case "GAU": //Get All Users
 
                         break;
+                    case "UUD": //Update User Details
+                        UpdateUserDetails();
+                        break;
                     case "LO": //Logout
                         Logout();
                         break;
@@ -74,6 +77,31 @@ namespace FCW.Actions
             }
 
             Response.End();
+        }
+
+        private void UpdateUserDetails()
+        {
+            var pwd = Request.Params["pwd"];
+            var pwdr = Request.Params["pwdr"];
+            var avid = Request.Params["avid"];
+
+            using (var conn = new SqlConnection(_connectionstring))
+            {
+                using (var cmd = new SqlCommand("UserUpdateDetails", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@userGuid", SqlDbType.UniqueIdentifier).Value = user.Guid;
+                    cmd.Parameters.Add("@Password", SqlDbType.VarChar, 50).Value = pwd == pwdr && pwd != null && pwdr != null ? pwd : "";
+                    cmd.Parameters.Add("@AvatarId", SqlDbType.Int).Value = Convert.ToInt32(avid);
+
+                    conn.Open();
+                    var r = cmd.ExecuteScalar().ToString();
+
+                    Response.ClearContent();
+                    Response.ClearHeaders();
+                    Response.Write(r);
+                }
+            }
         }
 
         private void Logout()

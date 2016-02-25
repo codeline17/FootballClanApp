@@ -10,11 +10,11 @@
         this.appendChild(document.createTextNode(t));
         return this;
     };
-    Element.prototype.append = function (s) { //Append Multiple Childs
+    Element.prototype.append = function(s) { //Append Multiple Childs
         if (s.constructor !== Array) {
             this.appendChild(s);
             return this;
-        } else if(s.constructor === Array){
+        } else if (s.constructor === Array) {
             for (var i = 0; i < s.length; i += 1) {
                 this.appendChild(s[i]);
             }
@@ -22,16 +22,19 @@
         } else {
             throw ("Cannot define constructor of argument 1.");
         }
-    }
+    };
     Element.prototype.wr = function (s) {
         this.wrapper = s;
         return this;
     };
-    Element.prototype.listener = function (ev, fn, status) {
+    Element.prototype.listener = function(ev, fn, status) {
         this.addEventListener(ev, fn, status);
         return this;
-    }
-
+    };
+    Element.prototype.appendFirst = function (childNode) {
+        if (this.firstChild) this.insertBefore(childNode, this.firstChild);
+        else this.appendChild(childNode);
+    };
     String.prototype.format = function () { //String format
         var formatted = this;
         for (var i = 0; i < arguments.length; i++) {
