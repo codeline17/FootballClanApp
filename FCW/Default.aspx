@@ -41,11 +41,11 @@
 <div class="body-wrapper">
   <nav id="menu" class="menu">
     <ul id="tiny">
-      <li class="active" content-type="matches">
-          <a><i class="icon-dribbble-circled icn"></i>My Matches</a>        
+      <li class="active" content-type="leadboard">
+          <a><i class="icon-users-1 icn"></i>My Details</a>
       </li>
-      <li content-type="predictions">
-          <a><i class="icon-magic icn"></i>My Predictions</a>
+      <li content-type="matches">
+          <a><i class="icon-dribbble-circled icn"></i>My Matches</a>        
       </li>
       <li content-type="clans">
           <a><i class="icon-users icn"></i>My Clans</a>
@@ -53,11 +53,11 @@
       <li content-type="leagues">
           <a><i class="icon-users-1 icn"></i>My Leagues</a>
       </li>
-      <li content-type="leadboard">
-          <a><i class="icon-users-1 icn"></i>Leader Board</a>
+      <li content-type="predictions">
+          <a><i class="icon-magic icn"></i>Past Predictions</a>
       </li>
-      <li content-type="livescore">
-          <a><i class="icon-info-circled icn"></i>Livescore</a>
+      <li content-type="chat">
+          <a><i class="icon-comment icn"></i>Message Board</a>
       </li>
       <li content-type="account">
           <a><i class="icon-basket icn"></i>My Store</a>
