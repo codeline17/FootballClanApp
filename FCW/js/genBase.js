@@ -287,7 +287,7 @@ function getFullDate(date) {
     if (mm < 10) {
         mm = "0" + mm;
     }
-    return dd + "/" + mm + "/" + yyyy;
+    return dd - 1 + "/" + mm + "/" + yyyy;
 }
 
 function makeid() {
