@@ -151,3 +151,55 @@ span.cups {
 tr.extra {
     background-color: lightgoldenrodyellow;
 }
+
+.btn-group-justified {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: separate;
+    border-spacing: 10px;
+}
+
+.btn-group-justified>.btn, .btn-group-justified>.btn-group {
+    display: table-cell;
+    float: none;
+    width: 1%;
+}
+
+.dNone {
+    display: none;
+}
+
+select.TG {
+    height: 40px !important;
+    width: 80px !important;
+    display: block;
+    margin: auto;
+    font-size: 25px;
+}
+
+select.CS {
+    height: 40px !important;
+    width: 90px !important;
+    display: block;
+    margin: auto;
+    font-size: 25px;
+}
+
+.disabledGames {
+    opacity: 0.6;
+}
+
+.mSealed {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+table.table-hover {
+    cursor: pointer;
+}
+
+.lbFav {
+    font-size: 20px;
+    color: gold;
+}

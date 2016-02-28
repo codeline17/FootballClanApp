@@ -71,7 +71,6 @@ function genProgressBar(w) {
             cl += "green";
             break;
     }
-    console.log(w);
 
     var cDiv = cEl("div").attr("class", "progress").append(cEl("div").attr("class", "progress-bar " + cl).attr("role", "progressbar").attr("aria-valuenow", w / 2).attr("aria-valuemin", 0).attr("aria-valuemax", 100).attr("style", "width:" + w + "%;").tEl(Math.floor(w)));
 

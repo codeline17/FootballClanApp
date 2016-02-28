@@ -126,7 +126,7 @@ function getGameCell(matchId, home, away, sealed, game, state) {
             odd.setAttribute("data-placement", "top");
             odd.setAttribute("data-group", game.Slug);
             odd.setAttribute("data-odd", matchId + "|" + game.Slug + "|" + game.Outcomes[i].Name);
-            odd.setAttribute("title", game.Outcomes[i].Name.replace("[Home]", home).replace("[Away]", away).replace("[Draw]", "Draw").replace(" ", ""))
+            odd.setAttribute("title", game.Outcomes[i].Name.replace("[Home]", home).replace("[Away]", away).replace("[Draw]", "Draw").replace(" ", ""));
             odd.innerText = game.Outcomes[i].Name.replace("[Home]", home).replace("[Away]", away).replace("[Draw]", "Draw").replace(" ", "").substring(0, 12);
             odd.id = nId;
             if (event)
@@ -156,8 +156,6 @@ function getGameCell(matchId, home, away, sealed, game, state) {
     else if (game.Repeater === "input") {
         for (var j = 0; j < game.Outcomes.length; j++) {
             var odd = document.createElement("input");
-
-
         }
     }
 

@@ -10,6 +10,7 @@ var state = true;
 var mObjs = new Array();
 var username = "";
 var mode = "";
+var matches = "";
 genHeader();
 
 window.onload = function (e) {
@@ -17,6 +18,7 @@ window.onload = function (e) {
     for (i = 0; i < menus.length; i++) {
         menus[i].addEventListener("click", getContent);
     }
+    getMatches("w");
     genMatches();
 
     cuser = JSON.parse(getCookie("u"));
@@ -52,7 +54,7 @@ window.onload = function (e) {
          case "leagues":
             genLeagues();
              break;
-         case "leadbord":
+         case "leadboard":
             genLeadBoard();
              break;
          case "livescore":
@@ -67,12 +69,30 @@ window.onload = function (e) {
      }
  }
 
- function genMatches(){
-     $.post("Actions/Fixture.aspx", { type:"UDM" },
+function getMatches(opt) {
+    $.post("Actions/Fixture.aspx", { type: "UDM" },
         function (e) {
-            var matches = JSON.parse(e);
-            genGrid(matches,"nope");
+            matches = JSON.parse(e);
+            if (opt === "w") {
+                genMatches();
+            } else {
+                var trs = document.getElementsByTagName("tr");
+                for (var j = 0; j < matches.length; j++) {
+                    console.log(matches[j].ID);
+                    for (var i = 0; i < trs.length; i++) {
+                        if (trs[i].wrapper) {
+                            if (trs[i].wrapper.ID === matches[j].ID) {
+                                trs[i].wrapper = matches[j];
+                            }
+                        }
+                    }
+                }
+            }
         });
+}
+
+function genMatches() {
+    genGrid(matches, "nope");
  }
 
  function genPredictions(date) {
@@ -87,8 +107,8 @@ window.onload = function (e) {
      getLeagueData();
  }
 
- function genLeadBoard(){
-     
+ function genLeadBoard() {
+     genFavoritesObjs();
  }
 
  function genAccount() {
@@ -182,7 +202,7 @@ function setPrediction(e) {
     el.className = "odd bet";
     sendPredictions();
 }
-
+/*
 function sendPredictions() {
     var ps = document.getElementsByClassName("odd bet");
     var pString = "";
@@ -194,7 +214,7 @@ function sendPredictions() {
     }
     genMatches();
 }
-
+*/
 function getShortTeamName(name, match, length) {
     if (length === 100) {
         return name.replace("[Home]", match.HomeTeam.Name).replace("[Away]", match.AwayTeam.Name).replace("[Draw]", "Draw").replace(" ", "");
@@ -233,7 +253,8 @@ function genGrid(matches, date) {
         rFluid.append(pEl);
     }
     
-    rFluid.appendChild(genTable("match-table", matches, state));
+    //rFluid.appendChild(genTable("match-table", matches, state));
+    rFluid.append(genMatchRows(matches, "match-table"));
     mainC.appendChild(rFluid);
 
     /***After Event Assignments***/

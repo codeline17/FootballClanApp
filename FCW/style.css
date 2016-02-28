@@ -149,7 +149,7 @@ hr {
     position: relative;
     background: #fff;
     border-bottom: 1px solid #dedede;
-    margin: 40px 0 60px;
+    /*margin: 40px 0 60px;*/
 }
 hr.arrow:after,
 hr.arrow:before {
@@ -2547,7 +2547,7 @@ select {
 /*-----------------------------------------------------------------------------------*/
 @media (min-width: 1140px) { 
 	body {
-	    background: transparent url(style/images/bg/bg1.jpg) repeat fixed
+	    background: transparent url(style/images/bg/bg_pitch.png) repeat fixed
 	}
 	.body-wrapper {
 	    width: 1140px;

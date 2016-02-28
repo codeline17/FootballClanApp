@@ -35,7 +35,7 @@ namespace FCW.Actions
                             new UserDetails(reader["Email"].ToString(), reader["Address"].ToString(), 
                             new City("Tirana")),Convert.ToInt32(reader["Points"]),Convert.ToInt32(reader["tpreds"]),
                             Convert.ToInt32(reader["spreds"]), Convert.ToInt32(reader["lastspreds"]), 
-                            Convert.ToInt32(reader["lastsspreds"]), Convert.ToInt32(reader["AvatarId"]));
+                            Convert.ToInt32(reader["lastsspreds"]), Convert.ToInt32(reader["AvatarId"]),Convert.ToInt32(reader["Rank"]));
                         }
 
                         var json = new JavaScriptSerializer().Serialize(user);

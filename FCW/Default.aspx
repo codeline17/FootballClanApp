@@ -87,11 +87,9 @@
                                    document.write(theYear);
                                </script> Football Clans. All rights reserved.</p>
         <ul class="social pull-right">
-          <li><a href="#"><i class="icon-s-rss"></i></a></li>
           <li><a href="#"><i class="icon-s-twitter"></i></a></li>
           <li><a href="#"><i class="icon-s-facebook"></i></a></li>
-          <li><a href="#"><i class="icon-s-dribbble"></i></a></li>
-          <li><a href="#"><i class="icon-s-pinterest"></i></a></li>
+          <li><a href="#"><i class="icon-s-instagram"></i></a></li>
         </ul>
       </div>
       <!-- /.container --> 
@@ -134,6 +132,8 @@
 <script src="js/genClans.js"></script>
 <script src="js/genLiveScore.js"></script>
 <script src="js/genLeagues.js"></script>
+<script src="js/genMatches.js"></script>
+<script src="js/genLeaderboard.js"></script>
 <script src="js/genBase.js"></script>
 </body>
 </html>

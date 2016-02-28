@@ -39,7 +39,10 @@ namespace FCW.Actions
                         RefreshUserDetials(user.Guid);
                         break;
                     case "GAU": //Get All Users
-
+                        GetAllUsers();
+                        break;
+                    case "GFA": //Get Favorites
+                        GetFavorites();
                         break;
                     case "UUD": //Update User Details
                         UpdateUserDetails();
@@ -78,6 +81,83 @@ namespace FCW.Actions
             }
 
             Response.End();
+        }
+
+        public void GetFavorites()
+        {
+            using (var conn = new SqlConnection(_connectionstring))
+            {
+                using (var cmd = new SqlCommand("UserGetFavoritesById", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@userGuid", SqlDbType.UniqueIdentifier).Value = user.Guid;
+
+                    var r = new List<Objects.User>();
+                    conn.Open();
+                    var reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        r.Add(
+                                new Objects.User(
+                                    reader["UserName"].ToString(),
+                                    (Guid)reader["GUID"],
+                                    0,
+                                    0,
+                                    new UserDetails("", "", new City("")),
+                                    Convert.ToInt32(reader["Points"]),
+                                    Convert.ToInt32(reader["tpreds"]),
+                                    Convert.ToInt32(reader["spreds"]), Convert.ToInt32(reader["lastspreds"]),
+                                    Convert.ToInt32(reader["lastsspreds"]), Convert.ToInt32(reader["AvatarId"]),
+                                    Convert.ToInt32(reader["Rank"])
+                                )
+                            );
+                    }
+
+                    var json = new JavaScriptSerializer().Serialize(r);
+                    Response.ClearContent();
+                    Response.ClearHeaders();
+                    Response.Write(json);
+                }
+            }
+        }
+
+        private void GetAllUsers()
+        {
+            using (var conn = new SqlConnection(_connectionstring))
+            {
+                using (var cmd = new SqlCommand("UserGetAll", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    var r = new List<Objects.User>();
+                    conn.Open();
+                    var reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        r.Add(
+                                new Objects.User(
+                                    reader["UserName"].ToString(),
+                                    (Guid)reader["GUID"],
+                                    0,
+                                    0,
+                                    new UserDetails("","",new City("")),
+                                    Convert.ToInt32(reader["Points"]),
+                                    Convert.ToInt32(reader["tpreds"]),
+                                    Convert.ToInt32(reader["spreds"]), Convert.ToInt32(reader["lastspreds"]),
+                                    Convert.ToInt32(reader["lastsspreds"]), Convert.ToInt32(reader["AvatarId"]),
+                                    Convert.ToInt32(reader["Rank"])
+                                )
+                            );
+                    }
+
+                    var json = new JavaScriptSerializer().Serialize(r);
+                    Response.ClearContent();
+                    Response.ClearHeaders();
+                    Response.Write(json);
+                }
+            }
         }
 
         private void UpdateUserDetails()
@@ -194,23 +274,23 @@ namespace FCW.Actions
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add("@Guid", SqlDbType.UniqueIdentifier).Value = guid;
 
-                    var user = new Objects.User();
+                    var gUser = new Objects.User();
                     
                     conn.Open();
                     var reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
-                        user = new Objects.User(reader["UserName"].ToString(), new Guid(reader["GUID"].ToString()),
+                        gUser = new Objects.User(reader["UserName"].ToString(), new Guid(reader["GUID"].ToString()),
                             Convert.ToInt32(reader["Credit"]), Convert.ToInt32(reader["ClanId"]),
                         new UserDetails(reader["Email"].ToString(), reader["Address"].ToString(),
                         new City("Tirana")), Convert.ToInt32(reader["Points"]), Convert.ToInt32(reader["tpreds"]),
                         Convert.ToInt32(reader["spreds"]), Convert.ToInt32(reader["lastspreds"]),
-                        Convert.ToInt32(reader["lastsspreds"]), Convert.ToInt32(reader["AvatarId"]));
+                        Convert.ToInt32(reader["lastsspreds"]), Convert.ToInt32(reader["AvatarId"]), Convert.ToInt32(reader["Rank"]));
                     }
 
-                    var json = new JavaScriptSerializer().Serialize(user);
-                    HttpContext.Current.Session["currentUser"] = user;
-                    Session["currentUser"] = user;
+                    var json = new JavaScriptSerializer().Serialize(gUser);
+                    HttpContext.Current.Session["currentUser"] = gUser;
+                    Session["currentUser"] = gUser;
 
                     Response.ClearContent();
                     Response.ClearHeaders();
@@ -286,7 +366,8 @@ namespace FCW.Actions
                             new Clan(
                                 reader["Name"].ToString(),
                                 Convert.ToInt32(reader["Count"]),
-                                reader["Leader"].ToString()
+                                reader["Leader"].ToString(),
+                                Convert.ToInt32(reader["Rank"])
                                 )
                             );
                     }
