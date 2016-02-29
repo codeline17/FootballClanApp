@@ -36,7 +36,7 @@ function genFavorites(favs) {
     mainTag.className = "table table-hover";
 
     //Header
-    var head = [{ Title: "Fav", Text: "Fav" }, { Title: "Username", Text: "User" }, { Title: "Points", Text: "Points" },{ Title: "Level", Text: "Level" }];
+    var head = [{ Title: "Fav", Text: "Fav" }, { Title: "Rank", Text: "#" },  { Title: "Username", Text: "User" }, { Title: "Points", Text: "Points" }, { Title: "Level", Text: "Level" }];
     var tHead = document.createElement("thead");
     var hRow = document.createElement("tr");
     for (i = 0; i < head.length; i++) {
@@ -59,7 +59,8 @@ function genFavorites(favs) {
         favIds.push(favs[i].Username);
         var favRow = cEl("tr");
         //<i class="icon-star-1"></i>
-        favRow.append(cEl("td").append(cEl("i").attr("class", "icon-star-1 lbFav").listener("click", toggleFavorite))) //star
+        favRow.append(cEl("td").append(cEl("i").wr({ uname: favs[i].Username }).attr("class", "icon-star-1 lbFav").listener("click", toggleFavorite))) //star
+              .append(cEl("td").tEl(favs[i].Rank))
               .append(cEl("td").tEl(favs[i].Username))
               .append(cEl("td").tEl(favs[i].Points))
               .append(cEl("td").tEl(Math.floor(favs[i].TotalPredictions / 1000) + 1));
@@ -112,7 +113,7 @@ function getClanRanking() {
 
 function toggleFavorite(e) {
     var cc = e.target;
-
+    console.log(cc.wrapper.uname);
     switch (cc.className) {
         case "icon-star-1 lbFav":
             cc.className = "icon-star-empty-1 lbFav";
@@ -120,7 +121,5 @@ function toggleFavorite(e) {
         case "icon-star-empty-1 lbFav":
             cc.className = "icon-star-1 lbFav";
             break;
-        
-    default:
     }
 }

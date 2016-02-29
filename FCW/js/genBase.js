@@ -18,8 +18,7 @@ window.onload = function (e) {
     for (i = 0; i < menus.length; i++) {
         menus[i].addEventListener("click", getContent);
     }
-    getMatches("w");
-    genMatches();
+    genLeadBoard();
 
     cuser = JSON.parse(getCookie("u"));
 }
@@ -41,6 +40,7 @@ window.onload = function (e) {
      {
          case "matches":
              state = true;
+             getMatches("w");
              genMatches();
              break;
          case "predictions":
