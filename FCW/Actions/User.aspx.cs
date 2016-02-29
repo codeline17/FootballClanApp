@@ -38,14 +38,14 @@ namespace FCW.Actions
                     case "RFR": //Refresh UserDetails
                         RefreshUserDetials(user.Guid);
                         break;
-                    case "GAU": //Get All Users
-                        GetAllUsers();
-                        break;
-                    case "GFA": //Get Favorites
-                        GetFavorites();
+                    case "TGF": //Toggle Favorite
+                        ToggleFavorite(user.Guid);
                         break;
                     case "UUD": //Update User Details
                         UpdateUserDetails();
+                        break;
+                    case "GLB": //Update User Details
+                        GetLeaderBoard();
                         break;
                     case "LO": //Logout
                         Logout();
@@ -83,7 +83,67 @@ namespace FCW.Actions
             Response.End();
         }
 
-        public void GetFavorites()
+        private void ToggleFavorite(Guid guid)
+        {
+            var name = Request.Params["FavUname"];
+
+            using (var conn = new SqlConnection(_connectionstring))
+            {
+                using (var cmd = new SqlCommand("UserFavoriteToggle", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@UserGuid", SqlDbType.UniqueIdentifier).Value = user.Guid;
+                    cmd.Parameters.Add("@FavoriteUsername", SqlDbType.VarChar, 20).Value = name;
+
+                    conn.Open();
+                    var r = cmd.ExecuteScalar();
+
+                    Response.ClearContent();
+                    Response.ClearHeaders();
+                    Response.Write(r);
+                }
+            }
+        }
+
+        private void GetLeaderBoard()
+        {
+            var r = new LeaderBoard {Favorites = GetFavorites(), Users = GetAllUsers(), Clans = GetClanRank(), Trophies = new List<Trophy>() };
+            var json = new JavaScriptSerializer().Serialize(r);
+            Response.ClearContent();
+            Response.ClearHeaders();
+            Response.Write(json);
+        }
+
+        private List<Clan> GetClanRank()
+        {
+            using (var conn = new SqlConnection(_connectionstring))
+            {
+                using (var cmd = new SqlCommand("ClanGetAll", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    var r = new List<Clan>();
+                    conn.Open();
+                    var reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        r.Add(
+                                new Clan(
+                                    reader["Name"].ToString(),
+                                    Convert.ToInt32(reader["Count"]),
+                                    reader["Leader"].ToString(),
+                                    Convert.ToInt32(reader["Rank"]),
+                                    Convert.ToInt32(reader["Points"])
+                                )
+                            );
+                    }
+
+                    return r;
+                }
+            }
+        }
+        private List<Objects.User> GetFavorites()
         {
             using (var conn = new SqlConnection(_connectionstring))
             {
@@ -113,16 +173,11 @@ namespace FCW.Actions
                                 )
                             );
                     }
-
-                    var json = new JavaScriptSerializer().Serialize(r);
-                    Response.ClearContent();
-                    Response.ClearHeaders();
-                    Response.Write(json);
+                    return r;
                 }
             }
         }
-
-        private void GetAllUsers()
+        private List<Objects.User> GetAllUsers()
         {
             using (var conn = new SqlConnection(_connectionstring))
             {
@@ -152,10 +207,7 @@ namespace FCW.Actions
                             );
                     }
 
-                    var json = new JavaScriptSerializer().Serialize(r);
-                    Response.ClearContent();
-                    Response.ClearHeaders();
-                    Response.Write(json);
+                    return r;
                 }
             }
         }
@@ -367,7 +419,8 @@ namespace FCW.Actions
                                 reader["Name"].ToString(),
                                 Convert.ToInt32(reader["Count"]),
                                 reader["Leader"].ToString(),
-                                Convert.ToInt32(reader["Rank"])
+                                Convert.ToInt32(reader["Rank"]),
+                                Convert.ToInt32(reader["Points"])
                                 )
                             );
                     }

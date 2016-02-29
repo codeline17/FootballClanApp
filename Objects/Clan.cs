@@ -28,7 +28,7 @@ namespace Objects
             Trophies = new List<Trophy>();
         }
 
-        public Clan(string name, int usercount, string leader, int rank)
+        public Clan(string name, int usercount, string leader, int rank, int points)
         {
             Name = name;
             UserCount = usercount;
@@ -36,6 +36,7 @@ namespace Objects
             Users = new List<User>();
             Trophies = new List<Trophy>();
             Rank = rank;
+            Points = points;
         }
 
         public Clan()

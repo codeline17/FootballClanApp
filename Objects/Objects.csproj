@@ -44,6 +44,7 @@
     <Compile Include="Competition.cs" />
     <Compile Include="Fixture.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="LeaderBoard.cs" />
     <Compile Include="League.cs" />
     <Compile Include="Outcome.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

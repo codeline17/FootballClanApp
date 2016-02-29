@@ -120,5 +120,4 @@ function switchTabs(e) {
     }
 
     this.className = "tab active";
-
 }

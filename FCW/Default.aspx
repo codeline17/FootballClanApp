@@ -22,6 +22,11 @@
 <link href="style/css/toggle.css" rel="stylesheet">
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700' rel='stylesheet' type='text/css'>
 <link href="style/type/fontello.css" rel="stylesheet">
+<!-- Table CSS -->
+<link href="style/css/jquery.bdt.css" type="text/css" rel="stylesheet">
+<link href="style/css/style.css" type="text/css" rel="stylesheet">
+<!-- End Table CSS -->
+
 <!--[if IE 8]>
 <link rel="stylesheet" type="text/css" href="style/css/ie8.css" media="all" />
 <![endif]-->
@@ -126,6 +131,10 @@
 <script src="style/js/bootstrap-datepicker.js"></script>
 <script src="style/js/select2.js"></script>
 <script src="style/js/toggle.js"></script>
+    <!-- Table JS -->
+<script src="style/js/jquery.sortelements.js"></script>
+<script src="style/js/jquery.bdt.js"></script>
+    <!-- End Table JS -->
 <script src="js/user.js"></script>
 <script src="js/helpers.js"></script>
 <script src="js/genTable.js"></script>

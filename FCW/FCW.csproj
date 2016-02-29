@@ -78,8 +78,9 @@
     <Content Include="Service\MainService.svc" />
     <Content Include="style.css" />
     <Content Include="style\css\datepicker.css" />
+    <Content Include="style\css\jquery.bdt.css" />
     <Content Include="style\css\select2.css" />
-    <Content Include="style\css\tbl-style.css" />
+    <Content Include="style\css\style.css" />
     <Content Include="style\css\toggle.css" />
     <Content Include="style\images\credit.png" />
     <Content Include="style\images\credit_1.png" />
@@ -91,7 +92,7 @@
     <Content Include="style\js\bootstrap-tooltip.js" />
     <Content Include="style\js\bootstrap.min.js" />
     <Content Include="style\js\confirmation.js" />
-    <Content Include="style\js\jquery.bdt.min.js" />
+    <Content Include="style\js\jquery.bdt.js" />
     <Content Include="style\js\jquery.sortelements.js" />
     <Content Include="style\js\moment.js" />
     <Content Include="style\js\select2.js" />
