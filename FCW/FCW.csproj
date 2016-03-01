@@ -77,6 +77,7 @@
     <Content Include="Matches.html" />
     <Content Include="Service\MainService.svc" />
     <Content Include="style.css" />
+    <Content Include="style\css\bslogin.css" />
     <Content Include="style\css\datepicker.css" />
     <Content Include="style\css\jquery.bdt.css" />
     <Content Include="style\css\select2.css" />

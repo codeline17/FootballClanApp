@@ -6,24 +6,25 @@
 <head runat="server">
     <title>Football Clan Login</title>
 
-    <link href="style/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="style/css/bslogin.css" rel="stylesheet" />
     <link href="style/css/settings.css" rel="stylesheet" />
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" />
     <style>
         img.logo {
             margin-bottom: 30px;
         }
-         .alert-danger,
-         .alert-error {
-             background-color: #f2dede;
-             border-color: #eed3d7;
-             color: #b94a48;
-         }
 
-        .alert-danger h4,
-        .alert-error h4 {
+        .alert-danger,
+        .alert-error {
+            background-color: #f2dede;
+            border-color: #eed3d7;
             color: #b94a48;
         }
+
+            .alert-danger h4,
+            .alert-error h4 {
+                color: #b94a48;
+            }
 
         .modal-dialog {
             width: 768px;
