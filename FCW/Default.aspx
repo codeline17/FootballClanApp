@@ -10,6 +10,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <link rel="shortcut icon" type="image/x-icon" href="style/images/favicon.png" />
+<link href="style/css/bootstrap.min.css" rel="stylesheet">
 <link href="style/css/bootstrap.css" rel="stylesheet">
 <link href="style/css/settings.css" rel="stylesheet">
 <link href="style/css/datepicker.css" rel="stylesheet">

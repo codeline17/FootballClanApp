@@ -108,7 +108,7 @@ function genMatches() {
  }
 
  function genLeadBoard() {
-     genFavoritesObjs(1);
+     genLeaderboardTabs();
  }
 
  function genAccount() {

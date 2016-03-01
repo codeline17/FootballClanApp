@@ -126,14 +126,14 @@
                                                     .append(
                                                         $('<option>', {
                                                             value: 5,
-                                                            text: 5
+                                                            text: 5,
+                                                            selected: 'selected'
                                                         })
                                                     )
                                                     .append(
                                                         $('<option>', {
                                                             value: 10,
-                                                            text: 10,
-                                                            selected: 'selected'
+                                                            text: 10
                                                         })
                                                     )
                                                     .append(

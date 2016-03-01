@@ -43,7 +43,16 @@ namespace FCW.Actions
                         break;
                     case "UUD": //Update User Details
                         UpdateUserDetails();
+                        break;//////////////Leaderboard
+                    case "GAU": //Get All Users
+                        GetAllUsers();
                         break;
+                    case "GFA": //Get Favorites
+                        GetFavorites();
+                        break;
+                    case "GAT": //Get All Trophies
+                        //UpdateUserDetails();
+                        break;/////////////End Leaderboard
                     case "GLB": //Update User Details
                         GetLeaderBoard();
                         break;
@@ -107,14 +116,14 @@ namespace FCW.Actions
 
         private void GetLeaderBoard()
         {
-            var r = new LeaderBoard {Favorites = GetFavorites(), Users = GetAllUsers(), Clans = GetClanRank(), Trophies = new List<Trophy>() };
+            /*var r = new LeaderBoard {Favorites = GetFavorites(), Users = GetAllUsers(), Clans = GetClanRank(), Trophies = new List<Trophy>() };
             var json = new JavaScriptSerializer().Serialize(r);
             Response.ClearContent();
             Response.ClearHeaders();
-            Response.Write(json);
+            Response.Write(json);*/
         }
 
-        private List<Clan> GetClanRank()
+        private void GetClanRank()
         {
             using (var conn = new SqlConnection(_connectionstring))
             {
@@ -139,11 +148,14 @@ namespace FCW.Actions
                             );
                     }
 
-                    return r;
+                    var json = new JavaScriptSerializer().Serialize(r);
+                    Response.ClearContent();
+                    Response.ClearHeaders();
+                    Response.Write(json);
                 }
             }
         }
-        private List<Objects.User> GetFavorites()
+        private void GetFavorites()
         {
             using (var conn = new SqlConnection(_connectionstring))
             {
@@ -169,15 +181,19 @@ namespace FCW.Actions
                                     Convert.ToInt32(reader["tpreds"]),
                                     Convert.ToInt32(reader["spreds"]), Convert.ToInt32(reader["lastspreds"]),
                                     Convert.ToInt32(reader["lastsspreds"]), Convert.ToInt32(reader["AvatarId"]),
-                                    Convert.ToInt32(reader["Rank"])
+                                    Convert.ToInt32(reader["Rank"]),
+                                    reader["NameOfClan"].ToString()
                                 )
                             );
                     }
-                    return r;
+                    var json = new JavaScriptSerializer().Serialize(r);
+                    Response.ClearContent();
+                    Response.ClearHeaders();
+                    Response.Write(json);
                 }
             }
         }
-        private List<Objects.User> GetAllUsers()
+        private void GetAllUsers()
         {
             using (var conn = new SqlConnection(_connectionstring))
             {
@@ -202,12 +218,15 @@ namespace FCW.Actions
                                     Convert.ToInt32(reader["tpreds"]),
                                     Convert.ToInt32(reader["spreds"]), Convert.ToInt32(reader["lastspreds"]),
                                     Convert.ToInt32(reader["lastsspreds"]), Convert.ToInt32(reader["AvatarId"]),
-                                    Convert.ToInt32(reader["Rank"])
+                                    Convert.ToInt32(reader["Rank"]),
+                                    reader["NameOfClan"].ToString()
                                 )
                             );
                     }
-
-                    return r;
+                    var json = new JavaScriptSerializer().Serialize(r);
+                    Response.ClearContent();
+                    Response.ClearHeaders();
+                    Response.Write(json);
                 }
             }
         }
@@ -337,7 +356,8 @@ namespace FCW.Actions
                         new UserDetails(reader["Email"].ToString(), reader["Address"].ToString(),
                         new City("Tirana")), Convert.ToInt32(reader["Points"]), Convert.ToInt32(reader["tpreds"]),
                         Convert.ToInt32(reader["spreds"]), Convert.ToInt32(reader["lastspreds"]),
-                        Convert.ToInt32(reader["lastsspreds"]), Convert.ToInt32(reader["AvatarId"]), Convert.ToInt32(reader["Rank"]));
+                        Convert.ToInt32(reader["lastsspreds"]), Convert.ToInt32(reader["AvatarId"]), Convert.ToInt32(reader["Rank"]),
+                        reader["NameOfClan"].ToString());
                     }
 
                     var json = new JavaScriptSerializer().Serialize(gUser);

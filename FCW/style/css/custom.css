@@ -203,3 +203,27 @@ table.table-hover {
     font-size: 20px;
     color: gold;
 }
+
+tr.self {
+    background-color: lightgoldenrodyellow;
+}
+
+table.trophies {
+    width: 100%;
+}
+
+table.trophies tr:first-child {
+    background: url('../images/trophytop.png') no-repeat;
+    background-size: 100% 100%;
+}
+
+table.trophies tr:last-child {
+    background: url('../images/trophybottom.png') no-repeat;
+    background-size: 100% 100%;
+}
+
+table.trophies tr {
+    background: url('../images/trophyrow.png') no-repeat;
+    background-size: 100% 100%;
+    height: 100px;
+}

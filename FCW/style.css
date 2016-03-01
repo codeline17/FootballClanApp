@@ -1392,13 +1392,15 @@ i.contact {
 .tabs-top .tab.active {
     position: relative;
     z-index: 3;
+    cursor: pointer;
 }
 .tabs-top .tab.active a {
     background: #fff
 }
 .tabs-top .tab a:hover,
 .tabs-top .tab.active a {
-    color: #74c9be
+    color: #74c9be;
+    cursor: pointer;
 }
 .tabs-top.tab-container .panel-container {
     border-top: 1px solid #dedede;
