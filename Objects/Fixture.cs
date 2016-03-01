@@ -30,7 +30,7 @@ namespace Objects
         public Fixture(int id, Team hometeam, 
                         Team awayteam, List<Event> events, 
                         string minute, Competition league, 
-                        List<Game> games, DateTime starttime, bool mSealed, string pack)
+                        List<Game> games, DateTime starttime, bool mSealed, string pack, int homegoals, int awaygoals)
         {
             ID = id;
             HomeTeam = hometeam;
@@ -42,6 +42,8 @@ namespace Objects
             StartTime = starttime;
             Sealed = mSealed;
             Pack = pack;
+            HomeGoals = homegoals;
+            AwayGoals = awaygoals;
         }
 
         public Fixture(Team hometeam, Team awayteam, Competition league, 

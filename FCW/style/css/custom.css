@@ -227,3 +227,16 @@ table.trophies tr {
     background-size: 100% 100%;
     height: 100px;
 }
+
+.mDetails {
+    background-color: lightgoldenrodyellow;
+}
+
+.menu ul li {
+    border-top-width: 0px !important;
+}
+
+.modal.fade.in {
+    height: 80%;
+    margin-top: 0px !important;
+}

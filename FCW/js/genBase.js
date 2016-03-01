@@ -46,7 +46,7 @@ window.onload = function (e) {
          case "predictions":
              state = false;
              addFilterHead();
-             genPredictions(getFullDate(new Date()));
+             genPredictions(getFullDate(new Date(), -1));
              break;
          case "clans":
             genClans();
@@ -78,7 +78,6 @@ function getMatches(opt) {
             } else {
                 var trs = document.getElementsByTagName("tr");
                 for (var j = 0; j < matches.length; j++) {
-                    console.log(matches[j].ID);
                     for (var i = 0; i < trs.length; i++) {
                         if (trs[i].wrapper) {
                             if (trs[i].wrapper.ID === matches[j].ID) {
@@ -156,7 +155,7 @@ function genMatches() {
 
       var nameSpan = document.createElement("span");
       nameSpan.innerText = e.split("|")[0];
-      nameSpan.style = "margin-right : 15px;"
+      nameSpan.style = "margin-right : 15px;";
 
       var crediti = document.createElement("i");
       crediti.className = "icon-dribbble-circled icn";
@@ -297,7 +296,9 @@ function addFilterHead() {
     //$("#predSBtn").click(function () { genPredictions($("#pref-search").text) })
 }
 
-function getFullDate(date) {
+function getFullDate(date, days) {
+    date.setDate(date.getDate() + days);
+
     var dd = date.getDate();
     var mm = date.getMonth() + 1; //January is 0!
 
@@ -308,7 +309,7 @@ function getFullDate(date) {
     if (mm < 10) {
         mm = "0" + mm;
     }
-    return dd - 1 + "/" + mm + "/" + yyyy;
+    return dd + "/" + mm + "/" + yyyy;
 }
 
 function makeid() {

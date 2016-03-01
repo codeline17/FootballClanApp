@@ -132,7 +132,10 @@ namespace FCW.Actions
                                     }
                                     ,Convert.ToDateTime(reader["StartDate"]),
                                     Convert.ToBoolean(reader["GameSealed"]),
-                                    reader["FixturePack"].ToString()));
+                                    reader["FixturePack"].ToString(),
+                                    Convert.ToInt32(reader["HomeGoals"]),
+                                    Convert.ToInt32(reader["AwayGoals"]))
+                                    );
                         }
                         else
                         {
@@ -263,7 +266,9 @@ namespace FCW.Actions
                                     }
                                     ,Convert.ToDateTime(reader["StartDate"]),
                                     Convert.ToBoolean(reader["GameSealed"]),
-                                    reader["FixturePack"].ToString()));
+                                    reader["FixturePack"].ToString(),
+                                    Convert.ToInt32(reader["HomeGoals"]),
+                                    Convert.ToInt32(reader["AwayGoals"])));
                         }
                         else
                         {

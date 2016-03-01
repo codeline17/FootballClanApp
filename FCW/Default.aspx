@@ -72,7 +72,7 @@
   </nav>
   <!-- /.menu -->
   
-  <div class="box box-border pull-left">
+  <div class="box pull-left">
     <div class="light-wrapper">
       <div id="mainContainer" class="container inner">
              

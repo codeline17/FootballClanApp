@@ -472,7 +472,7 @@
 }
 
 input.input-sm {
-    width: 20% !important;
+    width: 100% !important;
     display: block;
     float: left;
     margin-right: 10px;

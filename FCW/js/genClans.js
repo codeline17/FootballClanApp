@@ -168,8 +168,8 @@ function GenClanList() {
 }
 
 function approveMember(e) {
-    var uname = e.srcElement.getAttribute("cel-uname");
-    var cname = e.srcElement.getAttribute("cel-cname");
+    var uname = e.target.getAttribute("cel-uname");
+    var cname = e.target.getAttribute("cel-cname");
     $.post("Actions/User.aspx", { type: "AUC", name: uname, clanName: cname },
         function(c) {
             console.log(c);
@@ -181,8 +181,8 @@ function approveMember(e) {
 }
 
 function removeMember(e) {
-    var uname = e.srcElement.getAttribute("cel-uname");
-    var cname = e.srcElement.getAttribute("cel-cname");
+    var uname = e.target.getAttribute("cel-uname");
+    var cname = e.target.getAttribute("cel-cname");
     $.post("Actions/User.aspx", { type: "RMUC", name : uname, clanName : cname },
         function (c) {
             console.log(c);

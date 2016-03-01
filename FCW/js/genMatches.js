@@ -72,11 +72,10 @@ function expandMatch(e) {
     if ($(this).next(".mDetails").length > 0) {
         $(this).next().parent().parent().remove();
     } else {
-        var el = e.srcElement.parentElement;
+        var el = e.target.parentElement;
 
-        var sealed = e.srcElement.parentElement.wrapper.Sealed;
-        console.log(sealed);
-        var panel = createMatchPanel(e.srcElement.parentElement.wrapper).attr("class", "mDetails");
+        var sealed = e.target.parentElement.wrapper.Sealed;
+        var panel = createMatchPanel(e.target.parentElement.wrapper).attr("class", "mDetails");
         panel.className += sealed ? " mSealed" : "";
 
         var d = new Date();
@@ -88,9 +87,9 @@ function expandMatch(e) {
             el.parentNode.appendChild(expand);
         }
 
-        $(".btn-group > .btn").click(function() {
+        /*$(".btn-group > .btn").click(function() {
             $(this).addClass("active").siblings().removeClass("active");
-        });
+        });*/
     }
 }
 
@@ -143,6 +142,9 @@ function createMatchPanel(e) {
     if (!sealed) {
         tgDetails.listener("change", sendPredictions);
     }
+    else {
+        tgDetails.setAttribute("disabled", "disabled");
+    }
     for (i = 0; i < rubTG.Outcomes.length; i++) {
         var tgEl = cEl("option").tEl(rubTG.Outcomes[i].Name);
         tgEl.selected = rubTG.Outcomes[i].Selected;
@@ -158,6 +160,9 @@ function createMatchPanel(e) {
     var csDetails = cEl("select").attr("class", "CS");
     if (!sealed) {
         csDetails.listener("change", sendPredictions);
+    }
+    else {
+        csDetails.setAttribute("disabled", "disabled");
     }
     for (i = 0; i < rubCS.Outcomes.length; i++) {
         var csEl = cEl("option").tEl(rubCS.Outcomes[i].Name);
@@ -192,6 +197,12 @@ function sendPredictions(e) {
 
     if (prd.length < 0)
         return;
+
+    var sibs = e.target.parentNode.childNodes;
+    for (var i = 0; i < sibs.length; i++) {
+        sibs[i].className = sibs[i].className.replace(" active","");
+    }
+    e.target.className += " active";
 
     $.post("Actions/Fixture.aspx", { type: "SNDPD", pds: prd });
 

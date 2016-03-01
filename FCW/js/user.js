@@ -38,7 +38,7 @@ function genUserDetails() {
 }
 
 function toggleAvatars(e) {
-    var el = e.srcElement;
+    var el = e.target;
     var els = document.getElementsByClassName("avatars");
 
     for (var i = 0; i < els.length; i++) {
@@ -56,16 +56,16 @@ function updateUserDetails() {
     //Checks //errorBox("Could not join this clan, please try again later.")
     if (pwd.value !== pwdr.value) {
         document.getElementById("mdFooter").appendFirst(errorBox("Passwords do not match."));
-    } else if (pwd.value.length < 8) {
+    } else if (pwd.value.length > 0 && pwd.value.length < 8) {
         document.getElementById("mdFooter").appendFirst(errorBox("Password should be at least 8 characters long."));
     } else {
         $.post("Actions/User.aspx", { type: "UUD", pwd: pwd.value, pwdr: pwdr.value, avid: avid },
         function (c) {
             console.log(c);
             if (c === "1") {
-                getHeaderInfo();
                 $("#userModal").modal("hide");
                 $("#userModal").remove();
+                getHeaderInfo();
             }
             else {
                 document.getElementById("mdFooter").appendFirst(errorBox("Error during processing."));

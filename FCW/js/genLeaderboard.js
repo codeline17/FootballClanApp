@@ -119,11 +119,11 @@ function genLbClanTable(objs, id) {
 }
 
 function genTrophyTable() {
-    var trTbl = cEl("table").attr("class", "trophies").append(cEl("tr").append(cEl("td").tEl("--")).append(cEl("td")).append(cEl("td")).append(cEl("td")))
-                                                      .append(cEl("tr").append(cEl("td").tEl("--")).append(cEl("td")).append(cEl("td")).append(cEl("td")))
-                                                      .append(cEl("tr").append(cEl("td").tEl("--")).append(cEl("td")).append(cEl("td")).append(cEl("td")))
-                                                      .append(cEl("tr").append(cEl("td").tEl("--")).append(cEl("td")).append(cEl("td")).append(cEl("td")))
-                                                      .append(cEl("tr").append(cEl("td").tEl("--")).append(cEl("td")).append(cEl("td")).append(cEl("td")));
+    var trTbl = cEl("table").attr("class", "trophies").append(cEl("tr").append(cEl("td")).append(cEl("td")).append(cEl("td")).append(cEl("td")))
+                                                      .append(cEl("tr").append(cEl("td")).append(cEl("td")).append(cEl("td")).append(cEl("td")))
+                                                      .append(cEl("tr").append(cEl("td")).append(cEl("td")).append(cEl("td")).append(cEl("td")))
+                                                      .append(cEl("tr").append(cEl("td")).append(cEl("td")).append(cEl("td")).append(cEl("td")))
+                                                      .append(cEl("tr").append(cEl("td")).append(cEl("td")).append(cEl("td")).append(cEl("td")));
     return trTbl;
 }
 
@@ -195,7 +195,7 @@ function toggleFavorite(e) {
 }
 
 function switchLbTabs(e) {
-    var tbs = e.srcElement.parentNode.parentNode.childNodes;
+    var tbs = e.target.parentNode.parentNode.childNodes;
 
     var clicked = e.target.wrapper.el;
     lbAction = clicked;

@@ -481,7 +481,7 @@ namespace FCW.Actions
                             );
                         }
 
-                        if (clan.Trophies.Count(x => x.Id == Convert.ToInt16(reader["TrophyId"].ToString())) == 0)
+                        if (reader["TrophyId"].ToString() != "0" && clan.Trophies.Count(x => x.Id == Convert.ToInt16(reader["TrophyId"].ToString())) == 0)
                         {
                             clan.Trophies.Add(
                                 new Objects.Trophy(
