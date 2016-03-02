@@ -55,19 +55,22 @@ function genSingleMatchRow(match) {
 }
 
 function expandMatch(e) {
-    /*if (document.getElementById("exp")) {
-        document.getElementById("exp").attr("style", "display:none");
-    }*/
-
     var el = e.target.parentElement;
-    console.log(e.target);
 
-    if (document.getElementById("exp") && e.target.className === "exp") {
+
+
+    if (document.getElementById("exp") && el.className === "exp") {
         e.target.parentElement.parentElement.removeChild(document.getElementById("exp"));
-        e.target.className = "noexp";
     } else {
+        if (document.getElementById("exp")) {
+            e.target.parentElement.parentElement.removeChild(document.getElementById("exp"));
+            var exps = document.getElementsByClassName("exp");
+            for (var i = 0; i < exps.length; i++) {
+                exps[i].removeAttribute("class");
+            }
+        }
         var sealed = e.target.parentElement.wrapper.Sealed;
-        e.target.className = "exp";
+        el.className = "exp";
         var panel = createMatchPanel(e.target.parentElement.wrapper).attr("class", "mDetails");
         panel.className += sealed ? " mSealed" : "";
 

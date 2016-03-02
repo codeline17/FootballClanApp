@@ -69,8 +69,9 @@ window.onload = function (e) {
      }
  }
 
-function getMatches(opt) {
-    $.post("Actions/Fixture.aspx", { type: "UDM" },
+ function getMatches(opt) {
+     var date = getFullDate(new Date(),0);
+    $.post("Actions/Fixture.aspx", { type: "PREDS", date: date },
         function (e) {
             matches = JSON.parse(e);
             if (opt === "w") {
