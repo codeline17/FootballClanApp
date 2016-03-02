@@ -1,8 +1,4 @@
-﻿window.onload = function () {
-    $("tr").click(expandMatch);
-};
-
-function genMatchRows(matches, id) {
+﻿function genMatchRows(matches, id) {
 
     //Table Tag
     var mainTag = document.createElement("table");
@@ -15,13 +11,7 @@ function genMatchRows(matches, id) {
     var tHead = document.createElement("thead");
     var hRow = document.createElement("tr");
     for (var i = 0; i < head.length; i++) {
-        var hElement = document.createElement("th");
-        var hSpan = document.createElement("span");
-        hSpan.setAttribute("data-toggle", "tooltip");
-        hSpan.setAttribute("data-placement", "top");
-        hSpan.title = head[i].Title;
-        hSpan.innerText = head[i].Text;
-        hElement.append(hSpan);
+        var hElement = cEl("th").tEl(head[i].Text);
         hRow.append(hElement);
     }
     tHead.append(hRow);
@@ -65,31 +55,29 @@ function genSingleMatchRow(match) {
 }
 
 function expandMatch(e) {
-    if ($(".mDetails").length > 0) {
-        $(".mDetails").parent().parent().remove();
-    }
+    /*if (document.getElementById("exp")) {
+        document.getElementById("exp").attr("style", "display:none");
+    }*/
 
-    if ($(this).next(".mDetails").length > 0) {
-        $(this).next().parent().parent().remove();
+    var el = e.target.parentElement;
+    console.log(e.target);
+
+    if (document.getElementById("exp") && e.target.className === "exp") {
+        e.target.parentElement.parentElement.removeChild(document.getElementById("exp"));
+        e.target.className = "noexp";
     } else {
-        var el = e.target.parentElement;
-
         var sealed = e.target.parentElement.wrapper.Sealed;
+        e.target.className = "exp";
         var panel = createMatchPanel(e.target.parentElement.wrapper).attr("class", "mDetails");
         panel.className += sealed ? " mSealed" : "";
 
-        var d = new Date();
-        var expand = cEl("tr").append(cEl("td").attr("colspan", 6).append(panel));
+        var expand = cEl("tr").attr("id","exp").append(cEl("td").attr("colspan", 6).append(panel));
 
         if (el.nextSibling) {
             el.parentNode.insertBefore(expand, el.nextSibling);
         } else {
             el.parentNode.appendChild(expand);
         }
-
-        /*$(".btn-group > .btn").click(function() {
-            $(this).addClass("active").siblings().removeClass("active");
-        });*/
     }
 }
 

@@ -41,13 +41,7 @@ function genLbUserTable(objs, id) {
     var tHead = document.createElement("thead");
     var hRow = document.createElement("tr");
     for (i = 0; i < head.length; i++) {
-        var hElement = document.createElement("th");
-        var hSpan = document.createElement("span");
-        hSpan.setAttribute("data-toggle", "tooltip");
-        hSpan.setAttribute("data-placement", "top");
-        hSpan.title = head[i].Title;
-        hSpan.innerText = head[i].Text;
-        hElement.append(hSpan);
+        var hElement = cEl("th").tEl(head[i].Text);
         hRow.append(hElement);
     }
     tHead.append(hRow);
@@ -79,27 +73,21 @@ function genLbUserTable(objs, id) {
 function genLbClanTable(objs, id) {
     var i = 0;
     //Table Tag
-    var mainTag = document.createElement("table");
+    var mainTag = cEl("table");
     mainTag.id = id;
     mainTag.className = "table table-hover";
 
     //Header
     var head = [{ Title: "Rank", Text: "#" }, { Title: "Username", Text: "User" }, { Title: "Points", Text: "Points" }];
-    var tHead = document.createElement("thead");
-    var hRow = document.createElement("tr");
+    var tHead = cEl("thead");
+    var hRow = cEl("tr");
     for (i = 0; i < head.length; i++) {
-        var hElement = document.createElement("th");
-        var hSpan = document.createElement("span");
-        hSpan.setAttribute("data-toggle", "tooltip");
-        hSpan.setAttribute("data-placement", "top");
-        hSpan.title = head[i].Title;
-        hSpan.innerText = head[i].Text;
-        hElement.append(hSpan);
+        var hElement = cEl("th").tEl(head[i].Text);
         hRow.append(hElement);
     }
     tHead.append(hRow);
 
-    var tBody = document.createElement("tbody");
+    var tBody = cEl("tbody");
 
 
     for (i = 0; i < objs.length; i++) {
