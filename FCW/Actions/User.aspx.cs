@@ -53,11 +53,14 @@ namespace FCW.Actions
                     case "GAT": //Get All Trophies
                         //UpdateUserDetails();
                         break;/////////////End Leaderboard
-                    case "GLB": //Update User Details
+                    case "GLB": //Get Leaderboard
                         GetLeaderBoard();
                         break;
                     case "LO": //Logout
                         Logout();
+                        break;
+                    case "PO": //Purchase Options
+                        PurchaseGame(user.Guid);
                         break;
                     case "CDL": //Clan Details**********************************
                         GetClanDetails();
@@ -90,6 +93,28 @@ namespace FCW.Actions
             }
 
             Response.End();
+        }
+
+        private void PurchaseGame(Guid guid)
+        {
+            var slug = Request.Params["Slug"];
+
+            using (var conn = new SqlConnection(_connectionstring))
+            {
+                using (var cmd = new SqlCommand("PurchaseGame", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@UserGuid", SqlDbType.UniqueIdentifier).Value = user.Guid;
+                    cmd.Parameters.Add("@GameSlug", SqlDbType.VarChar, 20).Value = slug;
+
+                    conn.Open();
+                    var r = cmd.ExecuteScalar();
+
+                    Response.ClearContent();
+                    Response.ClearHeaders();
+                    Response.Write(r);
+                }
+            }
         }
 
         private void ToggleFavorite(Guid guid)

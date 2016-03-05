@@ -18,7 +18,9 @@ window.onload = function (e) {
     for (i = 0; i < menus.length; i++) {
         menus[i].addEventListener("click", getContent);
     }
-    genLeadBoard();
+
+    getMatches("w");
+    genMatches();
 
     cuser = JSON.parse(getCookie("u"));
 }
@@ -61,8 +63,8 @@ window.onload = function (e) {
              addFilterHead();
              genLiveScore(getFullDate(new Date()));
              break;
-         case "account":
-            genAccount();
+         case "store":
+            genStore();
              break;
          default:
              break;
@@ -70,7 +72,7 @@ window.onload = function (e) {
  }
 
  function getMatches(opt) {
-     var date = getFullDate(new Date(),0);
+     var date = getFullDate(new Date(), 0);
     $.post("Actions/Fixture.aspx", { type: "PREDS", date: date },
         function (e) {
             matches = JSON.parse(e);
@@ -111,36 +113,11 @@ function genMatches() {
      genLeaderboardTabs();
  }
 
- function genAccount() {
+ function genStore() {
 
      var mainC = document.getElementById("mainContainer");
 
-     $.post("Actions/Fixture.aspx", { type: "GUN" },
-   function (e) {
-        var lblUserName = document.createElement("span");
-        lblUserName.innerHTML = "Username : " + e.split("|")[0] + "                      ";
-        lblUserName.style.cssFloat = "left";
-
-        var newPassword = document.createElement("input");
-        newPassword.setAttribute("placeholder", "New Password");
-        newPassword.className = "form-control input-sm";
-        newPassword.type = "text";
-
-        var confirmNewPassword = document.createElement("input");
-        confirmNewPassword.setAttribute("placeholder", "Confirm New Password");
-        confirmNewPassword.className = "form-control input-sm";
-        confirmNewPassword.type = "text";
-
-        var btnDo = document.createElement("button");
-        btnDo.type = "button";
-        btnDo.className = "btn btn-danger";
-        btnDo.innerHTML = "Confirm";
-
-        mainC.appendChild(lblUserName);
-        mainC.appendChild(newPassword);
-        mainC.appendChild(confirmNewPassword);
-        mainC.appendChild(btnDo);
-   });
+     mainC.append(cEl("h3").attr("class","text-center").tEl("Comming soon..."));
  }
 
  function genHeader1() {
