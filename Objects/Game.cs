@@ -17,6 +17,8 @@ namespace Objects
         public string Repeater { get; set; }
 
         public int Value { get; set; }
+        public int Price { get; set; }
+        public bool Authorized { get; set; }
 
         public int PointsWon => Outcomes.Count(x => x.isWon) * Value;
 
@@ -28,15 +30,18 @@ namespace Objects
             Outcomes = outcomes;
             Repeater = repeater;
             Value = 0;
+            Price = 0;
         }
 
-        public Game(string name, string slug, List<Outcome> outcomes, string repeater, int value)
+        public Game(string name, string slug, List<Outcome> outcomes, string repeater, int value, int price, bool authorized)
         {
             Name = name;
             Slug = slug;
             Outcomes = outcomes;
             Repeater = repeater;
             Value = value;
+            Price = price;
+            Authorized = authorized;
         }
 
         public void AddOutcome(Outcome outcome)
@@ -47,6 +52,7 @@ namespace Objects
         public Game()
         {
             Value = 0;
+            Price = 0;
             Outcomes = new List<Outcome>();
         }
     }

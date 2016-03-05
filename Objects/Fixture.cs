@@ -23,14 +23,17 @@ namespace Objects
         public int AwayYellow { get; set; }
         public int HomeRed { get; set; }
         public int AwayRed { get; set; }
-        public int PointsWon => Games.Sum(x => x.PointsWon);
         public string Pack { get; set; }
+        public bool Authorized { get; set; }
+        public int PointsWon => Games.Sum(x => x.PointsWon);
 
 
         public Fixture(int id, Team hometeam, 
                         Team awayteam, List<Event> events, 
                         string minute, Competition league, 
-                        List<Game> games, DateTime starttime, bool mSealed, string pack, int homegoals, int awaygoals)
+                        List<Game> games, DateTime starttime, 
+                        bool mSealed, string pack, int homegoals, 
+                        int awaygoals, bool authorized)
         {
             ID = id;
             HomeTeam = hometeam;
@@ -44,6 +47,7 @@ namespace Objects
             Pack = pack;
             HomeGoals = homegoals;
             AwayGoals = awaygoals;
+            Authorized = authorized;
         }
 
         public Fixture(Team hometeam, Team awayteam, Competition league, 

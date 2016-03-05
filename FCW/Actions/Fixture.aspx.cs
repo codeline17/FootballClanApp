@@ -97,7 +97,7 @@ namespace FCW.Actions
 
         private void UserDailyMatches(Objects.User user)
         {
-            using (var conn = new SqlConnection(_connectionstring))
+            /*using (var conn = new SqlConnection(_connectionstring))
             {
                 using (var cmd = new SqlCommand("FixturesGetByUser", conn))
                 {
@@ -172,7 +172,7 @@ namespace FCW.Actions
                     Response.Write(json);
                     
                 }
-            }
+            }*/
         }
 
         private void InsertPredictions(Objects.User user)
@@ -262,13 +262,16 @@ namespace FCW.Actions
                                                 ,Convert.ToBoolean(reader["isWon"]))
                                         }
                                         ,reader["Repeater"].ToString()
-                                        ,Convert.ToInt16(reader["Value"]))
+                                        ,Convert.ToInt16(reader["Value"])
+                                        ,Convert.ToInt16(reader["Price"])
+                                        ,Convert.ToBoolean(reader["isWon"]))
                                     }
                                     ,Convert.ToDateTime(reader["StartDate"]),
                                     Convert.ToBoolean(reader["GameSealed"]),
                                     reader["FixturePack"].ToString(),
                                     Convert.ToInt32(reader["HomeGoals"]),
-                                    Convert.ToInt32(reader["AwayGoals"])));
+                                    Convert.ToInt32(reader["AwayGoals"]),
+                                    Convert.ToBoolean(reader["FAuthorized"])));
                         }
                         else
                         {
@@ -285,7 +288,9 @@ namespace FCW.Actions
                                        Convert.ToBoolean(reader["isWon"]))
                                }
                                ,reader["Repeater"].ToString()
-                               ,Convert.ToInt16(reader["Value"])));
+                               ,Convert.ToInt16(reader["Value"])
+                               ,Convert.ToInt16(reader["Price"])
+                               ,Convert.ToBoolean(reader["GAuthorized"])));
                             }
                             else
                             {

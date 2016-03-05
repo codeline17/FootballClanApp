@@ -125,8 +125,8 @@
                                                     .addClass('form-control')
                                                     .append(
                                                         $('<option>', {
-                                                            value: 5,
-                                                            text: 5,
+                                                            value: 25,
+                                                            text: 25,
                                                             selected: 'selected'
                                                         })
                                                     )
