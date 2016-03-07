@@ -53,14 +53,14 @@ namespace FCW.Actions
                     case "GAT": //Get All Trophies
                         //UpdateUserDetails();
                         break;/////////////End Leaderboard
-                    case "GLB": //Get Leaderboard
-                        GetLeaderBoard();
-                        break;
                     case "LO": //Logout
                         Logout();
                         break;
                     case "PO": //Purchase Options
                         PurchaseGame(user.Guid);
+                        break;
+                    case "PEF": //Purchase Extra Fixture
+                        PurchaseExtraFixtures(user.Guid);
                         break;
                     case "CDL": //Clan Details**********************************
                         GetClanDetails();
@@ -93,6 +93,24 @@ namespace FCW.Actions
             }
 
             Response.End();
+        }
+        private void PurchaseExtraFixtures(Guid guid)
+        {
+            using (var conn = new SqlConnection(_connectionstring))
+            {
+                using (var cmd = new SqlCommand("PurchaseExtraFixtures", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@UserGuid", SqlDbType.UniqueIdentifier).Value = user.Guid;
+
+                    conn.Open();
+                    var r = cmd.ExecuteScalar();
+
+                    Response.ClearContent();
+                    Response.ClearHeaders();
+                    Response.Write(r);
+                }
+            }
         }
 
         private void PurchaseGame(Guid guid)
@@ -139,47 +157,6 @@ namespace FCW.Actions
             }
         }
 
-        private void GetLeaderBoard()
-        {
-            /*var r = new LeaderBoard {Favorites = GetFavorites(), Users = GetAllUsers(), Clans = GetClanRank(), Trophies = new List<Trophy>() };
-            var json = new JavaScriptSerializer().Serialize(r);
-            Response.ClearContent();
-            Response.ClearHeaders();
-            Response.Write(json);*/
-        }
-
-        private void GetClanRank()
-        {
-            using (var conn = new SqlConnection(_connectionstring))
-            {
-                using (var cmd = new SqlCommand("ClanGetAll", conn))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-
-                    var r = new List<Clan>();
-                    conn.Open();
-                    var reader = cmd.ExecuteReader();
-
-                    while (reader.Read())
-                    {
-                        r.Add(
-                                new Clan(
-                                    reader["Name"].ToString(),
-                                    Convert.ToInt32(reader["Count"]),
-                                    reader["Leader"].ToString(),
-                                    Convert.ToInt32(reader["Rank"]),
-                                    Convert.ToInt32(reader["Points"])
-                                )
-                            );
-                    }
-
-                    var json = new JavaScriptSerializer().Serialize(r);
-                    Response.ClearContent();
-                    Response.ClearHeaders();
-                    Response.Write(json);
-                }
-            }
-        }
         private void GetFavorites()
         {
             using (var conn = new SqlConnection(_connectionstring))

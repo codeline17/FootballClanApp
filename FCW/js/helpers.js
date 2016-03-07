@@ -18,11 +18,10 @@ function getHeaderInfo() {
          var username = e.Username.toUpperCase() + "     - " + e.Points + " POINTS";
          var userCredit = e.Credit;
 
-         var overallBadge = Math.floor(e.TotalPredictions / 1000) + 1;
+         var overallBadge = getOverAllForm(e);
          var overallBadgeClass = "label-warning";
 
-         var lastBadge = (e.LastSuccessfulPredictions / e.LastPredictions) * 200;
-         //lastBadge = lastBadge ? lastBadge > 50 ? 50 : lastBadge : 10;
+         var lastBadge = getUserForm(e);
 
          var btnLogout = cEl("a").attr("href", "#").attr("class", "btn btn-orange pull-right").tEl("Logout").listener("click", fnLogout, false);
          var goldenBall = cEl("span").attr("class", "creditBall header-margin");
@@ -75,4 +74,14 @@ function genProgressBar(w) {
     var cDiv = cEl("div").attr("class", "progress").append(cEl("div").attr("class", "progress-bar " + cl).attr("role", "progressbar").attr("aria-valuenow", w / 2).attr("aria-valuemin", 0).attr("aria-valuemax", 100).attr("style", "width:" + w + "%;").tEl(Math.floor(w)));
 
     return cDiv;
+}
+
+function getUserForm(user) {
+    var form = Math.floor((user.LastSuccessfulPredictions / user.LastPredictions) * 200);
+    return form ? form : 0;
+}
+
+function getOverAllForm(user) {
+    var form = Math.floor(user.TotalPredictions / 1000) + 1;
+    return form ? form : 0;
 }

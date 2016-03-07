@@ -29,7 +29,7 @@
     /**
      * @type {string}
      */
-    var pages = '';
+    var pages = "";
     /**
      * @type {object}
      */
@@ -41,33 +41,33 @@
     /**
      * @type {string}
      */
-    var arrowUp = '';
+    var arrowUp = "";
     /**
      * @type {string}
      */
-    var arrowDown = '';
+    var arrowDown = "";
     /**
      * @type {string}
      */
-    var searchFormClass = '';
+    var searchFormClass = "";
     /**
      * @type {string}
      */
-    var pageFieldText = '';
+    var pageFieldText = "";
     /**
      * @type {string}
      */
-    var searchFieldText = '';
+    var searchFieldText = "";
 
     $.fn.bdt = function (options, callback) {
 
         var settings = $.extend({
             pageRowCount: 5,
-            arrowDown: 'fa-angle-down',
-            arrowUp: 'fa-angle-up',
-            searchFormClass: 'pull-left search-form',
-            pageFieldText: 'Entries per Page:',
-            searchFieldText: 'Search'
+            arrowDown: "fa-angle-down",
+            arrowUp: "fa-angle-up",
+            searchFormClass: "pull-left search-form",
+            pageFieldText: "Entries per Page:",
+            searchFieldText: "Search"
         }, options);
 
         /**
@@ -76,7 +76,7 @@
         var tableBody = null;
 
         return this.each(function () {
-            obj = $(this).addClass('bdt');
+            obj = $(this).addClass("bdt");
             tableBody = obj.find("tbody");
             pageRowCount = settings.pageRowCount;
             arrowDown = settings.arrowDown;
@@ -89,72 +89,20 @@
              * search input field
              */
             obj.before(
-                $('<div/>')
-                    .addClass('table-header')
+                $("<div/>")
+                    .addClass("table-header")
                     .append(
-                        $('<form/>')
+                        $("<form/>")
                             .addClass(searchFormClass)
-                            .attr('role', 'form')
+                            .attr("role", "form")
                             .append(
-                                $('<div/>')
-                                    .addClass('form-group')
+                                $("<div/>")
+                                    .addClass("form-group")
                                     .append(
-                                        $('<input/>')
-                                            .addClass('form-control')
-                                            .attr('id', 'search')
-                                            .attr('placeholder', searchFieldText)
-                                    )
-                            )
-                    )
-                    .append(
-                        $('<div/>')
-                            .addClass('pull-left')
-                            .append(
-                                $('<form/>')
-                                    .addClass('form-horizontal')
-                                    .attr('id', 'page-rows-form')
-                                    .append($('<label/>')
-                                        .addClass('pull-left control-label')
-                                        .text(pageFieldText)
-                                    )
-                                    .append(
-                                        $('<div/>')
-                                            .addClass('pull-left')
-                                            .append(
-                                                $('<select/>')
-                                                    .addClass('form-control')
-                                                    .append(
-                                                        $('<option>', {
-                                                            value: 25,
-                                                            text: 25,
-                                                            selected: 'selected'
-                                                        })
-                                                    )
-                                                    .append(
-                                                        $('<option>', {
-                                                            value: 10,
-                                                            text: 10
-                                                        })
-                                                    )
-                                                    .append(
-                                                        $('<option>', {
-                                                            value: 15,
-                                                            text: 15
-                                                        })
-                                                    )
-                                                    .append(
-                                                        $('<option>', {
-                                                            value: 20,
-                                                            text: 20
-                                                        })
-                                                    )
-                                                    .append(
-                                                        $('<option>', {
-                                                            value: 25,
-                                                            text: 25
-                                                        })
-                                                    )
-                                            )
+                                        $("<input/>")
+                                            .addClass("form-control")
+                                            .attr("id", "search")
+                                            .attr("placeholder", searchFieldText)
                                     )
                             )
                     )
@@ -164,17 +112,17 @@
              * select field for changing row per page
              */
             obj.after(
-                $('<div/>')
-                    .attr('id', 'table-footer')
+                $("<div/>")
+                    .attr("id", "table-footer")
                     .append(
-                        $('<div/>')
-                            .addClass('pull-left table-info')
+                        $("<div/>")
+                            .addClass("pull-left table-info")
                             //.text('Showing 1 to 10 of 100 entries')
                     )
                     
             );
 
-            if (tableBody.children('tr').length > pageRowCount) {
+            if (tableBody.children("tr").length > pageRowCount) {
                 setPageCount(tableBody);
                 addPages();
                 paginate(tableBody, actualPage);
@@ -183,7 +131,7 @@
             searchTable(tableBody);
             sortColumn(obj, tableBody);
 
-            $('body').on('click', '.pagination li', function (event) {
+            $("body").on("click", ".pagination li", function (event) {
                 var listItem;
 
                 if ($(event.target).is("a")) {
@@ -192,15 +140,15 @@
                     listItem = $(event.target).parent().parent();
                 }
 
-                var page = listItem.data('page');
+                var page = listItem.data("page");
 
                 if (!listItem.hasClass("disabled") && !listItem.hasClass("active")) {
                     paginate(tableBody, page);
                 }
             });
 
-            $('#page-rows-form').on('change', function () {
-                var options = $(this).find('select');
+            $("#page-rows-form").on("change", function () {
+                var options = $(this).find("select");
                 pageRowCount = options.val();
 
                 setPageCount(tableBody);
@@ -221,11 +169,11 @@
             var oldIndex = 0;
 
             obj
-                .find('thead th')
-                .wrapInner('<span class="sort-element"/>')
+                .find("thead th")
+                .wrapInner("<span class=\"sort-element\"/>")
                 .append(
-                    $('<span/>')
-                        .addClass('sort-icon fa')
+                    $("<span/>")
+                        .addClass("sort-icon fa")
                 )
                 .each(function () {
 
@@ -235,30 +183,30 @@
                     var addOrRemove = true;
 
                     th.click(function () {
-                        if(!$(this).hasClass('disable-sorting')) {
-                            if($(this).find('.sort-icon').hasClass(arrowDown)) {
+                        if(!$(this).hasClass("disable-sorting")) {
+                            if($(this).find(".sort-icon").hasClass(arrowDown)) {
                                 $(this)
-                                    .find('.sort-icon')
+                                    .find(".sort-icon")
                                     .removeClass( arrowDown )
                                     .addClass(arrowUp);
 
                             } else {
                                 $(this)
-                                    .find('.sort-icon')
+                                    .find(".sort-icon")
                                     .removeClass( arrowUp )
                                     .addClass(arrowDown);
                             }
 
                             if(oldIndex != thIndex) {
-                                obj.find('.sort-icon').removeClass(arrowDown);
-                                obj.find('.sort-icon').removeClass(arrowUp);
+                                obj.find(".sort-icon").removeClass(arrowDown);
+                                obj.find(".sort-icon").removeClass(arrowUp);
 
                                 $(this)
-                                    .find('.sort-icon')
+                                    .find(".sort-icon")
                                     .toggleClass( arrowDown, addOrRemove );
                             }
 
-                            table.find('td').filter(function () {
+                            table.find("td").filter(function () {
 
                                 return $(this).index() === thIndex;
 
@@ -287,23 +235,23 @@
          * create li elements for pages
          */
         function addPages() {
-            $('#table-nav').remove();
-            pages = $('<ul/>');
+            $("#table-nav").remove();
+            pages = $("<ul/>");
 
             $.each(new Array(pageCount), function (index) {
-                var additonalClass = '';
+                var additonalClass = "";
                 var page = $();
 
                 if ((index + 1) == 1) {
-                    additonalClass = 'active';
+                    additonalClass = "active";
                 }
 
                 pages
-                    .append($('<li/>')
+                    .append($("<li/>")
                         .addClass(additonalClass)
-                        .data('page', (index + 1))
+                        .data("page", (index + 1))
                         .append(
-                            $('<a/>')
+                            $("<a/>")
                                 .text(index + 1)
                         )
                     );
@@ -312,48 +260,48 @@
             /**
              * pagination, with pages and previous and next link
              */
-            $('#table-footer')
-                .addClass('row')
+            $("#table-footer")
+                .addClass("row")
                 .append(
-                    $('<nav/>')
-                        .addClass('pull-right')
-                        .attr('id', 'table-nav')
+                    $("<nav/>")
+                        .addClass("pull-right")
+                        .attr("id", "table-nav")
                         .append(
                             pages
-                                .addClass('pagination pull-right')
+                                .addClass("pagination pull-right")
                                 .prepend(
-                                    $('<li/>')
-                                        .addClass('disabled')
-                                        .data('page', 'previous')
+                                    $("<li/>")
+                                        .addClass("disabled")
+                                        .data("page", "previous")
                                         .append(
-                                            $('<a href="#" />')
+                                            $("<a href=\"#\" />")
                                                 .append(
-                                                    $('<span/>')
-                                                        .attr('aria-hidden', 'true')
-                                                        .html('&laquo;')
+                                                    $("<span/>")
+                                                        .attr("aria-hidden", "true")
+                                                        .html("&laquo;")
                                                 )
                                                 .append(
-                                                    $('<span/>')
-                                                        .addClass('sr-only')
-                                                        .text('Previous')
+                                                    $("<span/>")
+                                                        .addClass("sr-only")
+                                                        .text("Previous")
                                                 )
                                         )
                                 )
                                 .append(
-                                    $('<li/>')
-                                        .addClass('disabled')
-                                        .data('page', 'next')
+                                    $("<li/>")
+                                        .addClass("disabled")
+                                        .data("page", "next")
                                         .append(
-                                            $('<a href="#" />')
+                                            $("<a href=\"#\" />")
                                                 .append(
-                                                    $('<span/>')
-                                                        .attr('aria-hidden', 'true')
-                                                        .html('&raquo;')
+                                                    $("<span/>")
+                                                        .attr("aria-hidden", "true")
+                                                        .html("&raquo;")
                                                 )
                                                 .append(
-                                                    $('<span/>')
-                                                        .addClass('sr-only')
-                                                        .text('Next')
+                                                    $("<span/>")
+                                                        .addClass("sr-only")
+                                                        .text("Next")
                                                 )
                                         )
                                 )
@@ -372,7 +320,7 @@
 
                     var text = $(this)
                         .text()
-                        .replace(/ /g, '')
+                        .replace(/ /g, "")
                         .replace(/(\r\n|\n|\r)/gm, "");
 
                     var searchTerm = $("#search").val();
@@ -380,14 +328,14 @@
                     if (text.toLowerCase().indexOf(searchTerm.toLowerCase()) == -1) {
                         $(this)
                             .hide()
-                            .removeClass('search-item');
+                            .removeClass("search-item");
                     } else {
                         $(this)
                             .show()
-                            .addClass('search-item');
+                            .addClass("search-item");
                     }
 
-                    if (searchTerm != '') {
+                    if (searchTerm != "") {
                         activeSearch = true;
                     } else {
                         activeSearch = false;
@@ -406,9 +354,9 @@
          */
         function setPageCount(tableBody) {
             if (activeSearch) {
-                pageCount = Math.ceil(tableBody.children('.search-item').length / pageRowCount);
+                pageCount = Math.ceil(tableBody.children(".search-item").length / pageRowCount);
             } else {
-                pageCount = Math.ceil(tableBody.children('tr').length / pageRowCount);
+                pageCount = Math.ceil(tableBody.children("tr").length / pageRowCount);
             }
 
             if (pageCount == 0) {
@@ -422,9 +370,9 @@
          * @param page
          */
         function paginate(tableBody, page) {
-            if (page == 'next') {
+            if (page == "next") {
                 page = actualPage + 1;
-            } else if (page == 'previous') {
+            } else if (page == "previous") {
                 page = actualPage - 1;
             }
 
@@ -433,7 +381,7 @@
             var rows = (activeSearch ? tableBody.find(".search-item") : tableBody.find("tr"));
             var endRow = (pageRowCount * page);
             var startRow = (endRow - pageRowCount);
-            var pagination = $('.pagination');
+            var pagination = $(".pagination");
 
             rows
                 .hide();
@@ -443,22 +391,22 @@
                 .show();
 
             pagination
-                .find('li')
-                .removeClass('active disabled');
+                .find("li")
+                .removeClass("active disabled");
 
             pagination
-                .find('li:eq(' + page + ')')
-                .addClass('active');
+                .find("li:eq(" + page + ")")
+                .addClass("active");
 
             if (page == 1) {
                 pagination
-                    .find('li:first')
-                    .addClass('disabled');
+                    .find("li:first")
+                    .addClass("disabled");
 
             } else if (page == pageCount) {
                 pagination
-                    .find('li:last')
-                    .addClass('disabled');
+                    .find("li:last")
+                    .addClass("disabled");
             }
         }
     }

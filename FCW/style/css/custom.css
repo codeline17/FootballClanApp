@@ -133,7 +133,6 @@ img.avatars {
 i.gold {
     color: #d4af37;
     vertical-align: baseline;
-    margin-right: 30px;
 }
 
 i.silver {
@@ -239,4 +238,28 @@ table.trophies tr {
 .modal.fade.in {
     height: 80%;
     margin-top: 0px !important;
+}
+
+.img-responsive {
+    margin: 0 auto;
+}
+
+table.clans {
+    width: 100%;
+}
+
+.clans td {
+    padding: 10px 0;
+}
+
+.wonGame {
+    color: #0db14b;
+    vertical-align: baseline;
+    margin-left: 5px;
+}
+
+.lostGame {
+    color: #ef4b22;
+    vertical-align: baseline;
+    margin-left: 5px;
 }

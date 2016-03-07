@@ -56,7 +56,7 @@ window.onload = function (e) {
          case "leagues":
             genLeagues();
              break;
-         case "leadboard":
+         case "leaderboard":
             genLeadBoard();
              break;
          case "livescore":
@@ -116,8 +116,21 @@ function genMatches() {
  function genStore() {
 
      var mainC = document.getElementById("mainContainer");
-
-     mainC.append(cEl("h3").attr("class","text-center").tEl("Comming soon..."));
+     var els1 = cEl("div").attr("class", "row-fluid")
+         .append(cEl("div").attr("class", "span4").append(cEl("img").attr("width", "100%").attr("src", "style/images/shop_0.jpg"))
+         )
+         .append(cEl("div").attr("class", "span4").append(cEl("img").attr("width", "100%").attr("src", "style/images/shop_1.jpg"))
+         )
+         .append(cEl("div").attr("class", "span4").append(cEl("img").attr("width", "100%").attr("src", "style/images/shop_2.jpg"))
+         );
+     var els2 = cEl("div").attr("class", "row-fluid")
+         .append(cEl("div").attr("class", "span4").append(cEl("img").attr("width", "100%").attr("src", "style/images/shop_3.jpg"))
+         )
+         .append(cEl("div").attr("class", "span4").append(cEl("img").attr("width", "100%").attr("src", "style/images/shop_4.jpg"))
+         )
+         .append(cEl("div").attr("class", "span4").append(cEl("img").attr("width", "100%").attr("src", "style/images/shop_5.jpg"))
+         );
+     mainC.append(els1).append(els2);
  }
 
  function genHeader1() {
@@ -218,17 +231,20 @@ function genGrid(matches, date) {
         exGrid.parentNode.removeChild(exGrid);
     }
 
-    if (date !== "nope") {
-        var totPoints = 0;
+    var totPoints = 0;
+    var pEl;
 
-        for (var i = 0; i < matches.length; i++) {
-            totPoints += matches[i].PointsWon;
-        }
-
-        var pEl = cEl("h3").tEl(date + " - " + totPoints + " points").attr("style","text-align:center;");
-
-        rFluid.append(pEl);
+    for (var i = 0; i < matches.length; i++) {
+        totPoints += matches[i].PointsWon;
     }
+
+    if (date !== "nope") {
+         pEl = cEl("h3").tEl(date + " - " + totPoints + " points").attr("style","text-align:center;");
+    } else {
+        pEl = cEl("h3").tEl("Today - " + totPoints + " points").attr("style", "text-align:center;");
+    }
+
+    rFluid.append(pEl);
     
     //rFluid.appendChild(genTable("match-table", matches, state));
     rFluid.append(genMatchRows(matches, "match-table"));
@@ -265,10 +281,10 @@ function addFilterHead() {
     }).on("changeDate", function (e) {
         var dt = e.date;
         if (mode==="predictions") {
-            genPredictions(getFullDate(dt));
+            genPredictions(getFullDate(dt,0));
         }
         else if (mode ==="livescore") {
-            genLiveScore(getFullDate(dt));
+            genLiveScore(getFullDate(dt,0));
         }
     });
     //$("#predSBtn").click(function () { genPredictions($("#pref-search").text) })

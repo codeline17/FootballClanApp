@@ -67,14 +67,11 @@
               $.post("Actions/User.aspx", { type: "CDL", id: e.ClanId },
                   function(c) {
                       c = JSON.parse(c);
+                      
+                      //mainC.append(cEl("h3").tEl(c.Name + "   ").append(cEl("span").attr("class","cups").tEl("0").append(cEl("i").attr("class", "icon-trophy gold"))).append(cEl("small").tEl("[ " + clanPts + " Pts ]")).append(cEl("small").tEl("  [ " + c.Users.length + " of 11 members ]")));
 
-                      var clanPts = 0;
-                      for (var i = 0; i < c.Users.length; i++) {
-                          clanPts += c.Users[i].Points;
-                      }
-                      mainC.append(cEl("h3").tEl(c.Name + "   ").append(cEl("span").attr("class","cups").tEl("0").append(cEl("i").attr("class", "icon-trophy gold"))).append(cEl("small").tEl("[ " + clanPts + " Pts ]")).append(cEl("small").tEl("  [ " + c.Users.length + " of 11 members ]")));
-
-                      mainC.append(cEl("p").append(cEl("a").attr("href","#").attr("cel-uname", cuser.Username).attr("cel-cname", c.Name).tEl("Leave Clan").listener("click", removeMember)));
+                      //mainC.append(cEl("p").append(cEl("a").attr("href","#").attr("cel-uname", cuser.Username).attr("cel-cname", c.Name).tEl("Leave Clan").listener("click", removeMember)));
+                      mainC.append(genClanHeader(c));
                       var rFluid = document.createElement("div");
                       rFluid.id = "tblContainer";
                       //rFluid.className = "row-fluid";
@@ -96,9 +93,64 @@
                   });
           }
       });
-    //ajax if user is in clan than show clan
+}
 
-    //else show button create clan
+function genClanHeader(c) {
+    var clanPts = 0;
+    for (var i = 0; i < c.Users.length; i++) {
+        clanPts += c.Users[i].Points;
+    }
+    var m = cEl("table").attr("class","clans")
+        .append(
+            cEl("tr")
+            .append(
+                cEl("td").attr("rowspan", "2")
+                .append(cEl("img").attr("class", "img-responsive").attr("width", "50px").attr("src", "style/images/clan_badge_default.png")
+                )
+            )
+            .append(
+                cEl("td")
+                .append(
+                    cEl("h4").attr("class","text-center").tEl(c.Name)
+                )
+            )
+            .append(
+                cEl("td")
+                .append(
+                    cEl("h4").attr("class","text-center").append(cEl("span").attr("class", "cups").tEl("0").append(cEl("i").attr("class", "icon-trophy gold"))
+                    )
+                )
+            )
+            .append(
+                cEl("td")
+                .append(
+                    cEl("h4").attr("class","text-center").tEl("Rank: " + c.Rank)
+                )
+            )
+        )
+        .append(
+            cEl("tr")
+            .append(
+                cEl("td")
+                .append(
+                    cEl("h4").attr("class","text-center").tEl(clanPts + " pts")
+                )
+            )
+            .append(
+                cEl("td")
+                .append(
+                    cEl("h4").attr("class","text-center").tEl("Lvl: 1")
+                )
+             )
+            .append(
+                cEl("td")
+                .append(
+                    cEl("h4").attr("class","text-center").tEl("Avg: " + (clanPts / c.Users.length).toFixed(2))
+                )
+             )
+        );
+
+    return cEl("div").attr("class","row-fluid").append(m);
 }
 
 function CreateClan() {

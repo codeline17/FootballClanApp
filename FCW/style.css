@@ -545,7 +545,7 @@ header .logo {
 .btn,
 .btn-group > .btn {
     color: #fff;
-    background: #74c9be;
+    background: #0db14b;
     margin-right: 5px;
     margin-bottom: 10px;
     padding: 8px 18px;
@@ -589,7 +589,7 @@ header .logo {
 .btn:focus,
 .btn:active,
 .btn.active {
-    background-color: #505050;
+    background-color: #f37021;
     color: #fff;
     -webkit-box-shadow: none;
     -moz-box-shadow: none;

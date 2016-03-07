@@ -37,7 +37,8 @@ function genLbUserTable(objs, id) {
     mainTag.className = "table table-hover";
 
     //Header
-    var head = [{ Title: "Fav", Text: "Fav" }, { Title: "Rank", Text: "#" },  { Title: "Username", Text: "User" }, { Title: "Points", Text: "Points" }, { Title: "Level", Text: "Level" }];
+    var head = [{ Title: "Fav", Text: "Fav" }, { Title: "Rank", Text: "#" }, { Title: "Username", Text: "User" },
+                { Title: "Points", Text: "Points" }, { Title: "Level", Text: "Level" }, { Title: "Form", Text: "Form" }];
     var tHead = document.createElement("thead");
     var hRow = document.createElement("tr");
     for (i = 0; i < head.length; i++) {
@@ -58,7 +59,8 @@ function genLbUserTable(objs, id) {
               .append(cEl("td").tEl(objs[i].Rank)) //Rank
               .append(cEl("td").tEl(objs[i].Username)) //Username
               .append(cEl("td").tEl(objs[i].Points)) //Points
-              .append(cEl("td").tEl(Math.floor(objs[i].TotalPredictions / 1000) + 1)); //Level
+              .append(cEl("td").tEl(getOverAllForm(objs[i]))) //Level
+              .append(cEl("td").tEl(getUserForm(objs[i]))); //Form
 
         //tBody.append(genSingleMatchRow(matches[j]));
         tBody.append(favRow);
@@ -230,13 +232,13 @@ function pageToSelf(opt) {
 
     switch (opt) {
         case "u":
-            pages[0].childNodes[Math.floor(cuser.Rank / 5) + 1].childNodes[0].click();
+            pages[0].childNodes[Math.floor(cuser.Rank / 25) + 1].childNodes[0].click();
             break;
         case "c":
             var own = document.getElementsByClassName("self")[0];
             if (own) {
                 var pos = own.childNodes[0].innerText;
-                pages[0].childNodes[Math.floor(pos / 5) + 1].childNodes[0].click();
+                pages[0].childNodes[Math.floor(pos / 25) + 1].childNodes[0].click();
             }
             break;
     }

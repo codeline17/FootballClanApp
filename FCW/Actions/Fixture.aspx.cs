@@ -264,7 +264,8 @@ namespace FCW.Actions
                                         ,reader["Repeater"].ToString()
                                         ,Convert.ToInt16(reader["Value"])
                                         ,Convert.ToInt16(reader["Price"])
-                                        ,Convert.ToBoolean(reader["isWon"]))
+                                        ,Convert.ToBoolean(reader["GAuthorized"])
+                                        ,Convert.ToBoolean(reader["Evaluated"]))
                                     }
                                     ,Convert.ToDateTime(reader["StartDate"]),
                                     Convert.ToBoolean(reader["GameSealed"]),
@@ -290,7 +291,8 @@ namespace FCW.Actions
                                ,reader["Repeater"].ToString()
                                ,Convert.ToInt16(reader["Value"])
                                ,Convert.ToInt16(reader["Price"])
-                               ,Convert.ToBoolean(reader["GAuthorized"])));
+                               ,Convert.ToBoolean(reader["GAuthorized"])
+                               ,Convert.ToBoolean(reader["Evaluated"])));
                             }
                             else
                             {

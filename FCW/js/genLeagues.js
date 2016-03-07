@@ -19,7 +19,6 @@
     var contentEl = cEl("div").attr("class", "panel-container").attr("style", "overflow: hidden;");
 
     for (var i = 0; i < tabs.length; i++) {
-        console.log(tabs);
         var cId = makeid();
         var tabEl = cEl("li").listener("click",switchTabs, false).attr("class", "tab").append(cEl("a").attr("href", "#" + cId).tEl(tabs[i].Name));
         tabsEl.append(tabEl);
@@ -87,7 +86,6 @@ function genLeagueTable(n,u) {
         var tdUsername = cEl("td").tEl(u[i].Username ? u[i].Username : u[i].Name);
         var tdPoints = cEl("td").tEl(u[i].Points);
         var row = cEl("tr").append(tdRang).append(tdUsername).append(tdPoints);
-        console.log(cuser);
         row.className = cuser.Username === u[i].Username ? "leader" : "";
         tBody.append(row);
     }

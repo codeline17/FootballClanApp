@@ -21,7 +21,6 @@
     //Body
     var tBody = document.createElement("tbody");
     for (var j = 0; j < matches.length; j++) {
-        console.log(matches[j]);
         if (!extraRow & !matches[j].Authorized) {
             tBody.append(getExtraMatchRow());
             extraRow = true;
@@ -55,11 +54,13 @@ function genSingleMatchRow(match) {
             }
         }
     }
-    tr.append(cEl("td").tEl(s + "/4"));
+    tr.append(cEl("td").append(cEl("img").attr("src", "style/images/fill_" + s + ".png").attr("class", "img-responsive")));
     //Time
-    tr.append(cEl("td").tEl(match.ShortTime));
+    var time = match.Sealed ? match.Minute : match.ShortTime;
+    tr.append(cEl("td").tEl(time));
     //Score
-    tr.append(cEl("td").tEl(match.HomeGoals + "-" + match.AwayGoals));
+    var score = match.Sealed ? match.HomeGoals + "-" + match.AwayGoals : "-";
+    tr.append(cEl("td").tEl(score));
     //Points
     tr.append(cEl("td").tEl(match.PointsWon));
 
@@ -109,7 +110,17 @@ function createMatchPanel(e) {
         var lpgrow, tgrow, csrow;
 
         //------------------------RF---------------------
-        var rf = cEl("div").attr("class", "span12").append(cEl("h4").attr("class", "text-center").tEl("Match Result"));
+        var rfName = cEl("h4").attr("class", "text-center").tEl("Match Result");
+        if (rubRF.Evaluated) {
+            if (rubRF.PointsWon > 0) {
+                rfName.append(cEl("i").attr("class", "icon-ok wonGame"));
+            }
+            else
+            {
+                rfName.append(cEl("i").attr("class", "icon-cancel-1 lostGame"));
+            }
+        }
+        var rf = cEl("div").attr("class", "span12").append(rfName);
         var rfDetails = cEl("div").attr("class", "btn-group btn-group-justified").attr("role", "group");
         for (i = 0; i < rubRF.Outcomes.length; i++) {
             addClass = rubRF.Outcomes[i].Selected ? " active" : "";
@@ -125,7 +136,16 @@ function createMatchPanel(e) {
 
         //------------------------LPG---------------------
         if (rubLPG.Authorized) {
-            var lpg = cEl("div").attr("class", "row-fluid").append(cEl("h4").attr("class", "text-center").tEl("Goals Scored"));
+            var lpgName = cEl("h4").attr("class", "text-center").tEl("Goals Scored");
+            if (rubLPG.Evaluated) {
+                if (rubLPG.PointsWon > 0) {
+                    lpgName.append(cEl("i").attr("class", "icon-ok wonGame"));
+                }
+                else {
+                    lpgName.append(cEl("i").attr("class", "icon-cancel-1 lostGame"));
+                }
+            }
+            var lpg = cEl("div").attr("class", "row-fluid").append(lpgName);
             var lpgDetails = cEl("div").attr("class", "btn-group btn-group-justified").attr("role", "group");
             for (i = 0; i < rubLPG.Outcomes.length; i++) {
                 addClass = rubLPG.Outcomes[i].Selected ? " active" : "";
@@ -145,7 +165,17 @@ function createMatchPanel(e) {
 
         //------------------------TG---------------------
         if (rubTG.Authorized) {
-            var tg = cEl("div").attr("class", "row-fluid").append(cEl("h4").attr("class", "text-center").tEl("Total Goals"));
+            var tgName = cEl("h4").attr("class", "text-center").tEl("Total Goals");
+            if (rubTG.Evaluated) {
+                if (rubTG.PointsWon > 0) {
+                    tgName.append(cEl("i").attr("class", "icon-ok wonGame"));
+                }
+                else {
+                    tgName.append(cEl("i").attr("class", "icon-cancel-1 lostGame"));
+                }
+            }
+            var tg = cEl("div").attr("class", "row-fluid").append(tgName);
+
             var tgDetails = cEl("select").attr("class", "TG").append(cEl("option").tEl("---"));
             if (!sealed) {
                 tgDetails.listener("change", sendPredictions);
@@ -166,7 +196,16 @@ function createMatchPanel(e) {
 
         //------------------------CS---------------------
         if (rubCS.Authorized) {
-            var cs = cEl("div").attr("class", "row-fluid").append(cEl("h4").attr("class", "text-center").tEl("Correct Score"));
+            var csName = cEl("h4").attr("class", "text-center").tEl("Correct Score");
+            if (rubCS.Evaluated) {
+                if (rubCS.PointsWon > 0) {
+                    csName.append(cEl("i").attr("class", "icon-ok wonGame"));
+                }
+                else {
+                    csName.append(cEl("i").attr("class", "icon-cancel-1 lostGame"));
+                }
+            }
+            var cs = cEl("div").attr("class", "row-fluid").append(csName);
             var csDetails = cEl("select").attr("class", "CS").append(cEl("option").tEl("---"));
             if (!sealed) {
                 csDetails.listener("change", sendPredictions);
@@ -201,10 +240,6 @@ function createMatchPanel(e) {
             )));
     }
     return panel;
-}
-
-function purchaseExtraFixtures() {
-    
 }
 
 function genPurchasePanel(game) {
@@ -253,7 +288,18 @@ function purchaseOption(e) {
             if (r === "1") {
                 location.reload();
             } else {
-                
+                //TODO: GOTO Store
             }
     });
+}
+
+function purchaseExtraFixtures() {
+    $.post("Actions/User.aspx", { type: "PEF" },
+        function (r) {
+            if (r === "1") {
+                location.reload();
+            } else {
+                //TODO: GOTO Store
+            }
+        });
 }
