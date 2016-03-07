@@ -20,7 +20,7 @@ window.onload = function (e) {
     }
 
     getMatches("w");
-    genMatches();
+    //genMatches();
 
     cuser = JSON.parse(getCookie("u"));
 }
@@ -43,7 +43,7 @@ window.onload = function (e) {
          case "matches":
              state = true;
              getMatches("w");
-             genMatches();
+             //genMatches();
              break;
          case "predictions":
              state = false;
@@ -85,6 +85,7 @@ window.onload = function (e) {
                         if (trs[i].wrapper) {
                             if (trs[i].wrapper.ID === matches[j].ID) {
                                 trs[i].wrapper = matches[j];
+                                trs[i].innerHTML = genSingleMatchRow(matches[j]).innerHTML;
                             }
                         }
                     }

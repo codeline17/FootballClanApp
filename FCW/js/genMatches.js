@@ -72,6 +72,7 @@ function genSingleMatchRow(match) {
 function expandMatch(e) {
     var el = e.target.parentElement;
     if (document.getElementById("exp") && el.className.indexOf("exp") > -1) {
+        el.className = el.className.trim().replace("exp", "");
         e.target.parentElement.parentElement.removeChild(document.getElementById("exp"));
     } else {
         if (document.getElementById("exp")) {
@@ -277,8 +278,9 @@ function sendPredictions(e) {
     }
     e.target.className += " active";
 
-    $.post("Actions/Fixture.aspx", { type: "SNDPD", pds: prd });
-
+    $.post("Actions/Fixture.aspx", { type: "SNDPD", pds: prd }, function (r) {
+        getMatches("n");
+    });
 }
 
 function purchaseOption(e) {

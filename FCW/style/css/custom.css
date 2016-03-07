@@ -242,6 +242,7 @@ table.trophies tr {
 
 .img-responsive {
     margin: 0 auto;
+    width: 15px;
 }
 
 table.clans {
