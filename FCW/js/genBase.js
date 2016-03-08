@@ -242,7 +242,7 @@ function genGrid(matches, date) {
     if (date !== "nope") {
          pEl = cEl("h3").tEl(date + " - " + totPoints + " points").attr("style","text-align:center;");
     } else {
-        pEl = cEl("h3").tEl("Today - " + totPoints + " points").attr("style", "text-align:center;");
+        pEl = cEl("h3").attr("class","todays").tEl("Today - " + totPoints + " points").attr("style", "text-align:center;");
     }
 
     rFluid.append(pEl);
