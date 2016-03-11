@@ -9,11 +9,11 @@
 
     //Header
     var head = [{ Title: "Match", Text: "Match" }, { Title: "League", Text: "League" }, { Title: "Fill", Text: "Fill" },
-                { Title: "Time", Text: "Time" }, { Title: "Score", Text: "Score" }, { Title: "Points", Text: "Points" }];
-    var tHead = document.createElement("thead");
+                { Title: "Time", Text: "Time" }, { Title: "Score", Text: "Score" }, { Title: "Points", Text: "Pts" }];
+    var tHead = document.createElement("thead");    
     var hRow = document.createElement("tr");
     for (var i = 0; i < head.length; i++) {
-        var hElement = cEl("th").tEl(head[i].Text);
+        var hElement = cEl("th").attr("class","text-center").tEl(head[i].Text);
         hRow.append(hElement);
     }
     tHead.append(hRow);
@@ -57,12 +57,12 @@ function genSingleMatchRow(match) {
     tr.append(cEl("td").append(cEl("img").attr("src", "style/images/fill_" + s + ".png").attr("class", "img-responsive")));
     //Time
     var time = match.Sealed ? match.Minute : match.ShortTime;
-    tr.append(cEl("td").tEl(time));
+    tr.append(cEl("td").attr("class","text-center").tEl(time));
     //Score
     var score = match.Sealed ? match.HomeGoals + "-" + match.AwayGoals : "-";
-    tr.append(cEl("td").tEl(score));
+    tr.append(cEl("td").attr("class","text-center").tEl(score));
     //Points
-    tr.append(cEl("td").tEl(match.PointsWon));
+    tr.append(cEl("td").attr("class","text-center").tEl(match.PointsWon));
 
     tr.className = !match.Authorized ? "extra" : "";
 

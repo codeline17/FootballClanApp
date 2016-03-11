@@ -1,26 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web;
-using Objects;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace FCW
 {
-    public partial class Login : System.Web.UI.Page
+    public partial class LoginNew : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            try
-            {
-                var user = (User)HttpContext.Current.Session["currentUser"];
-                if (user.Username != null)
-                {
-                    Response.Redirect("Default.aspx");
-                }
 
-            }
-            catch (Exception)
-            {
-                
-            }
         }
     }
 }

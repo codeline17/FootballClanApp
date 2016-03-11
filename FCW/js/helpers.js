@@ -77,7 +77,9 @@ function genProgressBar(w) {
 }
 
 function getUserForm(user) {
-    var form = Math.floor((user.LastSuccessfulPredictions / user.LastPredictions) * 200);
+    var fValue = user.LastSuccessfulPredictions / user.LastPredictions;
+    fValue = fValue > 0.5 ? 0.5 : fValue;
+    var form = Math.floor(fValue * 200);
     return form ? form : 0;
 }
 

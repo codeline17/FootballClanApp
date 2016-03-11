@@ -73,13 +73,14 @@
     <Content Include="js\helpers.js" />
     <Content Include="js\prototype.js" />
     <Content Include="js\user.js" />
-    <Content Include="Leaderboard.html" />
-    <Content Include="Matches.html" />
+    <Content Include="Login.aspx" />
     <Content Include="Service\MainService.svc" />
     <Content Include="style.css" />
     <Content Include="style\css\bslogin.css" />
     <Content Include="style\css\datepicker.css" />
     <Content Include="style\css\jquery.bdt.css" />
+    <Content Include="style\css\login.min.css" />
+    <Content Include="style\css\logincss.css" />
     <Content Include="style\css\select2.css" />
     <Content Include="style\css\style.css" />
     <Content Include="style\css\toggle.css" />
@@ -119,6 +120,7 @@
     <Content Include="style\js\confirmation.js" />
     <Content Include="style\js\jquery.bdt.js" />
     <Content Include="style\js\jquery.sortelements.js" />
+    <Content Include="style\js\login.min.js" />
     <Content Include="style\js\moment.js" />
     <Content Include="style\js\select2.js" />
     <Content Include="style\js\toggle.js" />
@@ -147,7 +149,6 @@
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
     <Content Include="js\genBase.js" />
-    <Content Include="Login.aspx" />
     <Content Include="stuff.txt" />
     <Content Include="style\css\bootstrap.css" />
     <Content Include="style\css\bootstrap.min.css" />

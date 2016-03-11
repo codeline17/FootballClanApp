@@ -5,10 +5,32 @@ document.addEventListener("DOMContentLoaded", function (event) {
     var pass = document.getElementById("password");
     pass.addEventListener("keyup", keypress);
 
+    var btnGotoRegister = document.getElementById("btnGotoRegister");
+    btnGotoRegister.addEventListener("click", gotoRegister);
+
+    var btnGotoLogin = document.getElementById("btnGotoLogin");
+    btnGotoLogin.addEventListener("click", gotoLogin);
+
     var btnReg = document.getElementById("btnRegister");
     btnReg.addEventListener("click", register);
 
 });
+
+function gotoRegister() {
+    var regForm = document.getElementById("frmRegister");
+    regForm.className = regForm.className.replace(" hidden", "");
+
+    var signInForm = document.getElementById("frmLogin");
+    signInForm.className += " hidden";
+}
+
+function gotoLogin() {
+    var regForm = document.getElementById("frmLogin");
+    regForm.className = regForm.className.replace(" hidden", "");
+
+    var signInForm = document.getElementById("frmRegister");
+    signInForm.className += " hidden";
+}
 
 function register() {
     var username = document.getElementById("regUsername");
@@ -129,6 +151,10 @@ function mainRegChecks() {
     //password do not match
     if (password.value !== confirmpassword.value) {
         showErrorAfterId("regForm", "Passwords do not match!");
+        return false;
+    }
+    if (!document.getElementById("termsAndConditions").checked) {
+        showErrorAfterId("regForm", "Accept terms and conditions before continuing!");
         return false;
     }
 

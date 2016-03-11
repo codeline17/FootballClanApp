@@ -69,6 +69,11 @@ window.onload = function (e) {
          default:
              break;
      }
+
+     if (document.getElementsByClassName("icon-cancel-1").length === 1) {
+     document.getElementsByClassName("icon-cancel-1")[0].click();
+     }
+
  }
 
  function getMatches(opt) {

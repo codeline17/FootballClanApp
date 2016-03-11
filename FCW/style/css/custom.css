@@ -243,6 +243,7 @@ table.trophies tr {
 .img-responsive {
     margin: 0 auto;
     width: 15px;
+    display: block;
 }
 
 table.clans {
@@ -273,4 +274,12 @@ h3.todays {
     background-color: #FFFFE0;
     font-style: italic;
     border-radius: 20px;
+}
+
+th {
+    text-align: inherit !important;
+}
+
+#match-table td {
+    text-align: center !important;
 }

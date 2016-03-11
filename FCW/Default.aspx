@@ -48,25 +48,25 @@
   <nav id="menu" class="menu">
     <ul id="tiny">
       <li class="active" content-type="matches">
-          <a><i class="icon-dribbble-circled icn"></i>My Matches</a>        
+          <a class="meanclose"><i class="icon-dribbble-circled icn"></i>My Matches</a>        
       </li>
       <li content-type="leaderboard">
-          <a><i class="icon-users-1 icn"></i>My Details</a>
+          <a class="meanclose"><i class="icon-users-1 icn"></i>My Details</a>
       </li>
       <li content-type="clans">
-          <a><i class="icon-users icn"></i>My Clans</a>
+          <a class="meanclose"><i class="icon-users icn"></i>My Clans</a>
       </li>
       <li content-type="leagues">
-          <a><i class="icon-users-1 icn"></i>My Leagues</a>
+          <a class="meanclose"><i class="icon-users-1 icn"></i>My Leagues</a>
       </li>
       <li content-type="predictions">
-          <a><i class="icon-magic icn"></i>Past Predictions</a>
+          <a class="meanclose"><i class="icon-magic icn"></i>Past Predictions</a>
       </li>
       <li content-type="chat">
-          <a><i class="icon-comment icn"></i>Message Board</a>
+          <a class="meanclose"><i class="icon-comment icn"></i>Message Board</a>
       </li>
       <li content-type="store">
-          <a><i class="icon-basket icn"></i>My Store</a>
+          <a class="meanclose"><i class="icon-basket icn"></i>My Store</a>
       </li>
     </ul>
   </nav>
