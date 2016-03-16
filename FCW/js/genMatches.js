@@ -44,7 +44,7 @@ function genSingleMatchRow(match) {
     //MatchName
     tr.append(cEl("td").tEl(match.HomeTeam.Name + "-" + match.AwayTeam.Name));
     //League
-    tr.append(cEl("td").append(cEl("span").attr("class", match.League.Country.toLowerCase())));
+    tr.append(cEl("td").append(cEl("span").attr("class", "flag " + match.League.Country.toLowerCase())));
     //Fill
     var s = 0;
     for (var i = 0; i < match.Games.length; i++) {

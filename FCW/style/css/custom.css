@@ -304,210 +304,114 @@ th {
 /*FLAGS*/
 span.argentina {
     background: url(../images/states/argentina.svg);
-    background-size: 30px 20px;
-    width: 30px;
-    height: 20px;
-    display: block;
 }
 
 span.australia {
     background: url(../images/states/australia.svg);
-    background-size: 30px 20px;
-    width: 30px;
-    height: 20px;
-    display: block;
 }
 
 span.belgium {
     background: url(../images/states/belgium.svg);
-    background-size: 30px 20px;
-    width: 30px;
-    height: 20px;
-    display: block;
 }
 
 span.brasil {
     background: url(../images/states/brasil.svg);
-    background-size: 30px 20px;
-    width: 30px;
-    height: 20px;
-    display: block;
 }
 
 span.china {
     background: url(../images/states/china.svg);
-    background-size: 30px 20px;
-    width: 30px;
-    height: 20px;
-    display: block;
 }
 
 span.denmark {
     background: url(../images/states/denmark.svg);
-    background-size: 30px 20px;
-    width: 30px;
-    height: 20px;
-    display: block;
 }
 
 span.england {
     background: url(../images/states/england.svg);
-    background-size: 30px 20px;
-    width: 30px;
-    height: 20px;
-    display: block;
 }
 
 span.france {
     background: url(../images/states/france.svg);
-    background-size: 30px 20px;
-    width: 30px;
-    height: 20px;
-    display: block;
 }
 
 span.germany {
     background: url(../images/states/germany.svg);
-    background-size: 30px 20px;
-    width: 30px;
-    height: 20px;
-    display: block;
 }
 
 span.greece {
     background: url(../images/states/greece.svg);
-    background-size: 30px 20px;
-    width: 30px;
-    height: 20px;
-    display: block;
 }
 
 span.holland {
     background: url(../images/states/holland.svg);
-    background-size: 30px 20px;
-    width: 30px;
-    height: 20px;
-    display: block;
 }
 
 span.italy {
     background: url(../images/states/italy.svg);
-    background-size: 30px 20px;
-    width: 30px;
-    height: 20px;
-    display: block;
 }
 
 span.mexico {
     background: url(../images/states/mexico.svg);
-    background-size: 30px 20px;
-    width: 30px;
-    height: 20px;
-    display: block;
 }
 
 span.norway {
     background: url(../images/states/norway.svg);
-    background-size: 30px 20px;
-    width: 30px;
-    height: 20px;
-    display: block;
 }
 
 span.poland {
     background: url(../images/states/poland.svg);
-    background-size: 30px 20px;
-    width: 30px;
-    height: 20px;
-    display: block;
 }
 
 span.portugal {
     background: url(../images/states/portugal.svg);
-    background-size: 30px 20px;
-    width: 30px;
-    height: 20px;
-    display: block;
 }
 
 span.russia {
     background: url(../images/states/russia.svg);
-    background-size: 30px 20px;
-    width: 30px;
-    height: 20px;
-    display: block;
 }
 
 span.scotland {
     background: url(../images/states/scotland.svg);
-    background-size: 30px 20px;
-    width: 30px;
-    height: 20px;
-    display: block;
 }
 
 span.spain {
     background: url(../images/states/spain.svg);
-    background-size: 30px 20px;
-    width: 30px;
-    height: 20px;
-    display: block;
 }
 
 span.sweden {
     background: url(../images/states/sweden.svg);
-    background-size: 30px 20px;
-    width: 30px;
-    height: 20px;
-    display: block;
 }
 
 span.turkey {
     background: url(../images/states/turkey.svg);
-    background-size: 30px 20px;
-    width: 30px;
-    height: 20px;
-    display: block;
 }
 
 span.ukraine {
     background: url(../images/states/ukraine.svg);
-    background-size: 30px 20px;
-    width: 30px;
-    height: 20px;
-    display: block;
 }
 
 span.usa {
     background: url(../images/states/usa.svg);
-    background-size: 30px 20px;
-    width: 30px;
-    height: 20px;
-    display: block;
 }
 
 span.europe {
     background: url(../images/states/uefa.png);
-    background-size: 30px 20px;
-    width: 30px;
-    height: 20px;
-    display: block;
 }
 
 span.international {
     background: url(../images/states/globe.png);
-    background-size: 30px 20px;
-    width: 30px;
-    height: 20px;
-    display: block;
 }
 
 span.none {
     background-color: lightgrey;
-    background-size: 30px 20px;
-    width: 30px;
-    height: 20px;
+}
+
+span.flag {
+    background-size: 20px 15px;
+    width: 20px;
+    height: 15px;
     display: block;
+    margin: auto;
 }
 /*END FLAGS*/
 
