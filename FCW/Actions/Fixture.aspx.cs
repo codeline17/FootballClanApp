@@ -272,7 +272,8 @@ namespace FCW.Actions
                                     reader["FixturePack"].ToString(),
                                     Convert.ToInt32(reader["HomeGoals"]),
                                     Convert.ToInt32(reader["AwayGoals"]),
-                                    Convert.ToBoolean(reader["FAuthorized"])));
+                                    Convert.ToBoolean(reader["FAuthorized"]),
+                                    reader["StatusSlug"].ToString()));
                         }
                         else
                         {

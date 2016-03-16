@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.AccessControl;
+using System.Security.Policy;
 
 namespace Objects
 {
@@ -26,6 +27,7 @@ namespace Objects
         public string Pack { get; set; }
         public bool Authorized { get; set; }
         public int PointsWon => Games.Sum(x => x.PointsWon);
+        public string StatusSlug { get; set; }
 
 
         public Fixture(int id, Team hometeam, 
@@ -33,7 +35,7 @@ namespace Objects
                         string minute, Competition league, 
                         List<Game> games, DateTime starttime, 
                         bool mSealed, string pack, int homegoals, 
-                        int awaygoals, bool authorized)
+                        int awaygoals, bool authorized, string statusslug)
         {
             ID = id;
             HomeTeam = hometeam;
@@ -48,6 +50,7 @@ namespace Objects
             HomeGoals = homegoals;
             AwayGoals = awaygoals;
             Authorized = authorized;
+            StatusSlug = statusslug;
         }
 
         public Fixture(Team hometeam, Team awayteam, Competition league, 

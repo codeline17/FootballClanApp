@@ -13,7 +13,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     var btnReg = document.getElementById("btnRegister");
     btnReg.addEventListener("click", register);
-
 });
 
 function gotoRegister() {
@@ -80,10 +79,10 @@ function keypress(e) {
 
 function afterAjax(user) {
     if (!user.Username) {
-        var err = document.getElementById("loginErrorMsg");
-        err.className = "alert alert-error orangered";
-        setTimeout(function () { err.className = "alert alert-error orangered hide"; }, 5000);
+        showErrorAfterId("loginError", "Username or password incorrect.");
+        //setTimeout(function () { err.className = "alert alert-error orangered hide"; }, 5000);
     } else {
+        localStorage["rInfo"] = user.GUID + ";" + user.Token;
        document.location = "Default.aspx";
     }
 }

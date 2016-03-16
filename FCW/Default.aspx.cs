@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using Objects;
 
 namespace FCW
@@ -14,6 +15,8 @@ namespace FCW
                 {
                     Response.Redirect("Login.aspx");
                 }
+                var el = Request.Params["success"];
+                Debug.Write(el);
 
             }
             catch (Exception)

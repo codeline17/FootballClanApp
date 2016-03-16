@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Objects", "Objects\Objects.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FCWAdmin", "FCWAdmin\FCWAdmin.csproj", "{98E451CB-4089-4DCC-9E97-94EDD4F6B3BA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentCallback", "PaymentCallback\PaymentCallback.csproj", "{9B1511CB-CB28-4370-BC19-60D0614EC862}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{98E451CB-4089-4DCC-9E97-94EDD4F6B3BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{98E451CB-4089-4DCC-9E97-94EDD4F6B3BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{98E451CB-4089-4DCC-9E97-94EDD4F6B3BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B1511CB-CB28-4370-BC19-60D0614EC862}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B1511CB-CB28-4370-BC19-60D0614EC862}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B1511CB-CB28-4370-BC19-60D0614EC862}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B1511CB-CB28-4370-BC19-60D0614EC862}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

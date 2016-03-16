@@ -184,7 +184,8 @@ namespace FCW.Actions
                                     Convert.ToInt32(reader["spreds"]), Convert.ToInt32(reader["lastspreds"]),
                                     Convert.ToInt32(reader["lastsspreds"]), Convert.ToInt32(reader["AvatarId"]),
                                     Convert.ToInt32(reader["Rank"]),
-                                    reader["NameOfClan"].ToString()
+                                    reader["NameOfClan"].ToString(),
+                                    new Guid()
                                 )
                             );
                     }
@@ -221,7 +222,8 @@ namespace FCW.Actions
                                     Convert.ToInt32(reader["spreds"]), Convert.ToInt32(reader["lastspreds"]),
                                     Convert.ToInt32(reader["lastsspreds"]), Convert.ToInt32(reader["AvatarId"]),
                                     Convert.ToInt32(reader["Rank"]),
-                                    reader["NameOfClan"].ToString()
+                                    reader["NameOfClan"].ToString(),
+                                    new Guid()
                                 )
                             );
                     }
@@ -359,7 +361,7 @@ namespace FCW.Actions
                         new City("Tirana")), Convert.ToInt32(reader["Points"]), Convert.ToInt32(reader["tpreds"]),
                         Convert.ToInt32(reader["spreds"]), Convert.ToInt32(reader["lastspreds"]),
                         Convert.ToInt32(reader["lastsspreds"]), Convert.ToInt32(reader["AvatarId"]), Convert.ToInt32(reader["Rank"]),
-                        reader["NameOfClan"].ToString());
+                        reader["NameOfClan"].ToString(), new Guid());
                     }
 
                     var json = new JavaScriptSerializer().Serialize(gUser);

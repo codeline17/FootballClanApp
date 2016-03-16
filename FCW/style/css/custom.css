@@ -8,7 +8,7 @@ a.bet {
 }
 
 a.closed {
-    background: #FF0!important;
+    background: #FF0 !important;
 }
 
 a.odd {
@@ -80,11 +80,11 @@ span.creditBall {
     float: right;
 }
 
-span.header-margin{
+span.header-margin {
     margin-left: 5px;
 }
 
-a.header-margin{
+a.header-margin {
     margin-left: 10px;
 }
 
@@ -116,10 +116,10 @@ a.header-margin{
 }
 
 span.userCredit {
-        float: right;
+    float: right;
 }
 
-img.desaturate { 
+img.desaturate {
     -webkit-filter: grayscale(100%);
     filter: grayscale(100%);
 }
@@ -159,11 +159,11 @@ tr.extra {
     border-spacing: 10px;
 }
 
-.btn-group-justified>.btn, .btn-group-justified>.btn-group {
-    display: table-cell;
-    float: none;
-    width: 1%;
-}
+    .btn-group-justified > .btn, .btn-group-justified > .btn-group {
+        display: table-cell;
+        float: none;
+        width: 1%;
+    }
 
 .dNone {
     display: none;
@@ -211,21 +211,21 @@ table.trophies {
     width: 100%;
 }
 
-table.trophies tr:first-child {
-    background: url('../images/trophytop.png') no-repeat;
-    background-size: 100% 100%;
-}
+    table.trophies tr:first-child {
+        background: url('../images/trophytop.png') no-repeat;
+        background-size: 100% 100%;
+    }
 
-table.trophies tr:last-child {
-    background: url('../images/trophybottom.png') no-repeat;
-    background-size: 100% 100%;
-}
+    table.trophies tr:last-child {
+        background: url('../images/trophybottom.png') no-repeat;
+        background-size: 100% 100%;
+    }
 
-table.trophies tr {
-    background: url('../images/trophyrow.png') no-repeat;
-    background-size: 100% 100%;
-    height: 100px;
-}
+    table.trophies tr {
+        background: url('../images/trophyrow.png') no-repeat;
+        background-size: 100% 100%;
+        height: 100px;
+    }
 
 .mDetails {
     background-color: lightgoldenrodyellow;
@@ -241,9 +241,9 @@ table.trophies tr {
 }
 
 .img-responsive {
-    margin: 0 auto;
-    width: 15px;
+    /*margin: 0 auto;*/
     display: block;
+    max-width: 20px;
 }
 
 table.clans {
@@ -277,9 +277,241 @@ h3.todays {
 }
 
 th {
-    text-align: inherit !important;
+    /*text-align: inherit !important;*/
 }
 
 #match-table td {
-    text-align: center !important;
+    /*text-align: center !important;*/
+}
+
+.modal {
+    position: fixed;
+    top: 3%;
+    right: 3%;
+    left: 3%;
+    width: auto;
+    margin: 0;
+    overflow-y: scroll;
+}
+
+.modal-body {
+    max-height: 60%;
+    padding: 15px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/*FLAGS*/
+span.argentina {
+    background: url(../images/states/argentina.svg);
+    background-size: 30px 20px;
+    width: 30px;
+    height: 20px;
+    display: block;
+}
+
+span.australia {
+    background: url(../images/states/australia.svg);
+    background-size: 30px 20px;
+    width: 30px;
+    height: 20px;
+    display: block;
+}
+
+span.belgium {
+    background: url(../images/states/belgium.svg);
+    background-size: 30px 20px;
+    width: 30px;
+    height: 20px;
+    display: block;
+}
+
+span.brasil {
+    background: url(../images/states/brasil.svg);
+    background-size: 30px 20px;
+    width: 30px;
+    height: 20px;
+    display: block;
+}
+
+span.china {
+    background: url(../images/states/china.svg);
+    background-size: 30px 20px;
+    width: 30px;
+    height: 20px;
+    display: block;
+}
+
+span.denmark {
+    background: url(../images/states/denmark.svg);
+    background-size: 30px 20px;
+    width: 30px;
+    height: 20px;
+    display: block;
+}
+
+span.england {
+    background: url(../images/states/england.svg);
+    background-size: 30px 20px;
+    width: 30px;
+    height: 20px;
+    display: block;
+}
+
+span.france {
+    background: url(../images/states/france.svg);
+    background-size: 30px 20px;
+    width: 30px;
+    height: 20px;
+    display: block;
+}
+
+span.germany {
+    background: url(../images/states/germany.svg);
+    background-size: 30px 20px;
+    width: 30px;
+    height: 20px;
+    display: block;
+}
+
+span.greece {
+    background: url(../images/states/greece.svg);
+    background-size: 30px 20px;
+    width: 30px;
+    height: 20px;
+    display: block;
+}
+
+span.holland {
+    background: url(../images/states/holland.svg);
+    background-size: 30px 20px;
+    width: 30px;
+    height: 20px;
+    display: block;
+}
+
+span.italy {
+    background: url(../images/states/italy.svg);
+    background-size: 30px 20px;
+    width: 30px;
+    height: 20px;
+    display: block;
+}
+
+span.mexico {
+    background: url(../images/states/mexico.svg);
+    background-size: 30px 20px;
+    width: 30px;
+    height: 20px;
+    display: block;
+}
+
+span.norway {
+    background: url(../images/states/norway.svg);
+    background-size: 30px 20px;
+    width: 30px;
+    height: 20px;
+    display: block;
+}
+
+span.poland {
+    background: url(../images/states/poland.svg);
+    background-size: 30px 20px;
+    width: 30px;
+    height: 20px;
+    display: block;
+}
+
+span.portugal {
+    background: url(../images/states/portugal.svg);
+    background-size: 30px 20px;
+    width: 30px;
+    height: 20px;
+    display: block;
+}
+
+span.russia {
+    background: url(../images/states/russia.svg);
+    background-size: 30px 20px;
+    width: 30px;
+    height: 20px;
+    display: block;
+}
+
+span.scotland {
+    background: url(../images/states/scotland.svg);
+    background-size: 30px 20px;
+    width: 30px;
+    height: 20px;
+    display: block;
+}
+
+span.spain {
+    background: url(../images/states/spain.svg);
+    background-size: 30px 20px;
+    width: 30px;
+    height: 20px;
+    display: block;
+}
+
+span.sweden {
+    background: url(../images/states/sweden.svg);
+    background-size: 30px 20px;
+    width: 30px;
+    height: 20px;
+    display: block;
+}
+
+span.turkey {
+    background: url(../images/states/turkey.svg);
+    background-size: 30px 20px;
+    width: 30px;
+    height: 20px;
+    display: block;
+}
+
+span.ukraine {
+    background: url(../images/states/ukraine.svg);
+    background-size: 30px 20px;
+    width: 30px;
+    height: 20px;
+    display: block;
+}
+
+span.usa {
+    background: url(../images/states/usa.svg);
+    background-size: 30px 20px;
+    width: 30px;
+    height: 20px;
+    display: block;
+}
+
+span.europe {
+    background: url(../images/states/uefa.png);
+    background-size: 30px 20px;
+    width: 30px;
+    height: 20px;
+    display: block;
+}
+
+span.international {
+    background: url(../images/states/globe.png);
+    background-size: 30px 20px;
+    width: 30px;
+    height: 20px;
+    display: block;
+}
+
+span.none {
+    background-color: lightgrey;
+    background-size: 30px 20px;
+    width: 30px;
+    height: 20px;
+    display: block;
+}
+/*END FLAGS*/
+
+a.btn {
+    text-overflow: ellipsis;
+    overflow: hidden;
 }

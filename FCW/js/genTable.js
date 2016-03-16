@@ -171,7 +171,7 @@ function genClanTable(e) {
     var hRow = document.createElement("tr");
     hRow.append(cEl("th").append(cEl("span").attr("data-toggle", "tooltip").attr("data-placement", "top").attr("title", "Member Name").tEl("Member Name")));
     hRow.append(cEl("th").append(cEl("span").attr("data-toggle", "tooltip").attr("data-placement", "top").attr("title", "Points").tEl("Pts")));
-    hRow.append(cEl("th").append(cEl("span").attr("data-toggle", "tooltip").attr("data-placement", "top").attr("title", "Member Since").tEl("Member Since")));
+    //hRow.append(cEl("th").append(cEl("span").attr("data-toggle", "tooltip").attr("data-placement", "top").attr("title", "Member Since").tEl("Member Since")));
     hRow.append(cEl("th").append(cEl("span").attr("data-toggle", "tooltip").attr("data-placement", "top").attr("title", "Roles and Actions").tEl("###")));
     tHead.appendChild(hRow);
 
@@ -182,7 +182,7 @@ function genClanTable(e) {
     for (var j = 0; j < e.Users.length; j++) {
         var cun = e.Users[j].Username;
         var cn = e.Name;
-        var row = cEl("tr").append(cEl("td").tEl(e.Users[j].Username)).append(cEl("td").tEl(e.Users[j].Points)).append(cEl("td").tEl(e.Users[j].InClanSince));
+        var row = cEl("tr").append(cEl("td").tEl(e.Users[j].Username)).append(cEl("td").tEl(e.Users[j].Points));//.append(cEl("td").tEl(e.Users[j].InClanSince));
         row.className = e.Users[j].Username === e.Leader ? "leader" : "";
         if (cun === e.Leader) {
            row.append(cEl("td").append(cEl("span").tEl("[Captain]")));

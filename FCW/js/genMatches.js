@@ -8,7 +8,7 @@
     mainTag.className = "table table-hover";
 
     //Header
-    var head = [{ Title: "Match", Text: "Match" }, { Title: "League", Text: "League" }, { Title: "Fill", Text: "Fill" },
+    var head = [{ Title: "Match", Text: "Match" }, { Title: "Country", Text: "Country" }, { Title: "Fill", Text: "Fill" },
                 { Title: "Time", Text: "Time" }, { Title: "Score", Text: "Score" }, { Title: "Points", Text: "Pts" }];
     var tHead = document.createElement("thead");    
     var hRow = document.createElement("tr");
@@ -44,7 +44,7 @@ function genSingleMatchRow(match) {
     //MatchName
     tr.append(cEl("td").tEl(match.HomeTeam.Name + "-" + match.AwayTeam.Name));
     //League
-    tr.append(cEl("td").tEl(match.League.Name));
+    tr.append(cEl("td").append(cEl("span").attr("class", match.League.Country.toLowerCase())));
     //Fill
     var s = 0;
     for (var i = 0; i < match.Games.length; i++) {
@@ -56,7 +56,7 @@ function genSingleMatchRow(match) {
     }
     tr.append(cEl("td").append(cEl("img").attr("src", "style/images/fill_" + s + ".png").attr("class", "img-responsive")));
     //Time
-    var time = match.Sealed ? match.Minute : match.ShortTime;
+    var time = match.Sealed ? match.StatusSlug : match.ShortTime;
     tr.append(cEl("td").attr("class","text-center").tEl(time));
     //Score
     var score = match.Sealed ? match.HomeGoals + "-" + match.AwayGoals : "-";

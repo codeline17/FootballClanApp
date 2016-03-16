@@ -125,21 +125,39 @@ function genMatches() {
      var els1 = cEl("div").attr("class", "row-fluid")
          .append(cEl("div").attr("class", "span4").append(cEl("img").attr("width", "100%").attr("src", "style/images/shop_0.jpg"))
          )
-         .append(cEl("div").attr("class", "span4").append(cEl("img").attr("width", "100%").attr("src", "style/images/shop_1.jpg"))
+         .append(cEl("a").attr("href", "#").listener("click",buyActions).append(cEl("div").attr("class", "span4").append(cEl("img").wr({ itemName:"5balls", btnId:"PPBPKLMU2A7XL"}).attr("width", "100%").attr("src", "style/images/shop_1.jpg")))
          )
-         .append(cEl("div").attr("class", "span4").append(cEl("img").attr("width", "100%").attr("src", "style/images/shop_2.jpg"))
+         .append(cEl("a").attr("href","#").listener("click",buyActions).append(cEl("div").attr("class", "span4").append(cEl("img").wr({ itemName:"10balls"}).attr("width", "100%").attr("src", "style/images/shop_2.jpg")))
          );
      var els2 = cEl("div").attr("class", "row-fluid")
-         .append(cEl("div").attr("class", "span4").append(cEl("img").attr("width", "100%").attr("src", "style/images/shop_3.jpg"))
+         .append(cEl("a").attr("href","#").listener("click",buyActions).append(cEl("div").attr("class", "span4").append(cEl("img").wr({ itemName:"20balls"}).attr("width", "100%").attr("src", "style/images/shop_3.jpg")))
          )
-         .append(cEl("div").attr("class", "span4").append(cEl("img").attr("width", "100%").attr("src", "style/images/shop_4.jpg"))
+         .append(cEl("a").attr("href","#").listener("click",buyActions).append(cEl("div").attr("class", "span4").append(cEl("img").wr({ itemName:"50balls"}).attr("width", "100%").attr("src", "style/images/shop_4.jpg")))
          )
-         .append(cEl("div").attr("class", "span4").append(cEl("img").attr("width", "100%").attr("src", "style/images/shop_5.jpg"))
+         .append(cEl("a").attr("href","#").listener("click",buyActions).append(cEl("div").attr("class", "span4").append(cEl("img").wr({ itemName:"100balls"}).attr("width", "100%").attr("src", "style/images/shop_5.jpg")))
          );
      mainC.append(els1).append(els2);
  }
 
- function genHeader1() {
+function buyActions(e) {
+    var itemName = e.target.wrapper.itemName;
+    var buttonId = e.target.wrapper.btnId;
+    //Ajax Create
+    $.post("Actions/Paypal.aspx", { type: "PUI", ItemName: itemName },
+        function (e) {
+            if (e.length > 5) {
+                location("https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=PPBPKLMU2A7XL&custom=" + e, "_blank");
+
+                //AjaxChecker
+            }
+        });
+}
+
+function paymentChecker() {
+    
+}
+
+function genHeader1() {
      $.post("Actions/Fixture.aspx", { type: "GUN" },
   function (e) {
       username = e.split("|")[0];
@@ -245,7 +263,7 @@ function genGrid(matches, date) {
     }
 
     if (date !== "nope") {
-         pEl = cEl("h3").tEl(date + " - " + totPoints + " points").attr("style","text-align:center;");
+         pEl = cEl("h3").tEl(date + " - " + totPoints + " pts").attr("style","text-align:center;");
     } else {
         pEl = cEl("h3").attr("class","todays").tEl("Today - " + totPoints + " points").attr("style", "text-align:center;");
     }

@@ -44,6 +44,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
@@ -63,6 +67,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Actions\Paypal.aspx" />
     <Content Include="Actions\Register.aspx" />
     <Content Include="js\genClans.js" />
     <Content Include="js\genLeaderboard.js" />
@@ -109,6 +114,32 @@
     <Content Include="style\images\shop_3.jpg" />
     <Content Include="style\images\shop_4.jpg" />
     <Content Include="style\images\shop_5.jpg" />
+    <Content Include="style\images\states\argentina.svg" />
+    <Content Include="style\images\states\australia.svg" />
+    <Content Include="style\images\states\belgium.svg" />
+    <Content Include="style\images\states\brasil.svg" />
+    <Content Include="style\images\states\china.svg" />
+    <Content Include="style\images\states\default.jpg" />
+    <Content Include="style\images\states\denmark.svg" />
+    <Content Include="style\images\states\england.svg" />
+    <Content Include="style\images\states\france.svg" />
+    <Content Include="style\images\states\germany.svg" />
+    <Content Include="style\images\states\globe.png" />
+    <Content Include="style\images\states\greece.svg" />
+    <Content Include="style\images\states\holland.svg" />
+    <Content Include="style\images\states\italy.svg" />
+    <Content Include="style\images\states\mexico.svg" />
+    <Content Include="style\images\states\norway.svg" />
+    <Content Include="style\images\states\poland.svg" />
+    <Content Include="style\images\states\portugal.svg" />
+    <Content Include="style\images\states\russia.svg" />
+    <Content Include="style\images\states\scotland.svg" />
+    <Content Include="style\images\states\spain.svg" />
+    <Content Include="style\images\states\sweden.svg" />
+    <Content Include="style\images\states\turkey.svg" />
+    <Content Include="style\images\states\uefa.png" />
+    <Content Include="style\images\states\ukraine.svg" />
+    <Content Include="style\images\states\usa.svg" />
     <Content Include="style\images\topi.png" />
     <Content Include="style\images\trophybottom.png" />
     <Content Include="style\images\trophyrow.png" />
@@ -134,7 +165,9 @@
     <Content Include="style\type\fontello\fontello.woff" />
     <Content Include="packages.config" />
     <None Include="Properties\PublishProfiles\FCW.pubxml" />
+    <None Include="Properties\PublishProfiles\local IIS.pubxml" />
     <None Include="Properties\PublishProfiles\mainS.pubxml" />
+    <None Include="Properties\PublishProfiles\ServerDirect.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -255,6 +288,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Actions\Paypal.aspx.cs">
+      <DependentUpon>Paypal.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Actions\Paypal.aspx.designer.cs">
+      <DependentUpon>Paypal.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Actions\Register.aspx.cs">
       <DependentUpon>Register.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

@@ -19,6 +19,7 @@ namespace Objects
         public int LastSuccessfulPredictions { get; set; }
         public int AvatarId { get; set; }
         public bool isApproved { get; set; }
+        public Guid SessionId { get; set; }
         public int Rank { get; set; }
         
         public User()
@@ -41,7 +42,8 @@ namespace Objects
 
         public User(string username, Guid guid, int credit, int clanid, 
             UserDetails userdetails, int points, int predictionsno, int successfulpredictions,
-            int lastpredictions, int lastsuccessfulpredictions, int avatarid, int rank, string nameofclan)
+            int lastpredictions, int lastsuccessfulpredictions, int avatarid, int rank, 
+            string nameofclan, Guid sessionid)
         {
             Username = username;
             Guid = guid;
@@ -56,6 +58,7 @@ namespace Objects
             AvatarId = avatarid;
             Rank = rank;
             NameOfClan = nameofclan;
+            SessionId = sessionid;
         }
     }
 
