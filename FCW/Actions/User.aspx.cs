@@ -475,13 +475,21 @@ namespace FCW.Actions
                         clan.Name = reader["ClanName"].ToString();
                         if (clan.Users.Count(x => x.Username == reader["UserName"].ToString()) == 0)
                         {
+
                             clan.Users.Add(
                                 new Objects.User(
                                     reader["UserName"].ToString(),
                                     Convert.ToDateTime(reader["MemberSince"].ToString()).ToString("dd/MM/yyyy"),
                                     Convert.ToBoolean(reader["Approved"]),
                                     Convert.ToInt16(reader["Points"].ToString())
-                                    )
+                                )
+                                {
+                                    TotalPredictions = Convert.ToInt32(reader["tpreds"]),
+                                    SuccessfulPredictions = Convert.ToInt32(reader["spreds"]),
+                                    LastPredictions = Convert.ToInt32(reader["lastspreds"]),
+                                    LastSuccessfulPredictions = Convert.ToInt32(reader["lastsspreds"]),
+                                    Rank = Convert.ToInt32(reader["UserRank"])
+                                }
                             );
                         }
 
@@ -498,6 +506,7 @@ namespace FCW.Actions
                         
                         clan.Leader = reader["isLeader"].ToString() != "0" ? reader["UserName"].ToString() : clan.Leader;
                         clan.isPrivate = Convert.ToBoolean(reader["Private"]);
+                        clan.Rank = Convert.ToInt32(reader["Rank"]);
                     }
                 }
             }

@@ -35,7 +35,16 @@
 }
 
 function getExtraMatchRow() {
-    var tr = cEl("tr").append(cEl("td").attr("colspan", "6").append(cEl("h5").attr("class", "text-center").tEl("Extra Matches")));
+    var tr = cEl("tr").append(
+                        cEl("td").attr("colspan", "6").append(cEl("div").attr("class","row-fluid").append(cEl("div").attr("class","span6 offset3")
+                            .append(
+                            cEl("h5").attr("style", "display:inline-block; margin-right:10px").tEl("Unlock extra matches for only 1 Golden Ball")
+                            )
+                            .append(
+                            cEl("a").attr("class", "btn btn-default").append(cEl("i").attr("class","icon-lock-open")).listener("click", purchaseExtraFixtures)
+                            )
+                            ))
+               );
     return tr;
 }
 
@@ -54,7 +63,7 @@ function genSingleMatchRow(match) {
             }
         }
     }
-    tr.append(cEl("td").append(cEl("img").attr("src", "style/images/fill_" + s + ".png").attr("class", "img-responsive")));
+    tr.append(cEl("td").append(cEl("img").attr("src", "style/images/fill_" + s + ".png").attr("class", "fill img-responsive")));
     //Time
     var time = match.Sealed ? match.StatusSlug : match.ShortTime;
     tr.append(cEl("td").attr("class","text-center").tEl(time));
@@ -98,8 +107,8 @@ function expandMatch(e) {
 }
 
 function createMatchPanel(e) {
-    var panel = cEl("div").attr("class", "row-fluid");
     if (e.Authorized) {
+        var panel = cEl("div").attr("class", "row-fluid");
         var sealed = e.Sealed;
         var addClass;
         var i = 0;
@@ -233,14 +242,14 @@ function createMatchPanel(e) {
         var rtrow = cEl("div").attr("class", "row-fluid").append(lpgrow).append(tgrow).append(csrow);
 
         panel.append(rfrow).append(cEl("hr")).append(rtrow);
+        return panel;
     } else {
-        panel.append( cEl("div").attr("class", "row-fluid").append(cEl("div").attr("class", "span12")
+        /*panel.append( cEl("div").attr("class", "row-fluid").append(cEl("div").attr("class", "span12")
             .append(cEl("h4").attr("class", "text-center").tEl("Unlock all today's extra matches for only 1 Golden Ball")
             .append(cEl("div").attr("class", "btn-group btn-group-justified").attr("role", "group").append(cEl("a").attr("class", "btn btn-default" + addClass).attr("role", "button")
                 .tEl("Unlock Now!").listener("click",purchaseExtraFixtures)))
-            )));
+            )));*/
     }
-    return panel;
 }
 
 function genPurchasePanel(game) {
@@ -296,6 +305,7 @@ function purchaseOption(e) {
 }
 
 function purchaseExtraFixtures() {
+    console.log("ee");
     $.post("Actions/User.aspx", { type: "PEF" },
         function (r) {
             if (r === "1") {

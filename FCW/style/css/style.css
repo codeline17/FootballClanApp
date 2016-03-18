@@ -37,7 +37,7 @@
 
 .bdt > tbody > tr > td, .bdt > tbody > tr > th, .bdt > tfoot > tr > td, .bdt > tfoot > tr > th, .bdt > thead > tr > td, .bdt > thead > tr > th {
     border-color: #e6e7ed;
-    padding: 17px 25px;
+    padding: 15px 5px;
 }
 
 .search-form .form-control {

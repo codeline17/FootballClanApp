@@ -241,9 +241,14 @@ table.trophies {
 }
 
 .img-responsive {
-    /*margin: 0 auto;*/
+    margin: 0 auto;
     display: block;
+    /*max-width: 20px;*/
+}
+
+.fill {
     max-width: 20px;
+    margin: inherit;
 }
 
 table.clans {
@@ -407,11 +412,11 @@ span.none {
 }
 
 span.flag {
-    background-size: 20px 15px;
-    width: 20px;
+    background-size: 22.5px 15px;
+    width: 22.5px;
     height: 15px;
     display: block;
-    margin: auto;
+    /*margin: auto;*/
 }
 /*END FLAGS*/
 

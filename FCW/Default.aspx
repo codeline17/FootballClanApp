@@ -93,7 +93,6 @@
                                    document.write(theYear);
                                </script> Football Clans. All rights reserved.</p>
         <ul class="social pull-right">
-          <li><a href="#"><i class="icon-s-twitter"></i></a></li>
           <li><a href="#"><i class="icon-s-facebook"></i></a></li>
           <li><a href="#"><i class="icon-s-instagram"></i></a></li>
         </ul>

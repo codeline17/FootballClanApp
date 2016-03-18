@@ -21,7 +21,10 @@ namespace FCW.Actions
                 var user = new Objects.User();
                 user = (Objects.User) Session["currentUser"];
                 if (user.Username == null)
+                {
+                    Response.Redirect("Login.aspx");
                     return;
+                }
 
                 var requestType = Request.Params["type"];
 
@@ -48,7 +51,7 @@ namespace FCW.Actions
             }
             catch (Exception ex)
             {
-                //None
+                //Nope
             }
 
             Response.End();

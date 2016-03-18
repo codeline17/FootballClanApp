@@ -86,7 +86,7 @@ function genLeagueTable(n,u) {
         var tdUsername = cEl("td").tEl(u[i].Username ? u[i].Username : u[i].Name);
         var tdPoints = cEl("td").tEl(u[i].Points);
         var row = cEl("tr").append(tdRang).append(tdUsername).append(tdPoints);
-        row.className = cuser.Username === u[i].Username ? "leader" : "";
+        row.className = cuser.Username === u[i].Username || cuser.NameOfClan === u[i].Name ? "leader" : "";
         tBody.append(row);
     }
 

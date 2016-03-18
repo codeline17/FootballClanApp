@@ -5,6 +5,7 @@
  **leadbord
  **livescore
  **account*/
+var site = "play"; //nostore //game - store
 var cuser = "";
 var state = true;
 var mObjs = new Array();
@@ -23,6 +24,18 @@ window.onload = function (e) {
     //genMatches();
 
     cuser = JSON.parse(getCookie("u"));
+
+    if (site === "play") {
+        $("li[content-type]").each(function () {
+            if (this.getAttribute("content-type") === "store") {
+                this.setAttribute("content-type", "rules");
+                this.childNodes[1].innerText = "";
+                this.childNodes[1].appendChild(cEl("i").attr("class", "icon-pin icn"));
+                this.childNodes[1].tEl("Rules");
+                console.log(this.childNodes[1].innerText);
+            }
+        });
+    }
 }
 
  function getContent(e){
@@ -65,6 +78,9 @@ window.onload = function (e) {
              break;
          case "store":
             genStore();
+             break;
+         case "rules":
+            //genStore();
              break;
          default:
              break;
@@ -125,16 +141,16 @@ function genMatches() {
      var els1 = cEl("div").attr("class", "row-fluid")
          .append(cEl("div").attr("class", "span4").append(cEl("img").attr("width", "100%").attr("src", "style/images/shop_0.jpg"))
          )
-         .append(cEl("a").attr("href", "#").listener("click",buyActions).append(cEl("div").attr("class", "span4").append(cEl("img").wr({ itemName:"5balls", btnId:"PPBPKLMU2A7XL"}).attr("width", "100%").attr("src", "style/images/shop_1.jpg")))
+         .append(cEl("a").attr("href", "#").listener("click", buyActions).append(cEl("div").attr("class", "span4").append(cEl("img").wr({ itemName: "5balls", btnId: "E9PAYL8FLDA4Y" }).attr("width", "100%").attr("src", "style/images/shop_1.jpg")))
          )
-         .append(cEl("a").attr("href","#").listener("click",buyActions).append(cEl("div").attr("class", "span4").append(cEl("img").wr({ itemName:"10balls"}).attr("width", "100%").attr("src", "style/images/shop_2.jpg")))
+         .append(cEl("a").attr("href", "#").listener("click", buyActions).append(cEl("div").attr("class", "span4").append(cEl("img").wr({ itemName: "10balls", btnId: "9G7KFDM3LLKR8" }).attr("width", "100%").attr("src", "style/images/shop_2.jpg")))
          );
      var els2 = cEl("div").attr("class", "row-fluid")
-         .append(cEl("a").attr("href","#").listener("click",buyActions).append(cEl("div").attr("class", "span4").append(cEl("img").wr({ itemName:"20balls"}).attr("width", "100%").attr("src", "style/images/shop_3.jpg")))
+         .append(cEl("a").attr("href", "#").listener("click", buyActions).append(cEl("div").attr("class", "span4").append(cEl("img").wr({ itemName: "20balls", btnId: "ARXPC9JXWC7QW" }).attr("width", "100%").attr("src", "style/images/shop_3.jpg")))
          )
-         .append(cEl("a").attr("href","#").listener("click",buyActions).append(cEl("div").attr("class", "span4").append(cEl("img").wr({ itemName:"50balls"}).attr("width", "100%").attr("src", "style/images/shop_4.jpg")))
+         .append(cEl("a").attr("href", "#").listener("click", buyActions).append(cEl("div").attr("class", "span4").append(cEl("img").wr({ itemName: "50balls", btnId: "BF6UAY773LD9E" }).attr("width", "100%").attr("src", "style/images/shop_4.jpg")))
          )
-         .append(cEl("a").attr("href","#").listener("click",buyActions).append(cEl("div").attr("class", "span4").append(cEl("img").wr({ itemName:"100balls"}).attr("width", "100%").attr("src", "style/images/shop_5.jpg")))
+         .append(cEl("a").attr("href", "#").listener("click", buyActions).append(cEl("div").attr("class", "span4").append(cEl("img").wr({ itemName: "100balls", btnId: "4TZ2JBBLBCF8S" }).attr("width", "100%").attr("src", "style/images/shop_5.jpg")))
          );
      mainC.append(els1).append(els2);
  }
@@ -142,13 +158,14 @@ function genMatches() {
 function buyActions(e) {
     var itemName = e.target.wrapper.itemName;
     var buttonId = e.target.wrapper.btnId;
+    if (!itemName || !buttonId)
+        return;
+
     //Ajax Create
     $.post("Actions/Paypal.aspx", { type: "PUI", ItemName: itemName },
-        function (e) {
-            if (e.length > 5) {
-                location("https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=PPBPKLMU2A7XL&custom=" + e, "_blank");
-
-                //AjaxChecker
+        function (r) {
+            if (r.length > 5) {
+                window.open("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=" + buttonId + "&custom=" + r, "_blank");
             }
         });
 }

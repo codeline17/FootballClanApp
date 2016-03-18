@@ -85,6 +85,7 @@
                       // rFluid.innerHTML = tableTxt;
 
                       rFluid.appendChild(genClanTable(c));
+                      rFluid.appendChild(genLeaveClanBtn());
                       mainC.appendChild(rFluid);
 
                       /***After Event Assignments***/
@@ -93,6 +94,10 @@
                   });
           }
       });
+}
+
+function genLeaveClanBtn() {
+    return cEl("div").attr("class", "row-fluid").append(cEl("div").attr("class", "span4 offset8").append(cEl("a").attr("class", "btn btn-orange pull-right").listener("click", removeMember).tEl("Leave Clan")));
 }
 
 function genClanHeader(c) {
@@ -105,8 +110,7 @@ function genClanHeader(c) {
             cEl("tr")
             .append(
                 cEl("td").attr("rowspan", "2")
-                .append(cEl("img").attr("class", "img-responsive").attr("width", "50px").attr("src", "style/images/clan_badge_default.png")
-                )
+                .append(cEl("img").attr("class", "img-responsive").attr("width", "50px").attr("src", "style/images/clan_badge_default.png"))
             )
             .append(
                 cEl("td")
@@ -233,9 +237,7 @@ function approveMember(e) {
 }
 
 function removeMember(e) {
-    var uname = e.target.getAttribute("cel-uname");
-    var cname = e.target.getAttribute("cel-cname");
-    $.post("Actions/User.aspx", { type: "RMUC", name : uname, clanName : cname },
+    $.post("Actions/User.aspx", { type: "RMUC", name : cuser.Username, clanName : cuser.NameOfClan },
         function (c) {
             console.log(c);
             if (c === "1") {
