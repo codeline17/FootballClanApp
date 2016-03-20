@@ -43,6 +43,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Menulab.RichTextBox, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Menulab.RichTextBox.1.1.0\lib\Menulab.RichTextBox.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -75,8 +79,10 @@
     <Content Include="js\genLiveScore.js" />
     <Content Include="js\genMatches.js" />
     <Content Include="js\genTable.js" />
+    <Content Include="js\genUnlock.js" />
     <Content Include="js\helpers.js" />
     <Content Include="js\prototype.js" />
+    <Content Include="js\settings.js" />
     <Content Include="js\user.js" />
     <Content Include="Login.aspx" />
     <Content Include="Service\MainService.svc" />

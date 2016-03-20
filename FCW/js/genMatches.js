@@ -8,7 +8,7 @@
     mainTag.className = "table table-hover";
 
     //Header
-    var head = [{ Title: "Match", Text: "Match" }, { Title: "Country", Text: "Country" }, { Title: "Fill", Text: "Fill" },
+    var head = [{ Title: "Match", Text: "Match" }, { Title: "Country", Text: "" }, { Title: "Fill", Text: "Fill" },
                 { Title: "Time", Text: "Time" }, { Title: "Score", Text: "Score" }, { Title: "Points", Text: "Pts" }];
     var tHead = document.createElement("thead");    
     var hRow = document.createElement("tr");
@@ -74,6 +74,7 @@ function genSingleMatchRow(match) {
     tr.append(cEl("td").attr("class","text-center").tEl(match.PointsWon));
 
     tr.className = !match.Authorized ? "extra" : "";
+    tr.className += match.Sealed ? " sealed" : " active";
 
     return tr;
 }

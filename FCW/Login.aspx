@@ -90,7 +90,7 @@
                         </div>
                         <div class="form-group">
                             <input id="termsAndConditions" type="checkbox" />
-                            I agree to the <a href="http://footballclans.com/term-conditions/" target="_new">terms and conditions</a>
+                            I agree to the <a href="http://footballclans.com/terms-and-condition/" target="_new">terms and conditions</a>
                             <br />
                         </div>
                         <div id="regForm" class="form-group">

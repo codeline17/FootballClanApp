@@ -1,5 +1,5 @@
 div#mainContainer {
-    min-height: 700px;
+    min-height: 850px;
 }
 
 a.bet {
@@ -423,4 +423,24 @@ span.flag {
 a.btn {
     text-overflow: ellipsis;
     overflow: hidden;
+}
+
+.modal.fade.in {
+    top: 60px !important;
+}
+
+tr.sealed {
+    background-color: #f2f2f2 !important;
+}
+
+tr.active {
+    background-color: #daf4d1 !important;
+}
+
+i.goneup {
+    color: green;
+}
+
+i.gonedown {
+    color: red;
 }

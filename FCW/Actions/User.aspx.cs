@@ -32,6 +32,9 @@ namespace FCW.Actions
 
                 switch (requestType)
                 {
+                    case "UNL": // Unlocks ************************************* UserGetUnlocks
+                        UserUnlocks(user.Guid);
+                        break;
                     case "GU": //Get User *************************************
                         GetUserDetials();
                         break;
@@ -94,6 +97,33 @@ namespace FCW.Actions
 
             Response.End();
         }
+
+        private void UserUnlocks(Guid guid)
+        {
+            using (var conn = new SqlConnection(_connectionstring))
+            {
+                using (var cmd = new SqlCommand("UserGetUnlocks", conn))
+                {
+                    var r = new List<Unlockables>();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@Userguid", SqlDbType.UniqueIdentifier).Value = user.Guid;
+
+                    conn.Open();
+                    var reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        r.Add(new Unlockables(reader["Name"].ToString(),Convert.ToDateTime(reader["ExpiresOn"])));
+                    }
+
+                    var json = new JavaScriptSerializer().Serialize(r);
+
+                    Response.ClearContent();
+                    Response.ClearHeaders();
+                    Response.Write(json);
+                }
+            }
+        }
+
         private void PurchaseExtraFixtures(Guid guid)
         {
             using (var conn = new SqlConnection(_connectionstring))
@@ -316,13 +346,13 @@ namespace FCW.Actions
                         if (reader["LeagueTypeId"].ToString() == "1")
                         {
                             league.Users.Add(
-                                new Objects.User(reader["PartName"].ToString(),Convert.ToInt32(reader["Points"]))
+                                new Objects.User(reader["PartName"].ToString(),Convert.ToInt32(reader["Points"]), Convert.ToInt32(reader["PRank"]))
                                 );
                         }
                         else
                         {
                             league.Clans.Add(
-                                new Clan(reader["PartName"].ToString(), Convert.ToInt32(reader["Points"]))
+                                new Clan(reader["PartName"].ToString(), Convert.ToInt32(reader["Points"]), Convert.ToInt32(reader["PRank"]))
                                 );
                         }
 

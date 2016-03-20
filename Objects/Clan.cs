@@ -17,6 +17,7 @@ namespace Objects
         public bool isPrivate { get; set; }
         public int Points { get; set; }
         public int Rank { get; set; }
+        public int PreviousLeagueRank { get; set; }
 
         public Clan(string name, List<User> users, DateTime createdOn, string leader, int usercount)
         {
@@ -45,10 +46,11 @@ namespace Objects
             Trophies = new List<Trophy>();
         }
 
-        public Clan(string name, int points)
+        public Clan(string name, int points, int previousleaguerank)
         {
             Name = name;
             Points = points;
+            PreviousLeagueRank = previousleaguerank;
         }
     }
 }

@@ -1,38 +1,41 @@
 ﻿var imgsm = ["1", "2", "3", "4", "5", "6", "7", "8"];
 var cAv;
 function genUserDetails() {
-    cAv = cuser.AvatarId;
     var exMd = document.getElementById("userModal");
     if (exMd) {
         exMd.parentNode.removeChild(exMd);
     }
 
     var mdHeader = cEl("div").attr("class", "modal-header").append(cEl("button").attr("type", "button").attr("class", "close").attr("data-dismiss", "modal").attr("aria-label", "Close")
-                    .append(cEl("span").attr("aria-hidden", "true").tEl("x"))).append(cEl("h4").tEl("User Details"));
-    var mdBody = cEl("div").attr("class", "modal-body");
-    var mdFooter = cEl("div").attr("class", "modal-footer").attr("id","mdFooter").append(cEl("button").attr("type", "button").attr("class", "btn btn-primary").listener("click",updateUserDetails).tEl("Save"));
+                .append(cEl("span").attr("aria-hidden", "true").tEl("x"))).append(cEl("h4").tEl("Details and Information"));
 
-    //----------Elements-----------
+    var mdFooter = cEl("div").attr("class", "modal-footer").attr("id", "mdFooter").append(cEl("button").attr("type", "button").attr("class", "btn btn-primary").listener("click", updateUserDetails).tEl("Save"));
 
-    //----------Password-----------
-    var pwds = cEl("p").append(cEl("h5").tEl("Change your password")).append(cEl("input").attr("type", "password").attr("class", "form-control").attr("id", "nPwd").attr("placeholder", "Change password")).append(cEl("input").attr("type", "password").attr("class", "form-control").attr("id", "nPwdRepeat").attr("placeholder", "Repeat new password"));
+    var rliteral = cEl("div");
+    rliteral.innerHTML = document.getElementById("RulesLiteral").innerHTML;
 
-    //----------Avatars------------
-    var avatars = cEl("p").append(cEl("h5").tEl("Choose your avatar"));
+    var tcliteral = cEl("div");
+    tcliteral.innerHTML = document.getElementById("TermsAndConditionsLiteral").innerHTML;
 
-    for (var i = 0; i < imgsm.length; i++) {
-        var ael = cEl("img").wr({id: imgsm[i]}).attr("src", "style/images/avatars/" + imgsm[i] + ".png").listener("click", toggleAvatars);
-        ael.className = cuser.AvatarId-1 === i ? "avatars" : "desaturate avatars";
-        avatars.append(ael);
-    }
-    mdBody.append(pwds).append(cEl("hr")).append(avatars);
-
-    //----------------------------------
+    var pliteral = cEl("div");
+    pliteral.innerHTML = document.getElementById("PrizesLiteral").innerHTML;
 
     var mdMain = cEl("div").attr("class", "modal fade").attr("id", "userModal").attr("tabindex", "-1").attr("role", "dialog")
-                .append(cEl("div").attr("class", "modal-dialog").attr("role", "document")
-                .append(cEl("div").attr("class", "modal-content").append(mdHeader).append(mdBody).append(mdFooter)));
-
+            .append(cEl("div").attr("class", "modal-dialog").attr("role", "document")
+            .append(cEl("div").attr("class", "modal-content").append(mdHeader)
+        .append(
+            genAccordionElement("udetails", "User Details", null, genEditDetailsTab())
+            )
+        .append(
+            genAccordionElement("rulestab", "Rules", null, rliteral)
+            )
+        .append(
+            genAccordionElement("prizestab", "Prizes", null, pliteral)
+            )
+        .append(
+            genAccordionElement("termscondtab", "Terms And Conditions", null, tcliteral)
+            )));
+    
     document.body.append(mdMain);
     $("#userModal").modal("show");
 }
@@ -72,4 +75,50 @@ function updateUserDetails() {
             }
         });
     }
+}
+
+
+//Edit details
+function genEditDetailsTab() {
+    cAv = cuser.AvatarId;
+
+
+    var mdBody = cEl("div").attr("class", "modal-body");
+
+    //----------Elements-----------
+
+    //----------Password-----------
+    var pwds = cEl("p").append(
+                    cEl("h5").tEl("Change your password"))
+                    .append(cEl("input").attr("type", "text").attr("class", "form-control").attr("id", "nBday").attr("placeholder", "Birthday (dd/mm/yyyy)"))
+                    .append(cEl("input").attr("type", "text").attr("class", "form-control").attr("id", "nAddress").attr("placeholder", "Address"))
+                    .append(cEl("input").attr("type", "password").attr("class", "form-control").attr("id", "nPwd").attr("placeholder", "Change password"))
+                    .append(cEl("input").attr("type", "password").attr("class", "form-control").attr("id", "nPwdRepeat").attr("placeholder", "Repeat new password"));
+
+    //----------Avatars------------
+    var avatars = cEl("p").append(cEl("h5").tEl("Choose your avatar"));
+
+    for (var i = 0; i < imgsm.length; i++) {
+        var ael = cEl("img").wr({ id: imgsm[i] }).attr("src", "style/images/avatars/" + imgsm[i] + ".png").listener("click", toggleAvatars);
+        ael.className = cuser.AvatarId - 1 === i ? "avatars" : "desaturate avatars";
+        avatars.append(ael);
+    }
+    mdBody.append(pwds).append(cEl("hr")).append(avatars);
+    mdBody.append(cEl("div").attr("class", "row-fluid")
+            .append(
+                cEl("div").attr("class", "span12").append(
+                    cEl("a").attr("class", "btn btn-primary").listener("click", updateUserDetails).tEl("Save")
+                )
+            ));
+
+    //var mdFooter = cEl("div").attr("class", "modal-footer").attr("id", "mdFooter").append(cEl("button").attr("type", "button").attr("class", "btn btn-primary").listener("click", updateUserDetails).tEl("Save"));
+
+    //----------------------------------
+    
+    return mdBody;
+}
+
+//Terms And Conditions
+function genTermsAndConditions() {
+    genAccordionElement("prizestab", "Terms And Conditions", null, document.getElementById("TermsAndConditionsLiteral"));
 }

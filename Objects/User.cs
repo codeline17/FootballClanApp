@@ -21,6 +21,7 @@ namespace Objects
         public bool isApproved { get; set; }
         public Guid SessionId { get; set; }
         public int Rank { get; set; }
+        public int PreviousLeagueRank { get; set; }
         
         public User()
         {
@@ -34,10 +35,11 @@ namespace Objects
             Points = points;
         }
 
-        public User(string username, int points)
+        public User(string username, int points, int previousleaguerank)
         {
             Username = username;
             Points = points;
+            PreviousLeagueRank = previousleaguerank;
         }
 
         public User(string username, Guid guid, int credit, int clanid, 

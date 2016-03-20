@@ -77,12 +77,19 @@ function genLeagueTable(n,u) {
     var hRow = document.createElement("tr");
     hRow.append(cEl("th").append(cEl("span").attr("data-toggle", "tooltip").attr("data-placement", "top").attr("title", "#").tEl("#")));
     hRow.append(cEl("th").append(cEl("span").attr("data-toggle", "tooltip").attr("data-placement", "top").attr("title", "Member").tEl("Member")));
-    hRow.append(cEl("th").append(cEl("span").attr("data-toggle", "tooltip").attr("data-placement", "top").attr("title", "Points").tEl("Points")));
+    hRow.append(cEl("th").append(cEl("span").attr("data-toggle", "tooltip").attr("data-placement", "top").attr("title", "Points").tEl("Pts")));
     tHead.appendChild(hRow);
 
     var tBody = document.createElement("tbody");
     for (var i = 0; i < u.length; i++) {
-        var tdRang = cEl("td").tEl(i + 1);
+        var tdRang;
+        if (u[i].PreviousLeagueRank > i + 1) {
+            tdRang = cEl("td").tEl(i + 1).append(cEl("i").attr("class", "icon-down-dir-1 gonedown"));
+        } else if (u[i].PreviousLeagueRank < i + 1) {
+            tdRang = cEl("td").tEl(i + 1).append(cEl("i").attr("class", "icon-up-dir-1 goneup"));
+        } else {
+            tdRang = cEl("td").tEl(i + 1).append(cEl("i").attr("class", "icon-right-dir-1"));
+        }
         var tdUsername = cEl("td").tEl(u[i].Username ? u[i].Username : u[i].Name);
         var tdPoints = cEl("td").tEl(u[i].Points);
         var row = cEl("tr").append(tdRang).append(tdUsername).append(tdPoints);

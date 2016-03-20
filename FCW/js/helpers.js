@@ -15,7 +15,7 @@ function getHeaderInfo() {
          cuser = e;
          var h = document.getElementById("mainHeader");
 
-         var username = e.Username.toUpperCase() + "     - " + e.Points + " POINTS";
+         var username = e.Username.toUpperCase() + "     - " + e.Points + " points";
          var userCredit = e.Credit;
 
          var overallBadge = getOverAllForm(e);
@@ -85,6 +85,57 @@ function getUserForm(user) {
 }
 
 function getOverAllForm(user) {
-    var form = Math.floor(user.TotalPredictions / 1000) + 1;
+    var form = Math.floor(user.TotalPredictions / 500) + 1;
     return form ? form : 0;
+}
+
+
+/*
+<div class="accordion-group">
+    <div class="accordion-heading">
+        <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+            <h5>100% Responsive</h5>
+        </a> 
+    </div>
+    <div id="collapseOne" class="accordion-body collapse" style="height: 0px;">
+        <div class="accordion-inner"> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt. </div>
+    </div>
+</div>
+*/
+
+function genAccordionElement(elementid, headertext, headerevent, bodyelement) {
+    var a = cEl("div")
+        .attr("class", "accordion-group")
+        .append(
+            cEl("div")
+            .attr("class", "accordion-heading")
+            .append(
+                cEl("a")
+                .attr("class", "accordion-toggle collapsed").attr("data-toggle", "collapse").attr("data-parent", "#accordion").attr("href", "#" + elementid)
+                .listener("click",headerevent ? headerevent : function() {})
+                .append(
+                    cEl("h5").tEl(headertext)
+                )
+            )
+        )
+        .append(
+            cEl("div")
+            .attr("id", elementid).attr("class", "accordion-body collapse").attr("style", "height: 0px;")
+            .append(
+                cEl("div")
+                .attr("class", "accordion-inner")
+                .append(bodyelement)
+            )
+        );
+    return a;
+}
+
+function genRuleTuple(title, text) {
+    return cEl("div")
+        .append(
+            cEl("h5").tEl(title)
+        )
+        .append(
+            cEl("p").tEl(text)
+        );
 }

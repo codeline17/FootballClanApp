@@ -49,6 +49,7 @@
     <Compile Include="Outcome.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Team.cs" />
+    <Compile Include="Unlockables.cs" />
     <Compile Include="Trophy.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Vars.cs" />

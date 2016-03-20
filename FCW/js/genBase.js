@@ -1,41 +1,30 @@
- /*matches
- **predictions
- **clans
- **leagues
- **leadbord
- **livescore
- **account*/
-var site = "play"; //nostore //game - store
-var cuser = "";
-var state = true;
-var mObjs = new Array();
-var username = "";
-var mode = "";
-var matches = "";
-genHeader();
-
 window.onload = function (e) {
     var menus = $("li[content-type]");
-    for (i = 0; i < menus.length; i++) {
+    for (var i = 0; i < menus.length; i++) {
         menus[i].addEventListener("click", getContent);
     }
 
+    genHeader();
     getMatches("w");
+    getUnlocks();
     //genMatches();
 
     cuser = JSON.parse(getCookie("u"));
 
     if (site === "play") {
         $("li[content-type]").each(function () {
-            if (this.getAttribute("content-type") === "store") {
-                this.setAttribute("content-type", "rules");
-                this.childNodes[1].innerText = "";
-                this.childNodes[1].appendChild(cEl("i").attr("class", "icon-pin icn"));
-                this.childNodes[1].tEl("Rules");
-                console.log(this.childNodes[1].innerText);
+            if (this.getAttribute("content-type") === "store" || this.getAttribute("content-type") === "chat") {
+                this.parentElement.removeChild(this);
             }
         });
     }
+}
+
+function getUnlocks() {
+    $.post("Actions/User.aspx", { type: "UNL" },
+        function (e) {
+            unlocks = JSON.parse(e);
+        });
 }
 
  function getContent(e){
@@ -79,8 +68,8 @@ window.onload = function (e) {
          case "store":
             genStore();
              break;
-         case "rules":
-            //genStore();
+         case "unlock":
+             genUnlocks();
              break;
          default:
              break;
@@ -91,6 +80,31 @@ window.onload = function (e) {
      }
 
  }
+
+function genUnlocks() {
+    var mainC = document.getElementById("mainContainer");
+    mainC.innerHTML = "";
+
+    var rootElement = cEl("div").attr("class", "pricing row-fluid");
+
+    for (var i = 0; i < unlocks.length; i++) {
+        console.log(unlocks[i]);
+        rootElement.append(genSingleUnlockElement(unlocks[i].Name, unlocks[i].ExpiresOn));
+    }
+
+    mainC.append(rootElement);
+}
+
+function genSingleUnlockElement(name, expirydate) {
+    var element = cEl("div").attr("class", "plan span4")
+                .append(
+                    cEl("h3").tEl(name)
+                    )
+                .append(
+                    cEl("div").attr("class","features select").tEl("Expires on : " + expirydate)
+                    );
+    return element;
+}
 
  function getMatches(opt) {
      var date = getFullDate(new Date(), 0);
@@ -233,19 +247,7 @@ function setPrediction(e) {
     el.className = "odd bet";
     sendPredictions();
 }
-/*
-function sendPredictions() {
-    var ps = document.getElementsByClassName("odd bet");
-    var pString = "";
 
-    for (var i = 0; i < ps.length; i++) {
-        pString += ps[i].getAttribute("data-odd") + ";";
-
-    $.post("Actions/Fixture.aspx", { type: "SNDPD", pds: pString.substring(0, pString.length - 1) });
-    }
-    genMatches();
-}
-*/
 function getShortTeamName(name, match, length) {
     if (length === 100) {
         return name.replace("[Home]", match.HomeTeam.Name).replace("[Away]", match.AwayTeam.Name).replace("[Draw]", "Draw").replace(" ", "");
