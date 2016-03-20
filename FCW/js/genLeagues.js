@@ -68,7 +68,11 @@ function genLeagueTable(n,u) {
     //User-Points
     //HEADER
     var mTag = cEl("div");
-    var tTitle = cEl("h3").tEl(n);
+    var img = "default";
+    for (var j = 0; j < leagueBadges.length; j++) {
+        img = n.toLowerCase().indexOf(leagueBadges[j].type) > -1 ? leagueBadges[j].type : img;
+    }
+    var tTitle = cEl("h3").append(cEl("img").attr("src","style/images/leagues/" + img + ".png")).tEl(n);
     var tabTag = document.createElement("table");
     tabTag.id = "livescore-table";
     tabTag.className = "table table-hover";

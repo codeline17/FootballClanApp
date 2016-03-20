@@ -114,6 +114,12 @@
     <Content Include="style\images\fill_2.png" />
     <Content Include="style\images\fill_3.png" />
     <Content Include="style\images\fill_4.png" />
+    <Content Include="style\images\leagues\default.png" />
+    <Content Include="style\images\leagues\msl.png" />
+    <Content Include="style\images\leagues\scc.png" />
+    <Content Include="style\images\leagues\wsl.png" />
+    <Content Include="style\images\leagues\ycc.png" />
+    <Content Include="style\images\leagues\ysl.png" />
     <Content Include="style\images\shop_0.jpg" />
     <Content Include="style\images\shop_1.jpg" />
     <Content Include="style\images\shop_2.jpg" />

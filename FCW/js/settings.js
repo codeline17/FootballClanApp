@@ -10,4 +10,5 @@ var mObjs = new Array();
 var username = "";
 var mode = "";
 var matches = "";
-var unlocks=""
+var unlocks = "";
+var leagueBadges = [{ type: "msl" }, { type: "scc" }, { type: "wsl" }, { type: "ycc" }, { type: "ysl" }];

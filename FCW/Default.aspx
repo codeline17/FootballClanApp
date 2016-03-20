@@ -416,7 +416,6 @@
     <script src="style/js/jquery.slickforms.js"></script>
     <script src="style/js/jquery.isotope.min.js"></script>
     <script src="style/js/google-code-prettify/prettify.js"></script>
-    <script src="style/js/jquery.easytabs.min.js"></script>
     <script src="style/js/jquery.hoverdir.min.js"></script>
     <script src="style/js/scripts.js"></script>
     <script src="style/js/moment.js"></script>
@@ -427,6 +426,7 @@
     <script src="style/js/bootstrap-datepicker.js"></script>
     <script src="style/js/select2.js"></script>
     <script src="style/js/toggle.js"></script>
+    <script src="style/js/jquery.easytabs.min.js"></script>
     <!-- Table JS -->
     <script src="style/js/jquery.sortelements.js"></script>
     <script src="style/js/jquery.bdt.js"></script>

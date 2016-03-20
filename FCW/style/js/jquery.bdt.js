@@ -242,7 +242,7 @@
                 var additonalClass = "";
                 var page = $();
 
-                if ((index + 1) == 1) {
+                if ((index + 1) === 1) {
                     additonalClass = "active";
                 }
 
@@ -398,12 +398,12 @@
                 .find("li:eq(" + page + ")")
                 .addClass("active");
 
-            if (page == 1) {
+            if (page === 1) {
                 pagination
                     .find("li:first")
                     .addClass("disabled");
 
-            } else if (page == pageCount) {
+            } else if (page === pageCount) {
                 pagination
                     .find("li:last")
                     .addClass("disabled");

@@ -1,4 +1,7 @@
-﻿function genClans() {
+﻿var joinTab;
+var createTab;
+var joinTabEvent = false;
+function genClans() {
     var mainC = document.getElementById("mainContainer");
     mainC.innerHTML = "";
 
@@ -6,6 +9,19 @@
       function (e) {
           e = JSON.parse(e);
           if (e.ClanId === 0) { //NoClan : Show CreateClan or JoinClan
+        
+              //preps
+              var tabGroup = cEl("div").attr("class", "tabs tabs-top left tab-container").attr("data-easytabs", "true");
+              var tabs = cEl("ul").attr("class", "etabs")
+                  .append(cEl("li").attr("class", "tab active").append(cEl("a").listener("click", switchCTab).wr({Tab: "create"})
+                        .tEl("Create Clan")))
+                  .append(cEl("li").attr("class", "tab").append(cEl("a").listener("click", switchCTab).wr({Tab: "join"})
+                        .attr("class", "active").tEl("Join Clan")));
+
+              tabGroup.append(tabs);
+
+              var tabContainer = cEl("div").attr("id","tcTab").attr("class", "panel-container");
+
               //CreateClan
               var ccPanel = createPanel("Create you own clan!");
               ccPanel.id = "ccp";
@@ -26,36 +42,22 @@
               ccBody.append(pClan);
               ccBody.append(btnCreateClan);
 
-              //Arrow section
-              var greenArrow = document.createElement("hr");
-              greenArrow.className = "arrow";
-
               //JoinClan
               var jcPanel = createPanel("Join a clan!");
               jcPanel.id = "jcp";
               var jcBody = jcPanel.getElementsByClassName("panel-body")[0];
 
-              /*var ijc = document.createElement("input");
-              ijc.setAttribute("placeholder", "Search Clan");
-              ijc.className = "form-control input-sm";
-              ijc.type = "text";
-              jcBody.appendChild(ijc);*/
-
-              var btnJoinClan = document.createElement("button");
-              btnJoinClan.type = "button";
-              btnJoinClan.className = "btn btn-success";
-              btnJoinClan.innerHTML = "Join Clan!";
-              btnJoinClan.addEventListener("click", JoinClan);
-
-              var ddc = GenClanList();
+              var ddc = genClanListTable();
               jcBody.appendChild(ddc);
-              jcBody.appendChild(btnJoinClan);
 
-              //Append Everything
-              mainC.appendChild(ccPanel);
-              mainC.appendChild(greenArrow);
-              mainC.appendChild(jcPanel);
+              //affects
+              createTab = cEl("div").attr("class", "tab-block").attr("id", "tbJoin").attr("style", "display: block;").append(ccPanel);
+              joinTab = cEl("div").attr("class", "tab-block active").attr("id", "tbCreate").attr("style", "display: block;").append(jcPanel);
+              tabContainer.append(createTab);
 
+              //appends
+              tabGroup.append(tabContainer);
+              mainC.appendChild(tabGroup);
 
               /***After Event Assignments***/
               $("#tgPrv").bootstrapToggle();
@@ -94,6 +96,35 @@
                   });
           }
       });
+}
+
+function switchCTab(e) {
+    var w = e.target.wrapper.Tab;
+    console.log(w);
+    $("li.tab").each(function() {
+        this.className = this.className.replace(" active", "");
+    });
+    e.target.parentElement.className += " active";
+
+    var mainCnt = document.getElementById("tcTab");
+    mainCnt.innerHTML = "";
+
+    switch (w) {
+        case "join":
+            mainCnt.append(joinTab);
+            if (!joinTabEvent) {
+                $('body').off('click', '.pagination li');
+                $("#cltable").bdt({
+                    pageRowCount: 25
+                });
+                joinTabEvent = true;
+            }
+            break;
+        case "create":
+            mainCnt.append(createTab);
+            $("#tgPrv").bootstrapToggle();
+            break;
+    }
 }
 
 function genLeaveClanBtn() {
@@ -174,13 +205,14 @@ function CreateClan() {
                 genHeader();
                 genClans();
             }
-
         });
 }
 
-function JoinClan() {
-    var name = document.getElementById("ddc");
-    name = name.options[name.selectedIndex].value;
+function JoinClan(e) {
+    var name = e.target.parentElement.wrapper.Name;
+
+    if (!name)
+        return;
 
     $.post("Actions/User.aspx", { type: "JC", name: name },
         function (e) {
@@ -196,10 +228,6 @@ function JoinClan() {
                 genClans();
             }
         });
-}
-
-function GenClanDetails() {
-    
 }
 
 function GenClanList() {
@@ -223,6 +251,40 @@ function GenClanList() {
     return ddc;
 }
 
+function genClanListTable() {
+    //main
+    var clt = cEl("table").attr("id","cltable").attr("class", "table table-hover");
+
+    //header
+    var cltHeader = cEl("thead");
+    var thead = [{ Title: "Rank", Text: "Rank" },{ Title: "Name", Text: "Name" }, { Title: "Leader", Text: "Leader" }, 
+        { Title: "Members", Text: "#" }, { Title: "Points", Text: "Pts" }];
+    for (var j = 0; j < thead.length; j++) {
+        cltHeader.append(cEl("th").tEl(thead[j].Text));
+    }
+
+    //body
+    var cltbody = cEl("tbody");
+
+    $.post("Actions/User.aspx", { type: "GAC" },
+        function (e) {
+            e = JSON.parse(e);
+            for (var i = 0; i < e.length; i++) {
+                var r = cEl("tr").wr({ Name: e[i].Name }).listener("click", JoinClan)
+                    .append(cEl("td").tEl(e[i].Rank))
+                    .append(cEl("td").tEl(e[i].Name))
+                    .append(cEl("td").tEl(e[i].Leader))
+                    .append(cEl("td").tEl(e[i].UserCount))
+                    .append(cEl("td").tEl(e[i].Points))
+                ;
+                cltbody.append(r);
+            }
+            clt.append(cltHeader).append(cltbody);
+        });
+
+    return clt;
+}
+
 function approveMember(e) {
     var uname = e.target.getAttribute("cel-uname");
     var cname = e.target.getAttribute("cel-cname");
@@ -237,7 +299,8 @@ function approveMember(e) {
 }
 
 function removeMember(e) {
-    $.post("Actions/User.aspx", { type: "RMUC", name : cuser.Username, clanName : cuser.NameOfClan },
+    var uname = e.target.getAttribute("cel-uname");
+    $.post("Actions/User.aspx", { type: "RMUC", name: uname, clanName: cuser.NameOfClan },
         function (c) {
             console.log(c);
             if (c === "1") {

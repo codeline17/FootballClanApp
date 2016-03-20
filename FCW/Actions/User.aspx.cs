@@ -23,7 +23,6 @@ namespace FCW.Actions
         {
             try
             {
-
                 user = (Objects.User) Session["currentUser"];
                 if (user.Username == null)
                     return;
@@ -72,7 +71,7 @@ namespace FCW.Actions
                         CreateClan();
                         break;
                     case "GAC": //Get All Clans
-                        GetAllClans();
+                        GetAllClans(user.Guid);
                         break;
                     case "JC": //Join Clan
                         JoinClan();
@@ -123,7 +122,6 @@ namespace FCW.Actions
                 }
             }
         }
-
         private void PurchaseExtraFixtures(Guid guid)
         {
             using (var conn = new SqlConnection(_connectionstring))
@@ -142,7 +140,6 @@ namespace FCW.Actions
                 }
             }
         }
-
         private void PurchaseGame(Guid guid)
         {
             var slug = Request.Params["Slug"];
@@ -164,7 +161,6 @@ namespace FCW.Actions
                 }
             }
         }
-
         private void ToggleFavorite(Guid guid)
         {
             var name = Request.Params["FavUname"];
@@ -186,7 +182,6 @@ namespace FCW.Actions
                 }
             }
         }
-
         private void GetFavorites()
         {
             using (var conn = new SqlConnection(_connectionstring))
@@ -264,7 +259,6 @@ namespace FCW.Actions
                 }
             }
         }
-
         private void UpdateUserDetails()
         {
             var pwd = Request.Params["pwd"];
@@ -289,7 +283,6 @@ namespace FCW.Actions
                 }
             }
         }
-
         private void Logout()
         {
             Session["currentUser"] = null;
@@ -453,7 +446,7 @@ namespace FCW.Actions
                 }
             }
         }
-        private void GetAllClans()
+        private void GetAllClans(Guid userGuid)
         {
             var clans = new List<Objects.Clan>();
 
@@ -462,6 +455,7 @@ namespace FCW.Actions
                 using (var cmd = new SqlCommand("ClanGetAll", conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@UserGuid", SqlDbType.UniqueIdentifier).Value = userGuid;
 
                     conn.Open();
                     var reader = cmd.ExecuteReader();
@@ -545,7 +539,6 @@ namespace FCW.Actions
             Response.ClearHeaders();
             Response.Write(json);
         }
-
         private void ApproveUserClan(Guid guid)
         {
             var name = Request.Params["name"];
@@ -569,7 +562,6 @@ namespace FCW.Actions
                 }
             }
         }
-
         private void RemoveUserClan(Guid guid)
         {
             var name = Request.Params["name"];
