@@ -345,7 +345,12 @@ namespace FCW.Actions
                         else
                         {
                             league.Clans.Add(
-                                new Clan(reader["PartName"].ToString(), Convert.ToInt32(reader["Points"]), Convert.ToInt32(reader["PRank"]))
+                                new Clan(
+                                    reader["PartName"].ToString(), 
+                                    Convert.ToInt32(reader["Points"]), 
+                                    Convert.ToInt32(reader["PRank"]),
+                                    Convert.ToInt32(reader["Image"])
+                                    )
                                 );
                         }
 
@@ -468,7 +473,8 @@ namespace FCW.Actions
                                 Convert.ToInt32(reader["Count"]),
                                 reader["Leader"].ToString(),
                                 Convert.ToInt32(reader["Rank"]),
-                                Convert.ToInt32(reader["Points"])
+                                Convert.ToInt32(reader["Points"]),
+                                Convert.ToInt32(reader["Image"])
                                 )
                             );
                     }

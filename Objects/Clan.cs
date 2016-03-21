@@ -18,6 +18,7 @@ namespace Objects
         public int Points { get; set; }
         public int Rank { get; set; }
         public int PreviousLeagueRank { get; set; }
+        public int Image { get; set; }
 
         public Clan(string name, List<User> users, DateTime createdOn, string leader, int usercount)
         {
@@ -29,7 +30,7 @@ namespace Objects
             Trophies = new List<Trophy>();
         }
 
-        public Clan(string name, int usercount, string leader, int rank, int points)
+        public Clan(string name, int usercount, string leader, int rank, int points, int image)
         {
             Name = name;
             UserCount = usercount;
@@ -38,6 +39,7 @@ namespace Objects
             Trophies = new List<Trophy>();
             Rank = rank;
             Points = points;
+            Image = image;
         }
 
         public Clan()
@@ -46,11 +48,12 @@ namespace Objects
             Trophies = new List<Trophy>();
         }
 
-        public Clan(string name, int points, int previousleaguerank)
+        public Clan(string name, int points, int previousleaguerank, int image)
         {
             Name = name;
             Points = points;
             PreviousLeagueRank = previousleaguerank;
+            Image = image;
         }
     }
 }
