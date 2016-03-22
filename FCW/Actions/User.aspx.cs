@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.Linq;
 using System.Security.AccessControl;
 using System.Web;
@@ -71,7 +72,10 @@ namespace FCW.Actions
                         CreateClan();
                         break;
                     case "GAC": //Get All Clans
-                        GetAllClans(user.Guid);
+                        GetAllClans();
+                        break;
+                    case "GACBU": //Get All Clans By User
+                        GetAllClansByUser(user.Guid);
                         break;
                     case "JC": //Join Clan
                         JoinClan();
@@ -210,7 +214,8 @@ namespace FCW.Actions
                                     Convert.ToInt32(reader["lastsspreds"]), Convert.ToInt32(reader["AvatarId"]),
                                     Convert.ToInt32(reader["Rank"]),
                                     reader["NameOfClan"].ToString(),
-                                    new Guid()
+                                    new Guid(),
+                                    DateTime.Now
                                 )
                             );
                     }
@@ -248,7 +253,8 @@ namespace FCW.Actions
                                     Convert.ToInt32(reader["lastsspreds"]), Convert.ToInt32(reader["AvatarId"]),
                                     Convert.ToInt32(reader["Rank"]),
                                     reader["NameOfClan"].ToString(),
-                                    new Guid()
+                                    new Guid(),
+                                    DateTime.Now
                                 )
                             );
                     }
@@ -264,6 +270,9 @@ namespace FCW.Actions
             var pwd = Request.Params["pwd"];
             var pwdr = Request.Params["pwdr"];
             var avid = Request.Params["avid"];
+            var adress = Request.Params["adress"];
+            var birthday = DateTime.Now;
+            DateTime.TryParseExact(Request.Params["birthday"], "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out birthday);
 
             using (var conn = new SqlConnection(_connectionstring))
             {
@@ -273,6 +282,8 @@ namespace FCW.Actions
                     cmd.Parameters.Add("@userGuid", SqlDbType.UniqueIdentifier).Value = user.Guid;
                     cmd.Parameters.Add("@Password", SqlDbType.VarChar, 50).Value = pwd == pwdr && pwd != null && pwdr != null ? pwd : "";
                     cmd.Parameters.Add("@AvatarId", SqlDbType.Int).Value = Convert.ToInt32(avid);
+                    cmd.Parameters.Add("@Address", SqlDbType.VarChar, 50).Value = adress;
+                    cmd.Parameters.Add("@Birthday", SqlDbType.DateTime).Value = birthday;
 
                     conn.Open();
                     var r = cmd.ExecuteScalar().ToString();
@@ -389,7 +400,7 @@ namespace FCW.Actions
                         new City("Tirana")), Convert.ToInt32(reader["Points"]), Convert.ToInt32(reader["tpreds"]),
                         Convert.ToInt32(reader["spreds"]), Convert.ToInt32(reader["lastspreds"]),
                         Convert.ToInt32(reader["lastsspreds"]), Convert.ToInt32(reader["AvatarId"]), Convert.ToInt32(reader["Rank"]),
-                        reader["NameOfClan"].ToString(), new Guid());
+                        reader["NameOfClan"].ToString(), new Guid(), Convert.ToDateTime(reader["Birthday"]));
                     }
 
                     var json = new JavaScriptSerializer().Serialize(gUser);
@@ -451,7 +462,42 @@ namespace FCW.Actions
                 }
             }
         }
-        private void GetAllClans(Guid userGuid)
+        private void GetAllClansByUser(Guid userGuid)
+        {
+            var clans = new List<Objects.Clan>();
+
+            using (var conn = new SqlConnection(_connectionstring))
+            {
+                using (var cmd = new SqlCommand("ClanGetAllByUser", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@UserGuid", SqlDbType.UniqueIdentifier).Value = userGuid;
+
+                    conn.Open();
+                    var reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        clans.Add(
+                            new Clan(
+                                reader["Name"].ToString(),
+                                Convert.ToInt32(reader["Count"]),
+                                reader["Leader"].ToString(),
+                                Convert.ToInt32(reader["Rank"]),
+                                Convert.ToInt32(reader["Points"]),
+                                Convert.ToInt32(reader["Image"])
+                                )
+                            );
+                    }
+
+                    var json = new JavaScriptSerializer().Serialize(clans);
+                    Response.ClearContent();
+                    Response.ClearHeaders();
+                    Response.Write(json);
+                }
+            }
+        }
+        private void GetAllClans()
         {
             var clans = new List<Objects.Clan>();
 
@@ -460,7 +506,6 @@ namespace FCW.Actions
                 using (var cmd = new SqlCommand("ClanGetAll", conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@UserGuid", SqlDbType.UniqueIdentifier).Value = userGuid;
 
                     conn.Open();
                     var reader = cmd.ExecuteReader();

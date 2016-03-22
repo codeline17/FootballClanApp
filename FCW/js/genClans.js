@@ -266,7 +266,7 @@ function genClanListTable() {
     //body
     var cltbody = cEl("tbody");
 
-    $.post("Actions/User.aspx", { type: "GAC" },
+    $.post("Actions/User.aspx", { type: "GACBU" },
         function (e) {
             e = JSON.parse(e);
             for (var i = 0; i < e.length; i++) {

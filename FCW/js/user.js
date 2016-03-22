@@ -54,15 +54,20 @@ function toggleAvatars(e) {
 function updateUserDetails() {
     var pwd = document.getElementById("nPwd");
     var pwdr = document.getElementById("nPwdRepeat");
+    var adress = document.getElementById("nAddress");
+    var birthday = document.getElementById("nBday");
     var avid = cAv;
     var q = true;
     //Checks //errorBox("Could not join this clan, please try again later.")
-    if (pwd.value !== pwdr.value) {
+    if (!checkDate(birthday)) {
+        document.getElementById("mdFooter").appendFirst(errorBox("Date format error."));
+    } else if (pwd.value !== pwdr.value) {
         document.getElementById("mdFooter").appendFirst(errorBox("Passwords do not match."));
     } else if (pwd.value.length > 0 && pwd.value.length < 8) {
         document.getElementById("mdFooter").appendFirst(errorBox("Password should be at least 8 characters long."));
     } else {
-        $.post("Actions/User.aspx", { type: "UUD", pwd: pwd.value, pwdr: pwdr.value, avid: avid },
+        console.log("hyra");
+        $.post("Actions/User.aspx", { type: "UUD", pwd: pwd.value, pwdr: pwdr.value, avid: avid, adress: adress.value, birthday:birthday.value },
         function (c) {
             console.log(c);
             if (c === "1") {
@@ -90,8 +95,9 @@ function genEditDetailsTab() {
     //----------Password-----------
     var pwds = cEl("p").append(
                     cEl("h5").tEl("Change your password"))
-                    .append(cEl("input").attr("type", "text").attr("class", "form-control").attr("id", "nBday").attr("placeholder", "Birthday (dd/mm/yyyy)"))
-                    .append(cEl("input").attr("type", "text").attr("class", "form-control").attr("id", "nAddress").attr("placeholder", "Address"))
+                    .append(cEl("label").tEl("E-mail : " + cuser.UserDetails.Email))
+                    .append(cEl("input").attr("type", "text").attr("class", "form-control").attr("id", "nBday").attr("placeholder", "Birthday (dd/mm/yyyy)").attr("value",cuser.Birthday))
+                    .append(cEl("input").attr("type", "text").attr("class", "form-control").attr("id", "nAddress").attr("placeholder", "Address").attr("value",cuser.UserDetails.Address))
                     .append(cEl("input").attr("type", "password").attr("class", "form-control").attr("id", "nPwd").attr("placeholder", "Change password"))
                     .append(cEl("input").attr("type", "password").attr("class", "form-control").attr("id", "nPwdRepeat").attr("placeholder", "Repeat new password"));
 
@@ -121,4 +127,39 @@ function genEditDetailsTab() {
 //Terms And Conditions
 function genTermsAndConditions() {
     genAccordionElement("prizestab", "Terms And Conditions", null, document.getElementById("TermsAndConditionsLiteral"));
+}
+
+function checkDate(field) {
+    var allowBlank = false;
+    var minYear = 1902;
+    var maxYear = (new Date()).getFullYear();
+
+    var errorMsg = "";
+
+    // regular expression to match required date format
+    var re = /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/;
+
+    if (field.value !== "") {
+        if (regs = field.value.match(re)) {
+            if (regs[1] < 1 || regs[1] > 31) {
+                errorMsg = "Invalid value for day: " + regs[1];
+            } else if (regs[2] < 1 || regs[2] > 12) {
+                errorMsg = "Invalid value for month: " + regs[2];
+            } else if (regs[3] < minYear || regs[3] > maxYear) {
+                errorMsg = "Invalid value for year: " + regs[3] + " - must be between " + minYear + " and " + maxYear;
+            }
+        } else {
+            errorMsg = "Invalid date format: " + field.value;
+        }
+    } else if (!allowBlank) {
+        errorMsg = "Empty date not allowed!";
+    }
+
+    if (errorMsg !== "") {
+        /*alert(errorMsg);
+        field.focus();*/
+        return false;
+    }
+
+    return true;
 }

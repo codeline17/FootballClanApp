@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Permissions;
 
 namespace Objects
 {
@@ -22,6 +23,9 @@ namespace Objects
         public Guid SessionId { get; set; }
         public int Rank { get; set; }
         public int PreviousLeagueRank { get; set; }
+        private DateTime _birthday;
+        public string Birthday => _birthday.ToString("dd/MM/yyyy");
+
         
         public User()
         {
@@ -45,7 +49,7 @@ namespace Objects
         public User(string username, Guid guid, int credit, int clanid, 
             UserDetails userdetails, int points, int predictionsno, int successfulpredictions,
             int lastpredictions, int lastsuccessfulpredictions, int avatarid, int rank, 
-            string nameofclan, Guid sessionid)
+            string nameofclan, Guid sessionid, DateTime birthday)
         {
             Username = username;
             Guid = guid;
@@ -61,6 +65,7 @@ namespace Objects
             Rank = rank;
             NameOfClan = nameofclan;
             SessionId = sessionid;
+            _birthday = birthday;
         }
     }
 

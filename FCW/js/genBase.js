@@ -323,6 +323,7 @@ function addFilterHead() {
         format: "dd/mm/yyyy"
     }).on("changeDate", function (e) {
         var dt = e.date;
+        $('.datepicker.dropdown-menu').hide();
         if (mode==="predictions") {
             genPredictions(getFullDate(dt,0));
         }
