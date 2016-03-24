@@ -8,11 +8,13 @@ namespace Objects
 {
     public class Chatroom
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public IList<Chatmessage> Messages { get; set; }
 
-        public Chatroom(string name)
+        public Chatroom(int id, string name)
         {
+            Id = id;
             Name = name;
             Messages = new List<Chatmessage>();
         }

@@ -41,6 +41,9 @@ namespace FCW.Actions
                     case "RFR": //Refresh UserDetails
                         RefreshUserDetials(user.Guid);
                         break;
+                    case "CHT": //Refresh UserDetails
+                        GetUserChats(user.Guid);
+                        break;
                     case "TGF": //Toggle Favorite
                         ToggleFavorite(user.Guid);
                         break;
@@ -54,6 +57,7 @@ namespace FCW.Actions
                         GetFavorites();
                         break;
                     case "GAT": //Get All Trophies
+                        // TODO : Trophies??
                         //UpdateUserDetails();
                         break;/////////////End Leaderboard
                     case "LO": //Logout
@@ -101,6 +105,34 @@ namespace FCW.Actions
             Response.End();
         }
 
+        private void GetUserChats(Guid guid)
+        {
+            using (var conn = new SqlConnection(_connectionstring))
+            {
+                using (var cmd = new SqlCommand("ChatroomsGetByUser", conn))
+                {
+                    var r = new List<Unlockables>();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@Userguid", SqlDbType.UniqueIdentifier).Value = guid;
+
+                    conn.Open();
+                    var reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        var chatroom = new Chatroom(Convert.ToInt16(reader["Id"]), reader["Name"].ToString());
+
+                        user.Chatrooms.Add(chatroom);
+                    }
+
+                    var json = new JavaScriptSerializer().Serialize(r);
+
+                    Response.ClearContent();
+                    Response.ClearHeaders();
+                    Response.Write(json);
+                }
+            }
+        }
+
         private void UserUnlocks(Guid guid)
         {
             using (var conn = new SqlConnection(_connectionstring))
@@ -109,7 +141,7 @@ namespace FCW.Actions
                 {
                     var r = new List<Unlockables>();
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@Userguid", SqlDbType.UniqueIdentifier).Value = user.Guid;
+                    cmd.Parameters.Add("@Userguid", SqlDbType.UniqueIdentifier).Value = guid;
 
                     conn.Open();
                     var reader = cmd.ExecuteReader();

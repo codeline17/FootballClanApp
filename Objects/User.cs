@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Security.Permissions;
 
 namespace Objects
@@ -25,6 +26,7 @@ namespace Objects
         public int PreviousLeagueRank { get; set; }
         private DateTime _birthday;
         public string Birthday => _birthday.ToString("dd/MM/yyyy");
+        public IList<Chatroom> Chatrooms { get; set; }
 
         
         public User()
@@ -66,6 +68,7 @@ namespace Objects
             NameOfClan = nameofclan;
             SessionId = sessionid;
             _birthday = birthday;
+            Chatrooms = new List<Chatroom>();
         }
     }
 
