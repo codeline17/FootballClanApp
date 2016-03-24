@@ -4,11 +4,8 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Globalization;
 using System.Linq;
-using System.Security.AccessControl;
 using System.Web;
 using System.Web.Script.Serialization;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 using Objects;
 
 namespace FCW.Actions
@@ -111,7 +108,6 @@ namespace FCW.Actions
             {
                 using (var cmd = new SqlCommand("ChatroomsGetByUser", conn))
                 {
-                    var r = new List<Unlockables>();
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add("@Userguid", SqlDbType.UniqueIdentifier).Value = guid;
 
@@ -120,17 +116,72 @@ namespace FCW.Actions
                     while (reader.Read())
                     {
                         var chatroom = new Chatroom(Convert.ToInt16(reader["Id"]), reader["Name"].ToString());
-
+                        chatroom.Messages = GetMessagesByChatroom(chatroom.Id);
                         user.Chatrooms.Add(chatroom);
                     }
 
-                    var json = new JavaScriptSerializer().Serialize(r);
+                    var json = new JavaScriptSerializer().Serialize(user);
 
                     Response.ClearContent();
                     Response.ClearHeaders();
                     Response.Write(json);
                 }
             }
+        }
+
+        private List<Chatmessage> GetMessagesByChatroom(int ChatroomId)
+        {
+            var r = new List<Chatmessage>();
+
+            using (var conn = new SqlConnection(_connectionstring))
+            {
+                using (var cmd = new SqlCommand("MessageGetByChatroom", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@ChatroomId", SqlDbType.BigInt).Value = ChatroomId;
+
+                    conn.Open();
+                    var reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        r.Add(new Chatmessage(reader["Message"].ToString(),reader["From"].ToString(),Convert.ToDateTime(reader["Timestamp"]),Convert.ToBoolean(reader["Disposable"])))
+                    };
+                }
+            }
+
+            return r;
+        }
+
+        private void SendMessage(Guid guid)
+        {
+            /*  @Userguid uniqueidentifier,
+                @ChatroomId int,
+                @Message nvarchar(max),
+                @ExpiresOn DATETIME = NULL */
+            var ChatroomId = Convert.ToInt16(Request.Params["ChatroomId"]);
+            var Message = Request.Params["Message"];
+            DateTime ExpiresOn;
+            DateTime.TryParseExact(Request.Params["ExpiresOn"], "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out ExpiresOn);
+
+            var r = 0;
+            using (var conn = new SqlConnection(_connectionstring))
+            {
+                using (var cmd = new SqlCommand("MessageSendByUser", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@Userguid", SqlDbType.UniqueIdentifier).Value = guid;
+                    cmd.Parameters.Add("@ChatroomId", SqlDbType.Int).Value = ChatroomId;
+                    cmd.Parameters.Add("@Message", SqlDbType.NVarChar).Value = Message;
+                    cmd.Parameters.Add("@ExpiresOn", SqlDbType.DateTime).Value = ExpiresOn;
+                    conn.Open();
+                    r = Convert.ToInt16(cmd.ExecuteScalar());                              
+                }
+            }
+            var json = new JavaScriptSerializer().Serialize(r);
+
+            Response.ClearContent();
+            Response.ClearHeaders();
+            Response.Write(json);
         }
 
         private void UserUnlocks(Guid guid)
@@ -410,7 +461,7 @@ namespace FCW.Actions
             Response.ClearHeaders();
             Response.Write(json);
         }
-        private void RefreshUserDetials(Guid guid)
+        public void RefreshUserDetials(Guid guid)
         {
 
             using (var conn = new SqlConnection(_connectionstring))

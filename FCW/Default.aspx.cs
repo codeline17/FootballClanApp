@@ -13,7 +13,7 @@ namespace FCW
                 var user = (User)Session["currentUser"];
                 if (user.Username == null)
                 {
-                    Response.Redirect("Login.aspx");
+                    Response.Redirect("Login.aspx");                    
                 }
                 var el = Request.Params["success"];
                 Debug.Write(el);
@@ -23,6 +23,24 @@ namespace FCW
             {
                 Response.Redirect("Login.aspx");
             }
+        }
+
+        private void Initialize()
+        {
+            try
+            {
+                var Userguid = new Guid(Request.Cookies["cuserguid"].Value);
+                if (Userguid != null)
+                {
+
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
         }
     }
 }

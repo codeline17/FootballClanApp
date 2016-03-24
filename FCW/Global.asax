@@ -5,7 +5,7 @@
 
     void Application_Start(object sender, EventArgs e) 
     {
-        // Code that runs on application startup
+        //Code that runs on application startup
         //BetSite.Translation.Languages.Read();
         //BetSite.Translation.UserMassages.Read();
     }

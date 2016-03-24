@@ -31,6 +31,7 @@ namespace Objects
         
         public User()
         {
+            Chatrooms = new List<Chatroom>();
         }
 
         public User(string username, string inclansince, bool isapproved, int points)
@@ -39,6 +40,7 @@ namespace Objects
             InClanSince = inclansince;
             isApproved = isapproved;
             Points = points;
+            Chatrooms = new List<Chatroom>();
         }
 
         public User(string username, int points, int previousleaguerank)
@@ -46,6 +48,7 @@ namespace Objects
             Username = username;
             Points = points;
             PreviousLeagueRank = previousleaguerank;
+            Chatrooms = new List<Chatroom>();
         }
 
         public User(string username, Guid guid, int credit, int clanid, 
