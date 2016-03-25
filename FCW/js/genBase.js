@@ -9,11 +9,9 @@ window.onload = function (e) {
     getUnlocks();
     //genMatches();
 
-    cuser = JSON.parse(getCookie("u"));
-
     if (site === "play") {
         $("li[content-type]").each(function () {
-            if (this.getAttribute("content-type") === "store" || this.getAttribute("content-type") === "chat") {
+            if (this.getAttribute("content-type") === "store") {
                 this.parentElement.removeChild(this);
             }
         });
@@ -70,6 +68,9 @@ function getUnlocks() {
              break;
          case "unlock":
              genUnlocks();
+             break;
+         case "chat":
+             getChat("parse");
              break;
          default:
              break;

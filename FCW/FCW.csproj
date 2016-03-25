@@ -73,6 +73,7 @@
   <ItemGroup>
     <Content Include="Actions\Paypal.aspx" />
     <Content Include="Actions\Register.aspx" />
+    <Content Include="js\genChat.js" />
     <Content Include="js\genClans.js" />
     <Content Include="js\genLeaderboard.js" />
     <Content Include="js\genLeagues.js" />
@@ -88,6 +89,7 @@
     <Content Include="Service\MainService.svc" />
     <Content Include="style.css" />
     <Content Include="style\css\bslogin.css" />
+    <Content Include="style\css\chat.css" />
     <Content Include="style\css\datepicker.css" />
     <Content Include="style\css\jquery.bdt.css" />
     <Content Include="style\css\login.min.css" />

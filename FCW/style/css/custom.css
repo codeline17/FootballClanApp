@@ -448,3 +448,14 @@ i.gonedown {
 .pagination > li:not(.active):not(:first-child):not(:last-child) {
     display: none !important;
 }
+
+
+/*Chat*/
+span.chatline {
+    display: block;
+}
+
+div.chatcontainer {
+    max-height: 700px;
+    overflow-y: scroll;
+}

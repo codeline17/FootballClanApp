@@ -21,6 +21,7 @@
     <link href="style/css/custom.css" rel="stylesheet">
     <link href="style/css/select2.css" rel="stylesheet">
     <link href="style/css/toggle.css" rel="stylesheet">
+    <link href="style/css/chat.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700' rel='stylesheet' type='text/css'>
     <link href="style/type/fontello.css" rel="stylesheet">
     <!-- Table CSS -->
@@ -441,5 +442,6 @@
     <script src="js/genMatches.js"></script>
     <script src="js/genLeaderboard.js"></script>
     <script src="js/genBase.js"></script>
+    <script src="js/genChat.js"></script>
 </body>
 </html>

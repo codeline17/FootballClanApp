@@ -9,7 +9,6 @@ function genClans() {
       function (e) {
           e = JSON.parse(e);
           if (e.ClanId === 0) { //NoClan : Show CreateClan or JoinClan
-        
               //preps
               var tabGroup = cEl("div").attr("class", "tabs tabs-top left tab-container").attr("data-easytabs", "true");
               var tabs = cEl("ul").attr("class", "etabs")

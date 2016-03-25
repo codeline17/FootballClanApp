@@ -22,6 +22,7 @@ namespace FCW.Actions
                         UserLogin();
                         break;
                     case "CookieCheck":
+                        CookieCheck();
                         break;
                 }
 

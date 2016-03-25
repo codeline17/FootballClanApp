@@ -48,6 +48,7 @@ function getHeaderInfo() {
 function fnLogout() {
     $.post("Actions/User.aspx", { type: "LO" },
         function (e) {
+            localStorage["rInfo"] = null;
             window.location = "Login.aspx";
         });
 }

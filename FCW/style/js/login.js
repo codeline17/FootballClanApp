@@ -13,6 +13,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     var btnReg = document.getElementById("btnRegister");
     btnReg.addEventListener("click", register);
+
+    CookieCheck();
 });
 
 function gotoRegister() {
@@ -63,11 +65,24 @@ function login() {
     var username = document.getElementById("username").value;
     var password = document.getElementById("password").value;
 
-    $.post("Actions/Login.aspx", { username: username, password: password },
+    $.post("Actions/Login.aspx", { type: "Login", username: username, password: password },
         function (e) {
-            setCookie("u", e, 1 / 8);
             var user = JSON.parse(e);
             afterAjax(user);
+        });
+}
+
+function CookieCheck() {
+    var guid = localStorage["rInfo"];
+    if (!guid)
+        return;
+
+    $.post("Actions/Login.aspx", { type: "CookieCheck", userguid: guid },
+        function (e) {
+            var user = JSON.parse(e);
+            if (user.Username) {
+                document.location = "Default.aspx";
+            }
         });
 }
 
@@ -82,7 +97,7 @@ function afterAjax(user) {
         showErrorAfterId("loginError", "Username or password incorrect.");
         //setTimeout(function () { err.className = "alert alert-error orangered hide"; }, 5000);
     } else {
-        localStorage["rInfo"] = user.GUID + ";" + user.Token;
+        localStorage["rInfo"] = user.Guid;
        document.location = "Default.aspx";
     }
 }
@@ -180,4 +195,22 @@ function resetRegisterForm() {
     password.value = "";
     confirmpassword.value = "";
     email.value = "";
+}
+
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    var expires = "expires=" + d.toUTCString();
+    document.cookie = cname + "=" + cvalue + "; " + expires;
+}
+
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') c = c.substring(1);
+        if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+    }
+    return "";
 }

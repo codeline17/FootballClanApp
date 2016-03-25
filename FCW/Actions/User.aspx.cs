@@ -38,8 +38,11 @@ namespace FCW.Actions
                     case "RFR": //Refresh UserDetails
                         RefreshUserDetials(user.Guid);
                         break;
-                    case "CHT": //Refresh UserDetails
+                    case "CHT": //Refresh UserChats
                         GetUserChats(user.Guid);
+                        break;
+                    case "SND": //Refresh UserChats
+                        SendMessage(user.Guid);
                         break;
                     case "TGF": //Toggle Favorite
                         ToggleFavorite(user.Guid);
@@ -111,14 +114,18 @@ namespace FCW.Actions
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add("@Userguid", SqlDbType.UniqueIdentifier).Value = guid;
 
+                    var r = new List<Chatroom>();
+
                     conn.Open();
                     var reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
                         var chatroom = new Chatroom(Convert.ToInt16(reader["Id"]), reader["Name"].ToString());
                         chatroom.Messages = GetMessagesByChatroom(chatroom.Id);
-                        user.Chatrooms.Add(chatroom);
+                        r.Add(chatroom);
                     }
+
+                    user.Chatrooms = r;
 
                     var json = new JavaScriptSerializer().Serialize(user);
 
@@ -144,7 +151,8 @@ namespace FCW.Actions
                     var reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
-                        r.Add(new Chatmessage(reader["Message"].ToString(),reader["From"].ToString(),Convert.ToDateTime(reader["Timestamp"]),Convert.ToBoolean(reader["Disposable"])))
+                        r.Add(new Chatmessage(reader["Message"].ToString(), reader["From"].ToString(),
+                            Convert.ToDateTime(reader["Timestamp"]), Convert.ToBoolean(reader["Disposable"])));
                     };
                 }
             }
@@ -154,14 +162,9 @@ namespace FCW.Actions
 
         private void SendMessage(Guid guid)
         {
-            /*  @Userguid uniqueidentifier,
-                @ChatroomId int,
-                @Message nvarchar(max),
-                @ExpiresOn DATETIME = NULL */
-            var ChatroomId = Convert.ToInt16(Request.Params["ChatroomId"]);
-            var Message = Request.Params["Message"];
-            DateTime ExpiresOn;
-            DateTime.TryParseExact(Request.Params["ExpiresOn"], "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out ExpiresOn);
+            var ChatroomId = Convert.ToInt16(Request.Params["chatroomid"]);
+            var Message = Request.Params["message"];
+            var ExpiresOn = DateTime.Now;
 
             var r = 0;
             using (var conn = new SqlConnection(_connectionstring))
@@ -485,11 +488,14 @@ namespace FCW.Actions
                         Convert.ToInt32(reader["lastsspreds"]), Convert.ToInt32(reader["AvatarId"]), Convert.ToInt32(reader["Rank"]),
                         reader["NameOfClan"].ToString(), new Guid(), Convert.ToDateTime(reader["Birthday"]));
                     }
+                    
+                    user = gUser;
+                    GetUserChats(user.Guid);
+
+                    HttpContext.Current.Session["currentUser"] = user;
+                    Session["currentUser"] = user;
 
                     var json = new JavaScriptSerializer().Serialize(gUser);
-                    HttpContext.Current.Session["currentUser"] = gUser;
-                    Session["currentUser"] = gUser;
-
                     Response.ClearContent();
                     Response.ClearHeaders();
                     Response.Write(json);
