@@ -4,6 +4,13 @@ window.onload = function (e) {
         menus[i].addEventListener("click", getContent);
     }
 
+    $.getScript("style/js/DateFormat.js", function () {
+    });
+
+    $.getScript("js/genUnlock.js", function () {
+    });
+
+
     genHeader();
     getMatches("w");
     getUnlocks();
@@ -96,16 +103,7 @@ function genUnlocks() {
     mainC.append(rootElement);
 }
 
-function genSingleUnlockElement(name, expirydate) {
-    var element = cEl("div").attr("class", "plan span4")
-                .append(
-                    cEl("h3").tEl(name)
-                    )
-                .append(
-                    cEl("div").attr("class","features select").tEl("Expires on : " + expirydate)
-                    );
-    return element;
-}
+
 
  function getMatches(opt) {
      var date = getFullDate(new Date(), 0);

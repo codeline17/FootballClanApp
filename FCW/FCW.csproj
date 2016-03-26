@@ -163,6 +163,7 @@
     <Content Include="style\js\bootstrap-tooltip.js" />
     <Content Include="style\js\bootstrap.min.js" />
     <Content Include="style\js\confirmation.js" />
+    <Content Include="style\js\DateFormat.js" />
     <Content Include="style\js\jquery.bdt.js" />
     <Content Include="style\js\jquery.sortelements.js" />
     <Content Include="style\js\login.min.js" />
