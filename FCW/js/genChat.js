@@ -1,10 +1,41 @@
-﻿function getChat(parse) {
+﻿var currentChatroomId;
+
+var chatRefreshInterval;
+
+function refreshCurrentTab() {
+    console.log(currentChatroomId);
+    if (currentChatroomId) {
+        console.log("refresh chat");
+        getChat("noparse", currentChatroomId);
+    }
+}
+
+function getChat(parse, chatroomid) {
+    var focus;
     $.post("Actions/User.aspx", { type: "CHT" },
         function (e) {
             cuser = JSON.parse(e);
-            console.log(parse);
-            if (parse === "parse") {
+            if (parse === "parse" || !chatroomid ) {
                 genChat();
+                scrolltoend();
+            } else if (chatroomid){
+                for (var i = 0; i < cuser.Chatrooms.length; i++) {
+                    if (cuser.Chatrooms[i].Id === chatroomid) {
+                        try {
+                            var txtV = document.getElementById("ixinput" + chatroomid).value;
+                            var focus = document.getElementById("ixinput" + chatroomid).focus;
+                            document.getElementById("chatTab").replaceChild(genChatArea(cuser.Chatrooms[i]), document.getElementById("chatTab").firstChild);
+                            document.getElementById("ixinput" + chatroomid).value = txtV;
+                        } catch (e) {
+                            console.log(e);
+                            clearInterval(chatRefreshInterval);
+                        } 
+                    }
+                }
+                if (focus) {
+                    document.getElementById("ixinput" + chatroomid).focus();
+                    scrolltoend();
+                }
             }
         });
 }
@@ -13,10 +44,10 @@ function genChat() {
     //TODO : Gjenero Tabet
     var tabGroup = cEl("div").attr("class", "tabs tabs-top left tab-container").attr("data-easytabs", "true");
     var tabs = cEl("ul").attr("class", "etabs")
-        .append(cEl("li").attr("class", "tab active").append(cEl("a").listener("click", switchCTab).wr({ Tab: "create" })
+        .append(cEl("li").attr("class", "tab active").append(cEl("a").listener("click", switchChatTab).wr({ Tab: "create", ChatroomId: cuser.Chatrooms[0].Id })
             .tEl("Global")));
     if (cuser.Chatrooms.length === 2) 
-            tabs.append(cEl("li").attr("class", "tab").append(cEl("a").listener("click", switchCTab).wr({ Tab: "join" })
+            tabs.append(cEl("li").attr("class", "tab").append(cEl("a").listener("click", switchChatTab).wr({ Tab: "join", ChatroomId: cuser.Chatrooms[1].Id })
                   .attr("class", "active").tEl("Clan")));
 
     tabGroup.append(tabs);
@@ -26,7 +57,11 @@ function genChat() {
     //TODO : Mbush Tabet
     var globalTab = genChatArea(cuser.Chatrooms[0]);
 
-   
+    //Set Refresh Interval
+    currentChatroomId = cuser.Chatrooms[0].Id;
+    console.log(currentChatroomId);
+    chatRefreshInterval = setInterval(refreshCurrentTab, 1000);
+
     tabContainer.append(globalTab);
 
     var mainC = document.getElementById("mainContainer");
@@ -44,26 +79,15 @@ function scrolltoend() {
     objDiv.scrollTop = objDiv.scrollHeight;
 }
 
-function switchCTab(e) {
+function switchChatTab(e) {
     var w = e.target.wrapper.Tab;
-    console.log(w);
+    var chatroomid = e.target.wrapper.ChatroomId;
     $("li.tab").each(function () {
         this.className = this.className.replace(" active", "");
     });
     e.target.parentElement.className += " active";
 
-    var mainCnt = document.getElementById("tcTab");
-    mainCnt.innerHTML = "";
-
-    switch (w) {
-        case "join":
-            mainCnt.append(joinTab);
-            break;
-        case "create":
-            mainCnt.append(createTab);
-            $("#tgPrv").bootstrapToggle();
-            break;
-    }
+    getChat("noparse", chatroomid);
 }
 
 function genChatArea(room) {
@@ -79,7 +103,7 @@ function genChatArea(room) {
     var r = cEl("div").attr("class", "row-fluid")
         .append(cEl("div").attr("class", "span12").attr("id", "0x" + name)
             .append(cmsg)
-        ).append(cEl("div").attr("class", "span10 offset1").append(cEl("input").attr("type", "text").wr({ roomid: room.Id, roomelement: "0x" + name }).listener("keyup", sendMessage)));
+        ).append(cEl("div").attr("class", "span10 offset1").append(cEl("input").attr("type", "text").attr("id","ixinput" + room.Id).wr({ roomid: room.Id, roomelement: "0x" + name }).listener("keyup", sendMessage)));
 
     return r;
 }
@@ -130,18 +154,8 @@ function sendMessage(e) {
         $.post("Actions/User.aspx", { type: "SND", chatroomid:chatroomid, message:e.target.value },
         function (r) {
             if (r !== 0) {
-                /*var m = { TimeStamp: "Now", From: cuser.Username, Message: e.target.value };
-                appendMessage(elementid, m);
+                getChat("noparse", chatroomid);
                 e.target.value = "";
-                scrolltoend();*/
-                getChat("noparse");
-
-                for (var i = 0; i < cuser.Chatrooms.length; i++) {
-                    if (cuser.Chatrooms[i].Id === chatroomid) {
-                        document.getElementById("chatTab").replaceChild(genChatArea(cuser.Chatrooms[i]), document.getElementById("chatTab").firstChild);
-                    }
-                }
-
             }
         });
     }
