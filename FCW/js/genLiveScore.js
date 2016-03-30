@@ -33,7 +33,7 @@ function genLiveScoreTable(e) {
             getRCElement(e[j].HomeRed)
         ).append(
             getYCElement(e[j].HomeYellow)
-        ).tEl(e[j].HomeTeam.Name).append(getGElement(e[j].HomeGoals)).tEl(" - ").append(getGElement(e[j].AwayGoals)).tEl(e[j].AwayTeam.Name)
+        ).tEl(e[j].HomeTeam.Name).append(getGElement(e[j].HomeGoals)).tEl("-").append(getGElement(e[j].AwayGoals)).tEl(e[j].AwayTeam.Name)
             .append(
             getYCElement(e[j].AwayYellow)
             ).append(
