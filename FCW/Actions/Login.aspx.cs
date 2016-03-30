@@ -58,7 +58,7 @@ namespace FCW.Actions
                         Convert.ToInt32(reader["spreds"]), Convert.ToInt32(reader["lastspreds"]),
                         Convert.ToInt32(reader["lastsspreds"]), Convert.ToInt32(reader["AvatarId"]),
                         Convert.ToInt32(reader["Rank"]), reader["NameOfClan"].ToString(), new Guid(reader["SessionId"].ToString()),
-                        Convert.ToDateTime(reader["Birthday"]));
+                        Convert.ToDateTime(reader["Birthday"]), Convert.ToBoolean(Convert.ToInt16(reader["isFirstLogin"])));
                     }
 
                     var json = new JavaScriptSerializer().Serialize(user);
@@ -99,7 +99,7 @@ namespace FCW.Actions
                         Convert.ToInt32(reader["spreds"]), Convert.ToInt32(reader["lastspreds"]),
                         Convert.ToInt32(reader["lastsspreds"]), Convert.ToInt32(reader["AvatarId"]),
                         Convert.ToInt32(reader["Rank"]), reader["NameOfClan"].ToString(), new Guid(reader["SessionId"].ToString()),
-                        Convert.ToDateTime(reader["Birthday"]));
+                        Convert.ToDateTime(reader["Birthday"]), Convert.ToBoolean(Convert.ToInt32(reader["isFirstLogin"])) );
                     }
 
                     var json = new JavaScriptSerializer().Serialize(user);
