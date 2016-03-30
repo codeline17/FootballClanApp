@@ -297,14 +297,7 @@ $(document).ready(function () {
 /*-----------------------------------------------------------------------------------*/
 /*	SELECTNAV
 /*-----------------------------------------------------------------------------------*/
-jQuery(document).ready(function () {
-    jQuery('nav.menu').meanmenu({
-	    	meanMenuClose: "<i class='icon-cancel-1'></i>", // single character you want to represent the close menu button
-	    	meanMenuOpen: "<i class='icon-menu-1'></i>", // text/markup you want when menu is closed
-            meanScreenWidth: "1140", // set the screen width you want meanmenu to kick in at
-            meanExpandableChildren: false // true to allow expand/collapse children
-    });
-});
+
 /*-----------------------------------------------------------------------------------*/
 /*	MENU
 /*-----------------------------------------------------------------------------------*/

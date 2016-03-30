@@ -193,7 +193,7 @@ function genClanHeader(c) {
              )
         );
 
-    return cEl("div").attr("class","row-fluid").append(m);
+    return cEl("div").attr("class", "row-fluid clans-body").append(m);
 }
 
 function CreateClan() {

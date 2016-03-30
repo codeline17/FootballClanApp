@@ -955,7 +955,7 @@ table {
 .table td {
   padding: 7px;
   line-height: 20px;
-  text-align: left;
+  
   vertical-align: top;
   border-top: 1px solid #dddddd;
 }

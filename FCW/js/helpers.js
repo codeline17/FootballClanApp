@@ -2,6 +2,7 @@
 
 function genHeader() {
     getHeaderInfo();
+    getMenuInfo();
 }
 
 function getHeaderInfo() {
@@ -107,6 +108,7 @@ function getOverAllForm(user) {
 */
 
 function genAccordionElement(elementid, headertext, headerevent, bodyelement) {
+    
     var a = cEl("div")
         .attr("class", "accordion-group")
         .append(
