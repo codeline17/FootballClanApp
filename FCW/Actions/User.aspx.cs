@@ -293,6 +293,7 @@ namespace FCW.Actions
                                     (Guid)reader["GUID"],
                                     0,
                                     0,
+                                    0,
                                     new UserDetails("", "", new City("")),
                                     Convert.ToInt32(reader["Points"]),
                                     Convert.ToInt32(reader["tpreds"]),
@@ -331,6 +332,7 @@ namespace FCW.Actions
                                 new Objects.User(
                                     reader["UserName"].ToString(),
                                     (Guid)reader["GUID"],
+                                    0,
                                     0,
                                     0,
                                     new UserDetails("","",new City("")),
@@ -483,7 +485,7 @@ namespace FCW.Actions
                     while (reader.Read())
                     {
                         gUser = new Objects.User(reader["UserName"].ToString(), new Guid(reader["GUID"].ToString()),
-                            Convert.ToInt32(reader["Credit"]), Convert.ToInt32(reader["ClanId"]),
+                            Convert.ToInt32(reader["Credit"]), Convert.ToInt32(reader["Credit2"]), Convert.ToInt32(reader["ClanId"]),
                         new UserDetails(reader["Email"].ToString(), reader["Address"].ToString(),
                         new City("Tirana")), Convert.ToInt32(reader["Points"]), Convert.ToInt32(reader["tpreds"]),
                         Convert.ToInt32(reader["spreds"]), Convert.ToInt32(reader["lastspreds"]),
@@ -673,6 +675,7 @@ namespace FCW.Actions
                         clan.Leader = reader["isLeader"].ToString() != "0" ? reader["UserName"].ToString() : clan.Leader;
                         clan.isPrivate = Convert.ToBoolean(reader["Private"]);
                         clan.Rank = Convert.ToInt32(reader["Rank"]);
+                        clan.Image = Convert.ToInt32(reader["Image"]);
                     }
                 }
             }

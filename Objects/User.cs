@@ -28,6 +28,7 @@ namespace Objects
         public string Birthday => _birthday.ToString("dd/MM/yyyy");
         public IList<Chatroom> Chatrooms { get; set; }
         public bool? IsFirstLogin { get; set; }
+        public int Credit2 { get; set; }
         public User()
         {
             Chatrooms = new List<Chatroom>();
@@ -50,7 +51,7 @@ namespace Objects
             Chatrooms = new List<Chatroom>();
         }
 
-        public User(string username, Guid guid, int credit, int clanid, 
+        public User(string username, Guid guid, int credit, int credit2, int clanid, 
             UserDetails userdetails, int points, int predictionsno, int successfulpredictions,
             int lastpredictions, int lastsuccessfulpredictions, int avatarid, int rank, 
             string nameofclan, Guid sessionid, DateTime birthday, bool? isfirstlogin)
@@ -59,6 +60,7 @@ namespace Objects
             Guid = guid;
             UserDetails = userdetails;
             Credit = credit;
+            Credit2 = credit2;
             ClanId = clanid;
             Points = points;
             TotalPredictions = predictionsno;

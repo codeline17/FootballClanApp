@@ -52,7 +52,7 @@ namespace FCW.Actions
                     while (reader.Read())
                     {
                         user = new Objects.User(username, new Guid(reader["GUID"].ToString()),
-                            Convert.ToInt32(reader["Credit"]), Convert.ToInt32(reader["ClanId"]),
+                            Convert.ToInt32(reader["Credit"]), Convert.ToInt32(reader["Credit2"]), Convert.ToInt32(reader["ClanId"]),
                         new UserDetails(reader["Email"].ToString(), reader["Address"].ToString(),
                         new City("Tirana")), Convert.ToInt32(reader["Points"]), Convert.ToInt32(reader["tpreds"]),
                         Convert.ToInt32(reader["spreds"]), Convert.ToInt32(reader["lastspreds"]),
@@ -93,7 +93,7 @@ namespace FCW.Actions
                     while (reader.Read())
                     {
                         user = new Objects.User(reader["UserName"].ToString(), new Guid(reader["GUID"].ToString()),
-                        Convert.ToInt32(reader["Credit"]), Convert.ToInt32(reader["ClanId"]),
+                        Convert.ToInt32(reader["Credit"]), Convert.ToInt32(reader["Credit2"]), Convert.ToInt32(reader["ClanId"]),
                         new UserDetails(reader["Email"].ToString(), reader["Address"].ToString(),
                         new City("Tirana")), Convert.ToInt32(reader["Points"]), Convert.ToInt32(reader["tpreds"]),
                         Convert.ToInt32(reader["spreds"]), Convert.ToInt32(reader["lastspreds"]),

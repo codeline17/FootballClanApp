@@ -1,6 +1,14 @@
 ﻿var joinTab;
 var createTab;
 var joinTabEvent = false;
+var contextClan;
+var clanBadges = new Array();
+var clanBadgesUrl = "style/images/clans/";
+var clanBadgesExt = ".png";
+for (var i = 1; i < 42; i++) {
+    clanBadges.push(i.toString());
+}
+
 function genClans() {
     var mainC = document.getElementById("mainContainer");
     mainC.innerHTML = "";
@@ -68,7 +76,7 @@ function genClans() {
               $.post("Actions/User.aspx", { type: "CDL", id: e.ClanId },
                   function(c) {
                       c = JSON.parse(c);
-                      
+                      contextClan = c;
                       //mainC.append(cEl("h3").tEl(c.Name + "   ").append(cEl("span").attr("class","cups").tEl("0").append(cEl("i").attr("class", "icon-trophy gold"))).append(cEl("small").tEl("[ " + clanPts + " Pts ]")).append(cEl("small").tEl("  [ " + c.Users.length + " of 11 members ]")));
 
                       //mainC.append(cEl("p").append(cEl("a").attr("href","#").attr("cel-uname", cuser.Username).attr("cel-cname", c.Name).tEl("Leave Clan").listener("click", removeMember)));
@@ -140,7 +148,8 @@ function genClanHeader(c) {
             cEl("tr")
             .append(
                 cEl("td").attr("rowspan", "2")
-                .append(cEl("img").attr("class", "img-responsive").attr("width", "50px").attr("src", "style/images/clan_badge_default.png"))
+        //.listener("click", editClanBadge)
+                .append(cEl("img").attr("class", "img-responsive").attr("width", "50px").attr("src", clanBadgesUrl + c.Image + clanBadgesExt))
             )
             .append(
                 cEl("td")
@@ -307,4 +316,37 @@ function removeMember(e) {
                 genClans();
             }
         });
+}
+
+function editClanBadge() {
+    var exMd = document.getElementById("clanDetailsModal");
+    if (exMd) {
+        exMd.parentNode.removeChild(exMd);
+    }
+
+    var mdHeader = cEl("div").attr("class", "modal-header").append(cEl("button").attr("type", "button").attr("class", "close").attr("data-dismiss", "modal").attr("aria-label", "Close")
+        .append(cEl("span").attr("aria-hidden", "true").tEl("x"))).append(cEl("h4").tEl("Clan Details"));
+
+    var mdBody = cEl("div").attr("class", "modal-body");
+    var badges = cEl("div").attr("class", "row-fluid");
+
+    for (var i = 0; i < clanBadges.length; i++) {
+        var cel = cEl("img").wr({ id: clanBadges[i] }).attr("src", clanBadgesUrl + clanBadges[i] + clanBadgesExt);//.listener("click", toggleAvatars);
+        cel.className = contextClan.Image - 1 === i ? "avatars" : "desaturate avatars";
+        badges.append(cel);
+    }
+
+    mdBody.append(badges);
+
+
+    var mdFooter = cEl("div").attr("class", "modal-footer").attr("id", "mdFooter").append(cEl("button").attr("type", "button").attr("class", "btn btn-primary").tEl("Update"));//.listener("click", updateUserDetails));
+    
+    var mdMain = cEl("div").attr("class", "modal fade").attr("id", "userModal").attr("tabindex", "-1").attr("role", "dialog")
+        .append(cEl("div").attr("class", "modal-dialog").attr("role", "document")
+            .append(cEl("div").attr("class", "modal-content").append(mdHeader).append(mdBody).append(mdFooter)));
+
+    document.body.append(mdMain);
+
+    $("#clanDetailsModal").modal("show");
+
 }

@@ -319,6 +319,7 @@
     </script>
 
     <script id="PrizesLiteral" type="text/plain">
+        <p>Apple is not involved in any way with this game and it is not a sponsor of this game. Also prizes are not Apple products!</p>
         <h5>Euro 2016 individual</h5>
         <p>Position 200-101 -&gt; 50 golden balls</p>
         <p>Position 100 - 51 -&gt; Smartphone Cases + 60 golden balls</p>
@@ -399,6 +400,7 @@
         <p>Clan 15 &ndash; 6 -&gt; Footballclans Golden Bracelet + 80 golden balls</p>
         <p>Clan 5 - 4 -&gt; Smartphone + 100 golden balls</p>
         <p>Clan 3 - 1 -&gt; a Wonderful Vacation EXPERIENCE + 200 golden balls</p>
+    
     </script>
 
     <script src="js/prototype.js"></script>

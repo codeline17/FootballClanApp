@@ -17,6 +17,7 @@ function getHeaderInfo() {
 
          var username = e.Username.toUpperCase() + "     - " + e.Points + " points";
          var userCredit = e.Credit;
+         var userCredit2 = e.Credit2;
 
          var overallBadge = getOverAllForm(e);
          var overallBadgeClass = "label-warning";
@@ -25,7 +26,8 @@ function getHeaderInfo() {
 
          var btnLogout = cEl("a").attr("href", "#").attr("class", "btn btn-orange pull-right").tEl("Logout").listener("click", fnLogout, false);
          var goldenBall = cEl("span").attr("class", "creditBall header-margin");
-         var userEl = cEl("h4").attr("class", "media-heading").tEl(username).append(cEl("span").attr("class", "userCredit").tEl(userCredit).append(goldenBall));
+         var footBall = cEl("span").attr("class", "footBall header-margin");
+         var userEl = cEl("h4").attr("class", "media-heading").tEl(username).append(cEl("span").attr("class", "userCredit").tEl(userCredit).append(goldenBall)).append(cEl("span").attr("class", "userCredit").tEl(userCredit2).append(footBall));
          var credit = cEl("p").attr("class", "row-fluid").attr("style","padding: 5px;")
              .append(cEl("div").attr("class", "row-fluid span4").tEl("Level :").append(cEl("span").attr("class", "header-margin label " + overallBadgeClass).tEl(overallBadge)))
              .append(cEl("div").attr("class", "row-fluid span8").append(cEl("span").attr("style","float:left;margin-right:1em;").tEl("Form : ")).append(genProgressBar(lastBadge)));
