@@ -43,9 +43,6 @@
                 <a href="#">
                     <img src="style/images/logo.png" /></a>
             </div>
-            <div id="balls"></div>
-            <div id="avatar">
-            </div>
             <div class="span4 pull-right" id="mainHeader">
             </div>
         </div>
@@ -55,41 +52,31 @@
         <nav id="menu" class="menu">
             <ul id="tiny">
                 <li class="active" content-type="matches">
-                    <a class="meanclose"><i class="icon-dribbble-circled icn"></i> My Matches</a>
+                    <a class="meanclose"><i class="icon-dribbble-circled icn"></i>My Matches</a>
                 </li>
                 <li content-type="leaderboard">
-                    <a class="meanclose"><i class="icon-users-1 icn"></i> My Details</a>
+                    <a class="meanclose"><i class="icon-users-1 icn"></i>My Details</a>
                 </li>
                 <li content-type="clans">
-                    <a class="meanclose"><i class="icon-users icn"></i> My Clans</a>
+                    <a class="meanclose"><i class="icon-users icn"></i>My Clans</a>
                 </li>
                 <li content-type="leagues">
-                    <a class="meanclose"><i class="icon-users-1 icn"></i> My Leagues</a>
+                    <a class="meanclose"><i class="icon-users-1 icn"></i>My Leagues</a>
                 </li>
                 <li content-type="predictions">
-                    <a class="meanclose"><i class="icon-magic icn"></i> Past Predictions</a>
+                    <a class="meanclose"><i class="icon-magic icn"></i>Past Predictions</a>
                 </li>
                 <li content-type="chat">
-                    <a class="meanclose"><i class="icon-comment icn"></i> Message Board</a>
+                    <a class="meanclose"><i class="icon-comment icn"></i>Message Board</a>
                 </li>
                 <li content-type="unlock">
-                    <a class="meanclose"><i class="icon-lock-open-1 icn"></i> Unlocks</a>
+                    <a class="meanclose"><i class="icon-lock-open-1 icn"></i>Unlocks</a>
                 </li>
                 <li content-type="store">
-                    <a class="meanclose"><i class="icon-basket icn"></i> My Store</a>
+                    <a class="meanclose"><i class="icon-basket icn"></i>My Store</a>
                 </li>
             </ul>
-            <div id="myDetails-Menu">
-                
-            </div>
-            <div id="points" class="row-fluid">
-
-            </div>
-            <div id="clanDetails-menu">
-            </div>
-            
         </nav>
-        
         <!-- /.menu -->
 
         <div class="box pull-left">
@@ -416,7 +403,6 @@
 
     <script src="js/prototype.js"></script>
     <script src="style/js/jquery.js"></script>
-    <script src="style/js/mobileMenu.js"></script>
     <script src="style/js/bootstrap.min.js"></script>
     <script src="style/js/twitter-bootstrap-hover-dropdown.min.js"></script>
     <script src="style/js/ddsmoothmenu.js"></script>
@@ -426,6 +412,7 @@
     <script src="style/js/jquery.fancybox.pack.js"></script>
     <script src="style/js/fancybox/helpers/jquery.fancybox-thumbs.js?v=1.0.2"></script>
     <script src="style/js/fancybox/helpers/jquery.fancybox-media.js?v=1.0.0"></script>
+    <script src="style/js/jquery.meanmenu.2.0.min.js"></script>
     <script src="style/js/jquery.fitvids.js"></script>
     <script src="style/js/jquery.slickforms.js"></script>
     <script src="style/js/jquery.isotope.min.js"></script>
@@ -456,6 +443,5 @@
     <script src="js/genLeaderboard.js"></script>
     <script src="js/genBase.js"></script>
     <script src="js/genChat.js"></script>
-    <script src="js/userdetailsmenu.js"></script>
 </body>
 </html>

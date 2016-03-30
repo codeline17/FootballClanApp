@@ -8,8 +8,8 @@
     mainTag.className = "table table-hover";
 
     //Header
-    var head = [{ Title: "Match", Text: "Match" }, { Title: "Country", Text: "St" }, { Title: "Fill", Text: "Fill" },
-                { Title: "Time", Text: "Time" }, { Title: "Score", Text: "Sc" }, { Title: "Points", Text: "Pts" }];
+    var head = [{ Title: "Match", Text: "Match" }, { Title: "Country", Text: "" }, { Title: "Fill", Text: "Fill" },
+                { Title: "Time", Text: "Time" }, { Title: "Score", Text: "Score" }, { Title: "Points", Text: "Pts" }];
     var tHead = document.createElement("thead");    
     var hRow = document.createElement("tr");
     for (var i = 0; i < head.length; i++) {
@@ -51,7 +51,7 @@ function getExtraMatchRow() {
 function genSingleMatchRow(match) {
     var tr = cEl("tr").wr(match).listener("click", expandMatch);
     //MatchName
-    tr.append(cEl("td").tEl(match.HomeTeam.Name + " - " + match.AwayTeam.Name));
+    tr.append(cEl("td").tEl(match.HomeTeam.Name + "-" + match.AwayTeam.Name));
     //League
     tr.append(cEl("td").append(cEl("span").attr("class", "flag " + match.League.Country.toLowerCase())));
     //Fill
@@ -71,7 +71,7 @@ function genSingleMatchRow(match) {
     var score = match.Sealed ? match.HomeGoals + "-" + match.AwayGoals : "-";
     tr.append(cEl("td").attr("class","text-center").tEl(score));
     //Points
-    tr.append(cEl("td").attr("class","text-center").append(cEl("span").attr("class","points_span").tEl(match.PointsWon)));
+    tr.append(cEl("td").attr("class","text-center").tEl(match.PointsWon));
 
     tr.className = !match.Authorized ? "extra" : "";
     tr.className += match.Sealed ? " sealed" : " active";

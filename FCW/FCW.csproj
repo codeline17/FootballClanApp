@@ -82,8 +82,6 @@
     <Content Include="js\genTable.js" />
     <Content Include="js\genUnlock.js" />
     <Content Include="js\helpers.js" />
-    <Content Include="js\userdetailsmenu.js" />
-    <Content Include="style\js\mobileMenu.js" />
     <Content Include="js\prototype.js" />
     <Content Include="js\settings.js" />
     <Content Include="js\user.js" />

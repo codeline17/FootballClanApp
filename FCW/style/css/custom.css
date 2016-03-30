@@ -1,4 +1,6 @@
-
+div#mainContainer {
+    min-height: 850px;
+}
 
 a.bet {
     background-color: orangered !important;
@@ -33,10 +35,6 @@ tr.greyed {
 #mainHeader {
     /*font-size: 20px;
     height: 25px;*/
-    background:rgba(0, 0, 0, 0.19);
-}
-.well{
-    background:transparent;
 }
 
 span.credit {
@@ -200,32 +198,6 @@ table.table-hover {
     cursor: pointer;
 }
 
- 
-#fTbl thead,#clan-table thead,#livescore-table thead{
-    background: rgba(0,0,0,0.3);
-    color: white;
-
-}
-#fTbl thead tr th,#clan-table thead tr th,#livescore-table thead tr th{
-    text-align:center!important;
-}
-#fTbl thead th:last-child,#clan-table thead th:last-child,#livescore-table thead th:last-child{
-    border-radius: 0 10px 0 0;
-}
-#fTbl thead th:first-child,#clan-table thead th:first-child,#livescore-table thead th:first-child {
-    border-radius: 10px 0 0 0;
-}
-#fTbl tbody tr:last-child td:first-child, #clan-table tbody tr:last-child td:first-child,#livescore-table tbody tr:last-child td:first-child{
-    border-radius: 0 0 0 10px;
-}
-#fTbl tbody tr:last-child td:last-child ,#clan-table tbody tr:last-child td:last-child,#livescore-table tbody tr:last-child td:last-child{
-    border-radius: 0 0 10px 0;
-}
-#fTbl tbody,#clan-table tbody,#livescore-table tbody{
-   background-color:rgba(215, 255, 159, 0.68);
-}
-
-
 .lbFav {
     font-size: 20px;
     color: gold;
@@ -237,7 +209,6 @@ tr.self {
 
 table.trophies {
     width: 100%;
-    
 }
 
     table.trophies tr:first-child {
@@ -254,7 +225,6 @@ table.trophies {
         background: url('../images/trophyrow.png') no-repeat;
         background-size: 100% 100%;
         height: 100px;
-        display:-webkit-box;
     }
 
 .mDetails {
@@ -278,7 +248,7 @@ table.trophies {
 
 .fill {
     max-width: 20px;
-    
+    margin: inherit;
 }
 
 table.clans {
@@ -306,20 +276,9 @@ h3.todays {
     border-style: solid;
     border-width: 1px;
     padding: 5px;
-    background-color: rgb(255, 183, 77);
+    background-color: #FFFFE0;
     font-style: italic;
     border-radius: 20px;
-    margin-bottom:25px;
-}
-#tblContainer h3 {
-    text-align: center;
-    border-style: solid;
-    border-width: 1px;
-    padding: 5px;
-    background-color: rgb(255, 183, 77);
-    font-style: italic;
-    border-radius: 20px;
-    margin-bottom:25px;
 }
 
 th {
@@ -457,8 +416,6 @@ span.flag {
     width: 22.5px;
     height: 15px;
     display: block;
-    position:relative;
-    left:40%;
     /*margin: auto;*/
 }
 /*END FLAGS*/
