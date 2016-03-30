@@ -27,8 +27,7 @@ namespace Objects
         private DateTime _birthday;
         public string Birthday => _birthday.ToString("dd/MM/yyyy");
         public IList<Chatroom> Chatrooms { get; set; }
-
-        
+        public bool? IsFirstLogin { get; set; }
         public User()
         {
             Chatrooms = new List<Chatroom>();
@@ -54,7 +53,7 @@ namespace Objects
         public User(string username, Guid guid, int credit, int clanid, 
             UserDetails userdetails, int points, int predictionsno, int successfulpredictions,
             int lastpredictions, int lastsuccessfulpredictions, int avatarid, int rank, 
-            string nameofclan, Guid sessionid, DateTime birthday)
+            string nameofclan, Guid sessionid, DateTime birthday, bool? isfirstlogin)
         {
             Username = username;
             Guid = guid;
@@ -72,6 +71,7 @@ namespace Objects
             SessionId = sessionid;
             _birthday = birthday;
             Chatrooms = new List<Chatroom>();
+            IsFirstLogin = isfirstlogin;
         }
     }
 
