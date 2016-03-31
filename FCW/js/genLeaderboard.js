@@ -38,7 +38,7 @@ function genLbUserTable(objs, id) {
 
     //Header
     var head = [{ Title: "Fav", Text: "Fav" }, { Title: "Rank", Text: "#" }, { Title: "Username", Text: "User" },
-                { Title: "Points", Text: "Pts" }, { Title: "Level", Text: "Level" }, { Title: "Form", Text: "Form" }];
+                { Title: "Points", Text: "Pts" }, { Title: "Level", Text: "Lvl" }, { Title: "Form", Text: "Form" }];
     var tHead = document.createElement("thead");
     var hRow = document.createElement("tr");
     for (i = 0; i < head.length; i++) {
