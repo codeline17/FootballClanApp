@@ -75,6 +75,9 @@ namespace FCW.Actions
                     case "CL": //Create Clan
                         CreateClan();
                         break;
+                    case "UCI": //Create Clan
+                        UpdateClanImage();
+                        break;
                     case "GAC": //Get All Clans
                         GetAllClans();
                         break;
@@ -101,10 +104,29 @@ namespace FCW.Actions
             {
                 //None
             }
-
             Response.End();
         }
 
+        private void UpdateClanImage()
+        {
+            var clanid = Convert.ToInt32(Request.Params["clanid"]);
+            var imgid = Convert.ToInt32(Request.Params["image"]);
+            using (var conn = new SqlConnection(_connectionstring))
+            {
+                using (var cmd = new SqlCommand("ClanUpdateImage", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@ClanId", SqlDbType.BigInt).Value = clanid;
+                    cmd.Parameters.Add("@Image", SqlDbType.Int).Value = imgid;
+
+                    cmd.ExecuteNonQuery();
+
+                    Response.ClearContent();
+                    Response.ClearHeaders();
+                    Response.Write("ok");
+                }
+            }
+        }
         private void GetUserChats(Guid guid)
         {
             using (var conn = new SqlConnection(_connectionstring))
@@ -135,7 +157,6 @@ namespace FCW.Actions
                 }
             }
         }
-
         private List<Chatmessage> GetMessagesByChatroom(int ChatroomId)
         {
             var r = new List<Chatmessage>();
@@ -159,7 +180,6 @@ namespace FCW.Actions
 
             return r;
         }
-
         private void SendMessage(Guid guid)
         {
             var ChatroomId = Convert.ToInt16(Request.Params["chatroomid"]);
@@ -186,7 +206,6 @@ namespace FCW.Actions
             Response.ClearHeaders();
             Response.Write(json);
         }
-
         private void UserUnlocks(Guid guid)
         {
             using (var conn = new SqlConnection(_connectionstring))
@@ -418,7 +437,7 @@ namespace FCW.Actions
                 }
             }
         }
-        private Objects.League GetLeagueDetails(int id)
+        private League GetLeagueDetails(int id)
         {
             var league = new Objects.League();
 
@@ -627,7 +646,7 @@ namespace FCW.Actions
         private void GetClanDetails()
         {
             var id = Convert.ToInt64(Request.Params["Id"]);
-            var clan = new Objects.Clan();
+            var clan = new Clan();
 
             using (var conn = new SqlConnection(_connectionstring))
             {
