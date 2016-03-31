@@ -75,6 +75,7 @@ function getMenuInfo() {
          var username = e.Username.toUpperCase(); //username
          var points = e.Points; //total poins
          var userCredit = e.Credit; //golden balls
+         var userCredit2 = e.Credit2;
          var overallBadge = getOverAllForm(e); //niveli
          var lastBadge = getUserForm(e); //forma
          var rank = e.Rank; //global rank
@@ -83,7 +84,8 @@ function getMenuInfo() {
          var logout = document.getElementById("userModal");
          var balls = document.getElementById("balls");
          balls.innerHTML = "";
-         var goldenball = cEl("div").attr("class", "goldenBall-header").append(cEl("div").attr("class", "totalballs").tEl(userCredit)).append(cEl("span").attr("class", "creditBall header-margin"));
+         var goldenball = cEl("div").attr("class", "goldenBall-header").append(cEl("div").attr("class", "totalballs1").tEl(userCredit2)).append(cEl("span").attr("class", "footBall header-margin")).append(cEl("div").attr("class", "totalballs").tEl(userCredit)).append(cEl("span").attr("class", "creditBall header-margin"));
+        
          balls.appendChild(goldenball);
          var thumbNail = cEl("a").attr("class", "thumbnail pull-right").attr("href", "#").append(cEl("img").attr("style", "height:27px;").attr("src", "style/images/avatars/" + cuser.AvatarId + ".png")).listener("click", genUserDetails);
          avatar.innerHTML = "";
@@ -124,7 +126,7 @@ function getMenuInfo() {
 
          var hEl = cEl("div").attr("class", "well well-sm").append(cEl("div").attr("class", "media").append(body));
          */
-         var btnLogout = cEl("a").attr("href", "#").attr("class", "btn btn-orange pull-right").tEl("Logout").listener("click", fnLogout, false);
+         
          
          h.innerHTML = "";
          h.appendChild(emri1).append(totalpoints).append(level).append(globalrank);

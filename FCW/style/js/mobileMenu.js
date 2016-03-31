@@ -36,16 +36,11 @@ function resize() {
     width = $(window).width();
     if (width < 1140) {
         allow = 1;
-        if (dritarja == 1) {
+        if (dritarja == 1 && open==1) {
             $('.menu').animate({ left: '-100%' },10);
             $('.box').fadeIn();
             open = 1;
-        } else if (open == 0 && dritarja == 0) {
-            $('.menu').animate({ left: '-100%' });
-            $('.box').fadeIn();
-
-            open = 1;
-        }
+        } 
 
     } else {
         allow = 0;

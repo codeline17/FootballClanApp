@@ -5,7 +5,7 @@ function genUserDetails() {
     if (exMd) {
         exMd.parentNode.removeChild(exMd);
     }
-    var btnLogout = cEl("a").attr("href", "#").attr("class", "btn btn-orange pull-right").tEl("Logout").listener("click", fnLogout, false);
+    var btnLogout = cEl("a").attr("href", "#").attr("class", "btn btn-orange pull-right mobile-logOut").tEl("Logout").listener("click", fnLogout, false);
 
     var mdHeader = cEl("div").attr("class", "modal-header").append(cEl("button").attr("type", "button").attr("class", "close").attr("data-dismiss", "modal").attr("aria-label", "Close")
                 .append(cEl("span").attr("aria-hidden", "true").tEl("x"))).append(cEl("h4").tEl("Details and Information"));
