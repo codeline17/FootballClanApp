@@ -1,37 +1,32 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Text;
 using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace PaymentCallback
 {
     public partial class F38B0516C3 : System.Web.UI.Page
     {
         private readonly string _connectionstring = System.Configuration.ConfigurationManager.ConnectionStrings["FCWConn"].ConnectionString;
-        private string mode = System.Configuration.ConfigurationManager.AppSettings["mode"];
-        const string strSandbox = "https://www.sandbox.paypal.com/cgi-bin/webscr";
-        const string strLive = "https://www.paypal.com/cgi-bin/webscr";
-        protected void Page_Load(object sender, System.EventArgs e)
+        private readonly string _mode = System.Configuration.ConfigurationManager.AppSettings["_mode"];
+        const string StrSandbox = "https://www.sandbox.paypal.com/cgi-bin/webscr";
+        const string StrLive = "https://www.paypal.com/cgi-bin/webscr";
+        protected void Page_Load(object sender, EventArgs e)
         {
             try
             {
                 var reqEp = "http://www.google.com";
                 //Post back to either sandbox or live
-                switch (mode)
+                switch (_mode)
                 {
                     case "live":
-                        reqEp = strLive;
+                        reqEp = StrLive;
                         break;
                     case "test":
-                        reqEp = strSandbox;
+                        reqEp = StrSandbox;
                         break;
                 }
                 var req = (HttpWebRequest)WebRequest.Create(reqEp);
@@ -78,17 +73,13 @@ namespace PaymentCallback
                     case "INVALID":
                         //log for manual investigation
                         break;
-                    default:
-                        //Response wasn't VERIFIED or INVALID, log for manual investigation
-                        break;
+                    //Response wasn't VERIFIED or INVALID, log for manual investigation
                 }
             }
             catch (Exception)
             {
-
-                throw;
+                // ignored
             }
-
         }
 
         private void CreateTransaction(HttpRequest request)

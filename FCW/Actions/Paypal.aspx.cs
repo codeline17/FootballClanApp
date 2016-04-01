@@ -1,49 +1,97 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
-using System.Web.Script.Serialization;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+using Objects;
 
 namespace FCW.Actions
 {
     public partial class Paypal : System.Web.UI.Page
     {
-        private readonly string _connectionstring = System.Configuration.ConfigurationManager.ConnectionStrings["FCWConn"].ConnectionString;
-        private string trn_id, payment_status;
+        private Objects.User _user = new Objects.User();
+        private readonly string _connectionstring = ConfigurationManager.ConnectionStrings["FCWConn"].ConnectionString;
+        private readonly string _key =
+            ConfigurationManager.AppSettings["safetykey"];
+
         protected void Page_Load(object sender, EventArgs e)
         {
             try
             {
-                var user = new Objects.User();
-                user = (Objects.User)Session["currentUser"];
-                if (user.Username == null)
-                    return;
+                if (!SecurityCheck())
+                    ReturnError();
 
                 var requestType = Request.Params["type"];
 
                 switch (requestType)
                 {
                     case "PUI": //Insert Purchase
-                        InsertPurchase(user.Guid);
+                        InsertPurchase(_user.Guid);
                         break;
                     case "CNP": //Confirm Purchase
-                        
-                        break;
-                    default:
+                        ConfirmPurchase(_user.Guid);
                         break;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //None
             }
 
             Response.End();
         }
+
+        #region Utils
+        protected void ReturnError()
+        {
+            Response.ClearContent();
+            Response.ClearHeaders();
+            Response.Write("Error");
+            Response.End();
+        }
+        protected bool SecurityCheck()
+        {
+            bool r;
+            var userguid = Request.Params["userGuid"] != null ? new Guid(Request.Params["userGuid"]) : new Guid();
+
+            try
+            {
+                _user = Session["currentUser"] != null ? (Objects.User)Session["currentUser"] : UserGetByGuid(userguid);
+                r = _user.Guid != null || (_key.Length == Request.Params[""].Length && _key == Request.Params[""]);
+            }
+            catch (Exception)
+            {
+                r = false;
+            }
+
+            return r;
+        }
+        private Objects.User UserGetByGuid(Guid guid)
+        {
+            var gUser = new Objects.User();
+            using (var conn = new SqlConnection(_connectionstring))
+            {
+                using (var cmd = new SqlCommand("UserGetById", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@Guid", SqlDbType.UniqueIdentifier).Value = guid;
+
+                    conn.Open();
+                    var reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        gUser = new Objects.User(reader["UserName"].ToString(), new Guid(reader["GUID"].ToString()),
+                            Convert.ToInt32(reader["Credit"]), Convert.ToInt32(reader["Credit2"]), Convert.ToInt32(reader["ClanId"]),
+                        new UserDetails(reader["Email"].ToString(), reader["Address"].ToString(),
+                        new City("Tirana")), Convert.ToInt32(reader["Points"]), Convert.ToInt32(reader["tpreds"]),
+                        Convert.ToInt32(reader["spreds"]), Convert.ToInt32(reader["lastspreds"]),
+                        Convert.ToInt32(reader["lastsspreds"]), Convert.ToInt32(reader["AvatarId"]), Convert.ToInt32(reader["Rank"]),
+                        reader["NameOfClan"].ToString(), new Guid(), Convert.ToDateTime(reader["Birthday"]), Convert.ToBoolean(Convert.ToInt32(reader["isFirstLogin"])));
+                    }
+                }
+            }
+            return gUser;
+        } 
+        #endregion
 
         private void InsertPurchase(Guid userGuid)
         {
@@ -65,7 +113,6 @@ namespace FCW.Actions
                 }
             }
         }
-
         private void ConfirmPurchase(Guid userGuid)
         {
             var purchaseGuid = new Guid(Request.Params["PurchaseGuid"]);

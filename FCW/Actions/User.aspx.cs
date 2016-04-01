@@ -7,45 +7,48 @@ using System.Linq;
 using System.Web;
 using System.Web.Script.Serialization;
 using Objects;
+using System.Configuration;
 
 namespace FCW.Actions
 {
     public partial class User : System.Web.UI.Page
     {
-        private Objects.User user = new Objects.User();
+        private Objects.User _user = new Objects.User();
 
         private readonly string _connectionstring =
-            System.Configuration.ConfigurationManager.ConnectionStrings["FCWConn"].ConnectionString;
+            ConfigurationManager.ConnectionStrings["FCWConn"].ConnectionString;
+        private readonly string _key =
+            ConfigurationManager.AppSettings["safetykey"];
 
         protected void Page_Load(object sender, EventArgs e)
         {
             try
             {
-                user = (Objects.User) Session["currentUser"];
-                if (user.Username == null)
-                    return;
+                if (!SecurityCheck())
+                    ReturnError();
 
                 var requestType = Request.Params["type"];
 
+                #region switch requestType
                 switch (requestType)
                 {
                     case "UNL": // Unlocks ************************************* UserGetUnlocks
-                        UserUnlocks(user.Guid);
+                        UserUnlocks(_user.Guid);
                         break;
                     case "GU": //Get User *************************************
                         GetUserDetials();
                         break;
                     case "RFR": //Refresh UserDetails
-                        RefreshUserDetials(user.Guid);
+                        RefreshUserDetials(_user.Guid);
                         break;
                     case "CHT": //Refresh UserChats
-                        GetUserChats(user.Guid);
+                        GetUserChats(_user.Guid);
                         break;
                     case "SND": //Refresh UserChats
-                        SendMessage(user.Guid);
+                        SendMessage(_user.Guid);
                         break;
                     case "TGF": //Toggle Favorite
-                        ToggleFavorite(user.Guid);
+                        ToggleFavorite(_user.Guid);
                         break;
                     case "UUD": //Update User Details
                         UpdateUserDetails();
@@ -64,10 +67,10 @@ namespace FCW.Actions
                         Logout();
                         break;
                     case "PO": //Purchase Options
-                        PurchaseGame(user.Guid);
+                        PurchaseGame(_user.Guid);
                         break;
                     case "PEF": //Purchase Extra Fixture
-                        PurchaseExtraFixtures(user.Guid);
+                        PurchaseExtraFixtures(_user.Guid);
                         break;
                     case "CDL": //Clan Details**********************************
                         GetClanDetails();
@@ -82,30 +85,105 @@ namespace FCW.Actions
                         GetAllClans();
                         break;
                     case "GACBU": //Get All Clans By User
-                        GetAllClansByUser(user.Guid);
+                        GetAllClansByUser(_user.Guid);
                         break;
                     case "JC": //Join Clan
                         JoinClan();
                         break;
                     case "AUC": //Approve user
-                        ApproveUserClan(user.Guid);
+                        ApproveUserClan(_user.Guid);
                         break;
                     case "RMUC": //Remove user
-                        RemoveUserClan(user.Guid);
+                        RemoveUserClan(_user.Guid);
                         break;
                     case "LDL": //League Details**********************************
-                        GetLeagueList(user);
-                        break;
-                    default:
+                        GetLeagueList(_user);
                         break;
                 }
+                #endregion
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                //None
+                ReturnError();
             }
             Response.End();
         }
+
+        #region Service Fns
+        protected void ReturnError()
+        {
+            Response.ClearContent();
+            Response.ClearHeaders();
+            Response.Write("Error");
+            Response.End();
+        }
+        protected bool SecurityCheck()
+        {
+            bool r;
+            var userguid = Request.Params["userGuid"] != null ? new Guid(Request.Params["userGuid"]) : new Guid();
+
+            try
+            {
+                _user = Session["currentUser"] != null ? (Objects.User) Session["currentUser"] : UserGetByGuid(userguid);
+                r = _user.Guid != null || (_key.Length == Request.Params["userGuid"].Length && _key == Request.Params["userGuid"]);
+            }
+            catch (Exception)
+            {
+                r = false;
+            }
+
+            return r;
+        }
+        private Objects.User UserGetByGuid(Guid guid)
+        {
+            var gUser = new Objects.User();
+            using (var conn = new SqlConnection(_connectionstring))
+            {
+                using (var cmd = new SqlCommand("UserGetById", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@Guid", SqlDbType.UniqueIdentifier).Value = guid;
+
+                    conn.Open();
+                    var reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        gUser = new Objects.User(reader["UserName"].ToString(), new Guid(reader["GUID"].ToString()),
+                            Convert.ToInt32(reader["Credit"]), Convert.ToInt32(reader["Credit2"]), Convert.ToInt32(reader["ClanId"]),
+                        new UserDetails(reader["Email"].ToString(), reader["Address"].ToString(),
+                        new City("Tirana")), Convert.ToInt32(reader["Points"]), Convert.ToInt32(reader["tpreds"]),
+                        Convert.ToInt32(reader["spreds"]), Convert.ToInt32(reader["lastspreds"]),
+                        Convert.ToInt32(reader["lastsspreds"]), Convert.ToInt32(reader["AvatarId"]), Convert.ToInt32(reader["Rank"]),
+                        reader["NameOfClan"].ToString(), new Guid(), Convert.ToDateTime(reader["Birthday"]), Convert.ToBoolean(Convert.ToInt32(reader["isFirstLogin"])));
+                    }
+                    gUser.Chatrooms = GetUserMessagesService(gUser.Guid);
+                }
+            }
+            return gUser;
+        }
+        private List<Chatroom> GetUserMessagesService(Guid guid)
+        {
+            var r = new List<Chatroom>();
+
+            using (var conn = new SqlConnection(_connectionstring))
+            {
+                using (var cmd = new SqlCommand("ChatroomsGetByUser", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@Userguid", SqlDbType.UniqueIdentifier).Value = guid;
+                    conn.Open();
+                    var reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        var chatroom = new Chatroom(Convert.ToInt16(reader["Id"]), reader["Name"].ToString());
+                        chatroom.Messages = GetMessagesByChatroom(chatroom.Id);
+                        r.Add(chatroom);
+                    }
+                }
+            }
+            return r;
+        }
+        #endregion
 
         private void UpdateClanImage()
         {
@@ -147,9 +225,9 @@ namespace FCW.Actions
                         r.Add(chatroom);
                     }
 
-                    user.Chatrooms = r;
+                    _user.Chatrooms = r;
 
-                    var json = new JavaScriptSerializer().Serialize(user);
+                    var json = new JavaScriptSerializer().Serialize(_user);
 
                     Response.ClearContent();
                     Response.ClearHeaders();
@@ -157,7 +235,7 @@ namespace FCW.Actions
                 }
             }
         }
-        private List<Chatmessage> GetMessagesByChatroom(int ChatroomId)
+        private List<Chatmessage> GetMessagesByChatroom(int chatroomId)
         {
             var r = new List<Chatmessage>();
 
@@ -166,7 +244,7 @@ namespace FCW.Actions
                 using (var cmd = new SqlCommand("MessageGetByChatroom", conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@ChatroomId", SqlDbType.BigInt).Value = ChatroomId;
+                    cmd.Parameters.Add("@ChatroomId", SqlDbType.BigInt).Value = chatroomId;
 
                     conn.Open();
                     var reader = cmd.ExecuteReader();
@@ -174,7 +252,7 @@ namespace FCW.Actions
                     {
                         r.Add(new Chatmessage(reader["Message"].ToString(), reader["From"].ToString(),
                             Convert.ToDateTime(reader["Timestamp"]), Convert.ToBoolean(reader["Disposable"])));
-                    };
+                    }
                 }
             }
 
@@ -182,20 +260,20 @@ namespace FCW.Actions
         }
         private void SendMessage(Guid guid)
         {
-            var ChatroomId = Convert.ToInt16(Request.Params["chatroomid"]);
-            var Message = Request.Params["message"];
-            var ExpiresOn = DateTime.Now;
+            var chatroomId = Convert.ToInt16(Request.Params["chatroomid"]);
+            var message = Request.Params["message"];
+            var expiresOn = DateTime.Now;
 
-            var r = 0;
+            int r;
             using (var conn = new SqlConnection(_connectionstring))
             {
                 using (var cmd = new SqlCommand("MessageSendByUser", conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add("@Userguid", SqlDbType.UniqueIdentifier).Value = guid;
-                    cmd.Parameters.Add("@ChatroomId", SqlDbType.Int).Value = ChatroomId;
-                    cmd.Parameters.Add("@Message", SqlDbType.NVarChar).Value = Message;
-                    cmd.Parameters.Add("@ExpiresOn", SqlDbType.DateTime).Value = ExpiresOn;
+                    cmd.Parameters.Add("@ChatroomId", SqlDbType.Int).Value = chatroomId;
+                    cmd.Parameters.Add("@Message", SqlDbType.NVarChar).Value = message;
+                    cmd.Parameters.Add("@ExpiresOn", SqlDbType.DateTime).Value = expiresOn;
                     conn.Open();
                     r = Convert.ToInt16(cmd.ExecuteScalar());                              
                 }
@@ -238,7 +316,7 @@ namespace FCW.Actions
                 using (var cmd = new SqlCommand("PurchaseExtraFixtures", conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@UserGuid", SqlDbType.UniqueIdentifier).Value = user.Guid;
+                    cmd.Parameters.Add("@UserGuid", SqlDbType.UniqueIdentifier).Value = guid;
 
                     conn.Open();
                     var r = cmd.ExecuteScalar();
@@ -258,7 +336,7 @@ namespace FCW.Actions
                 using (var cmd = new SqlCommand("PurchaseGame", conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@UserGuid", SqlDbType.UniqueIdentifier).Value = user.Guid;
+                    cmd.Parameters.Add("@UserGuid", SqlDbType.UniqueIdentifier).Value = guid;
                     cmd.Parameters.Add("@GameSlug", SqlDbType.VarChar, 20).Value = slug;
 
                     conn.Open();
@@ -279,7 +357,7 @@ namespace FCW.Actions
                 using (var cmd = new SqlCommand("UserFavoriteToggle", conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@UserGuid", SqlDbType.UniqueIdentifier).Value = user.Guid;
+                    cmd.Parameters.Add("@UserGuid", SqlDbType.UniqueIdentifier).Value = guid;
                     cmd.Parameters.Add("@FavoriteUsername", SqlDbType.VarChar, 20).Value = name;
 
                     conn.Open();
@@ -298,7 +376,7 @@ namespace FCW.Actions
                 using (var cmd = new SqlCommand("UserGetFavoritesById", conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@userGuid", SqlDbType.UniqueIdentifier).Value = user.Guid;
+                    cmd.Parameters.Add("@userGuid", SqlDbType.UniqueIdentifier).Value = _user.Guid;
 
                     var r = new List<Objects.User>();
                     conn.Open();
@@ -380,7 +458,7 @@ namespace FCW.Actions
             var pwdr = Request.Params["pwdr"];
             var avid = Request.Params["avid"];
             var adress = Request.Params["adress"];
-            var birthday = DateTime.Now;
+            DateTime birthday;
             DateTime.TryParseExact(Request.Params["birthday"], "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out birthday);
 
             using (var conn = new SqlConnection(_connectionstring))
@@ -388,7 +466,7 @@ namespace FCW.Actions
                 using (var cmd = new SqlCommand("UserUpdateDetails", conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@userGuid", SqlDbType.UniqueIdentifier).Value = user.Guid;
+                    cmd.Parameters.Add("@userGuid", SqlDbType.UniqueIdentifier).Value = _user.Guid;
                     cmd.Parameters.Add("@Password", SqlDbType.VarChar, 50).Value = pwd == pwdr && pwd != null && pwdr != null ? pwd : "";
                     cmd.Parameters.Add("@AvatarId", SqlDbType.Int).Value = Convert.ToInt32(avid);
                     cmd.Parameters.Add("@Address", SqlDbType.VarChar, 50).Value = adress;
@@ -421,7 +499,7 @@ namespace FCW.Actions
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add ("@UserGuid", SqlDbType.UniqueIdentifier).Value = user.Guid;
 
-                    var r = new List<Objects.League>();
+                    var r = new List<League>();
                     conn.Open();
                     var reader = cmd.ExecuteReader();
 
@@ -439,7 +517,7 @@ namespace FCW.Actions
         }
         private League GetLeagueDetails(int id)
         {
-            var league = new Objects.League();
+            var league = new League();
 
             using (var conn = new SqlConnection(_connectionstring))
             {
@@ -482,14 +560,13 @@ namespace FCW.Actions
         }
         private void GetUserDetials()
         {
-            var json = new JavaScriptSerializer().Serialize(user);
+            var json = new JavaScriptSerializer().Serialize(_user);
             Response.ClearContent();
             Response.ClearHeaders();
             Response.Write(json);
         }
         public void RefreshUserDetials(Guid guid)
         {
-
             using (var conn = new SqlConnection(_connectionstring))
             {
                 using (var cmd = new SqlCommand("UserGetById", conn))
@@ -512,11 +589,11 @@ namespace FCW.Actions
                         reader["NameOfClan"].ToString(), new Guid(), Convert.ToDateTime(reader["Birthday"]), Convert.ToBoolean(Convert.ToInt32(reader["isFirstLogin"])));
                     }
                     
-                    user = gUser;
-                    GetUserChats(user.Guid);
+                    _user = gUser;
+                    GetUserChats(_user.Guid);
 
-                    HttpContext.Current.Session["currentUser"] = user;
-                    Session["currentUser"] = user;
+                    HttpContext.Current.Session["currentUser"] = _user;
+                    Session["currentUser"] = _user;
 
                     var json = new JavaScriptSerializer().Serialize(gUser);
                     Response.ClearContent();
@@ -537,15 +614,15 @@ namespace FCW.Actions
                 using (var cmd = new SqlCommand("ClanCreate", conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@userGuid", SqlDbType.UniqueIdentifier).Value = user.Guid;
+                    cmd.Parameters.Add("@userGuid", SqlDbType.UniqueIdentifier).Value = _user.Guid;
                     cmd.Parameters.Add("@Name", SqlDbType.VarChar, 20).Value = name;
                     cmd.Parameters.Add("@Private", SqlDbType.Bit).Value = Convert.ToBoolean(prv);
 
                     conn.Open();
                     var r = Convert.ToInt32(cmd.ExecuteScalar());
 
-                    user.ClanId = r;
-                    Session["currentUser"] = user;
+                    _user.ClanId = r;
+                    Session["currentUser"] = _user;
                     Response.ClearContent();
                     Response.ClearHeaders();
                     Response.Write(r);
@@ -560,14 +637,14 @@ namespace FCW.Actions
                 using (var cmd = new SqlCommand("ClanAddUser", conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@userGuid", SqlDbType.UniqueIdentifier).Value = user.Guid;
+                    cmd.Parameters.Add("@userGuid", SqlDbType.UniqueIdentifier).Value = _user.Guid;
                     cmd.Parameters.Add("@Name", SqlDbType.VarChar, 20).Value = name;
 
                     conn.Open();
                     var r = Convert.ToInt32(cmd.ExecuteScalar());
 
-                    user.ClanId = r;
-                    Session["currentUser"] = user;
+                    _user.ClanId = r;
+                    Session["currentUser"] = _user;
                     Response.ClearContent();
                     Response.ClearHeaders();
                     Response.Write(r);
@@ -576,7 +653,7 @@ namespace FCW.Actions
         }
         private void GetAllClansByUser(Guid userGuid)
         {
-            var clans = new List<Objects.Clan>();
+            var clans = new List<Clan>();
 
             using (var conn = new SqlConnection(_connectionstring))
             {
@@ -611,7 +688,7 @@ namespace FCW.Actions
         }
         private void GetAllClans()
         {
-            var clans = new List<Objects.Clan>();
+            var clans = new List<Clan>();
 
             using (var conn = new SqlConnection(_connectionstring))
             {
@@ -683,7 +760,7 @@ namespace FCW.Actions
                         if (reader["TrophyId"].ToString() != "0" && clan.Trophies.Count(x => x.Id == Convert.ToInt16(reader["TrophyId"].ToString())) == 0)
                         {
                             clan.Trophies.Add(
-                                new Objects.Trophy(
+                                new Trophy(
                                     Convert.ToInt16(reader["TrophyCount"].ToString()), 
                                     reader["TrophyName"].ToString(),
                                     reader["TrophyColor"].ToString()
@@ -713,7 +790,7 @@ namespace FCW.Actions
                 using (var cmd = new SqlCommand("ClanApprovePlayer", conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@SenderGuid", SqlDbType.UniqueIdentifier).Value = user.Guid;
+                    cmd.Parameters.Add("@SenderGuid", SqlDbType.UniqueIdentifier).Value = guid;
                     cmd.Parameters.Add("@Username", SqlDbType.VarChar, 20).Value = name;
                     cmd.Parameters.Add("@ClanName", SqlDbType.VarChar, 20).Value = clanName;
 
@@ -736,7 +813,7 @@ namespace FCW.Actions
                 using (var cmd = new SqlCommand("ClanRemovePlayer", conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@SenderGuid", SqlDbType.UniqueIdentifier).Value = user.Guid;
+                    cmd.Parameters.Add("@SenderGuid", SqlDbType.UniqueIdentifier).Value = guid;
                     cmd.Parameters.Add("@Username", SqlDbType.VarChar, 20).Value = name;
                     cmd.Parameters.Add("@ClanName", SqlDbType.VarChar, 20).Value = clanName;
 

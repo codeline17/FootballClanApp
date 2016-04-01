@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Web.Script.Serialization;
@@ -13,54 +13,99 @@ namespace FCW.Actions
 {
     public partial class Fixture : System.Web.UI.Page
     {
-        private readonly string _connectionstring = System.Configuration.ConfigurationManager.ConnectionStrings["FCWConn"].ConnectionString;
+        private Objects.User _user = new Objects.User();
+        private readonly string _key =
+            ConfigurationManager.AppSettings["safetykey"];
+        private readonly string _connectionstring = ConfigurationManager.ConnectionStrings["FCWConn"].ConnectionString;
         protected void Page_Load(object sender, EventArgs e)
         {
             try
             {
-                var user = new Objects.User();
-                user = (Objects.User) Session["currentUser"];
-                if (user.Username == null)
-                {
-                    Response.Redirect("Login.aspx");
-                    return;
-                }
+                if (!SecurityCheck())
+                    ReturnError();
 
                 var requestType = Request.Params["type"];
 
                 switch (requestType)
                 {
-                    case "UDM": //UserDailyMatches
-                        UserDailyMatches(user);
-                        break;
                     case "SNDPD": //InsertPredictions
-                        InsertPredictions(user);
+                        InsertPredictions(_user);
                         break;
                     case "PREDS": //GetPredictions
-                        GetPredictions(user);
+                        GetPredictions(_user);
                         break;
                     case "GUN": //GetUserName
-                        GetUserName(user);
+                        GetUserName(_user);
                         break;
                     case "GLS": //GetLiveScore
-                        GetLiveScore(user);
-                        break;
-                    default :
+                        GetLiveScore(_user);
                         break;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //Nope
             }
 
             Response.End();
-
         }
+
+        #region Utils
+        protected void ReturnError()
+        {
+            Response.ClearContent();
+            Response.ClearHeaders();
+            Response.Write("Error");
+            Response.End();
+        }
+        protected bool SecurityCheck()
+        {
+            bool r;
+            var userguid = Request.Params["userGuid"] != null ? new Guid(Request.Params["userGuid"]) : new Guid();
+
+            try
+            {
+                _user = Session["currentUser"] != null ? (Objects.User)Session["currentUser"] : UserGetByGuid(userguid);
+                r = _user.Guid != null || (_key.Length == Request.Params[""].Length && _key == Request.Params[""]);
+            }
+            catch (Exception)
+            {
+                r = false;
+            }
+
+            return r;
+        }
+        private Objects.User UserGetByGuid(Guid guid)
+        {
+            var gUser = new Objects.User();
+            using (var conn = new SqlConnection(_connectionstring))
+            {
+                using (var cmd = new SqlCommand("UserGetById", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@Guid", SqlDbType.UniqueIdentifier).Value = guid;
+
+                    conn.Open();
+                    var reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        gUser = new Objects.User(reader["UserName"].ToString(), new Guid(reader["GUID"].ToString()),
+                            Convert.ToInt32(reader["Credit"]), Convert.ToInt32(reader["Credit2"]), Convert.ToInt32(reader["ClanId"]),
+                        new UserDetails(reader["Email"].ToString(), reader["Address"].ToString(),
+                        new City("Tirana")), Convert.ToInt32(reader["Points"]), Convert.ToInt32(reader["tpreds"]),
+                        Convert.ToInt32(reader["spreds"]), Convert.ToInt32(reader["lastspreds"]),
+                        Convert.ToInt32(reader["lastsspreds"]), Convert.ToInt32(reader["AvatarId"]), Convert.ToInt32(reader["Rank"]),
+                        reader["NameOfClan"].ToString(), new Guid(), Convert.ToDateTime(reader["Birthday"]), Convert.ToBoolean(Convert.ToInt32(reader["isFirstLogin"])));
+                    }
+                }
+            }
+            return gUser;
+        }
+        #endregion
 
         private void GetLiveScore(Objects.User user)
         {
-            var date = DateTime.Now;
+            DateTime date;
             DateTime.TryParseExact(Request.Params["date"], "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out date);
 
             using (var conn = new SqlConnection(_connectionstring))
@@ -97,87 +142,6 @@ namespace FCW.Actions
                 }
             }
         }
-
-        private void UserDailyMatches(Objects.User user)
-        {
-            /*using (var conn = new SqlConnection(_connectionstring))
-            {
-                using (var cmd = new SqlCommand("FixturesGetByUser", conn))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@userGuid", SqlDbType.UniqueIdentifier).Value = user.Guid;
-
-                    var fixtures = new List<Objects.Fixture>();
-                    conn.Open();
-                    var reader = cmd.ExecuteReader();
-                    while (reader.Read())
-                    {
-                        var fixture = fixtures.FirstOrDefault(x => x.ID == Convert.ToInt32(reader["Id"]));
-                        if (fixture == null)
-                        {
-                            fixtures.Add(new Objects.Fixture(
-                                    Convert.ToInt32(reader["id"]),
-                                    new Team(reader["HomeTeam"].ToString()), 
-                                    new Team(reader["AwayTeam"].ToString()),
-                                    new List<Event>(), reader["Status"].ToString(),
-                                    new Competition(reader["LeagueName"].ToString(),
-                                    reader["Country"].ToString()), 
-                                    new List<Game>
-                                    {
-                                        new Game(reader["GameName"].ToString(),reader["Slug"].ToString(),new List<Outcome>
-                                        {
-                                            new Outcome(
-                                                reader["OutcomeName"].ToString(),
-                                                Convert.ToBoolean(reader["IsSelected"]),
-                                                reader["Repeater"].ToString())
-                                        }
-                                        ,reader["Repeater"].ToString())
-                                    }
-                                    ,Convert.ToDateTime(reader["StartDate"]),
-                                    Convert.ToBoolean(reader["GameSealed"]),
-                                    reader["FixturePack"].ToString(),
-                                    Convert.ToInt32(reader["HomeGoals"]),
-                                    Convert.ToInt32(reader["AwayGoals"]))
-                                    );
-                        }
-                        else
-                        {
-                            var game = fixture.Games.FirstOrDefault(x => x.Slug == reader["Slug"].ToString());
-
-                            if (game == null)
-                            {
-                               fixture.Games.Add(new Game(reader["GameName"].ToString(),reader["Slug"].ToString(),new List<Outcome>
-                               {
-                                   new Outcome(
-                                       reader["OutcomeName"].ToString(),
-                                       Convert.ToBoolean(reader["IsSelected"]),
-                                       reader["Repeater"].ToString())
-                               }
-                               ,reader["Repeater"].ToString()));
-                            }
-                            else
-                            {
-                                var outcome =
-                                    game.Outcomes.FirstOrDefault(x => x.Name == reader["OutcomeName"].ToString());
-                                if (outcome == null)
-                                {
-                                    game.AddOutcome(new Outcome(
-                                        reader["OutcomeName"].ToString(), 
-                                        Convert.ToBoolean(reader["IsSelected"]), 
-                                        reader["Repeater"].ToString()));
-                                }
-                            }
-                        }
-                    }
-                    var json = new JavaScriptSerializer().Serialize(fixtures);
-                    Response.ClearContent();
-                    Response.ClearHeaders();
-                    Response.Write(json);
-                    
-                }
-            }*/
-        }
-
         private void InsertPredictions(Objects.User user)
         {
             var r = "Success";
@@ -191,7 +155,7 @@ namespace FCW.Actions
                     {
                         InsertPrediction(user, pd);
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         r = "Partial Exeption";
                     }
@@ -208,7 +172,6 @@ namespace FCW.Actions
             Response.ClearHeaders();
             Response.Write(json);
         }
-
         private void InsertPrediction(Objects.User user, string prediction)
         {
             using (var conn = new SqlConnection(_connectionstring))
@@ -225,10 +188,9 @@ namespace FCW.Actions
                 }
             }
         }
-
         private void GetPredictions(Objects.User user)
         {
-            var date = DateTime.Now;
+            DateTime date;
             DateTime.TryParseExact(Request.Params["date"], "dd/MM/yyyy",CultureInfo.InvariantCulture,DateTimeStyles.None, out date);
 
             using (var conn = new SqlConnection(_connectionstring))
@@ -321,7 +283,6 @@ namespace FCW.Actions
                 }
             }
         }
-
         private void GetUserName(Objects.User user)
         {
             Response.ClearContent();
