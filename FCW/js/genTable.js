@@ -165,7 +165,7 @@ function getGameCell(matchId, home, away, sealed, game, state) {
 function genClanTable(e) {
     var mainTag = document.createElement("table");
     mainTag.id = "clan-table";
-    mainTag.className = "table table-hover";
+    mainTag.className = "table table-hover manage-clan";
 
     var tHead = document.createElement("thead");
     var hRow = document.createElement("tr");
@@ -175,7 +175,7 @@ function genClanTable(e) {
     hRow.append(cEl("th").append(cEl("span").attr("data-toggle", "tooltip").attr("data-placement", "top").attr("title", "Form").tEl("Form")));
     hRow.append(cEl("th").append(cEl("span").attr("data-toggle", "tooltip").attr("data-placement", "top").attr("title", "Points").tEl("Pts")));
     //hRow.append(cEl("th").append(cEl("span").attr("data-toggle", "tooltip").attr("data-placement", "top").attr("title", "Member Since").tEl("Member Since")));
-    hRow.append(cEl("th").append(cEl("span").attr("data-toggle", "tooltip").attr("data-placement", "top").attr("title", "Roles and Actions").tEl("###")));
+    hRow.append(cEl("th").append(cEl("span").attr("data-toggle", "tooltip").attr("data-placement", "top").attr("title", "Roles and Actions").tEl("#")));
     tHead.appendChild(hRow);
 
     //body
@@ -190,20 +190,20 @@ function genClanTable(e) {
         //.append(cEl("td").tEl(e.Users[j].InClanSince));
         row.className = e.Users[j].Username === e.Leader ? "leader" : "";
         if (cun === e.Leader) {
-           row.append(cEl("td").append(cEl("span").tEl("C")));
+            row.append(cEl("td").append(cEl("span").tEl("Ⓒ").attr("style", "font-size:20px;")));
         } else {
             if (cUserLeader) {
                 if (e.Users[j].Username !== e.Leader) {
                     if (e.Users[j].isApproved) {
                         row.append(cEl("td").append(
-                            cEl("i").attr("class", "icon-cancel-1").attr("style", "color:red;font-size:20px;").attr("cel-uname", cun).attr("cel-cname", cn).listener("click", removeMember)
+                            cEl("i").attr("class", "icon-cancel-1").attr("style", "color:red;font-size:15px;").attr("cel-uname", cun).attr("cel-cname", cn).listener("click", removeMember)
                             ));
                     } else {
-                        row.append(cEl("td").append(
+                        row.attr("class","not-approved").append(cEl("td").append(
                                 cEl("span").append(
-                                    cEl("i").attr("class", "icon-ok").attr("style", "color:green;font-size:20px;").attr("cel-uname", cun).attr("cel-cname", cn).listener("click", approveMember)
+                                    cEl("i").attr("class", "icon-ok").attr("style", "color:green;font-size:20px;margin-bottom:7px;").attr("cel-uname", cun).attr("cel-cname", cn).listener("click", approveMember)
                                     ).append(
-                                    cEl("i").attr("class", "icon-cancel-1").attr("style", "color:red;font-size:20px;margin-left:10px;").attr("cel-uname", cun).attr("cel-cname", cn).listener("click", removeMember)
+                                    cEl("i").attr("class", "icon-cancel-1").attr("style", "color:red;font-size:15px;margin-top:7px;margin-bottom:5px;").attr("cel-uname", cun).attr("cel-cname", cn).listener("click", removeMember)
                                 )
                             ));
                     }

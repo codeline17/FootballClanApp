@@ -74,7 +74,8 @@ function genClans() {
               mainC.append(cEl("div").attr("class","alert").tEl("You are waiting to be approved to join a clan."));
           } else { //InClan : Show ClanDetails
               $.post("Actions/User.aspx", { type: "CDL", id: e.ClanId },
-                  function(c) {
+                  function (c) {
+                      
                       c = JSON.parse(c);
                       contextClan = c;
                       //mainC.append(cEl("h3").tEl(c.Name + "   ").append(cEl("span").attr("class","cups").tEl("0").append(cEl("i").attr("class", "icon-trophy gold"))).append(cEl("small").tEl("[ " + clanPts + " Pts ]")).append(cEl("small").tEl("  [ " + c.Users.length + " of 11 members ]")));
@@ -135,7 +136,7 @@ function switchCTab(e) {
 }
 
 function genLeaveClanBtn() {
-    return cEl("div").attr("class", "row-fluid").append(cEl("div").attr("class", "span4 offset8").append(cEl("a").attr("class", "btn btn-orange pull-right").listener("click", removeMember).tEl("Leave Clan")));
+    return cEl("div").attr("class", "row-fluid").append(cEl("div").attr("class", "span4 offset8").append(cEl("a").attr("class", "btn btn-orange pull-left leave-clan leave-clanBtn").listener("click", removeMember).tEl("Leave Clan")).append(cEl("a").attr("class", "btn btn-orange pull-right").listener("click", manageClan).tEl("Manage Clan")));
 }
 
 function genClanHeader(c) {
@@ -149,7 +150,7 @@ function genClanHeader(c) {
             .append(
                 cEl("td").attr("rowspan", "2")
         //.listener("click", editClanBadge)
-                .append(cEl("img").attr("class", "img-responsive").attr("width", "50px").attr("src", clanBadgesUrl + c.Image + clanBadgesExt))
+                .append(cEl("img").attr("class", "img-responsive").attr("width", "50px").attr("src", clanBadgesUrl + c.Image + clanBadgesExt).listener("click",genClanBadges))
             )
             .append(
                 cEl("td")

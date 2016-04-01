@@ -61,6 +61,22 @@ table#clan-table {
     cursor: pointer;
 }
 
+/** table clan toggle*/
+
+table.manage-clan thead tr th:last-child,table.manage-clan tbody tr td:last-child,.leave-clan{
+    display:none;
+}
+table.manage-clan thead tr th:nth-child(5){
+    border-top-right-radius:10px;
+}
+table.manage-clan tbody tr:last-child td:nth-child(5){
+    border-bottom-right-radius:10px;
+}
+.not-approved{
+    background-color:lightcoral;
+}
+
+/* /table clan toggle*/
 span.card {
     margin-left: 3px;
     margin-right: 3px;

@@ -50,7 +50,8 @@ function getClans() {
 
                       
     $.post("Actions/User.aspx", { type: "CDL", id: e.ClanId },
-                  function(c) {
+                  function (c) {
+                      clan.innerHTML = " ";
                      c = JSON.parse(c);
                       clan.append(genClanMenu(c));
 
@@ -84,7 +85,10 @@ function getMenuInfo() {
          var logout = document.getElementById("userModal");
          var balls = document.getElementById("balls");
          balls.innerHTML = "";
-         var goldenball = cEl("div").attr("class", "goldenBall-header").append(cEl("div").attr("class", "totalballs1").tEl(userCredit2)).append(cEl("span").attr("class", "footBall header-margin")).append(cEl("div").attr("class", "totalballs").tEl(userCredit)).append(cEl("span").attr("class", "creditBall header-margin"));
+         
+         var goldenball = cEl("div").attr("class", "goldenBall-header").append(cEl("div").attr("class", "totalballs1").tEl(userCredit2)).append(cEl("span").attr("class", "footBall header-margin"))
+             .append(cEl("div").attr("class", "totalballs").tEl(userCredit)).append(cEl("span").attr("class", "creditBall header-margin"))
+             .append(cEl("div").attr("class","tp-header").tEl("PTS:"+points));
         
          balls.appendChild(goldenball);
          var thumbNail = cEl("a").attr("class", "thumbnail pull-right").attr("href", "#").append(cEl("img").attr("style", "height:27px;").attr("src", "style/images/avatars/" + cuser.AvatarId + ".png")).listener("click", genUserDetails);
@@ -93,7 +97,7 @@ function getMenuInfo() {
 
          
          var emri1 = cEl("div").attr("class", "details-menu").append(cEl("div").attr("class", "details-username").tEl(username)).append(cEl("div").attr("class", "details-progress").append(genProgressBar(lastBadge))); //username+forma
-         var totalpoints = cEl("div").attr("class", "tp-menu").append(cEl("div").attr("class", "title-menu").tEl("POINTS :")).append(cEl("div").attr("class","total-points").tEl(points));//total points : piket
+         var totalpoints = cEl("div").attr("class", "tp-menu").append(cEl("div").attr("class", "title-menu").tEl("POINTS :")).append(cEl("div").attr("class", "total-points").tEl(points));//total points : piket
          var level = cEl("div").attr("class", "lvl-menu").append(cEl("div").attr("class", "title-menu").tEl("LEVEL :")).append(cEl("span").attr("class", "total-points label-warning").tEl(overallBadge)); // niveli
          var globalrank = cEl("div").attr("class", "rank-menu").append(cEl("div").attr("class", "title-menu").tEl("GLOBAL RANK :")).append(cEl("div").attr("class", "total-points").tEl(rank)); //global rank
          

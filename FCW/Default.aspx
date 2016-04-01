@@ -447,6 +447,7 @@
     <script src="style/js/jquery.sortelements.js"></script>
     <script src="style/js/jquery.bdt.js"></script>
     <!-- End Table JS -->
+    <script src="js/toggleBagdeClan.js"></script>
     <script src="js/settings.js"></script>
     <script src="js/user.js"></script>
     <script src="js/helpers.js"></script>
@@ -459,5 +460,7 @@
     <script src="js/genBase.js"></script>
     <script src="js/genChat.js"></script>
     <script src="js/userdetailsmenu.js"></script>
+    <script src="js/manageClan.js"></script>
+    
 </body>
 </html>

@@ -5,10 +5,19 @@
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
-.clans{
-    background-color:green;
-    background:none!important;
+#clanbadges{
+    width:100px;
+    line-height:50px;
+    height:auto;
 }
+table.clans{
+    border-radius:10px;
+    
+    -webkit-box-shadow: inset 0px 0px 0px 3px rgba(0,0,0,0.4);
+-moz-box-shadow: inset 0px 0px 0px 3px rgba(0,0,0,0.4);
+box-shadow: inset 0px 0px 0px 3px rgba(0,0,0,0.4);
+}
+
 .etabs li{
    border-radius:10px;
    background:rgba(0, 0, 0, 0.18);
@@ -2809,7 +2818,9 @@ h4.media-heading{
     padding:0px;
 }
 #userModal{
+    position:absolute;
     height:auto;
+    max-height:80%;
 }
     /******** /Menu ***********/
     
@@ -2933,6 +2944,13 @@ h4.media-heading{
     /* /Details Menu  */
 
     /**header mobile*/
+    .tp-header{
+        position: absolute;
+        display: inline-block;
+        top: 6px;
+        margin-left: 35px;
+        color:#eedd82;
+    }
     .goldenBall-header{
         position: fixed;
         width: 100px;
@@ -2963,6 +2981,7 @@ h4.media-heading{
         display:inline;
     }
     .totalballs1{
+        margin-left:-10px;
         line-height:35px;
         color:#2EBA76;
         display:inline;

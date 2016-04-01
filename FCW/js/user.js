@@ -49,7 +49,8 @@ function toggleAvatars(e) {
         els[i].className = "desaturate avatars";
     }
     el.className = "avatars";
-   cAv = el.wrapper.id;
+    cAv = el.wrapper.id;
+   
 }
 
 function updateUserDetails() {
