@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Web;
@@ -8,11 +9,17 @@ namespace FCW.Actions
 {
     public partial class Register : System.Web.UI.Page
     {
+        private Objects.User _user = new Objects.User();
+        private readonly string _key =
+            ConfigurationManager.AppSettings["safetykey"];
         private readonly string _connectionstring = System.Configuration.ConfigurationManager.ConnectionStrings["FCWConn"].ConnectionString;
         protected void Page_Load(object sender, EventArgs e)
         {
             try
             {
+                if (!SecurityCheck())
+                    ReturnError();
+
                 var username = Request.Params["username"];
                 var password = Request.Params["password"];
                 var email = Request.Params["email"];
@@ -44,6 +51,30 @@ namespace FCW.Actions
             {
                 //throw ex;
             }
+        }
+
+        protected void ReturnError()
+        {
+            Response.ClearContent();
+            Response.ClearHeaders();
+            Response.Write("Error");
+            Response.End();
+        }
+        protected bool SecurityCheck()
+        {
+            bool r;
+
+            try
+            {
+                _user = (Objects.User)Session["currentUser"];
+                r = _user.Guid != null || (_key.Length == Request.Params["safetykey"].Length && _key == Request.Params["safetykey"]);
+            }
+            catch (Exception)
+            {
+                r = false;
+            }
+
+            return r;
         }
     }
 }
