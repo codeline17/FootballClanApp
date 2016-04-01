@@ -3,7 +3,6 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Web;
 using System.Web.Script.Serialization;
-using Objects;
 
 namespace FCW.Actions
 {
@@ -41,7 +40,7 @@ namespace FCW.Actions
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //throw ex;
             }

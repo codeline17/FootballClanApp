@@ -27,7 +27,7 @@ namespace FCW.Actions
                 }
 
             }   
-            catch (Exception ex)
+            catch (Exception)
             {
                 //throw ex;
             }

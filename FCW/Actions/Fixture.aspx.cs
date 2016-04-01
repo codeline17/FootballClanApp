@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Web.Script.Serialization;
@@ -17,7 +16,7 @@ namespace FCW.Actions
         private Objects.User _user = new Objects.User();
         private readonly string _key =
             ConfigurationManager.AppSettings["safetykey"];
-        private readonly string _connectionstring = System.Configuration.ConfigurationManager.ConnectionStrings["FCWConn"].ConnectionString;
+        private readonly string _connectionstring = ConfigurationManager.ConnectionStrings["FCWConn"].ConnectionString;
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -43,7 +42,7 @@ namespace FCW.Actions
                         break;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //Nope
             }
@@ -61,12 +60,12 @@ namespace FCW.Actions
         }
         protected bool SecurityCheck()
         {
-            var r = false;
-            var _userguid = Request.Params["userGuid"] != null ? new Guid(Request.Params["userGuid"]) : new Guid();
+            bool r;
+            var userguid = Request.Params["userGuid"] != null ? new Guid(Request.Params["userGuid"]) : new Guid();
 
             try
             {
-                _user = Session["currentUser"] != null ? (Objects.User)Session["currentUser"] : UserGetByGuid(_userguid);
+                _user = Session["currentUser"] != null ? (Objects.User)Session["currentUser"] : UserGetByGuid(userguid);
                 r = _user.Guid != null || (_key.Length == Request.Params[""].Length && _key == Request.Params[""]);
             }
             catch (Exception)
@@ -106,7 +105,7 @@ namespace FCW.Actions
 
         private void GetLiveScore(Objects.User user)
         {
-            var date = DateTime.Now;
+            DateTime date;
             DateTime.TryParseExact(Request.Params["date"], "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out date);
 
             using (var conn = new SqlConnection(_connectionstring))
@@ -156,7 +155,7 @@ namespace FCW.Actions
                     {
                         InsertPrediction(user, pd);
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         r = "Partial Exeption";
                     }
@@ -191,7 +190,7 @@ namespace FCW.Actions
         }
         private void GetPredictions(Objects.User user)
         {
-            var date = DateTime.Now;
+            DateTime date;
             DateTime.TryParseExact(Request.Params["date"], "dd/MM/yyyy",CultureInfo.InvariantCulture,DateTimeStyles.None, out date);
 
             using (var conn = new SqlConnection(_connectionstring))
