@@ -127,7 +127,7 @@ namespace FCW.Actions
             try
             {
                 _user = Session["currentUser"] != null ? (Objects.User) Session["currentUser"] : UserGetByGuid(_userguid);
-                r = _user.Guid != null || (_key.Length == Request.Params[""].Length && _key == Request.Params[""]);
+                r = _user.Guid != null || (_key.Length == Request.Params["userGuid"].Length && _key == Request.Params["userGuid"]);
             }
             catch (Exception)
             {
