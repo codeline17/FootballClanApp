@@ -177,6 +177,7 @@ function buyActions(e) {
     //Ajax Create
     $.post("Actions/Paypal.aspx", { type: "PUI", ItemName: itemName },
         function (r) {
+            cuser.Username
             if (r.length > 5) {
                 window.open("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=" + buttonId + "&custom=" + r, "_blank");
             }

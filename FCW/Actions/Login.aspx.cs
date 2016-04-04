@@ -27,7 +27,7 @@ namespace FCW.Actions
                 }
 
             }   
-            catch (Exception)
+            catch (Exception ex)
             {
                 //throw ex;
             }
@@ -78,8 +78,8 @@ namespace FCW.Actions
 
         private void CookieCheck()
         {
-            var userguid = new Guid(Request.Params["userguid"]);
-
+            var userguid = Request.Params["userguid"] != null ? new Guid(Request.Params["userguid"]) : new Guid();
+            
             using (var conn = new SqlConnection(_connectionstring))
             {
                 using (var cmd = new SqlCommand("[UserGetById]", conn))

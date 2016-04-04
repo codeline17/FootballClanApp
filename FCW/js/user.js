@@ -158,7 +158,7 @@ function checkDate(field) {
     }
 
     if (errorMsg !== "") {
-        /*alert(errorMsg);
+        /*//alert(errorMsg);
         field.focus();*/
         return false;
     }

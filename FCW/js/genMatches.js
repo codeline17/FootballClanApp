@@ -105,6 +105,7 @@ function expandMatch(e) {
             el.parentNode.appendChild(expand);
         }
     }
+    
 }
 
 function createMatchPanel(e) {

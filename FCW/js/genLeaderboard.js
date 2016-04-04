@@ -53,7 +53,7 @@ function genLbUserTable(objs, id) {
     for (i = 0; i < objs.length; i++) {
         var favClass = favIds.indexOf(objs[i].Username) > -1 ? "icon-star-1" : "icon-star-empty-1";
         var rowClass = objs[i].Username === cuser.Username ? "self" : "regular";
-        var favRow = cEl("tr").attr("class", rowClass);
+        var favRow = cEl("tr").attr("class", rowClass).listener("click", expandMyDetails);
 
         favRow.append(cEl("td").append(cEl("i").wr({ uname: objs[i].Username }).attr("class", favClass + " lbFav").listener("click", toggleFavorite))) //Favorite Star
               .append(cEl("td").tEl(objs[i].Rank)) //Rank
@@ -61,6 +61,7 @@ function genLbUserTable(objs, id) {
               .append(cEl("td").tEl(objs[i].Points)) //Points
               .append(cEl("td").tEl(getOverAllForm(objs[i]))) //Level
               .append(cEl("td").tEl(getUserForm(objs[i]))); //Form
+              
 
         //tBody.append(genSingleMatchRow(matches[j]));
         tBody.append(favRow);
@@ -152,6 +153,7 @@ function getFavorites() {
            favIds.push(fObj[i].Username);
        }
        appendToItem("tbMain", genLbUserTable(fObj, "fTbl"), "-");
+       
    });
 }
 
@@ -212,33 +214,18 @@ function switchLbTabs(e) {
     }
 }
 
-function appendToItem(id, el, bdt) {
-    var tbMain = document.getElementById(id);
-    if (tbMain) {
-        tbMain.innerHTML = "";
-        tbMain.append(el);
-    }
-
-    if (bdt) {
-        $('body').off('click', '.pagination li');
-        $("#" + el.id).bdt({
-            pageRowCount: 25
-        });
-    }
-}
-
 function pageToSelf(opt) {
     var pages = document.getElementsByClassName("pagination");
 
     switch (opt) {
         case "u":
-            pages[0].childNodes[Math.floor(cuser.Rank / 25) + 1].childNodes[0].click();
+            pages[0].childNodes[Math.floor(cuser.Rank / 100) + 1].childNodes[0].click();
             break;
         case "c":
             var own = document.getElementsByClassName("self")[0];
             if (own) {
                 var pos = own.childNodes[0].innerText;
-                pages[0].childNodes[Math.floor(pos / 25) + 1].childNodes[0].click();
+                pages[0].childNodes[Math.floor(pos / 100) + 1].childNodes[0].click();
             }
             break;
     }

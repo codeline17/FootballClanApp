@@ -104,7 +104,7 @@ function getMenuInfo() {
           
          getPreds();
          getClans();
-       
+         testisfirstlogin()
          
       
 

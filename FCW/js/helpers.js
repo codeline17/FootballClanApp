@@ -5,6 +5,22 @@ function genHeader() {
     getMenuInfo();
 }
 
+
+function appendToItem(id, el, bdt) {
+    var tbMain = document.getElementById(id);
+    if (tbMain) {
+        tbMain.innerHTML = "";
+        tbMain.append(el);
+    }
+
+    if (bdt) {
+        $('body').off('click', '.pagination li');
+        $("#" + el.id).bdt({
+            pageRowCount: 100
+        });
+    }
+}
+
 function getHeaderInfo() {
 
     if (document.getElementById("userModal") && document.getElementById("userModal").getAttribute("aria-hidden") === "false")

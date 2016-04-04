@@ -508,6 +508,8 @@ namespace FCW.Actions
                         r.Add(GetLeagueDetails(Convert.ToInt32(reader["Id"])));
                     }
 
+
+
                     var json = new JavaScriptSerializer().Serialize(r);
                     Response.ClearContent();
                     Response.ClearHeaders();

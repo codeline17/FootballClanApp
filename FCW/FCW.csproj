@@ -73,6 +73,7 @@
   <ItemGroup>
     <Content Include="Actions\Paypal.aspx" />
     <Content Include="Actions\Register.aspx" />
+    <Content Include="js\expandDetails.js" />
     <Content Include="js\genChat.js" />
     <Content Include="js\genClans.js" />
     <Content Include="js\genLeaderboard.js" />

@@ -37,6 +37,12 @@
 
     /***After Event Assignments***/
     $('[data-toggle="tooltip"]').tooltip();
+
+   
+        $('body').off('click', '.pagination li');
+        $("#livescore-table").bdt({
+            pageRowCount: 100
+        });
     /****************************/
 }
 
@@ -62,6 +68,7 @@ function getLeagueData() {
         genTabs(tabs, content);
 
     });
+    
 }
 
 function genLeagueTable(n,u) {
@@ -88,9 +95,9 @@ function genLeagueTable(n,u) {
     for (var i = 0; i < u.length; i++) {
         var tdRang;
         if (u[i].PreviousLeagueRank > i + 1) {
-            tdRang = cEl("td").tEl(i + 1).append(cEl("i").attr("class", "icon-down-dir-1 goneup"));
+            tdRang = cEl("td").tEl(i + 1).append(cEl("i").attr("class", "icon-down-dir-1 gonedown"));
         } else if (u[i].PreviousLeagueRank < i + 1) {
-            tdRang = cEl("td").tEl(i + 1).append(cEl("i").attr("class", "icon-up-dir-1 gonedown"));
+            tdRang = cEl("td").tEl(i + 1).append(cEl("i").attr("class", "icon-up-dir-1 goneup"));
         } else {
             tdRang = cEl("td").tEl(i + 1).append(cEl("i").attr("class", "icon-right-dir-1"));
         }

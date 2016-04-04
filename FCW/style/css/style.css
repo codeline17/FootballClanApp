@@ -2378,6 +2378,20 @@ media_tag_5 {
     text-align: center;
     padding-bottom: 10px;
     display: block;
+    color:white;
+}
+.plan.span4 {
+    background: rgba(251, 237, 54, 0.3);
+    border-radius: 10px;
+    border-color: rgba(0,0,0,0.4)!important;
+    color:white;
+}
+.plan.span4 h3,.plan.span4 .features{
+    background:none!important;
+    color:white!important;
+}
+.plan.span4 .features{
+    border-top:1px solid rgba(0,0,0,0.4);
 }
 .pricing .btn {
     margin: 0

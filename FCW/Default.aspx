@@ -57,20 +57,21 @@
                 <li class="active" content-type="matches">
                     <a class="meanclose"><i class="icon-dribbble-circled icn"></i> My Matches</a>
                 </li>
-                <li content-type="leaderboard">
-                    <a class="meanclose"><i class="icon-users-1 icn"></i> My Details</a>
+                <li content-type="leagues">
+                    <a class="meanclose"><i class="icon-users-1 icn"></i> My Competitions</a>
                 </li>
                 <li content-type="clans">
                     <a class="meanclose"><i class="icon-users icn"></i> My Clans</a>
                 </li>
-                <li content-type="leagues">
-                    <a class="meanclose"><i class="icon-users-1 icn"></i> My Leagues</a>
-                </li>
-                <li content-type="predictions">
-                    <a class="meanclose"><i class="icon-magic icn"></i> Past Predictions</a>
+                <li content-type="leaderboard">
+                    <a class="meanclose"><i class="icon-users-1 icn"></i> Leaderboard
+                    </a>
                 </li>
                 <li content-type="chat">
                     <a class="meanclose"><i class="icon-comment icn"></i> Message Board</a>
+                </li>
+                <li content-type="predictions">
+                    <a class="meanclose"><i class="icon-magic icn"></i> Past Predictions</a>
                 </li>
                 <li content-type="unlock">
                     <a class="meanclose"><i class="icon-lock-open-1 icn"></i> Unlocks</a>
@@ -455,12 +456,13 @@
     <script src="js/genClans.js"></script>
     <script src="js/genLiveScore.js"></script>
     <script src="js/genLeagues.js"></script>
-    <script src="js/genMatches.js"></script>
+    <script src="js/genMatches.js"></script>   
     <script src="js/genLeaderboard.js"></script>
     <script src="js/genBase.js"></script>
     <script src="js/genChat.js"></script>
     <script src="js/userdetailsmenu.js"></script>
     <script src="js/manageClan.js"></script>
+    <script src="js/expandDetails.js"></script>
     
 </body>
 </html>
