@@ -66,7 +66,7 @@ namespace FCW.Actions
             try
             {
                 _user = Session["currentUser"] != null ? (Objects.User)Session["currentUser"] : UserGetByGuid(userguid);
-                r = _user.Guid != null || (_key.Length == Request.Params[""].Length && _key == Request.Params[""]);
+                r = _user.Guid != null || (_key.Length == Request.Params["safetykey"].Length && _key == Request.Params["safetykey"]);
             }
             catch (Exception)
             {
@@ -75,30 +75,9 @@ namespace FCW.Actions
 
             return r;
         }
-        private Objects.User UserGetByGuid(Guid guid)
+        private static Objects.User UserGetByGuid(Guid guid)
         {
-            var gUser = new Objects.User();
-            using (var conn = new SqlConnection(_connectionstring))
-            {
-                using (var cmd = new SqlCommand("UserGetById", conn))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@Guid", SqlDbType.UniqueIdentifier).Value = guid;
-
-                    conn.Open();
-                    var reader = cmd.ExecuteReader();
-                    while (reader.Read())
-                    {
-                        gUser = new Objects.User(reader["UserName"].ToString(), new Guid(reader["GUID"].ToString()),
-                            Convert.ToInt32(reader["Credit"]), Convert.ToInt32(reader["Credit2"]), Convert.ToInt32(reader["ClanId"]),
-                        new UserDetails(reader["Email"].ToString(), reader["Address"].ToString(),
-                        new City("Tirana")), Convert.ToInt32(reader["Points"]), Convert.ToInt32(reader["tpreds"]),
-                        Convert.ToInt32(reader["spreds"]), Convert.ToInt32(reader["lastspreds"]),
-                        Convert.ToInt32(reader["lastsspreds"]), Convert.ToInt32(reader["AvatarId"]), Convert.ToInt32(reader["Rank"]),
-                        reader["NameOfClan"].ToString(), new Guid(), Convert.ToDateTime(reader["Birthday"]), Convert.ToBoolean(Convert.ToInt32(reader["isFirstLogin"])));
-                    }
-                }
-            }
+            var gUser = new Objects.User {Guid = guid};
             return gUser;
         }
         #endregion

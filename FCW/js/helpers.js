@@ -97,7 +97,6 @@ function genProgressBar(w) {
 }
 
 function getUserForm(user) {
-    console.log(user);
     var fValue = user.LastSuccessfulPredictions / user.LastPredictions;
     fValue = fValue > 0.5 ? 0.5 : fValue;
     var form = Math.floor(fValue * 200);

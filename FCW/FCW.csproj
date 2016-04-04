@@ -83,6 +83,7 @@
     <Content Include="js\genTable.js" />
     <Content Include="js\genUnlock.js" />
     <Content Include="js\helpers.js" />
+    <Content Include="js\manageClan.js" />
     <Content Include="js\toggleBagdeClan.js" />
     <Content Include="js\userdetailsmenu.js" />
     <Content Include="style\js\mobileMenu.js" />

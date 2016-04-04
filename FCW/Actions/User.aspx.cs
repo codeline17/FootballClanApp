@@ -125,7 +125,7 @@ namespace FCW.Actions
             try
             {
                 _user = Session["currentUser"] != null ? (Objects.User) Session["currentUser"] : UserGetByGuid(userguid);
-                r = _user.Guid != null || (_key.Length == Request.Params["userGuid"].Length && _key == Request.Params["userGuid"]);
+                r = _user.Guid != null || (_key.Length == Request.Params["safetykey"].Length && _key == Request.Params["safetykey"]);
             }
             catch (Exception)
             {
@@ -197,6 +197,7 @@ namespace FCW.Actions
                     cmd.Parameters.Add("@ClanId", SqlDbType.BigInt).Value = clanid;
                     cmd.Parameters.Add("@Image", SqlDbType.Int).Value = imgid;
 
+                    conn.Open();
                     cmd.ExecuteNonQuery();
 
                     Response.ClearContent();
