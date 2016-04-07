@@ -220,6 +220,14 @@
     <Content Include="style\js\toggle.js" />
     <Content Include="style\js\tooltip.js" />
     <Content Include="style\js\transitions.js" />
+    <Content Include="style\tutorial\1.png" />
+    <Content Include="style\tutorial\2.png" />
+    <Content Include="style\tutorial\3.png" />
+    <Content Include="style\tutorial\4.png" />
+    <Content Include="style\tutorial\5.png" />
+    <Content Include="style\tutorial\6.png" />
+    <Content Include="style\tutorial\7.png" />
+    <Content Include="style\tutorial\8.png" />
     <Content Include="style\type\fontello\fontello-social.eot" />
     <Content Include="style\type\fontello\fontello-social.ttf" />
     <Content Include="style\type\fontello\fontello-social.woff" />
