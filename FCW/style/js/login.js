@@ -43,7 +43,7 @@ function register() {
         return;
     }
 
-    $.post("Actions/Register.aspx", { username: username.value, password: password.value, email:email.value},
+    $.post("Actions/Register.aspx", { username: username.value, password: password.value, email: email.value, safetykey: "E9986577F6D24660AD28337CEEF5B11A0CF905FA9D6B4C9495179DC8D574919A" },
      function (e) {
          var r = JSON.parse(e);
          switch (r) {
