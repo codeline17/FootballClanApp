@@ -464,5 +464,6 @@
     <script src="js/manageClan.js"></script>
     <script src="js/expandDetails.js"></script>
     
+    
 </body>
 </html>

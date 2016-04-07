@@ -114,7 +114,7 @@ function createMatchPanel(e) {
         var sealed = e.Sealed;
         var addClass;
         var i = 0;
-        console.log(e);
+        
         var rubRF = e.Games[0];
         var rubLPG = e.Games[1];
         var rubTG = e.Games[2];
@@ -307,7 +307,7 @@ function purchaseOption(e) {
 }
 
 function purchaseExtraFixtures() {
-    console.log("ee");
+    
     $.post("Actions/User.aspx", { type: "PEF" },
         function (r) {
             if (r === "1") {

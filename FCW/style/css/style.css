@@ -5,6 +5,19 @@
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
+.profile-hidden{
+    display:none!important;
+}
+.profile-el{
+    width: 50%;
+    display: inline-block;
+    padding:10px;
+}
+.profile-form{
+    width: 100%;
+    display: inline-block;
+    padding:10px;
+}
 #clanbadges{
     width:100px;
     line-height:50px;
@@ -141,9 +154,11 @@ h5 {
     clear: both;
     visibility: hidden;
 }
+
 .section-title {
     text-transform: uppercase;
     font-size: 16px;
+    color:white;
 }
 .post-title a {
     color: #5c5c5c
@@ -2643,6 +2658,23 @@ select {
     #myDetails-Menu,#clanDetails-menu,#balls,.mobile-logOut{
         display:none;
     }
+    .profile-el span{
+        width: 30px;
+        border-radius: 5px;
+        line-height: 25px;
+        text-align:center;
+        padding: 2px 8px;
+     }
+     .profile-form>div{
+        margin-left:10px;
+        margin-bottom:-5px!important;
+     }
+     tbody .profile-show{
+         background:#daf4d1;
+     }
+     .profile-show td div.row-fluid{
+         text-align:center;
+     }
 
     #points{
         display:none;
@@ -2697,6 +2729,204 @@ background-attachment: fixed;
     #avatar{
         display:none;
     }
+
+
+     /********Tutorial*********/
+.hidden{
+  display: none;
+}
+.progress-tutorial {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+  color: #849397;
+   margin-bottom: 3em;
+}
+.progress-tutorial > li {
+  position: relative;
+  display: table-cell;
+  text-align: center;
+  font-size: .5em;
+}
+.progress-tutorial li p{
+  font-size:1.3em;
+}
+.progress-tutorial > li:before {
+  /*content: attr(data-step);*/
+  content: '\2713';
+  display: block;
+  margin: 0 auto;
+  background: #DFE3E4;
+  width: 2.5em;
+  height: 2.5em;
+  text-align: center;
+  margin-bottom: 0.25em;
+  line-height: 2.5em;
+  border-radius: 100%;
+  position: relative;
+  z-index: 1000;
+}
+.progress-tutorial > li:after {
+  content: '';
+  position: absolute;
+  display: block;
+  background: #DFE3E4;
+  width: 100%;
+  height: 0.5em;
+  top: 1.25em;
+  left: 50%;
+  margin-left: 1.5em\9;
+  z-index: 1;
+}
+.progress-tutorial > li:last-child:after {
+  display: none;
+}
+.progress-tutorial > li.is-complete {
+  color: #2ECC71;
+}
+.progress-tutorial > li.is-complete:before,
+.progress > li.is-complete:after {
+  color: #FFF;
+  background: #2ECC71;
+}
+.progress-tutorial > li.is-active {
+  color: #3498DB;
+}
+.progress-tutorial > li.is-active:before {
+  color: #FFF;
+  background: #3498DB;
+}
+
+.progress--medium {
+  font-size: 1.5em;
+}
+.progress--large {
+  font-size: 1.5em;
+}
+
+
+
+h1 {
+  margin-bottom: 1.5em;
+}
+
+.button-div a {
+  text-decoration: none;
+}
+#tutorial-header h4{
+    text-align:center;
+}
+
+/* Carousel */
+
+
+
+.slide {
+  display: none;
+  position: absolute;
+  width: 90vw;
+  margin-left:2px;
+  text-align:center;
+}
+
+.active-slide {
+    display: block;
+}
+
+
+
+.images img{
+  max-height: 500px;
+}
+.slider-nav {
+  text-align: center;
+  margin-top: 20px;
+}
+
+/*buttoni*/
+.next-btn {
+  text-decoration: none;
+  border-radius: 3px ;
+  background-color:#40d47e;
+  text-align: center;
+  line-height: 30px;
+  cursor: pointer;
+  font-size: 25px;
+  padding-left: 10px;
+  padding-right: 10px;
+  color:white;
+  font-size: 1.5em;
+  float: right;
+  margin-right: 15px;
+  margin-bottom:10px;
+}
+.next-btn:hover{
+  text-decoration:none;
+  color:white;
+}
+.skip-btn{
+  text-decoration: none;
+  margin-right:30px;
+  color: #849397;
+  position: absolute;
+  margin-top: 20px;
+  margin-left: -40%;
+}
+
+/* images*/
+.img-responsive{
+  display: block;
+  max-width: 100%; 
+  height: auto;    
+}
+.slide img{
+    max-width:50vw;
+    max-height:90vh;
+}
+
+/* MODAL */
+#memberModal{
+  top:0!important;
+  left:0;
+  width:100%;
+  height:100%;
+  margin:0;
+}
+ol.progress-tutorial{
+  background:none;
+  margin-top: 20px;
+  padding-top: 20px;
+}
+div#tutorial-body{
+  min-height: 75vh;
+  /*padding-top: 10px;*/
+}
+div#tutorial-header{
+  padding:0;
+}
+h4#memberModalLabel{
+  color:#849397;
+}
+.footer-tutorial{
+  position: absolute;
+  top:80%;
+  z-index: -1;
+}
+
+.button-div{
+  position: absolute;
+  text-align: center;
+  width:100%;
+  margin:0 auto;
+  top:75%;
+}
+
+
+
+     /******** /Tutorial*********/
     
 }
 @media (max-width: 1140px) { 
@@ -2824,6 +3054,7 @@ background-image:-ms-linear-gradient(top, #2ebf77 2%, #365a6b 67%,#283136 93%);
 }
 a.thumbnail.pull-right{
     margin-top:1px;
+    margin-left:2px;
 }
 h4.media-heading{
     background-color:orange;
@@ -2837,8 +3068,224 @@ h4.media-heading{
     max-height:80%;
 }
     /******** /Menu ***********/
-    
+
+
+    /********Tutorial*********/
+.hidden{
+  display: none;
+}
+.progress-tutorial {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+  color: #849397;
+   margin-bottom: 3em;
+}
+.progress-tutorial > li {
+  position: relative;
+  display: table-cell;
+  text-align: center;
+  font-size: .5em;
+}
+.progress-tutorial li p{
+  font-size:1.3em;
+}
+.progress-tutorial > li:before {
+  /*content: attr(data-step);*/
+  content: '\2713';
+  display: block;
+  margin: 0 auto;
+  background: #DFE3E4;
+  width: 2.5em;
+  height: 2.5em;
+  text-align: center;
+  margin-bottom: 0.25em;
+  line-height: 2.5em;
+  border-radius: 100%;
+  position: relative;
+  z-index: 1000;
+}
+.progress-tutorial > li:after {
+  content: '';
+  position: absolute;
+  display: block;
+  background: #DFE3E4;
+  width: 100%;
+  height: 0.5em;
+  top: 1.25em;
+  left: 50%;
+  margin-left: 1.5em\9;
+  z-index: 1;
+}
+.progress-tutorial > li:last-child:after {
+  display: none;
+}
+.progress-tutorial > li.is-complete {
+  color: #2ECC71;
+}
+.progress-tutorial > li.is-complete:before,
+.progress > li.is-complete:after {
+  color: #FFF;
+  background: #2ECC71;
+}
+.progress-tutorial > li.is-active {
+  color: #3498DB;
+}
+.progress-tutorial > li.is-active:before {
+  color: #FFF;
+  background: #3498DB;
+}
+
+.progress--medium {
+  font-size: 1.5em;
+}
+.progress--large {
+  font-size: 1.5em;
+}
+
+
+
+h1 {
+  margin-bottom: 1.5em;
+}
+
+.button-div a {
+  text-decoration: none;
+}
+#tutorial-header h4{
+    text-align:center;
+}
+
+/* Carousel */
+
+
+
+.slide {
+  display: none;
+  position: absolute;
+  width: 90vw;
+  margin-left:2px;
+}
+
+.active-slide {
+    display: block;
+}
+
+
+
+.images img{
+  max-height: 500px;
+}
+.slider-nav {
+  text-align: center;
+  margin-top: 20px;
+}
+
+/*buttoni*/
+.next-btn {
+  text-decoration: none;
+  border-radius: 3px ;
+  background-color:#40d47e;
+  text-align: center;
+  line-height: 30px;
+  cursor: pointer;
+  font-size: 25px;
+  padding-left: 10px;
+  padding-right: 10px;
+  color:white;
+  font-size: 1.5em;
+  float: right;
+  margin-right: 15px;
+  margin-bottom:10px;
+}
+.next-btn:hover{
+  text-decoration:none;
+  color:white;
+}
+.skip-btn{
+  text-decoration: none;
+  margin-right:30px;
+  color: #849397;
+  position: absolute;
+  margin-top: 20px;
+  margin-left: -40%;
+}
+
+/* images*/
+.img-responsive{
+  display: block;
+  max-width: 100%; 
+  height: auto;    
+}
+
+/* MODAL */
+#memberModal{
+  top:0!important;
+  left:0;
+  width:100%;
+  height:100%;
+  margin:0;
+}
+ol.progress-tutorial{
+  background:none;
+  margin-top: 20px;
+  padding-top: 20px;
+}
+div#tutorial-body{
+  min-height: 75vh;
+  /*padding-top: 10px;*/
+}
+div#tutorial-header{
+  padding:0;
+}
+h4#memberModalLabel{
+  color:#849397;
+}
+.footer-tutorial{
+  position: absolute;
+  top:80%;
+  z-index: -1;
+}
+
+.button-div{
+  position: absolute;
+  text-align: center;
+  width:100%;
+  margin:0 auto;
+  top:75%;
+}
+
+
+
+     /******** /Tutorial*********/
+
+     /*  Profiles  */
+
+     .profile-form>div{
+        margin-left:10px;
+        margin-bottom:-5px!important;
+     }
+     tbody .profile-show{
+         background:#daf4d1;
+     }
+     .profile-el span{
+        width: 30px;
+        border-radius: 5px;
+        line-height: 25px;
+        text-align:center;
+     }
+     .profile-show td div.row-fluid{
+         text-align:center;
+     }
+
+      /*  /Profiles  */
+
+
     /*  Details Menu  */
+
     #myDetails-Menu{
         position:relative;
         border-top:1px solid;
@@ -2956,6 +3403,9 @@ h4.media-heading{
        font-weight
    }
     /* /Details Menu  */
+    .alert{
+        margin-top:40px;
+    }
 
     /**header mobile*/
     .tp-header{
@@ -3066,7 +3516,8 @@ h4.media-heading{
 	    margin: 0 0 0 0;
 	}
 	header .logo img {
-	    display: inline
+	    display: inline;
+        margin-top:3px;
 	}
 	.contact-info {
 	    float: none;

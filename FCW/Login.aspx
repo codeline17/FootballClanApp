@@ -45,7 +45,7 @@
                     <div id="frmLogin" class="form col-md-12 center-block">
                         <div class="form-group">
                             <label for="username" class="control-label">Username</label>
-                            <input type="text" class="form-control input-lg" id="username" name="username" value="" required="" title="Please enter you username" placeholder="example@email.com" />
+                            <input type="text" class="form-control input-lg" id="username" name="username" value="" required="" title="Please enter you username" placeholder="username" />
                             <span id="userError" class="help-block"></span>
                         </div>
                         <div class="form-group">
