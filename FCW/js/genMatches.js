@@ -109,6 +109,7 @@ function expandMatch(e) {
 }
 
 function createMatchPanel(e) {
+    console.log(e);
     if (e.Authorized) {
         var panel = cEl("div").attr("class", "row-fluid");
         var sealed = e.Sealed;
