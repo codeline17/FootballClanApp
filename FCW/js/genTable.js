@@ -171,8 +171,8 @@ function genClanTable(e) {
     var hRow = document.createElement("tr");
     hRow.append(cEl("th").append(cEl("span").attr("data-toggle", "tooltip").attr("data-placement", "top").attr("title", "Member Name").tEl("Name")));
     hRow.append(cEl("th").append(cEl("span").attr("data-toggle", "tooltip").attr("data-placement", "top").attr("title", "Rank").tEl("Rank")));
-    hRow.append(cEl("th").append(cEl("span").attr("data-toggle", "tooltip").attr("data-placement", "top").attr("title", "Level").tEl("Lvl")));
-    hRow.append(cEl("th").append(cEl("span").attr("data-toggle", "tooltip").attr("data-placement", "top").attr("title", "Form").tEl("Form")));
+    //hRow.append(cEl("th").append(cEl("span").attr("data-toggle", "tooltip").attr("data-placement", "top").attr("title", "Level").tEl("Lvl")));
+    //hRow.append(cEl("th").append(cEl("span").attr("data-toggle", "tooltip").attr("data-placement", "top").attr("title", "Form").tEl("Form")));
     hRow.append(cEl("th").append(cEl("span").attr("data-toggle", "tooltip").attr("data-placement", "top").attr("title", "Points").tEl("Pts")));
     //hRow.append(cEl("th").append(cEl("span").attr("data-toggle", "tooltip").attr("data-placement", "top").attr("title", "Member Since").tEl("Member Since")));
     hRow.append(cEl("th").append(cEl("span").attr("data-toggle", "tooltip").attr("data-placement", "top").attr("title", "Roles and Actions").tEl("#")));
@@ -185,7 +185,18 @@ function genClanTable(e) {
     for (var j = 0; j < e.Users.length; j++) {
         var cun = e.Users[j].Username;
         var cn = e.Name;
-        var row = cEl("tr").append(cEl("td").tEl(e.Users[j].Username)).append(cEl("td").tEl(e.Users[j].Rank)).append(cEl("td").tEl(getOverAllForm(e.Users[j]))).append(cEl("td").tEl(getUserForm(e.Users[j]))).append(cEl("td").tEl(e.Users[j].Points));
+        var form = getUserForm(e.Users[j]);
+        var form1 = genProgressBar(form).attr("style", "display: inline-block;width: 80%;margin-bottom:0px;");
+        var level = getOverAllForm(e.Users[j]);
+        var row2 = cEl("tr");
+
+        row3 = cEl("td").attr("colspan", "3").append(cEl("div").attr("class", "row-fluid")
+                .append(cEl("div").attr("class", "profile-el").tEl("Level: ").append(cEl("span").attr("class", "total-points label-warning").tEl(level)))
+                        .append(cEl("div").attr("class", "profile-el").tEl("White Balls: ")).append(cEl("div").attr("class", "profile-form").tEl("Form: ").append(form1)));
+
+        row2.append(row3);
+
+        var row = cEl("tr").append(cEl("td").tEl(e.Users[j].Username)).append(cEl("td").tEl(e.Users[j].Rank)).append(cEl("td").tEl(e.Users[j].Points));//.listener("click", showProfileClan)
 
         //.append(cEl("td").tEl(e.Users[j].InClanSince));
         row.className = e.Users[j].Username === e.Leader ? "leader" : "";
@@ -223,3 +234,29 @@ function genClanTable(e) {
 
     return mainTag;
 }
+
+
+/*function showProfileClan() {
+    var index = this.rowIndex + 1;
+    var tabela = document.getElementById("clan-table");
+    var length = tabela.rows.length;
+
+    if (tabela.rows.item(index).className != "profile-show") {
+        for (var i = 0; i < length; i += 2) {
+            if (i === this.rowIndex) { }
+            else {
+                if (i == 0) {
+                    tabela.rows.item(i).className = "profile-show";
+                } else {
+                    tabela.rows.item(i).className = "profile-hidden";
+                }
+            }
+        }
+    }
+    if (tabela.rows.item(index).className === "profile-show") {
+        tabela.rows.item(index).className = "profile-hidden";
+    } else {
+        tabela.rows.item(index).className = "profile-show";
+        tabela.rows.item(index).cell.attr("style","display:inline-block!important");
+    }
+}*/

@@ -50,22 +50,42 @@ function genLbUserTable(objs, id) {
     var tBody = document.createElement("tbody");
     
     
-    for (i = 0; i < objs.length; i++) {
-        var favClass = favIds.indexOf(objs[i].Username) > -1 ? "icon-star-1" : "icon-star-empty-1";
-        var rowClass = objs[i].Username === cuser.Username ? "self" : "regular";
-        var favRow = cEl("tr").attr("class", rowClass).listener("click", expandMyDetails);
+    for (i = -1; i < objs.length; i++) {
+       
+        var favClass ="icon-star-1";
+        var rowClass ="";
+        var favRow = "";
+        if (id === "fTbl" && i === -1) {
+            rowClass = "self";
+            favRow = cEl("tr").attr("class", rowClass);
+            favRow.append(cEl("td").append(cEl("i").attr("class", favClass + " lbFav").listener("click", toggleFavorite))) //Favorite Star
+              .append(cEl("td").tEl(cuser.Rank)) //Rank
+              .append(cEl("td").tEl(cuser.Username)) //Username
+              .append(cEl("td").tEl(cuser.Points)) //Points
+              .append(cEl("td").tEl(getOverAllForm(cuser))) //Level
+              .append(cEl("td").tEl(getUserForm(cuser))); //Form
+            console.log(cuser);
+        }
+        else if (id === "uTbl" && i === -1) {
+            continue;
+        }
+        else{
+        
 
+        favClass = favIds.indexOf(objs[i].Username) > -1 ? "icon-star-1" : "icon-star-empty-1";
+        rowClass = objs[i].Username === cuser.Username ? "self" : "regular";
+        favRow = cEl("tr").attr("class", rowClass).listener("click", expandMyDetails);
         favRow.append(cEl("td").append(cEl("i").wr({ uname: objs[i].Username }).attr("class", favClass + " lbFav").listener("click", toggleFavorite))) //Favorite Star
               .append(cEl("td").tEl(objs[i].Rank)) //Rank
               .append(cEl("td").tEl(objs[i].Username)) //Username
               .append(cEl("td").tEl(objs[i].Points)) //Points
               .append(cEl("td").tEl(getOverAllForm(objs[i]))) //Level
               .append(cEl("td").tEl(getUserForm(objs[i]))); //Form
-              
+        }     
 
         //tBody.append(genSingleMatchRow(matches[j]));
         tBody.append(favRow);
-
+        
     }
 
     mainTag.append(tHead);
@@ -223,6 +243,12 @@ function pageToSelf(opt) {
             break;
         case "c":
             var own = document.getElementsByClassName("self")[0];
+            if (own) {
+                var pos = own.childNodes[0].innerText;
+                pages[0].childNodes[Math.floor(pos / 100) + 1].childNodes[0].click();
+            }
+            break;
+            case "l": var own = document.getElementsByClassName("leader")[0];
             if (own) {
                 var pos = own.childNodes[0].innerText;
                 pages[0].childNodes[Math.floor(pos / 100) + 1].childNodes[0].click();
