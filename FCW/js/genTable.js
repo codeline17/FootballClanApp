@@ -226,7 +226,7 @@ function genClanTable(e) {
 
         
 
-    tBody.append(row).append(row2);
+    tBody.append(row);
     }
         
     mainTag.appendChild(tHead);
