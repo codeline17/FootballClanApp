@@ -12,6 +12,8 @@
     width: 50%;
     display: inline-block;
     padding:10px;
+    padding-right: 20px;
+    padding-left: 20px;
 }
 .profile-form{
     width: 100%;
@@ -1486,6 +1488,7 @@ i.contact {
     z-index: 1;
     display: block;
     border-top:none;
+     
 }
 .tabs-top.tab-container .panel-container p {
     margin: 0;
@@ -2655,7 +2658,7 @@ select {
 /*	RESPONSIVE
 /*-----------------------------------------------------------------------------------*/
 @media (min-width: 1140px) { 
-    #myDetails-Menu,#clanDetails-menu,#balls,.mobile-logOut{
+    #myDetails-Menu,#clanDetails-menu,#balls,.mobile-logOut,#refreshPage{
         display:none;
     }
     .profile-el span{
@@ -3283,7 +3286,7 @@ h4#memberModalLabel{
         border-top:1px solid;
         color:white;
         font-size:10px;
-        margin-top:45px;
+        margin-top:15px;
     }
     .details-username{
         float:left;

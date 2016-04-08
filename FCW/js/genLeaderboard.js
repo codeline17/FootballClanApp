@@ -37,8 +37,8 @@ function genLbUserTable(objs, id) {
     mainTag.className = "table table-hover";
 
     //Header
-    var head = [{ Title: "Fav", Text: "Fav" }, { Title: "Rank", Text: "#" }, { Title: "Username", Text: "User" },
-                { Title: "Points", Text: "Pts" }, { Title: "Level", Text: "Lvl" }, { Title: "Form", Text: "Form" }];
+    var head = [{ Title: "Fav", Text: "Fav" }, { Title: "Rank", Text: "Rank" }, { Title: "Username", Text: "User" },
+                { Title: "Points", Text: "Pts" }]; //, { Title: "Level", Text: "Lvl" }, { Title: "Form", Text: "Form" }
     var tHead = document.createElement("thead");
     var hRow = document.createElement("tr");
     for (i = 0; i < head.length; i++) {
@@ -55,36 +55,91 @@ function genLbUserTable(objs, id) {
         var favClass ="icon-star-1";
         var rowClass ="";
         var favRow = "";
+        var form;
+        var row1;
+        var rowtd;
+        var row3;
+        var football;
+
+
         if (id === "fTbl" && i === -1) {
             rowClass = "self";
-            favRow = cEl("tr").attr("class", rowClass);
+            football = cuser.Credit2;
+            form = genProgressBar(getUserForm(cuser)).attr("style", "display: inline-block;width: 80%;margin-bottom:0px;");
+            row1 = cEl("tr").attr("class", "profile-hidden");
+            rowtd = cEl("td").attr("colspan", "4");
+            row3 = cEl("div").attr("class", "row-fluid")
+                .append(cEl("div").attr("class", "profile-el").tEl("Level: ").append(cEl("span").attr("class", "total-points label-warning").tEl(getOverAllForm(cuser))))
+                       .append(cEl("div").attr("class", "profile-el").tEl("White Balls: "+football)).append(cEl("div").attr("class", "profile-form").tEl("Form: ").append(form));
+
+
+            favRow = cEl("tr").attr("class", rowClass).listener("click", showFavoritesProfile);
             favRow.append(cEl("td").append(cEl("i").attr("class", favClass + " lbFav").listener("click", toggleFavorite))) //Favorite Star
               .append(cEl("td").tEl(cuser.Rank)) //Rank
               .append(cEl("td").tEl(cuser.Username)) //Username
-              .append(cEl("td").tEl(cuser.Points)) //Points
-              .append(cEl("td").tEl(getOverAllForm(cuser))) //Level
-              .append(cEl("td").tEl(getUserForm(cuser))); //Form
-            console.log(cuser);
+              .append(cEl("td").tEl(cuser.Points)); //Points
+              //.append(cEl("td").tEl(getOverAllForm(cuser))) //Level
+            //.append(cEl("td").tEl(getUserForm(cuser))); //Form
+            rowtd.append(row3);
+            row1.append(rowtd);
+            favRow.append(row1);
         }
         else if (id === "uTbl" && i === -1) {
             continue;
         }
-        else{
+        else if (id === "uTbl" && i !=-1) {
         
-
+        football = objs[i].Credit2;
         favClass = favIds.indexOf(objs[i].Username) > -1 ? "icon-star-1" : "icon-star-empty-1";
         rowClass = objs[i].Username === cuser.Username ? "self" : "regular";
-        favRow = cEl("tr").attr("class", rowClass).listener("click", expandMyDetails);
+
+        form = genProgressBar(getUserForm(objs[i])).attr("style", "display: inline-block;width: 80%;margin-bottom:0px;");
+        
+        row1 = cEl("tr").attr("class", "profile-hidden");
+        rowtd = cEl("td").attr("colspan", "4");
+        row3 = cEl("div").attr("class", "row-fluid")
+            .append(cEl("div").attr("class", "profile-el").tEl("Level: ").append(cEl("span").attr("class", "total-points label-warning").tEl(getOverAllForm(objs[i]))))
+                   .append(cEl("div").attr("class", "profile-el").tEl("White Balls: "+football)).append(cEl("div").attr("class", "profile-form").tEl("Form: ").append(form));
+
+        favRow = cEl("tr").attr("class", rowClass).listener("click", showGlobalProfile);
         favRow.append(cEl("td").append(cEl("i").wr({ uname: objs[i].Username }).attr("class", favClass + " lbFav").listener("click", toggleFavorite))) //Favorite Star
               .append(cEl("td").tEl(objs[i].Rank)) //Rank
               .append(cEl("td").tEl(objs[i].Username)) //Username
-              .append(cEl("td").tEl(objs[i].Points)) //Points
-              .append(cEl("td").tEl(getOverAllForm(objs[i]))) //Level
-              .append(cEl("td").tEl(getUserForm(objs[i]))); //Form
-        }     
+              .append(cEl("td").tEl(objs[i].Points)); //Points
+              //.append(cEl("td").tEl(getOverAllForm(objs[i]))) //Level
+            //.append(cEl("td").tEl(getUserForm(objs[i]))); //Form
+
+            rowtd.append(row3);
+            row1.append(rowtd);
+        }
+        else if (id === "fTbl" && i != -1) {
+
+            football = objs[i].Credit2;
+            favClass = favIds.indexOf(objs[i].Username) > -1 ? "icon-star-1" : "icon-star-empty-1";
+            rowClass = objs[i].Username === cuser.Username ? "self" : "regular";
+
+            form = genProgressBar(getUserForm(objs[i])).attr("style", "display: inline-block;width: 80%;margin-bottom:0px;");
+
+            row1 = cEl("tr").attr("class", "profile-hidden");
+            rowtd = cEl("td").attr("colspan", "4");
+            row3 = cEl("div").attr("class", "row-fluid")
+                .append(cEl("div").attr("class", "profile-el").tEl("Level: ").append(cEl("span").attr("class", "total-points label-warning").tEl(getOverAllForm(objs[i]))))
+                       .append(cEl("div").attr("class", "profile-el").tEl("White Balls: " + football)).append(cEl("div").attr("class", "profile-form").tEl("Form: ").append(form));
+
+            favRow = cEl("tr").attr("class", rowClass).listener("click", showFavoritesProfile);
+            favRow.append(cEl("td").append(cEl("i").wr({ uname: objs[i].Username }).attr("class", favClass + " lbFav").listener("click", toggleFavorite))) //Favorite Star
+                  .append(cEl("td").tEl(objs[i].Rank)) //Rank
+                  .append(cEl("td").tEl(objs[i].Username)) //Username
+                  .append(cEl("td").tEl(objs[i].Points)); //Points
+            //.append(cEl("td").tEl(getOverAllForm(objs[i]))) //Level
+            //.append(cEl("td").tEl(getUserForm(objs[i]))); //Form
+
+            rowtd.append(row3);
+            row1.append(rowtd);
+        }
 
         //tBody.append(genSingleMatchRow(matches[j]));
-        tBody.append(favRow);
+        tBody.append(favRow).append(row1);
         
     }
 
@@ -114,14 +169,37 @@ function genLbClanTable(objs, id) {
 
 
     for (i = 0; i < objs.length; i++) {
+        var avg = objs[i].Points / objs[i].UserCount;
+        avg = avg.toFixed(2);
         var rowClass = objs[i].Name === cuser.NameOfClan ? "self" : "regular";
-
-        var favRow = cEl("tr").attr("class", rowClass);
+        var row2 = cEl("tr").attr("class", "profile-hidden");
+        var leader = cEl("div").attr("class", "pull-left").tEl("Leader : ");
+        var leaderName = cEl("div").attr("class", "pull-right").tEl(objs[i].Leader);
+        var users = cEl("div").attr("class", "pull-left").tEl("Users : ");
+        var userCnt = cEl("div").attr("class", "pull-right").tEl(objs[i].UserCount + "/11");
+        var trophies = cEl("div").attr("class", "pull-left").tEl("Trophies : ");
+        var trophiesNr = cEl("div").attr("class", "pull-right").tEl(objs[i].Trophies.length);
+        var clan = cEl("div").attr("class", "pull-left").tEl("Clan avg : ");
+        var clanavg = cEl("div").attr("class", "pull-right").tEl(avg);
+        var row3 = cEl("div").attr("class","row-fluid")
+                    .append(cEl("div").attr("class", "profile-el").append(leader).append(leaderName))
+                    .append(cEl("div").attr("class", "profile-el").append(clan).append(clanavg))
+                    .append(cEl("div").attr("class", "profile-el").append(users).append(userCnt))
+                    .append(cEl("div").attr("class", "profile-el").append(trophies).append(trophiesNr))
+                    ;
+        var td = cEl("td").attr("colspan", "3").append(row3);
+        row2.append(td);
+        var favRow = cEl("tr").attr("class", rowClass).listener("click",showClanProfile);
         favRow.append(cEl("td").tEl(objs[i].Rank)) //Rank
             .append(cEl("td").tEl(objs[i].Name)) //Clan Name
             .append(cEl("td").tEl(objs[i].Points)); //Points
+        
 
-        tBody.append(favRow);
+
+
+
+        tBody.append(favRow).append(row2);
+        console.log(objs[i]);
     }
 
     mainTag.append(tHead);
@@ -259,4 +337,76 @@ function pageToSelf(opt) {
 
 function isHidden(el) {
     return (el.style.display === "none");
+}
+
+function showFavoritesProfile(){
+    var index = this.rowIndex + 1;
+    var tabela = document.getElementById("fTbl");
+    var length = tabela.rows.length;
+
+    if (tabela.rows.item(index).className != "profile-show") {
+        for (var i = 0; i < length; i += 2) {
+            if (i === this.rowIndex) { }
+            else {
+                if (i == 0) {
+                    tabela.rows.item(i).className = "profile-show";
+                } else {
+                    tabela.rows.item(i).className = "profile-hidden";
+                }
+            }
+        }
+    }
+    if (tabela.rows.item(index).className === "profile-show") {
+        tabela.rows.item(index).className = "profile-hidden";
+    } else {
+        tabela.rows.item(index).className = "profile-show";
+    }
+}
+function showGlobalProfile() {
+    
+    var index = this.rowIndex + 1;
+    var tabela = document.getElementById("uTbl");
+    var length = tabela.rows.length;
+
+    if (tabela.rows.item(index).className != "profile-show") {
+        for (var i = 0; i < length; i += 2) {
+            if (i === this.rowIndex) { }
+            else {
+                if (i == 0) {
+                    tabela.rows.item(i).className = "profile-show";
+                } else {
+                    tabela.rows.item(i).className = "profile-hidden";
+                }
+            }
+        }
+    }
+    if (tabela.rows.item(index).className === "profile-show") {
+        tabela.rows.item(index).className = "profile-hidden";
+    } else {
+        tabela.rows.item(index).className = "profile-show";
+    }
+}
+function showClanProfile() {
+
+    var index = this.rowIndex + 1;
+    var tabela = document.getElementById("cTbl");
+    var length = tabela.rows.length;
+
+    if (tabela.rows.item(index).className != "profile-show") {
+        for (var i = 0; i < length; i += 2) {
+            if (i === this.rowIndex) { }
+            else {
+                if (i == 0) {
+                    tabela.rows.item(i).className = "profile-show";
+                } else {
+                    tabela.rows.item(i).className = "profile-hidden";
+                }
+            }
+        }
+    }
+    if (tabela.rows.item(index).className === "profile-show") {
+        tabela.rows.item(index).className = "profile-hidden";
+    } else {
+        tabela.rows.item(index).className = "profile-show";
+    }
 }

@@ -188,7 +188,7 @@ function genClanTable(e) {
         var form = getUserForm(e.Users[j]);
         var form1 = genProgressBar(form).attr("style", "display: inline-block;width: 80%;margin-bottom:0px;");
         var level = getOverAllForm(e.Users[j]);
-        var row2 = cEl("tr");
+        var row2 = cEl("tr").attr("class","profile-hidden");
 
         row3 = cEl("td").attr("colspan", "3").append(cEl("div").attr("class", "row-fluid")
                 .append(cEl("div").attr("class", "profile-el").tEl("Level: ").append(cEl("span").attr("class", "total-points label-warning").tEl(level)))
@@ -196,7 +196,7 @@ function genClanTable(e) {
 
         row2.append(row3);
 
-        var row = cEl("tr").append(cEl("td").tEl(e.Users[j].Username)).append(cEl("td").tEl(e.Users[j].Rank)).append(cEl("td").tEl(e.Users[j].Points));//.listener("click", showProfileClan)
+        var row = cEl("tr").listener("click", showProfileClan).append(cEl("td").tEl(e.Users[j].Username)).append(cEl("td").tEl(e.Users[j].Rank)).append(cEl("td").tEl(e.Users[j].Points));
 
         //.append(cEl("td").tEl(e.Users[j].InClanSince));
         row.className = e.Users[j].Username === e.Leader ? "leader" : "";
@@ -226,7 +226,7 @@ function genClanTable(e) {
 
         
 
-    tBody.append(row);
+    tBody.append(row).append(row2);
     }
         
     mainTag.appendChild(tHead);
@@ -236,10 +236,11 @@ function genClanTable(e) {
 }
 
 
-/*function showProfileClan() {
+function showProfileClan() {
     var index = this.rowIndex + 1;
     var tabela = document.getElementById("clan-table");
     var length = tabela.rows.length;
+    
 
     if (tabela.rows.item(index).className != "profile-show") {
         for (var i = 0; i < length; i += 2) {
@@ -257,6 +258,6 @@ function genClanTable(e) {
         tabela.rows.item(index).className = "profile-hidden";
     } else {
         tabela.rows.item(index).className = "profile-show";
-        tabela.rows.item(index).cell.attr("style","display:inline-block!important");
+        //tabela.rows.item(index).cell.attr("style","display:inline-block!important");
     }
-}*/
+}

@@ -96,7 +96,7 @@ function genUnlocks() {
     var rootElement = cEl("div").attr("class", "pricing row-fluid");
 
     for (var i = 0; i < unlocks.length; i++) {
-        console.log(unlocks[i]);
+        
         rootElement.append(genSingleUnlockElement(unlocks[i].Name, unlocks[i].ExpiresOn));
     }
 
@@ -284,7 +284,7 @@ function genGrid(matches, date) {
     if (date !== "nope") {
          pEl = cEl("h3").tEl(date + " - " + totPoints + " pts").attr("style","text-align:center;");
     } else {
-        pEl = cEl("h3").attr("class","todays").tEl("Today - " + totPoints + " points").attr("style", "text-align:center;");
+        pEl = cEl("h3").attr("class", "todays").tEl("Today - " + totPoints + " points").attr("style", "text-align:center;").append(cEl("img").attr("src", "style/images/reload.png").attr("width", "35px").listener("click", refreshFunction));
     }
 
     rFluid.append(pEl);
@@ -374,4 +374,7 @@ function createPanel(title) {
     panel.appendChild(panelBody);
 
     return panel;
+}
+function refreshFunction() {
+    window.location.reload();
 }

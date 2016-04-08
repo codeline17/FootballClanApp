@@ -100,11 +100,15 @@ function getMenuInfo() {
          var totalpoints = cEl("div").attr("class", "tp-menu").append(cEl("div").attr("class", "title-menu").tEl("POINTS :")).append(cEl("div").attr("class", "total-points").tEl(points));//total points : piket
          var level = cEl("div").attr("class", "lvl-menu").append(cEl("div").attr("class", "title-menu").tEl("LEVEL :")).append(cEl("span").attr("class", "total-points label-warning").tEl(overallBadge)); // niveli
          var globalrank = cEl("div").attr("class", "rank-menu").append(cEl("div").attr("class", "title-menu").tEl("GLOBAL RANK :")).append(cEl("div").attr("class", "total-points").tEl(rank)); //global rank
+         var refresh = document.getElementById("refreshPage");
          
+         refresh.innerHTML = "";
+         refresh.appendChild(cEl("img").attr("src", "style/images/reload.png").attr("width", "35px")).addEventListener("click", function () { window.location.reload(); });
           
          getPreds();
          getClans();
-         testisfirstlogin();
+
+         
          
       
 

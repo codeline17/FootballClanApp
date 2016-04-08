@@ -69,7 +69,7 @@ function genChat() {
 
     //appends
     tabGroup.append(tabContainer);
-    mainC.appendChild(tabGroup);
+    mainC.appendChild(tabGroup).appendChild(cEl("a").attr("href","#").attr("id","scroll-to-top-msg").tEl("Scroll to top"));
 
     scrolltoend();
 }
@@ -132,7 +132,6 @@ function genMessageArea(m) {
     var messhead = cEl("div").attr("class", "message-head clearfix");
     var avatar = cEl("div").attr("class", "avatar pull-left").append(cEl("img").attr("class", "chatimg").attr("src", "https://ssl.gstatic.com/accounts/ui/avatar_2x.png"));
     var userdetails = cEl("div").attr("class", "user-detail").append(cEl("h5").tEl(m.From)).append(cEl("div").attr("class", "pull-right").tEl(m.TimeStamp));
-
     messhead.append(avatar).append(userdetails);
     innercont.append(messhead).tEl(m.Message);
     outcont.append(innercont);
