@@ -136,7 +136,7 @@ function switchCTab(e) {
 }
 
 function genLeaveClanBtn() {
-    return cEl("div").attr("class", "row-fluid").append(cEl("div").attr("class", "span4 offset8").append(cEl("a").attr("class", "btn btn-orange pull-left leave-clan leave-clanBtn").listener("click", removeMember).tEl("Leave Clan")).append(cEl("a").attr("class", "btn btn-orange pull-right").listener("click", manageClan).tEl("Manage Clan")));
+    return cEl("div").attr("class", "row-fluid").append(cEl("div").attr("class", "span4 offset8").append(cEl("a").attr("class", "btn btn-orange pull-left leave-clan leave-clanBtn").attr("cel-uname",cuser.Username).listener("click", removeMember).tEl("Leave Clan")).append(cEl("a").attr("class", "btn btn-orange pull-right").listener("click", manageClan).tEl("Manage Clan")));
 }
 
 function genClanHeader(c) {
@@ -308,7 +308,8 @@ function approveMember(e) {
 }
 
 function removeMember(e) {
-    $.post("Actions/User.aspx", { type: "RMUC", name: cuser.Username, clanName: cuser.NameOfClan },
+    var uname = e.target.getAttribute("cel-uname");
+    $.post("Actions/User.aspx", { type: "RMUC", name: uname, clanName: cuser.NameOfClan },
         function (c) {
             console.log(c);
             if (c === "1") {
