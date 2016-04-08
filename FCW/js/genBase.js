@@ -179,7 +179,7 @@ function buyActions(e) {
         function (r) {
             cuser.Username
             if (r.length > 5) {
-                window.open("https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=" + buttonId + "&custom=" + r, "_blank");
+                window.location.href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=" + buttonId + "&custom=" + r;
             }
         });
 }

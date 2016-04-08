@@ -575,3 +575,15 @@ div.chatcontainer {
 #ixinput3{
     margin-top: 20px;
 }
+#RemoveRequest{
+    margin-top:20px;
+    float: right;
+    padding:5px;
+    width:150px;
+    line-height:30px;
+    background:rgba(255, 69, 0, 0.81);
+    border-radius:5px;
+    text-align:center;
+    color:white;
+    cursor:pointer;
+}

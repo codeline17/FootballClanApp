@@ -65,6 +65,10 @@ function genLbUserTable(objs, id) {
         if (id === "fTbl" && i === -1) {
             rowClass = "self";
             football = cuser.Credit2;
+            var cusername = cuser.Username;
+            if (cusername.length > 10) {
+                cusername = cusername.substr(0, 8)+"...";
+            }
             form = genProgressBar(getUserForm(cuser)).attr("style", "display: inline-block;width: 80%;margin-bottom:0px;");
             row1 = cEl("tr").attr("class", "profile-hidden");
             rowtd = cEl("td").attr("colspan", "4");
@@ -76,7 +80,7 @@ function genLbUserTable(objs, id) {
             favRow = cEl("tr").attr("class", rowClass).listener("click", showFavoritesProfile);
             favRow.append(cEl("td").append(cEl("i").attr("class", favClass + " lbFav").listener("click", toggleFavorite))) //Favorite Star
               .append(cEl("td").tEl(cuser.Rank)) //Rank
-              .append(cEl("td").tEl(cuser.Username)) //Username
+              .append(cEl("td").tEl(cusername)) //Username
               .append(cEl("td").tEl(cuser.Points)); //Points
               //.append(cEl("td").tEl(getOverAllForm(cuser))) //Level
             //.append(cEl("td").tEl(getUserForm(cuser))); //Form
@@ -88,7 +92,10 @@ function genLbUserTable(objs, id) {
             continue;
         }
         else if (id === "uTbl" && i !=-1) {
-        
+            var objusername = objs[i].Username;
+            if (objusername.length > 10) {
+                objusername = objusername.substr(0, 8) + "...";
+            }
         football = objs[i].Credit2;
         favClass = favIds.indexOf(objs[i].Username) > -1 ? "icon-star-1" : "icon-star-empty-1";
         rowClass = objs[i].Username === cuser.Username ? "self" : "regular";
@@ -104,7 +111,7 @@ function genLbUserTable(objs, id) {
         favRow = cEl("tr").attr("class", rowClass).listener("click", showGlobalProfile);
         favRow.append(cEl("td").append(cEl("i").wr({ uname: objs[i].Username }).attr("class", favClass + " lbFav").listener("click", toggleFavorite))) //Favorite Star
               .append(cEl("td").tEl(objs[i].Rank)) //Rank
-              .append(cEl("td").tEl(objs[i].Username)) //Username
+              .append(cEl("td").tEl(objusername)) //Username
               .append(cEl("td").tEl(objs[i].Points)); //Points
               //.append(cEl("td").tEl(getOverAllForm(objs[i]))) //Level
             //.append(cEl("td").tEl(getUserForm(objs[i]))); //Form
@@ -113,7 +120,10 @@ function genLbUserTable(objs, id) {
             row1.append(rowtd);
         }
         else if (id === "fTbl" && i != -1) {
-
+            var objusername = objs[i].Username;
+            if (objusername.length > 10) {
+                objusername = objusername.substr(0, 8)+"...";
+            }
             football = objs[i].Credit2;
             favClass = favIds.indexOf(objs[i].Username) > -1 ? "icon-star-1" : "icon-star-empty-1";
             rowClass = objs[i].Username === cuser.Username ? "self" : "regular";
@@ -129,7 +139,7 @@ function genLbUserTable(objs, id) {
             favRow = cEl("tr").attr("class", rowClass).listener("click", showFavoritesProfile);
             favRow.append(cEl("td").append(cEl("i").wr({ uname: objs[i].Username }).attr("class", favClass + " lbFav").listener("click", toggleFavorite))) //Favorite Star
                   .append(cEl("td").tEl(objs[i].Rank)) //Rank
-                  .append(cEl("td").tEl(objs[i].Username)) //Username
+                  .append(cEl("td").tEl(objusername)) //Username
                   .append(cEl("td").tEl(objs[i].Points)); //Points
             //.append(cEl("td").tEl(getOverAllForm(objs[i]))) //Level
             //.append(cEl("td").tEl(getUserForm(objs[i]))); //Form
