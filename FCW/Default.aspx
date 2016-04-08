@@ -80,6 +80,7 @@
                     <a class="meanclose"><i class="icon-basket icn"></i> My Store</a>
                 </li>
             </ul>
+            <div id="refreshPage"></div>
             <div id="myDetails-Menu">
                 
             </div>

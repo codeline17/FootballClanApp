@@ -71,7 +71,13 @@ function genClans() {
               /****************************/
 
           } else if (e.ClanId === -1) {
-              mainC.append(cEl("div").attr("class","alert").tEl("You are waiting to be approved to join a clan."));
+              mainC.append(cEl("div").attr("class", "alert").tEl("You are waiting to be approved to join a clan.")).append(cEl("a").attr("href", "#").attr("id","RemoveRequest").tEl("Remove Request").listener("click", function () {
+                  $.post("Actions/User.aspx", { type: "RMUC", name: cuser.Username, clanName: cuser.NameOfClan },
+                    function (c) {
+                        
+             });
+                  window.location.reload();
+              }));
           } else { //InClan : Show ClanDetails
               $.post("Actions/User.aspx", { type: "CDL", id: e.ClanId },
                   function (c) {

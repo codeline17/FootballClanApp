@@ -6,7 +6,7 @@ function genSingleUnlockElement(name, expirydate) {
 
     switch (name) {
         case "U/O":
-            gName = "UNDER/OVER";
+            gName = "2 GOALS -- / 3 GOALS ++";
             itemPrice = 30;
             break;
         case "TG":

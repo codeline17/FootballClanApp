@@ -104,7 +104,7 @@ function genLeagueTable(n,u) {
         }
         var tdUsername = cEl("td").tEl(u[i].Username ? u[i].Username : u[i].Name);
         var tdPoints = cEl("td").tEl(u[i].Points);
-        var row = cEl("tr").append(tdRang).append(tdUsername).append(tdPoints);//.listener("click", showProfile)
+        var row = cEl("tr").append(tdRang).append(tdUsername).append(tdPoints).listener("click", showProfile);
         var level = getOverAllForm(u[i]);//level
         var form = getUserForm(u[i]);//form
         var form1 = genProgressBar(form).attr("style", "display: inline-block;width: 80%;margin-bottom:0px;");
@@ -154,27 +154,27 @@ function switchTabs(e) {
 
     this.className = "tab active";
 }
-//function showProfile() {
+function showProfile() {
     
-   // var index = this.rowIndex + 1;
-  //  var tabela = document.getElementById("livescore-table");
-  //  var length = tabela.rows.length;
+    var index = this.rowIndex + 1;
+    var tabela = document.getElementById("livescore-table");
+    var length = tabela.rows.length;
     
-  //  if (tabela.rows.item(index).className != "profile-show") {
-    //    for (var i = 0; i < length; i += 2) {
-   //         if (i === this.rowIndex) { }
-   //         else {
-   //             if (i == 0) {
-   //                 tabela.rows.item(i).className = "profile-show";
-    //            } else {
-     //               tabela.rows.item(i).className = "profile-hidden";
-     //           }
-     //       }
-    //    }
-   // }
-  //  if (tabela.rows.item(index).className === "profile-show") {
- //       tabela.rows.item(index).className = "profile-hidden";
- //   } else {
- //       tabela.rows.item(index).className = "profile-show";
-//    }
-//}
+    if (tabela.rows.item(index).className != "profile-show") {
+        for (var i = 0; i < length; i += 2) {
+            if (i === this.rowIndex) { }
+            else {
+                if (i == 0) {
+                    tabela.rows.item(i).className = "profile-show";
+                } else {
+                    tabela.rows.item(i).className = "profile-hidden";
+                }
+            }
+        }
+    }
+    if (tabela.rows.item(index).className === "profile-show") {
+        tabela.rows.item(index).className = "profile-hidden";
+    } else {
+        tabela.rows.item(index).className = "profile-show";
+    }
+}
