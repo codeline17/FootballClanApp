@@ -308,7 +308,6 @@ function approveMember(e) {
 }
 
 function removeMember(e) {
-    var uname = e.target.getAttribute("cel-uname");
     $.post("Actions/User.aspx", { type: "RMUC", name: cuser.Username, clanName: cuser.NameOfClan },
         function (c) {
             console.log(c);

@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FCWAdmin", "FCWAdmin\FCWAdm
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentCallback", "PaymentCallback\PaymentCallback.csproj", "{9B1511CB-CB28-4370-BC19-60D0614EC862}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samwise", "..\Samwise\Samwise\Samwise.csproj", "{B72CF1DC-6A3F-490F-9578-81832721FA4B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{9B1511CB-CB28-4370-BC19-60D0614EC862}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9B1511CB-CB28-4370-BC19-60D0614EC862}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9B1511CB-CB28-4370-BC19-60D0614EC862}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B72CF1DC-6A3F-490F-9578-81832721FA4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B72CF1DC-6A3F-490F-9578-81832721FA4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B72CF1DC-6A3F-490F-9578-81832721FA4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B72CF1DC-6A3F-490F-9578-81832721FA4B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
