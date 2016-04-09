@@ -11,6 +11,7 @@ function refreshCurrentTab() {
 }
 
 function getChat(parse, chatroomid) {
+    console.log(cuser.ChatroomId);
     var focus;
     $.post("Actions/User.aspx", { type: "CHT" },
         function (e) {
@@ -60,7 +61,7 @@ function genChat() {
     //Set Refresh Interval
     currentChatroomId = cuser.Chatrooms[0].Id;
     console.log(currentChatroomId);
-    chatRefreshInterval = setInterval(refreshCurrentTab, 1000);
+    chatRefreshInterval = setInterval(refreshCurrentTab, 10000);
 
     tabContainer.append(globalTab);
 
