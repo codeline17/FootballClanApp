@@ -98,8 +98,8 @@ function genEditDetailsTab() {
     var pwds = cEl("p").append(
                     cEl("h5").tEl("Change your password"))
                     .append(cEl("label").tEl("E-mail : " + cuser.UserDetails.Email))
-                    .append(cEl("input").attr("type", "text").attr("class", "form-control").attr("id", "nBday").attr("placeholder", "Birthday (dd/mm/yyyy)").attr("value",cuser.Birthday))
-                    .append(cEl("input").attr("type", "text").attr("class", "form-control").attr("id", "nAddress").attr("placeholder", "Address").attr("value",cuser.UserDetails.Address))
+                    .append(cEl("input").attr("type", "date").attr("class", "form-control").attr("id", "nBday").attr("placeholder", "Birthday (dd/mm/yyyy)").attr("value",cuser.Birthday))
+                    .append(cEl("input").attr("type", "text").attr("class", "form-control").attr("id", "nAddress").attr("placeholder", "City").attr("value",cuser.UserDetails.Address))
                     .append(cEl("input").attr("type", "password").attr("class", "form-control").attr("id", "nPwd").attr("placeholder", "Change password"))
                     .append(cEl("input").attr("type", "password").attr("class", "form-control").attr("id", "nPwdRepeat").attr("placeholder", "Repeat new password"));
 
