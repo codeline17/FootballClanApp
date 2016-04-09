@@ -175,7 +175,7 @@
         <p>competition period reflect in the competition points ranking of a single user, whereas all</p>
         <p>individually accumulated points of users in a clan for the competition period reflect the clan</p>
         <p>competition points ranking. There are different kind of competitions for more please see</p>
-        <p>information about competitions on Leagues menu on our website.</p>
+        <p>information about competitions on Competitions menu on our website.</p>
         <p>If users tie in points during a competition there is an automatic formula calculating the winner</p>
         <p>and all users must accept FootballClans decision as final.</p>
         <h5>Managing &lsquo;My Details&rsquo;</h5>
@@ -193,7 +193,7 @@
         <p>Clan Rank: is the global rank of the clan you are registered to.</p>
         <p>Favourites: is a tab where users direcrtly compete with their favourite friends. Users must find</p>
         <p>their friends in the global rank and STAR them so that htey appear in the Favpurites tab.</p>
-        <p>Trophies: is a Trophy closet filled with trophies of different leagues user win during their playing</p>
+        <p>Trophies: is a Trophy closet filled with trophies of different competitions user win during their playing</p>
     </script>
 
     <script id="TermsAndConditionsLiteral" type="text/plain">
@@ -205,7 +205,7 @@
             <li>No purchase of any item or service is necessary in order to enter the Game and no payment is required from you to enter the Game. The sole consideration required from you is that you agree to be bound by these terms and conditions and by the Game Rules as defined below at terms 10-11.</li>
             <li>Entries must not be submitted by agents or third parties. No responsibility can be accepted for lost, delayed or incomplete entries or entries not received by FootballClans for any reason. Any such entries will be deemed void.</li>
             <li>While there is no limit on the number of entries per household or organization only one entry in respect of the Game per unique registered user of the Site is permitted.</li>
-            <li>FootballClans reserves the right to suspend and delete teams or leagues that contain team names or league names which are deemed to be inappropriate or offensive. Depending on the seriousness of the situation, the user’s account may be deleted in its entirety without notice.</li>
+            <li>FootballClans reserves the right to suspend and delete teams or competations that contain team names or competitions names which are deemed to be inappropriate or offensive. Depending on the seriousness of the situation, the user’s account may be deleted in its entirety without notice.</li>
             <li>Any personal information which you submit will be controlled in accordance with FootballClans privacy policy and legislation governing the same. For the avoidance of doubt, we will not disclose your personal information to any other Player unless we are required to do so by a competent authority or court within the European Union</li>
             <li>All users entering the Game are subject to their accounts being automatically entered into “Free Competitions”. FootballClans may choose to offer a prize to the overall winner/winners of such competitions. The nature of the prizes are to the sole discretion of FootballClans and are explained in competition prizes section of the game. There is no opt-out from a Competition but participation in no way obligates the Player to receive marketing communications from the the game unless otherwise indicated during Registration.</li>
             <li>FootballClans doesn’t condone users setting up/joining private competitions charging for entry and cannot be held responsible for their management or any loss suffered through users’ involvement.</li>
@@ -355,17 +355,17 @@
         <p>Clan 2 -&gt; Smartphone + 100 golden balls</p>
         <p>Clan 1 -&gt; a Wonderful GREEK ISLAND Vacation EXPERIENCE, accommodation + travel + 200</p>
         <p>golden balls</p>
-        <h5>Weekly single league WSL</h5>
-        <p>Usually during Champions League period we will launch intense weekly leagues&hellip; These</p>
-        <p>leagues will last for 7 days and they will dispose prizes as below:</p>
+        <h5>Elite Player Competition</h5>
+        <p>Usually during Champions League period we will launch intense weekly competitions&hellip; These</p>
+        <p>Competitions will last for 7 days and they will dispose prizes as below:</p>
         <p>Position 25 - 16 -&gt; 15 golden balls</p>
         <p>Position 15 &ndash; 11 -&gt; Smartphones Cases + 15 golden balls</p>
         <p>Position 10 &ndash; 6 -&gt; Football Jearsey + 15 golden balls</p>
         <p>Position 5 &ndash; 3 -&gt; Football Shoes + 20 golden balls</p>
         <p>Position 2 -&gt; Smartphone + 25 golden balls</p>
         <p>Position 1 -&gt; Tablet + 35 golden balls</p>
-        <h5>Monthly single league MSL</h5>
-        <p>Every month From August to June there will be a monthly League starting on the 1st of the</p>
+        <h5>Monthly single competitions MSC</h5>
+        <p>Every month From August to June there will be a monthly competitions starting on the 1st of the</p>
         <p>month and ending on the last day of the month.</p>
         <p>People who accumulate most points during this period will win prizes as below:</p>
         <p>Position 40 &ndash; 26 -&gt; 10 golden balls</p>
@@ -376,8 +376,8 @@
         <p>Position 3 -&gt; Smartphone + 35 golden balls</p>
         <p>Position 2 -&gt; Tablet + 40 golden balls</p>
         <p>Position 1 -&gt; Notebook + 50 goldeballs</p>
-        <h5>Season single leagues SSL</h5>
-        <p>Every season starting from 1st of August until 31st of June there will be a season League which</p>
+        <h5>Season single competition SSC</h5>
+        <p>Every season starting from 1st of August until 31st of June there will be a season Competition which</p>
         <p>every user will be automatically registered.</p>
         <p>Whoever accumulates the most points during this period will be winner of the SEASON. The</p>
         <p>Season winner will receive high publicity and will receive a REAL GOLDEN BALL: All other</p>
@@ -394,9 +394,9 @@
         <p>Position 3 -&gt; 2 European Super Cup Final + 150 golden balls</p>
         <p>Position 2 -&gt; 2 Champions League Final Tickets + 175 golden balls</p>
         <p>Position 1 -&gt; a REAL GOLDEN BALL, more than 1.5 KG in Pure Gold + 200 golden balls</p>
-        <p>Clan league prizes</p>
-        <h5>Season clan leagues SSL</h5>
-        <p>This league lasts about 3 months and is a long clan competition for who gets to be the best clan</p>
+        <p>Clan competitions prizes</p>
+        <h5>Season clan competition SSC</h5>
+        <p>This competition lasts about 3 months and is a long clan competition for who gets to be the best clan</p>
         <p>on the Game&hellip; The Points accumulated from all players of the clan will be summed together to</p>
         <p>make clan points&hellip;</p>
         <p>Coalition with your friends in this competition in order to become the best Clan and win fantastic</p>
