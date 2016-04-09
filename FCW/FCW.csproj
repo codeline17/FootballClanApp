@@ -94,6 +94,7 @@
     <Content Include="style\images\avatars\6.png" />
     <Content Include="style\images\avatars\7.png" />
     <Content Include="style\images\avatars\8.png" />
+    <Content Include="style\images\reload.png" />
     <Content Include="style\js\mobileMenu.js" />
     <Content Include="js\prototype.js" />
     <Content Include="js\settings.js" />
@@ -356,7 +357,9 @@
     <Content Include="style\type\fontello.css" />
     <Content Include="style\type\fontello\fontello-social.svg" />
     <Content Include="style\type\fontello\fontello.svg" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Actions\Paypal.aspx.cs">
