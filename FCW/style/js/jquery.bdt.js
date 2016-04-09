@@ -105,7 +105,7 @@
                                             .attr("placeholder", searchFieldText)
                                     )
                             )
-                    )
+                    ).append(cEl("a").attr("id", "search-BtN").attr("style","padding: 5px; width: 100px;line-height: 30px;background: rgba(255, 69, 0, 0.81);border-radius: 5px;text-align: center;color: white;cursor: pointer;").tEl("Search"))
             );
 
             /**
@@ -315,7 +315,7 @@
          * @param tableBody
          */
         function searchTable(tableBody) {
-            $("#search").on("keyup", function () {
+            $("#search-BtN").on("click", function () {
                 $.each(tableBody.find("tr"), function () {
 
                     var text = $(this)
