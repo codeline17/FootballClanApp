@@ -446,10 +446,11 @@ namespace FCW.Actions
                                 )
                             );
                     }
-                    var json = new JavaScriptSerializer().Serialize(r);
+                    var json = new JavaScriptSerializer {MaxJsonLength = 4194304};
+                    var jsonStr = json.Serialize(r);
                     Response.ClearContent();
                     Response.ClearHeaders();
-                    Response.Write(json);
+                    Response.Write(jsonStr);
                 }
             }
         }
