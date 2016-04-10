@@ -357,13 +357,15 @@
         <p>golden balls</p>
         <h5>Elite Player Competition</h5>
         <p>Usually during Champions League period we will launch intense weekly competitions&hellip; These</p>
-        <p>Competitions will last for 7 days and they will dispose prizes as below:</p>
-        <p>Position 25 - 16 -&gt; 15 golden balls</p>
-        <p>Position 15 &ndash; 11 -&gt; Smartphones Cases + 15 golden balls</p>
-        <p>Position 10 &ndash; 6 -&gt; Football Jearsey + 15 golden balls</p>
-        <p>Position 5 &ndash; 3 -&gt; Football Shoes + 20 golden balls</p>
-        <p>Position 2 -&gt; Smartphone + 25 golden balls</p>
-        <p>Position 1 -&gt; Tablet + 35 golden balls</p>
+        <p>Competitions will last for 7 dasy up to 20 Days and they will dispose prizes as below:</p>
+
+        <p>Position 50 - 16 -&gt; 20 golden balls</p>
+        <p>Position 15 &ndash; 11 -&gt; Footballclans T-Shirt + 25 golden balls</p>
+        <p>Position 10 &ndash; 8 -&gt; Smartphone cases + 25 golden balls</p>
+        <p>Position 7 &ndash; 4 -&gt; Barca football jesy  + 25 golden balls</p>
+        <p>Position 3 -&gt; Nike football shoes + 30 golden balls</p>
+        <p>Position 2 -&gt; Smartphone + 30 golden balls</p>
+        <p>Position 1 -&gt; PS4 + 30 golden balls</p>
         <h5>Monthly single competitions MSC</h5>
         <p>Every month From August to June there will be a monthly competitions starting on the 1st of the</p>
         <p>month and ending on the last day of the month.</p>
