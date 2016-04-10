@@ -102,7 +102,7 @@ namespace FCW.Actions
                 }
                 #endregion
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 ReturnError();
             }
@@ -508,13 +508,13 @@ namespace FCW.Actions
                     {
                         r.Add(GetLeagueDetails(Convert.ToInt32(reader["Id"])));
                     }
-
-
-
-                    var json = new JavaScriptSerializer().Serialize(r);
+                    
+                    var json = new JavaScriptSerializer();
+                    json.MaxJsonLength = 4194304;
+                    var jsonStr = json.Serialize(r);
                     Response.ClearContent();
                     Response.ClearHeaders();
-                    Response.Write(json);
+                    Response.Write(jsonStr);
                 }
             }
         }
@@ -682,10 +682,11 @@ namespace FCW.Actions
                             );
                     }
 
-                    var json = new JavaScriptSerializer().Serialize(clans);
+                    var json = new JavaScriptSerializer {MaxJsonLength = 4194304};
+                    var jsonStr = json.Serialize(clans);
                     Response.ClearContent();
                     Response.ClearHeaders();
-                    Response.Write(json);
+                    Response.Write(jsonStr);
                 }
             }
         }
@@ -716,10 +717,11 @@ namespace FCW.Actions
                             );
                     }
 
-                    var json = new JavaScriptSerializer().Serialize(clans);
+                    var json = new JavaScriptSerializer { MaxJsonLength = 4194304 };
+                    var jsonStr = json.Serialize(clans);
                     Response.ClearContent();
                     Response.ClearHeaders();
-                    Response.Write(json);
+                    Response.Write(jsonStr);
                 }
             }
         }

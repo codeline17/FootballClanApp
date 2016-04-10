@@ -331,7 +331,6 @@ function addFilterHead() {
             genLiveScore(getFullDate(dt,0));
         }
     });
-    //$("#predSBtn").click(function () { genPredictions($("#pref-search").text) })
 }
 
 function getFullDate(date, days) {
