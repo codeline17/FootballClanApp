@@ -54,7 +54,7 @@ span.credit {
 }
 
 tr.leader {
-    background: rgba(255, 155, 0, 0.71);
+    background: rgba(239,255,0,0.3);
 }
 
 table#clan-table {
@@ -234,7 +234,7 @@ table.table-hover {
 #livescore-table tbody tr td:first-child, #livescore-table tbody tr td:last-child  {
     text-align:center;
 }
-
+/*
 #livescore-table tbody tr:first-child {
     background-color:rgba(111, 222, 37, 0.26);
 }
@@ -256,7 +256,7 @@ table.table-hover {
 #livescore-table tbody tr:nth-child(n+48):nth-child(-2n+99){
     background-color:rgba(210, 215, 211, 0.68);
 }
-
+    */
 #fTbl thead,#clan-table thead,#livescore-table thead,#uTbl thead,#cTbl thead,#cltable thead{
     background: rgba(0,0,0,0.3);
     color: white;
