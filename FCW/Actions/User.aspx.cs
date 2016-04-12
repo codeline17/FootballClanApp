@@ -494,6 +494,9 @@ namespace FCW.Actions
         }
         private void GetLeagueList(Objects.User user)
         {
+            var details = true;
+            bool.TryParse(Request.Params["details"], out details);
+
             using (var conn = new SqlConnection(_connectionstring))
             {
                 using (var cmd = new SqlCommand("LeaguesGetByUserId", conn))
@@ -507,11 +510,10 @@ namespace FCW.Actions
 
                     while (reader.Read())
                     {
-                        r.Add(GetLeagueDetails(Convert.ToInt32(reader["Id"])));
+                        r.Add(GetLeagueDetails(Convert.ToInt32(reader["Id"]),details));
                     }
-                    
-                    var json = new JavaScriptSerializer();
-                    json.MaxJsonLength = 4194304;
+
+                    var json = new JavaScriptSerializer {MaxJsonLength = 4194304};
                     var jsonStr = json.Serialize(r);
                     Response.ClearContent();
                     Response.ClearHeaders();
@@ -519,7 +521,7 @@ namespace FCW.Actions
                 }
             }
         }
-        private League GetLeagueDetails(int id)
+        private League GetLeagueDetails(int id, bool details = true)
         {
             var league = new League();
 
@@ -538,13 +540,13 @@ namespace FCW.Actions
                         league.Name = reader["Name"].ToString();
                         league.StartDate = Convert.ToDateTime(reader["StartDate"]);
                         league.EndDate = Convert.ToDateTime(reader["EndDate"]);
-                        if (reader["LeagueTypeId"].ToString() == "1")
+                        if (reader["LeagueTypeId"].ToString() == "1" && details)
                         {
                             league.Users.Add(
                                 new Objects.User(reader["PartName"].ToString(),Convert.ToInt32(reader["Points"]), Convert.ToInt32(reader["PRank"]))
                                 );
                         }
-                        else
+                        else if(details)
                         {
                             league.Clans.Add(
                                 new Clan(
@@ -571,12 +573,15 @@ namespace FCW.Actions
         }
         public void RefreshUserDetials(Guid guid)
         {
+            Guid userGuid;
+            Guid.TryParse(Request.Params["userGuid"], out userGuid);
+
             using (var conn = new SqlConnection(_connectionstring))
             {
                 using (var cmd = new SqlCommand("UserGetById", conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@Guid", SqlDbType.UniqueIdentifier).Value = guid;
+                    cmd.Parameters.Add("@Guid", SqlDbType.UniqueIdentifier).Value = userGuid.Equals(Guid.Empty) ? guid : userGuid;
 
                     var gUser = new Objects.User();
                     
@@ -592,12 +597,15 @@ namespace FCW.Actions
                         Convert.ToInt32(reader["lastsspreds"]), Convert.ToInt32(reader["AvatarId"]), Convert.ToInt32(reader["Rank"]),
                         reader["NameOfClan"].ToString(), new Guid(), Convert.ToDateTime(reader["Birthday"]), Convert.ToBoolean(Convert.ToInt32(reader["isFirstLogin"])));
                     }
-                    
-                    _user = gUser;
-                    GetUserChats(_user.Guid);
 
-                    HttpContext.Current.Session["currentUser"] = _user;
-                    Session["currentUser"] = _user;
+                    if (userGuid.Equals(Guid.Empty))
+                    {
+                        _user = gUser;
+                        GetUserChats(_user.Guid);
+
+                        HttpContext.Current.Session["currentUser"] = _user;
+                        Session["currentUser"] = _user;
+                    }
 
                     var json = new JavaScriptSerializer().Serialize(gUser);
                     Response.ClearContent();
