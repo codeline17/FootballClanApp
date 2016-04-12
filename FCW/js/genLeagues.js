@@ -94,6 +94,9 @@ function genLeagueTable(n,u) {
 
     var tBody = document.createElement("tbody");
     for (var i = 0; i < u.length; i++) {
+        if(u[i].Points>0){
+
+        
         var tdRang;
         if (u[i].PreviousLeagueRank > i + 1) {
             tdRang = cEl("td").tEl(i + 1).append(cEl("i").attr("class", "icon-up-dir-1 goneup"));
@@ -102,6 +105,10 @@ function genLeagueTable(n,u) {
         } else {
             tdRang = cEl("td").tEl(i + 1).append(cEl("i").attr("class", "icon-right-dir-1"));
         }
+        if (i < 50) {
+            tdRang.appendChild(cEl("i").attr("class", "icon-trophy gold"));
+        }
+        
         var tdUsername = cEl("td").tEl(u[i].Username ? u[i].Username : u[i].Name);
         var tdPoints = cEl("td").tEl(u[i].Points);
         var row = cEl("tr").append(tdRang).append(tdUsername).append(tdPoints).listener("click", showProfile);
@@ -116,13 +123,14 @@ function genLeagueTable(n,u) {
                 .append(cEl("div").attr("class", "profile-el").tEl("Level: ").append(cEl("span").attr("class", "total-points label-warning").tEl(level)))
                         .append(cEl("div").attr("class", "profile-el").tEl("White Balls: " + footballs)).append(cEl("div").attr("class", "profile-form").tEl("Form: ").append(form1));
         var td1 = cEl("td").attr("colspan","3").append(row3);
-        row2.append(td1);
+        //row2.append(td1);
         
 
         
         row.className = cuser.Username === u[i].Username || cuser.NameOfClan === u[i].Name ? "leader" : "";
-        tBody.append(row).append(row2);
+        tBody.append(row);//.append(row2)
         
+        }
     }
 
     tabTag.appendChild(tHead);
