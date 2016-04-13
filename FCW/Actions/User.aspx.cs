@@ -99,6 +99,9 @@ namespace FCW.Actions
                     case "LDL": //League Details**********************************
                         GetLeagueList(_user);
                         break;
+                    case "LDL2":
+                        GetLeagueList2(_user);
+                        break;
                     case "GLP":
 
                         break;
@@ -523,6 +526,117 @@ namespace FCW.Actions
                     Response.Write(jsonStr);
                 }
             }
+        }
+        private void GetLeagueList2(Objects.User user)
+        {
+            var details = true;
+            bool.TryParse(Request.Params["details"], out details);
+
+            using (var conn = new SqlConnection(_connectionstring))
+            {
+                using (var cmd = new SqlCommand("LeaguesGetByUserId", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@UserGuid", SqlDbType.UniqueIdentifier).Value = user.Guid;
+
+                    var r = new List<League>();
+                    conn.Open();
+                    var reader = cmd.ExecuteReader();
+                    int LeagueType = 0;
+
+                    while (reader.Read())
+                    {
+                        int.TryParse(reader["LeagueTypeId"].ToString(), out LeagueType);
+                        switch (LeagueType)
+                        {
+                            case 1:
+                                r.Add(GetPlayerLeagueDetails(_user.Guid, Convert.ToInt32(reader["Id"])));
+                                break;
+                            case 2:
+                                r.Add(GetClanLeagueDetails(_user.Guid, Convert.ToInt32(reader["Id"])));
+                                break;
+                        }
+                        //r.Add(GetLeagueDetails(Convert.ToInt32(reader["Id"]), details));
+                    }
+
+                    var json = new JavaScriptSerializer { MaxJsonLength = 4194304 };
+                    var jsonStr = json.Serialize(r);
+                    Response.ClearContent();
+                    Response.ClearHeaders();
+                    Response.Write(jsonStr);
+                }
+            }
+        }
+        private League GetClanLeagueDetails(Guid guid, int id)
+        {
+            var league = new League();
+
+            using (var conn = new SqlConnection(_connectionstring))
+            {
+                using (var cmd = new SqlCommand("[LeagueGetByIdPaginationTypeClans]", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@LeagueId", SqlDbType.BigInt).Value = id;
+                    cmd.Parameters.Add("@UserGuid", SqlDbType.UniqueIdentifier).Value = guid;
+                    cmd.Parameters.Add("@PageNumber", SqlDbType.Int).Value = Request.Params["PageNumber"] != null ? Convert.ToInt16(Request.Params["PageNumber"]) : 0;
+                    cmd.Parameters.Add("@PageSize", SqlDbType.Int).Value = Request.Params["PageSize"] != null ? Convert.ToInt16(Request.Params["PageSize"]) : 100;
+
+                    conn.Open();
+                    var reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        league.Name = reader["Name"].ToString();
+                        league.StartDate = Convert.ToDateTime(reader["StartDate"]);
+                        league.EndDate = Convert.ToDateTime(reader["EndDate"]);
+                        league.Page = Convert.ToInt16(reader["Page"]);
+                        league.Clans.Add(
+                                new Clan(
+                                    reader["PartName"].ToString(),
+                                    Convert.ToInt32(reader["Points"]),
+                                    Convert.ToInt32(reader["PRank"]),
+                                    Convert.ToInt32(reader["Image"])
+                                    )
+                                );
+
+                    }
+                }
+            }
+
+            return league;
+        }
+        private League GetPlayerLeagueDetails(Guid guid, int id)
+        {
+            var league = new League();
+
+            using (var conn = new SqlConnection(_connectionstring))
+            {
+                using (var cmd = new SqlCommand("[LeagueGetByIdPaginationTypeClans]", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@LeagueId", SqlDbType.BigInt).Value = id;
+                    cmd.Parameters.Add("@UserGuid", SqlDbType.UniqueIdentifier).Value = guid;
+                    cmd.Parameters.Add("@PageNumber", SqlDbType.Int).Value = Request.Params["PageNumber"] != null ? Convert.ToInt16(Request.Params["PageNumber"]) : 0;
+                    cmd.Parameters.Add("@PageSize", SqlDbType.Int).Value = Request.Params["PageSize"] != null ? Convert.ToInt16(Request.Params["PageSize"]) : 100;
+
+                    conn.Open();
+                    var reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        league.Name = reader["Name"].ToString();
+                        league.StartDate = Convert.ToDateTime(reader["StartDate"]);
+                        league.EndDate = Convert.ToDateTime(reader["EndDate"]);
+                        league.Page = Convert.ToInt16(reader["Page"]);
+                        league.Users.Add(
+                                new Objects.User(reader["PartName"].ToString(), Convert.ToInt32(reader["Points"]), Convert.ToInt32(reader["PRank"]))
+                                );
+
+                    }
+                }
+            }
+
+            return league;
         }
         private League GetLeagueDetails(int id, bool details = true)
         {
