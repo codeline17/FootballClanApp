@@ -99,6 +99,9 @@ namespace FCW.Actions
                     case "LDL": //League Details**********************************
                         GetLeagueList(_user);
                         break;
+                    case "GLP":
+
+                        break;
                 }
                 #endregion
             }
@@ -540,6 +543,7 @@ namespace FCW.Actions
                         league.Name = reader["Name"].ToString();
                         league.StartDate = Convert.ToDateTime(reader["StartDate"]);
                         league.EndDate = Convert.ToDateTime(reader["EndDate"]);
+                        league.Page = Convert.ToInt16(reader["Page"]);
                         if (reader["LeagueTypeId"].ToString() == "1" && details)
                         {
                             league.Users.Add(
