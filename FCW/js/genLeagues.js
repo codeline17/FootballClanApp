@@ -111,7 +111,7 @@ function genLeagueTable(n,u) {
         
         var tdUsername = cEl("td").tEl(u[i].Username ? u[i].Username : u[i].Name);
         var tdPoints = cEl("td").tEl(u[i].Points);
-        var row = cEl("tr").append(tdRang).append(tdUsername).append(tdPoints).listener("click", showProfile);
+            var row = cEl("tr").append(tdRang).append(tdUsername).append(tdPoints);//.listener("click", showProfile);
         var level = getOverAllForm(u[i]);//level
         var form = getUserForm(u[i]);//form
         var form1 = genProgressBar(form).attr("style", "display: inline-block;width: 80%;margin-bottom:0px;");

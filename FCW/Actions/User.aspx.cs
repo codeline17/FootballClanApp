@@ -103,7 +103,7 @@ namespace FCW.Actions
                         GetLeagueList2(_user);
                         break;
                     case "GLP":
-
+                        GetLeaguePage();
                         break;
                 }
                 #endregion
@@ -130,8 +130,20 @@ namespace FCW.Actions
 
             try
             {
-                _user = Session["currentUser"] != null ? (Objects.User) Session["currentUser"] : UserGetByGuid(userguid);
-                r = _user.Guid != null || (_key.Length == Request.Params["safetykey"].Length && _key == Request.Params["safetykey"]);
+                if (Session["currentUser"] != null)
+                {
+                    _user = (Objects.User) Session["currentUser"];
+                    r = true;
+                }
+                else if (_key.Length == Request.Params["safetykey"].Length && _key == Request.Params["safetykey"])
+                {
+                    UserGetByGuid(userguid);
+                    r = true;
+                }
+                else
+                {
+                    r = false;
+                }
             }
             catch (Exception)
             {
@@ -542,18 +554,18 @@ namespace FCW.Actions
                     var r = new List<League>();
                     conn.Open();
                     var reader = cmd.ExecuteReader();
-                    int LeagueType = 0;
 
                     while (reader.Read())
                     {
-                        int.TryParse(reader["LeagueTypeId"].ToString(), out LeagueType);
-                        switch (LeagueType)
+                        var leagueType = 0;
+                        int.TryParse(reader["LeagueTypeId"].ToString(), out leagueType);
+                        switch (leagueType)
                         {
                             case 1:
-                                r.Add(GetPlayerLeagueDetails(_user.Guid, Convert.ToInt32(reader["Id"])));
+                                r.Add(GetPlayerLeagueDetails(_user.Guid, reader["leaguename"].ToString()));
                                 break;
                             case 2:
-                                r.Add(GetClanLeagueDetails(_user.Guid, Convert.ToInt32(reader["Id"])));
+                                r.Add(GetClanLeagueDetails(_user.Guid, reader["leaguename"].ToString()));
                                 break;
                         }
                         //r.Add(GetLeagueDetails(Convert.ToInt32(reader["Id"]), details));
@@ -567,7 +579,7 @@ namespace FCW.Actions
                 }
             }
         }
-        private League GetClanLeagueDetails(Guid guid, int id)
+        private League GetClanLeagueDetails(Guid guid, string name)
         {
             var league = new League();
 
@@ -576,7 +588,7 @@ namespace FCW.Actions
                 using (var cmd = new SqlCommand("[LeagueGetByIdPaginationTypeClans]", conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@LeagueId", SqlDbType.BigInt).Value = id;
+                    cmd.Parameters.Add("@LeagueName", SqlDbType.VarChar, 50).Value = name;
                     cmd.Parameters.Add("@UserGuid", SqlDbType.UniqueIdentifier).Value = guid;
                     cmd.Parameters.Add("@PageNumber", SqlDbType.Int).Value = Request.Params["PageNumber"] != null ? Convert.ToInt16(Request.Params["PageNumber"]) : 0;
                     cmd.Parameters.Add("@PageSize", SqlDbType.Int).Value = Request.Params["PageSize"] != null ? Convert.ToInt16(Request.Params["PageSize"]) : 100;
@@ -605,7 +617,7 @@ namespace FCW.Actions
 
             return league;
         }
-        private League GetPlayerLeagueDetails(Guid guid, int id)
+        private League GetPlayerLeagueDetails(Guid guid, string name)
         {
             var league = new League();
 
@@ -614,7 +626,7 @@ namespace FCW.Actions
                 using (var cmd = new SqlCommand("[LeagueGetByIdPaginationTypeClans]", conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@LeagueId", SqlDbType.BigInt).Value = id;
+                    cmd.Parameters.Add("@LeagueName", SqlDbType.VarChar, 50).Value = name;
                     cmd.Parameters.Add("@UserGuid", SqlDbType.UniqueIdentifier).Value = guid;
                     cmd.Parameters.Add("@PageNumber", SqlDbType.Int).Value = Request.Params["PageNumber"] != null ? Convert.ToInt16(Request.Params["PageNumber"]) : 0;
                     cmd.Parameters.Add("@PageSize", SqlDbType.Int).Value = Request.Params["PageSize"] != null ? Convert.ToInt16(Request.Params["PageSize"]) : 100;
@@ -638,6 +650,11 @@ namespace FCW.Actions
 
             return league;
         }
+        private void GetLeaguePage()
+        {
+            
+        }
+
         private League GetLeagueDetails(int id, bool details = true)
         {
             var league = new League();
@@ -658,7 +675,7 @@ namespace FCW.Actions
                         league.StartDate = Convert.ToDateTime(reader["StartDate"]);
                         league.EndDate = Convert.ToDateTime(reader["EndDate"]);
                         league.Page = Convert.ToInt16(reader["Page"]);
-                        if (reader["LeagueTypeId"].ToString() == "1" && details)
+                        if (reader["LeagueTypeId"].ToString() == "1")
                         {
                             league.Users.Add(
                                 new Objects.User(reader["PartName"].ToString(),Convert.ToInt32(reader["Points"]), Convert.ToInt32(reader["PRank"]))
