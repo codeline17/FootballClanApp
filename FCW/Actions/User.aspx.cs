@@ -602,6 +602,7 @@ namespace FCW.Actions
                         league.StartDate = Convert.ToDateTime(reader["StartDate"]);
                         league.EndDate = Convert.ToDateTime(reader["EndDate"]);
                         league.Page = Convert.ToInt16(reader["Page"]);
+                        league.LeagueType = Convert.ToInt16(reader["LeagueTypeId"]);
                         league.Clans.Add(
                                 new Clan(
                                     reader["PartName"].ToString(),
@@ -610,7 +611,6 @@ namespace FCW.Actions
                                     Convert.ToInt32(reader["Image"])
                                     )
                                 );
-
                     }
                 }
             }
@@ -640,6 +640,7 @@ namespace FCW.Actions
                         league.StartDate = Convert.ToDateTime(reader["StartDate"]);
                         league.EndDate = Convert.ToDateTime(reader["EndDate"]);
                         league.Page = Convert.ToInt16(reader["Page"]);
+                        league.LeagueType = Convert.ToInt16(reader["LeagueTypeId"]);
                         league.Users.Add(
                                 new Objects.User(reader["PartName"].ToString(), Convert.ToInt32(reader["Points"]), Convert.ToInt32(reader["PRank"]))
                                 );
@@ -652,9 +653,28 @@ namespace FCW.Actions
         }
         private void GetLeaguePage()
         {
-            
-        }
+            int leagueType = 0;
+            string name = "";
+            Int32.TryParse(Request.Params["LeagueType"].ToString(),out leagueType);
+            name = Request.Params["Name"];
 
+            var league = new League();
+
+            switch (leagueType)
+            {
+                case 1:
+                    league = GetPlayerLeagueDetails(_user.Guid, name);
+                    break;
+                case 2:
+                    league = GetClanLeagueDetails(_user.Guid, name);
+                    break;
+            }
+            var json = new JavaScriptSerializer { MaxJsonLength = 4194304 };
+            var jsonStr = json.Serialize(league);
+            Response.ClearContent();
+            Response.ClearHeaders();
+            Response.Write(jsonStr);
+        }
         private League GetLeagueDetails(int id, bool details = true)
         {
             var league = new League();
