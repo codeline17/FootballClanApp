@@ -541,8 +541,9 @@ namespace FCW.Actions
         }
         private void GetLeagueList2(Objects.User user)
         {
-            var details = true;
-            bool.TryParse(Request.Params["details"], out details);
+            int pageSize = 100, pageNumber = 0;
+            int.TryParse(Request.Params["PageNumber"], out pageNumber);
+            int.TryParse(Request.Params["PageSize"], out pageSize);
 
             using (var conn = new SqlConnection(_connectionstring))
             {
@@ -562,10 +563,10 @@ namespace FCW.Actions
                         switch (leagueType)
                         {
                             case 1:
-                                r.Add(GetPlayerLeagueDetails(_user.Guid, reader["leaguename"].ToString()));
+                                r.Add(GetPlayerLeagueDetails(_user.Guid, reader["leaguename"].ToString(),pageSize, pageNumber));
                                 break;
                             case 2:
-                                r.Add(GetClanLeagueDetails(_user.Guid, reader["leaguename"].ToString()));
+                                r.Add(GetClanLeagueDetails(_user.Guid, reader["leaguename"].ToString(), pageSize, pageNumber));
                                 break;
                         }
                         //r.Add(GetLeagueDetails(Convert.ToInt32(reader["Id"]), details));
@@ -579,7 +580,7 @@ namespace FCW.Actions
                 }
             }
         }
-        private League GetClanLeagueDetails(Guid guid, string name)
+        private League GetClanLeagueDetails(Guid guid, string name, int pagesize = 100, int pagenumber = 0)
         {
             var league = new League();
 
@@ -590,8 +591,8 @@ namespace FCW.Actions
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add("@LeagueName", SqlDbType.VarChar, 50).Value = name;
                     cmd.Parameters.Add("@UserGuid", SqlDbType.UniqueIdentifier).Value = guid;
-                    cmd.Parameters.Add("@PageNumber", SqlDbType.Int).Value = Request.Params["PageNumber"] != null ? Convert.ToInt16(Request.Params["PageNumber"]) : 0;
-                    cmd.Parameters.Add("@PageSize", SqlDbType.Int).Value = Request.Params["PageSize"] != null ? Convert.ToInt16(Request.Params["PageSize"]) : 100;
+                    cmd.Parameters.Add("@PageNumber", SqlDbType.Int).Value = pagenumber;
+                    cmd.Parameters.Add("@PageSize", SqlDbType.Int).Value = pagesize;
 
                     conn.Open();
                     var reader = cmd.ExecuteReader();
@@ -617,7 +618,7 @@ namespace FCW.Actions
 
             return league;
         }
-        private League GetPlayerLeagueDetails(Guid guid, string name)
+        private League GetPlayerLeagueDetails(Guid guid, string name, int pagesize = 100, int pagenumber = 0)
         {
             var league = new League();
 
@@ -628,8 +629,8 @@ namespace FCW.Actions
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add("@LeagueName", SqlDbType.VarChar, 50).Value = name;
                     cmd.Parameters.Add("@UserGuid", SqlDbType.UniqueIdentifier).Value = guid;
-                    cmd.Parameters.Add("@PageNumber", SqlDbType.Int).Value = Request.Params["PageNumber"] != null ? Convert.ToInt16(Request.Params["PageNumber"]) : 0;
-                    cmd.Parameters.Add("@PageSize", SqlDbType.Int).Value = Request.Params["PageSize"] != null ? Convert.ToInt16(Request.Params["PageSize"]) : 100;
+                    cmd.Parameters.Add("@PageNumber", SqlDbType.Int).Value = pagenumber;
+                    cmd.Parameters.Add("@PageSize", SqlDbType.Int).Value = pagesize;
 
                     conn.Open();
                     var reader = cmd.ExecuteReader();
@@ -653,10 +654,14 @@ namespace FCW.Actions
         }
         private void GetLeaguePage()
         {
-            int leagueType = 0;
-            string name = "";
-            Int32.TryParse(Request.Params["LeagueType"].ToString(),out leagueType);
+            int leagueType = 0, pageSize = 100, pageNumber = 0;
+            var name = "";
+
+            int.TryParse(Request.Params["LeagueType"],out leagueType);
+            int.TryParse(Request.Params["PageNumber"], out pageNumber);
+            int.TryParse(Request.Params["PageSize"], out pageSize);
             name = Request.Params["Name"];
+
 
             var league = new League();
 
@@ -729,7 +734,7 @@ namespace FCW.Actions
         public void RefreshUserDetials(Guid guid)
         {
             Guid userGuid;
-            Guid.TryParse(Request.Params["userGuid"], out userGuid);
+            Guid.TryParse(Request.Params["UserGuid"], out userGuid);
 
             using (var conn = new SqlConnection(_connectionstring))
             {

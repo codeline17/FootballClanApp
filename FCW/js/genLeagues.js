@@ -41,7 +41,7 @@
    
     $('body').off('click', '.pagination li');
     $("#livescore-table").bdt({
-        pageRowCount: 200
+        pageRowCount: 100
     });
     pageToSelf("l");
     /****************************/
