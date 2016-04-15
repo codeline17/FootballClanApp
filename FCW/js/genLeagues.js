@@ -71,6 +71,16 @@ function getLeagueData() {
     });
     
 }
+function getLeagueDatass() {
+    
+        $.post("Actions/User.aspx", { type: 'LDL2', PageNumber: 0, PageSize: 100 },
+   function (e) {
+       var test = JSON.parse(e);
+       //console.log(test); //console.log(test[0]); 
+
+   });
+    
+}
 
 function genLeagueTable(n,u) {
     //User-Points
