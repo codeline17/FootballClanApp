@@ -85,7 +85,7 @@ function genClanChat() {
     //Set Refresh Interval
     currentChatroomIdcl = cuser.Chatrooms[1].Id;
     
-    chatRefreshInterval = setInterval(refreshCurrentClanTab, 10000000000000000);
+    chatRefreshInterval = setInterval(refreshCurrentClanTab, 10000);
 
     clantabContainer.append(clanTab);
 
