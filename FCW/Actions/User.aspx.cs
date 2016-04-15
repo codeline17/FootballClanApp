@@ -624,7 +624,7 @@ namespace FCW.Actions
 
             using (var conn = new SqlConnection(_connectionstring))
             {
-                using (var cmd = new SqlCommand("[LeagueGetByIdPaginationTypeClans]", conn))
+                using (var cmd = new SqlCommand("[LeagueGetByIdPaginationTypePlayers]", conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add("@LeagueName", SqlDbType.VarChar, 50).Value = name;
@@ -633,19 +633,26 @@ namespace FCW.Actions
                     cmd.Parameters.Add("@PageSize", SqlDbType.Int).Value = pagesize;
 
                     conn.Open();
-                    var reader = cmd.ExecuteReader();
-
-                    while (reader.Read())
+                    try
                     {
-                        league.Name = reader["Name"].ToString();
-                        league.StartDate = Convert.ToDateTime(reader["StartDate"]);
-                        league.EndDate = Convert.ToDateTime(reader["EndDate"]);
-                        league.Page = Convert.ToInt16(reader["Page"]);
-                        league.LeagueType = Convert.ToInt16(reader["LeagueTypeId"]);
-                        league.Users.Add(
-                                new Objects.User(reader["PartName"].ToString(), Convert.ToInt32(reader["Points"]), Convert.ToInt32(reader["PRank"]))
-                                );
+                        var reader = cmd.ExecuteReader();
 
+                        while (reader.Read())
+                        {
+                            league.Name = reader["Name"].ToString();
+                            league.StartDate = Convert.ToDateTime(reader["StartDate"]);
+                            league.EndDate = Convert.ToDateTime(reader["EndDate"]);
+                            league.Page = Convert.ToInt16(reader["Page"]);
+                            league.LeagueType = Convert.ToInt16(reader["LeagueTypeId"]);
+                            league.Users.Add(
+                                    new Objects.User(reader["PartName"].ToString(), Convert.ToInt32(reader["Points"]), Convert.ToInt32(reader["PRank"]))
+                                    );
+
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        //Nothing   
                     }
                 }
             }
