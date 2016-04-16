@@ -54,7 +54,7 @@ span.credit {
 }
 
 tr.leader {
-    background: rgba(239,255,0,0.3);
+    background: rgba(255, 155, 0, 0.71);
 }
 
 table#clan-table {
@@ -256,7 +256,7 @@ table.table-hover {
 #livescore-table tbody tr:nth-child(n+48):nth-child(-2n+99){
     background-color:rgba(210, 215, 211, 0.68);
 }
-    */
+*/
 #fTbl thead,#clan-table thead,#livescore-table thead,#uTbl thead,#cTbl thead,#cltable thead{
     background: rgba(0,0,0,0.3);
     color: white;
@@ -567,8 +567,20 @@ div.chatcontainer {
     background: rgba(255, 255, 255, 0.21);
     border-radius: 17px;
     border: 2px solid #C38913;
+    max-height: 60vh;
+}
+#clanchatTab{
+   
+    background: rgba(255, 255, 255, 0.21);
+    border-radius: 17px;
+    border: 2px solid #C38913;
+    max-height: 60vh;
 }
 #chatTab div.span10.offset1{
+    width:80%;
+    margin:0 auto;
+}
+#clanchatTab div.span10.offset1{
     width:80%;
     margin:0 auto;
 }

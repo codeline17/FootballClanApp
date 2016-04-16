@@ -14,6 +14,7 @@ window.onload = function (e) {
     genHeader();
     getMatches("w");
     getUnlocks();
+    
     //genMatches();
 
     if (site === "play") {
@@ -23,6 +24,7 @@ window.onload = function (e) {
             }
         });
     }
+    
 }
 
 function getUnlocks() {
@@ -142,6 +144,7 @@ function genMatches() {
 
  function genLeagues() {
      getLeagueData();
+     //getLeagueDatass();
  }
 
  function genLeadBoard() {

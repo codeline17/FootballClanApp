@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <title>Football Clan Web</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="shortcut icon" type="image/x-icon" href="style/images/favicon.png" />
@@ -49,7 +49,15 @@
             <div class="span4 pull-right" id="mainHeader">
             </div>
         </div>
+        
     </header>
+  
+   
+    <div class="slide-pannel" style="right:0;position:fixed;z-index:2;max-width: 80%;top: 10vh;">
+        <div id="clanChat" style="float:right; position:relative;background:rgb(80, 74, 74);width:100%;display:none;min-height:300px;border-radius: 15px;"></div>
+        <div id="toggle-btn" style="width:20px;height:40px;float:right;margin-top:4.5vh;position: fixed;margin-left: -20px;background:url(/style/images/toggle.png);background-size:20px 40px;background-repeat:no-repeat;"></div>
+    </div>
+    
     <!-- /header -->
     <div class="body-wrapper">
         <nav id="menu" class="menu">
@@ -462,6 +470,7 @@
     <script src="js/genMatches.js"></script>   
     <script src="js/genLeaderboard.js"></script>
     <script src="js/genBase.js"></script>
+    <script src="js/clanChat.js"></script>
     <script src="js/genChat.js"></script>
     <script src="js/userdetailsmenu.js"></script>
     <script src="js/manageClan.js"></script>

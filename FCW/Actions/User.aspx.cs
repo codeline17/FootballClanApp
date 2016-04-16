@@ -103,7 +103,7 @@ namespace FCW.Actions
                         GetLeagueList2(_user);
                         break;
                     case "GLP":
-
+                        GetLeaguePage();
                         break;
                 }
                 #endregion
@@ -130,8 +130,20 @@ namespace FCW.Actions
 
             try
             {
-                _user = Session["currentUser"] != null ? (Objects.User) Session["currentUser"] : UserGetByGuid(userguid);
-                r = _user.Guid != null || (_key.Length == Request.Params["safetykey"].Length && _key == Request.Params["safetykey"]);
+                if (Session["currentUser"] != null)
+                {
+                    _user = (Objects.User) Session["currentUser"];
+                    r = true;
+                }
+                else if (_key.Length == Request.Params["safetykey"].Length && _key == Request.Params["safetykey"])
+                {
+                    UserGetByGuid(userguid);
+                    r = true;
+                }
+                else
+                {
+                    r = false;
+                }
             }
             catch (Exception)
             {
@@ -529,8 +541,9 @@ namespace FCW.Actions
         }
         private void GetLeagueList2(Objects.User user)
         {
-            var details = true;
-            bool.TryParse(Request.Params["details"], out details);
+            int pageSize = 100, pageNumber = 0;
+            int.TryParse(Request.Params["PageNumber"], out pageNumber);
+            int.TryParse(Request.Params["PageSize"], out pageSize);
 
             using (var conn = new SqlConnection(_connectionstring))
             {
@@ -542,18 +555,18 @@ namespace FCW.Actions
                     var r = new List<League>();
                     conn.Open();
                     var reader = cmd.ExecuteReader();
-                    int LeagueType = 0;
 
                     while (reader.Read())
                     {
-                        int.TryParse(reader["LeagueTypeId"].ToString(), out LeagueType);
-                        switch (LeagueType)
+                        var leagueType = 0;
+                        int.TryParse(reader["LeagueTypeId"].ToString(), out leagueType);
+                        switch (leagueType)
                         {
                             case 1:
-                                r.Add(GetPlayerLeagueDetails(_user.Guid, Convert.ToInt32(reader["Id"])));
+                                r.Add(GetPlayerLeagueDetails(_user.Guid, reader["leaguename"].ToString(),pageSize, pageNumber));
                                 break;
                             case 2:
-                                r.Add(GetClanLeagueDetails(_user.Guid, Convert.ToInt32(reader["Id"])));
+                                r.Add(GetClanLeagueDetails(_user.Guid, reader["leaguename"].ToString(), pageSize, pageNumber));
                                 break;
                         }
                         //r.Add(GetLeagueDetails(Convert.ToInt32(reader["Id"]), details));
@@ -567,7 +580,7 @@ namespace FCW.Actions
                 }
             }
         }
-        private League GetClanLeagueDetails(Guid guid, int id)
+        private League GetClanLeagueDetails(Guid guid, string name, int pagesize = 100, int pagenumber = 0)
         {
             var league = new League();
 
@@ -576,10 +589,10 @@ namespace FCW.Actions
                 using (var cmd = new SqlCommand("[LeagueGetByIdPaginationTypeClans]", conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@LeagueId", SqlDbType.BigInt).Value = id;
+                    cmd.Parameters.Add("@LeagueName", SqlDbType.VarChar, 50).Value = name;
                     cmd.Parameters.Add("@UserGuid", SqlDbType.UniqueIdentifier).Value = guid;
-                    cmd.Parameters.Add("@PageNumber", SqlDbType.Int).Value = Request.Params["PageNumber"] != null ? Convert.ToInt16(Request.Params["PageNumber"]) : 0;
-                    cmd.Parameters.Add("@PageSize", SqlDbType.Int).Value = Request.Params["PageSize"] != null ? Convert.ToInt16(Request.Params["PageSize"]) : 100;
+                    cmd.Parameters.Add("@PageNumber", SqlDbType.Int).Value = pagenumber;
+                    cmd.Parameters.Add("@PageSize", SqlDbType.Int).Value = pagesize;
 
                     conn.Open();
                     var reader = cmd.ExecuteReader();
@@ -590,6 +603,7 @@ namespace FCW.Actions
                         league.StartDate = Convert.ToDateTime(reader["StartDate"]);
                         league.EndDate = Convert.ToDateTime(reader["EndDate"]);
                         league.Page = Convert.ToInt16(reader["Page"]);
+                        league.LeagueType = Convert.ToInt16(reader["LeagueTypeId"]);
                         league.Clans.Add(
                                 new Clan(
                                     reader["PartName"].ToString(),
@@ -598,45 +612,80 @@ namespace FCW.Actions
                                     Convert.ToInt32(reader["Image"])
                                     )
                                 );
-
                     }
                 }
             }
 
             return league;
         }
-        private League GetPlayerLeagueDetails(Guid guid, int id)
+        private League GetPlayerLeagueDetails(Guid guid, string name, int pagesize = 100, int pagenumber = 0)
         {
             var league = new League();
 
             using (var conn = new SqlConnection(_connectionstring))
             {
-                using (var cmd = new SqlCommand("[LeagueGetByIdPaginationTypeClans]", conn))
+                using (var cmd = new SqlCommand("[LeagueGetByIdPaginationTypePlayers]", conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@LeagueId", SqlDbType.BigInt).Value = id;
+                    cmd.Parameters.Add("@LeagueName", SqlDbType.VarChar, 50).Value = name;
                     cmd.Parameters.Add("@UserGuid", SqlDbType.UniqueIdentifier).Value = guid;
-                    cmd.Parameters.Add("@PageNumber", SqlDbType.Int).Value = Request.Params["PageNumber"] != null ? Convert.ToInt16(Request.Params["PageNumber"]) : 0;
-                    cmd.Parameters.Add("@PageSize", SqlDbType.Int).Value = Request.Params["PageSize"] != null ? Convert.ToInt16(Request.Params["PageSize"]) : 100;
+                    cmd.Parameters.Add("@PageNumber", SqlDbType.Int).Value = pagenumber;
+                    cmd.Parameters.Add("@PageSize", SqlDbType.Int).Value = pagesize;
 
                     conn.Open();
-                    var reader = cmd.ExecuteReader();
-
-                    while (reader.Read())
+                    try
                     {
-                        league.Name = reader["Name"].ToString();
-                        league.StartDate = Convert.ToDateTime(reader["StartDate"]);
-                        league.EndDate = Convert.ToDateTime(reader["EndDate"]);
-                        league.Page = Convert.ToInt16(reader["Page"]);
-                        league.Users.Add(
-                                new Objects.User(reader["PartName"].ToString(), Convert.ToInt32(reader["Points"]), Convert.ToInt32(reader["PRank"]))
-                                );
+                        var reader = cmd.ExecuteReader();
 
+                        while (reader.Read())
+                        {
+                            league.Name = reader["Name"].ToString();
+                            league.StartDate = Convert.ToDateTime(reader["StartDate"]);
+                            league.EndDate = Convert.ToDateTime(reader["EndDate"]);
+                            league.Page = Convert.ToInt16(reader["Page"]);
+                            league.LeagueType = Convert.ToInt16(reader["LeagueTypeId"]);
+                            league.Users.Add(
+                                    new Objects.User(reader["PartName"].ToString(), Convert.ToInt32(reader["Points"]), Convert.ToInt32(reader["PRank"]))
+                                    );
+
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        //Nothing   
                     }
                 }
             }
 
             return league;
+        }
+        private void GetLeaguePage()
+        {
+            int leagueType = 0, pageSize = 100, pageNumber = 0;
+            var name = "";
+
+            int.TryParse(Request.Params["LeagueType"],out leagueType);
+            int.TryParse(Request.Params["PageNumber"], out pageNumber);
+            int.TryParse(Request.Params["PageSize"], out pageSize);
+            name = Request.Params["Name"];
+
+
+            var league = new League();
+
+            switch (leagueType)
+            {
+                case 1:
+                    league = GetPlayerLeagueDetails(_user.Guid, name);
+                    break;
+                case 2:
+                    league = GetClanLeagueDetails(_user.Guid, name);
+                    break;
+            }
+            var json = new JavaScriptSerializer { MaxJsonLength = 4194304 };
+            var jsonStr = json.Serialize(league);
+            Response.ClearContent();
+            Response.ClearHeaders();
+            Response.Write(jsonStr);
         }
         private League GetLeagueDetails(int id, bool details = true)
         {
@@ -658,7 +707,7 @@ namespace FCW.Actions
                         league.StartDate = Convert.ToDateTime(reader["StartDate"]);
                         league.EndDate = Convert.ToDateTime(reader["EndDate"]);
                         league.Page = Convert.ToInt16(reader["Page"]);
-                        if (reader["LeagueTypeId"].ToString() == "1" && details)
+                        if (reader["LeagueTypeId"].ToString() == "1")
                         {
                             league.Users.Add(
                                 new Objects.User(reader["PartName"].ToString(),Convert.ToInt32(reader["Points"]), Convert.ToInt32(reader["PRank"]))
@@ -692,7 +741,7 @@ namespace FCW.Actions
         public void RefreshUserDetials(Guid guid)
         {
             Guid userGuid;
-            Guid.TryParse(Request.Params["userGuid"], out userGuid);
+            Guid.TryParse(Request.Params["UserGuid"], out userGuid);
 
             using (var conn = new SqlConnection(_connectionstring))
             {

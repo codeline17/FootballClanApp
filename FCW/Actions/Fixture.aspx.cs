@@ -61,12 +61,24 @@ namespace FCW.Actions
         protected bool SecurityCheck()
         {
             bool r;
-            var userguid = Request.Params["userGuid"] != null ? new Guid(Request.Params["userGuid"]) : new Guid();
+            var userguid = Request.Params["userGuid"] != null ? new Guid(Request.Params["userGuid"]) : Guid.Empty;
 
             try
             {
-                _user = Session["currentUser"] != null ? (Objects.User)Session["currentUser"] : UserGetByGuid(userguid);
-                r = _user.Guid != null || (_key.Length == Request.Params["safetykey"].Length && _key == Request.Params["safetykey"]);
+                if (Session["currentUser"] != null)
+                {
+                    _user = (Objects.User)Session["currentUser"];
+                    r = true;
+                }
+                else if (_key.Length == Request.Params["safetykey"].Length && _key == Request.Params["safetykey"])
+                {
+                    UserGetByGuid(userguid);
+                    r = true;
+                }
+                else
+                {
+                    r = false;
+                }
             }
             catch (Exception)
             {

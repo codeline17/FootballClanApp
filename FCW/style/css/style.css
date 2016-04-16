@@ -1472,7 +1472,7 @@ i.contact {
 }
 .tabs-top .tab.active {
     position: relative;
-    z-index: 3;
+    z-index: 1;
     cursor: pointer;
 }
 .tabs-top .tab.active a {

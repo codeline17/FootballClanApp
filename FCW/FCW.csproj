@@ -73,6 +73,7 @@
   <ItemGroup>
     <Content Include="Actions\Paypal.aspx" />
     <Content Include="Actions\Register.aspx" />
+    <Content Include="js\clanChat.js" />
     <Content Include="js\expandDetails.js" />
     <Content Include="js\genChat.js" />
     <Content Include="js\genClans.js" />
@@ -95,6 +96,7 @@
     <Content Include="style\images\avatars\7.png" />
     <Content Include="style\images\avatars\8.png" />
     <Content Include="style\images\reload.png" />
+    <Content Include="style\images\toggle.png" />
     <Content Include="style\js\mobileMenu.js" />
     <Content Include="js\prototype.js" />
     <Content Include="js\settings.js" />

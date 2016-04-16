@@ -62,20 +62,7 @@ namespace FCW.Actions
         }
         protected bool SecurityCheck()
         {
-            bool r;
-            var key = Request.Params["safetykey"]?.ToString() ?? "";
-
-            try
-            {
-                _user = Session["currentUser"] == null ? new Objects.User() : (Objects.User)Session["currentUser"];
-                r = _user.Guid != null || (_key.Length == key.Length && _key == key);
-            }
-            catch (Exception)
-            {
-                r = false;
-            }
-
-            return r;
+            return true;
         }
     }
 }

@@ -41,7 +41,7 @@
    
     $('body').off('click', '.pagination li');
     $("#livescore-table").bdt({
-        pageRowCount: 200
+        pageRowCount: 100
     });
     pageToSelf("l");
     /****************************/
@@ -69,6 +69,16 @@ function getLeagueData() {
         genTabs(tabs, content);
 
     });
+    
+}
+function getLeagueDatass() {
+    
+        $.post("Actions/User.aspx", { type: 'LDL2', PageNumber: 0, PageSize: 100 },
+   function (e) {
+       var test = JSON.parse(e);
+       //console.log(test); //console.log(test[0]); 
+
+   });
     
 }
 
@@ -111,7 +121,7 @@ function genLeagueTable(n,u) {
         
         var tdUsername = cEl("td").tEl(u[i].Username ? u[i].Username : u[i].Name);
         var tdPoints = cEl("td").tEl(u[i].Points);
-        var row = cEl("tr").append(tdRang).append(tdUsername).append(tdPoints).listener("click", showProfile);
+            var row = cEl("tr").append(tdRang).append(tdUsername).append(tdPoints);//.listener("click", showProfile);
         var level = getOverAllForm(u[i]);//level
         var form = getUserForm(u[i]);//form
         var form1 = genProgressBar(form).attr("style", "display: inline-block;width: 80%;margin-bottom:0px;");
