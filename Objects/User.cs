@@ -42,12 +42,13 @@ namespace Objects
             Chatrooms = new List<Chatroom>();
         }
 
-        public User(string username, int points, int previousleaguerank)
+        public User(string username, int points, int previousleaguerank, Guid guid)
         {
             Username = username;
             Points = points;
             PreviousLeagueRank = previousleaguerank;
             Chatrooms = new List<Chatroom>();
+            Guid = guid;
         }
 
         public User(string username, Guid guid, int credit, int credit2, int clanid, 

@@ -336,12 +336,7 @@ function pageToSelf(opt) {
                 pages[0].childNodes[Math.floor(pos / 100) + 1].childNodes[0].click();
             }
             break;
-            case "l": var own = document.getElementsByClassName("leader")[0];
-            if (own) {
-                var pos = own.childNodes[0].innerText;
-                pages[0].childNodes[Math.floor(pos / 100) + 1].childNodes[0].click();
-            }
-            break;
+            
     }
 }
 

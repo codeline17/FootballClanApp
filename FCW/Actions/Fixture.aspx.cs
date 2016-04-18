@@ -72,7 +72,7 @@ namespace FCW.Actions
                 }
                 else if (_key.Length == Request.Params["safetykey"].Length && _key == Request.Params["safetykey"])
                 {
-                    UserGetByGuid(userguid);
+                    _user = UserGetByGuid(userguid);
                     r = true;
                 }
                 else

@@ -1,4 +1,5 @@
-﻿function genTabs(tabs, content) {
+﻿var pageNumber = 0;
+function genTabs(tabs, content) {
 
     var mainC = document.getElementById("mainContainer");
     mainC.innerHTML = "";
@@ -27,27 +28,31 @@
 
         contentEl.append(contEl);
     }
-
+    var Pagination = cEl("div").attr("id", "paginationCompetation").attr("class", "pull-right");
     tabsEl.childNodes[0].className = "tab active";
     tabsEl.childNodes[0].childNodes[0].className = "active";
     contentEl.childNodes[0].attr("class", "tab-block active").attr("style", "display: block; position: static; visibility: visible;");
-    body.append(tabsEl).append(contentEl);
+    body.append(tabsEl).append(contentEl).append(Pagination);
 
     mainC.append(body);
 
-    /***After Event Assignments***/
-    $('[data-toggle="tooltip"]').tooltip();
-
-   
-    $('body').off('click', '.pagination li');
-    $("#livescore-table").bdt({
-        pageRowCount: 100
-    });
-    pageToSelf("l");
-    /****************************/
 }
 
-
+function firstel() {
+    pageNumber = 1;
+    getLeagueDatass(pageNumber, 100);
+    
+}
+function previousel() {
+    if (pageNumber == 1)
+        return;
+    pageNumber -= 1;
+    getLeagueDatass(pageNumber, 100);
+}
+function nextel() {
+    pageNumber += 1;
+    getLeagueDatass(pageNumber, 100);
+}
 function getLeagueData() {
     $.post("Actions/User.aspx", { type: "LDL"},
     function (e) {
@@ -65,24 +70,15 @@ function getLeagueData() {
                 content.push(c);
             }
         }
-
+        var mainC = document.getElementById("mainContainer");
+        mainC.innerHTML = "";
         genTabs(tabs, content);
 
     });
     
 }
-function getLeagueDatass() {
-    
-        $.post("Actions/User.aspx", { type: 'LDL2', PageNumber: 0, PageSize: 100 },
-   function (e) {
-       var test = JSON.parse(e);
-       //console.log(test); //console.log(test[0]); 
 
-   });
-    
-}
-
-function genLeagueTable(n,u) {
+function genLeagueTable(n,u,pagenumber) {
     //User-Points
     //HEADER
     var mTag = cEl("div");
@@ -103,30 +99,39 @@ function genLeagueTable(n,u) {
     tHead.appendChild(hRow);
 
     var tBody = document.createElement("tbody");
-    for (var i = 0; i < u.length; i++) {
-        if(u[i].Points>0){
+    for (var i = pagenumber*100; i < u.length+pagenumber*100; i++) {
+        var j = i - (pagenumber * 100);
+        var pg = i - 100;
+        var compareGoneUpDown = (j + (pagenumber-1)*100);
+        if (pagenumber == 1) {
+           pg = i - 99;
+        }
+        else {
+           pg = i - 100;
+        }
 
         
+        
         var tdRang;
-        if (u[i].PreviousLeagueRank > i + 1) {
-            tdRang = cEl("td").tEl(i + 1).append(cEl("i").attr("class", "icon-up-dir-1 goneup"));
-        } else if (u[i].PreviousLeagueRank < i + 1) {
-            tdRang = cEl("td").tEl(i + 1).append(cEl("i").attr("class", "icon-down-dir-1 gonedown"));
+        if (u[j].PreviousLeagueRank > compareGoneUpDown+1) {
+            tdRang = cEl("td").tEl(pg ).append(cEl("i").attr("class", "icon-up-dir-1 goneup"));
+        } else if (u[j].PreviousLeagueRank < compareGoneUpDown+1) {
+            tdRang = cEl("td").tEl(pg ).append(cEl("i").attr("class", "icon-down-dir-1 gonedown"));
         } else {
-            tdRang = cEl("td").tEl(i + 1).append(cEl("i").attr("class", "icon-right-dir-1"));
+            tdRang = cEl("td").tEl(pg ).append(cEl("i").attr("class", "icon-right-dir-1"));
         }
-        if (i < 50) {
+        if (pg < 51) {
             tdRang.appendChild(cEl("i").attr("class", "icon-trophy gold"));
         }
         
-        var tdUsername = cEl("td").tEl(u[i].Username ? u[i].Username : u[i].Name);
-        var tdPoints = cEl("td").tEl(u[i].Points);
+        var tdUsername = cEl("td").tEl(u[j].Username ? u[j].Username : u[j].Name);
+        var tdPoints = cEl("td").tEl(u[j].Points);
             var row = cEl("tr").append(tdRang).append(tdUsername).append(tdPoints);//.listener("click", showProfile);
-        var level = getOverAllForm(u[i]);//level
-        var form = getUserForm(u[i]);//form
+        var level = getOverAllForm(u[j]);//level
+        var form = getUserForm(u[j]);//form
         var form1 = genProgressBar(form).attr("style", "display: inline-block;width: 80%;margin-bottom:0px;");
-        var globalRank = u[i].Rank;//globalrank
-        var footballs = u[i].Credit2;//footballs
+        var globalRank = u[j].Rank;//globalrank
+        var footballs = u[j].Credit2;//footballs
         var row2 = cEl("tr").attr("class", "profile-hidden");
         var row3 = cEl("div").attr("class", "row-fluid")
             .append(cEl("div").attr("class", "profile-el").tEl("Global Rank: " + globalRank))
@@ -135,12 +140,12 @@ function genLeagueTable(n,u) {
         var td1 = cEl("td").attr("colspan","3").append(row3);
         //row2.append(td1);
         
-
         
-        row.className = cuser.Username === u[i].Username || cuser.NameOfClan === u[i].Name ? "leader" : "";
+        
+        row.className = cuser.Username === u[j].Username || cuser.NameOfClan === u[j].Name ? "leader" : "";
         tBody.append(row);//.append(row2)
         
-        }
+        
     }
 
     tabTag.appendChild(tHead);
@@ -195,4 +200,55 @@ function showProfile() {
     } else {
         tabela.rows.item(index).className = "profile-show";
     }
+}
+
+
+function getLeagueDatass(pagenumber, pagesize) {
+     
+    
+    
+    $.post("Actions/User.aspx", { type: 'LDL2', PageNumber: pagenumber, PageSize: pagesize },
+function (e) {
+    e = JSON.parse(e);
+
+    var tabs = [];
+    var content = [];
+    
+    for (var i = 0; i < e.length; i++) {
+        if (e[i].Name) {
+            var l = { Name: e[i].Name }
+            tabs.push(l);
+            var els = e[i].Users.length > 0 ? e[i].Users : e[i].Clans;
+            var c = genLeagueTable(e[i].Name, els,e[i].Page);
+            content.push(c);
+        }
+        if (e[i].Page) {
+
+            genTabs(tabs, content);
+            pageNumber = e[0].Page;
+            var first = cEl("div").attr("id", "firstpage").attr("style", "display:inline-block").listener("click", firstel).tEl(" First ");
+            var previous = cEl("div").attr("id", "previous").attr("style", "display:inline-block").listener("click", previousel).tEl(" << ");
+            var next = cEl("div").attr("id", "next").attr("style", "display:inline-block").listener("click", nextel).tEl(" >> ");
+            var mypage = cEl("div").attr("id", "mypage").attr("style", "display:inline-block").tEl(" " + pageNumber + " ");
+            var Pagination = document.getElementById("paginationCompetation");
+            Pagination.append(first).append(previous).append(mypage).append(next);
+
+            pageNumber = e[i].Page;
+        } else {
+
+            var first = cEl("div").attr("id", "firstpage").attr("style", "display:inline-block").listener("click", firstel).tEl(" First ");
+            var previous = cEl("div").attr("id", "previous").attr("style", "display:inline-block").listener("click", previousel).tEl(" << ");
+            var next = cEl("div").attr("id", "next").attr("style", "display:inline-block").tEl(" >> ");
+            var mypage = cEl("div").attr("id", "mypage").attr("style", "display:inline-block").tEl(" " + pageNumber + " ");
+            var Pagination = document.getElementById("paginationCompetation");
+            Pagination.innerHTML = " ";
+            Pagination.append(first).append(previous).append(mypage).append(next);
+
+
+        }
+    }
+    
+    
+});
+    
 }

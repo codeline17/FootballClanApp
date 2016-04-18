@@ -137,7 +137,7 @@ namespace FCW.Actions
                 }
                 else if (_key.Length == Request.Params["safetykey"].Length && _key == Request.Params["safetykey"])
                 {
-                    UserGetByGuid(userguid);
+                    _user = UserGetByGuid(userguid);
                     r = true;
                 }
                 else
@@ -645,7 +645,7 @@ namespace FCW.Actions
                             league.Page = Convert.ToInt16(reader["Page"]);
                             league.LeagueType = Convert.ToInt16(reader["LeagueTypeId"]);
                             league.Users.Add(
-                                    new Objects.User(reader["PartName"].ToString(), Convert.ToInt32(reader["Points"]), Convert.ToInt32(reader["PRank"]))
+                                    new Objects.User(reader["PartName"].ToString(), Convert.ToInt32(reader["Points"]), Convert.ToInt32(reader["PRank"]), new Guid(reader["Guid"].ToString()))
                                     );
 
                         }
@@ -710,7 +710,7 @@ namespace FCW.Actions
                         if (reader["LeagueTypeId"].ToString() == "1")
                         {
                             league.Users.Add(
-                                new Objects.User(reader["PartName"].ToString(),Convert.ToInt32(reader["Points"]), Convert.ToInt32(reader["PRank"]))
+                                new Objects.User(reader["PartName"].ToString(),Convert.ToInt32(reader["Points"]), Convert.ToInt32(reader["PRank"]), new Guid())
                                 );
                         }
                         else if(details)
