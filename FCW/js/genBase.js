@@ -146,7 +146,7 @@ function genMatches() {
      var animation = cEl("div").attr("class", "cssload-loader").attr("id", "loader").tEl("Loading...");
      var el = document.getElementById('mainContainer');
      el.appendChild(animation);
-     getLeagueDatass(pageNumber,100);
+     getLeagueData(pageNumber,100);
      //isInLeague();
      
 

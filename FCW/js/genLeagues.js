@@ -53,31 +53,6 @@ function nextel() {
     pageNumber += 1;
     getLeagueDatass(pageNumber, 100);
 }
-function getLeagueData() {
-    $.post("Actions/User.aspx", { type: "LDL"},
-    function (e) {
-        e = JSON.parse(e);
-
-        var tabs = [];
-        var content = [];
-            
-        for (var i = 0; i < e.length; i++) {
-            if (e[i].Name) {
-                var l = { Name: e[i].Name }
-                tabs.push(l);
-                var els = e[i].Users.length > 0 ? e[i].Users : e[i].Clans;
-                var c = genLeagueTable(e[i].Name, els);
-                content.push(c);
-            }
-        }
-        var mainC = document.getElementById("mainContainer");
-        mainC.innerHTML = "";
-        genTabs(tabs, content);
-
-    });
-    
-}
-
 function genLeagueTable(n,u,pagenumber) {
     //User-Points
     //HEADER
@@ -203,7 +178,7 @@ function showProfile() {
 }
 
 
-function getLeagueDatass(pagenumber, pagesize) {
+function getLeagueData(pagenumber, pagesize) {
      
     
     
