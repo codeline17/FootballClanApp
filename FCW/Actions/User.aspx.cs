@@ -432,11 +432,18 @@ namespace FCW.Actions
         }
         private void GetAllUsers()
         {
+            int pageNumber, pageSize;
+            int.TryParse(Request.Params["PageNumber"], out pageNumber);
+            int.TryParse(Request.Params["PageSize"], out pageSize);
+
             using (var conn = new SqlConnection(_connectionstring))
             {
                 using (var cmd = new SqlCommand("UserGetAll", conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@UserGuid", SqlDbType.UniqueIdentifier).Value = _user.Guid;
+                    cmd.Parameters.Add("@PageNumber", SqlDbType.Int).Value = pageNumber;
+                    cmd.Parameters.Add("@PageSize", SqlDbType.Int).Value = pageSize;
 
                     var r = new List<Objects.User>();
                     conn.Open();
@@ -984,6 +991,34 @@ namespace FCW.Actions
                 }
             }
         }
+
+        private void UserDataBetweenDates(Objects.User _user)
+        {
+            DateTime fromDate = DateTime.Now, toDate = DateTime.Now;
+            DateTime.TryParseExact(Request.Params["fromDate"], "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out fromDate);
+            DateTime.TryParseExact(Request.Params["toDate"], "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out toDate);
+            fromDate = fromDate.Date;
+            toDate = toDate.Date.AddDays(1);
+
+            using (var conn = new SqlConnection(_connectionstring))
+            {
+                using (var cmd = new SqlCommand("UserGetDataBetweenDates", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@UserGuid", SqlDbType.UniqueIdentifier).Value = _user.Guid;
+                    cmd.Parameters.Add("@FromDate", SqlDbType.Date).Value = fromDate;
+                    cmd.Parameters.Add("@ToDate", SqlDbType.Date).Value = toDate;
+
+                    conn.Open();
+                    cmd.ExecuteScalar();
+
+                    Response.ClearContent();
+                    Response.ClearHeaders();
+                    Response.Write("1");
+                }
+            }
+        }
+
         private void RemoveUserClan(Guid guid)
         {
             var name = Request.Params["name"];
