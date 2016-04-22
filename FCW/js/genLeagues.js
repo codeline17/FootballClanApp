@@ -40,18 +40,18 @@ function genTabs(tabs, content) {
 
 function firstel() {
     pageNumber = 1;
-    getLeagueDatass(pageNumber, 100);
+    getLeagueData(pageNumber, 100);
     
 }
 function previousel() {
     if (pageNumber == 1)
         return;
     pageNumber -= 1;
-    getLeagueDatass(pageNumber, 100);
+    getLeagueData(pageNumber, 100);
 }
 function nextel() {
     pageNumber += 1;
-    getLeagueDatass(pageNumber, 100);
+    getLeagueData(pageNumber, 100);
 }
 function genLeagueTable(n,u,pagenumber) {
     //User-Points
@@ -185,7 +185,7 @@ function getLeagueData(pagenumber, pagesize) {
     $.post("Actions/User.aspx", { type: 'LDL2', PageNumber: pagenumber, PageSize: pagesize },
 function (e) {
     e = JSON.parse(e);
-
+   
     var tabs = [];
     var content = [];
     
@@ -198,7 +198,6 @@ function (e) {
             content.push(c);
         }
         if (e[i].Page) {
-
             genTabs(tabs, content);
             pageNumber = e[0].Page;
             var first = cEl("div").attr("id", "firstpage").attr("style", "display:inline-block").listener("click", firstel).tEl(" First ");
@@ -207,7 +206,6 @@ function (e) {
             var mypage = cEl("div").attr("id", "mypage").attr("style", "display:inline-block").tEl(" " + pageNumber + " ");
             var Pagination = document.getElementById("paginationCompetation");
             Pagination.append(first).append(previous).append(mypage).append(next);
-
             pageNumber = e[i].Page;
         } else {
 
