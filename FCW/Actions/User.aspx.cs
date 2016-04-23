@@ -747,15 +747,18 @@ namespace FCW.Actions
         }
         public void RefreshUserDetials(Guid guid)
         {
-            Guid userGuid;
-            Guid.TryParse(Request.Params["UserGuid"], out userGuid);
+            DateTime fromDate = DateTime.Now, toDate = DateTime.Now;
+            DateTime.TryParseExact(Request.Params["fromDateDetails"], "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out fromDate);
+            DateTime.TryParseExact(Request.Params["toDateDetails"], "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out toDate);
+            fromDate = fromDate.Date;
+            toDate = toDate.Date.AddDays(1);
 
             using (var conn = new SqlConnection(_connectionstring))
             {
                 using (var cmd = new SqlCommand("UserGetById", conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@Guid", SqlDbType.UniqueIdentifier).Value = userGuid.Equals(Guid.Empty) ? guid : userGuid;
+                    cmd.Parameters.Add("@Guid", SqlDbType.UniqueIdentifier).Value = guid;
 
                     var gUser = new Objects.User();
                     
@@ -991,34 +994,6 @@ namespace FCW.Actions
                 }
             }
         }
-
-        private void UserDataBetweenDates(Objects.User _user)
-        {
-            DateTime fromDate = DateTime.Now, toDate = DateTime.Now;
-            DateTime.TryParseExact(Request.Params["fromDate"], "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out fromDate);
-            DateTime.TryParseExact(Request.Params["toDate"], "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out toDate);
-            fromDate = fromDate.Date;
-            toDate = toDate.Date.AddDays(1);
-
-            using (var conn = new SqlConnection(_connectionstring))
-            {
-                using (var cmd = new SqlCommand("UserGetDataBetweenDates", conn))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@UserGuid", SqlDbType.UniqueIdentifier).Value = _user.Guid;
-                    cmd.Parameters.Add("@FromDate", SqlDbType.Date).Value = fromDate;
-                    cmd.Parameters.Add("@ToDate", SqlDbType.Date).Value = toDate;
-
-                    conn.Open();
-                    cmd.ExecuteScalar();
-
-                    Response.ClearContent();
-                    Response.ClearHeaders();
-                    Response.Write("1");
-                }
-            }
-        }
-
         private void RemoveUserClan(Guid guid)
         {
             var name = Request.Params["name"];
