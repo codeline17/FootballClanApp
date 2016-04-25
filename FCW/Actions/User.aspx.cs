@@ -171,8 +171,10 @@ namespace FCW.Actions
                         new UserDetails(reader["Email"].ToString(), reader["Address"].ToString(),
                         new City("Tirana")), Convert.ToInt32(reader["Points"]), Convert.ToInt32(reader["tpreds"]),
                         Convert.ToInt32(reader["spreds"]), Convert.ToInt32(reader["lastspreds"]),
-                        Convert.ToInt32(reader["lastsspreds"]), Convert.ToInt32(reader["AvatarId"]), Convert.ToInt32(reader["Rank"]),
-                        reader["NameOfClan"].ToString(), new Guid(), Convert.ToDateTime(reader["Birthday"]), Convert.ToBoolean(Convert.ToInt32(reader["isFirstLogin"])));
+                        Convert.ToInt32(reader["lastsspreds"]), Convert.ToInt32(reader["AvatarId"]),
+                        Convert.ToInt32(reader["Rank"]), reader["NameOfClan"].ToString(), new Guid(reader["SessionId"].ToString()),
+                        Convert.ToDateTime(reader["Birthday"]), Convert.ToBoolean(Convert.ToInt16(reader["isFirstLogin"]))
+                        , Convert.ToInt16(reader["yesterdaypoints"]), Convert.ToInt16(reader["detailpoints"]));
                     }
                     gUser.Chatrooms = GetUserMessagesService(gUser.Guid);
                 }
@@ -419,7 +421,9 @@ namespace FCW.Actions
                                     reader["NameOfClan"].ToString(),
                                     new Guid(),
                                     DateTime.Now,
-                                    false
+                                    false,
+                                    0,
+                                    0
                                 )
                             );
                     }
@@ -467,7 +471,9 @@ namespace FCW.Actions
                                     reader["NameOfClan"].ToString(),
                                     new Guid(),
                                     DateTime.Now,
-                                    false
+                                    false,
+                                    0,
+                                    0
                                 )
                             );
                     }
@@ -771,11 +777,13 @@ namespace FCW.Actions
                         new UserDetails(reader["Email"].ToString(), reader["Address"].ToString(),
                         new City("Tirana")), Convert.ToInt32(reader["Points"]), Convert.ToInt32(reader["tpreds"]),
                         Convert.ToInt32(reader["spreds"]), Convert.ToInt32(reader["lastspreds"]),
-                        Convert.ToInt32(reader["lastsspreds"]), Convert.ToInt32(reader["AvatarId"]), Convert.ToInt32(reader["Rank"]),
-                        reader["NameOfClan"].ToString(), new Guid(), Convert.ToDateTime(reader["Birthday"]), Convert.ToBoolean(Convert.ToInt32(reader["isFirstLogin"])));
+                        Convert.ToInt32(reader["lastsspreds"]), Convert.ToInt32(reader["AvatarId"]),
+                        Convert.ToInt32(reader["Rank"]), reader["NameOfClan"].ToString(), new Guid(reader["SessionId"].ToString()),
+                        Convert.ToDateTime(reader["Birthday"]), Convert.ToBoolean(Convert.ToInt16(reader["isFirstLogin"]))
+                        , Convert.ToInt16(reader["yesterdaypoints"]), Convert.ToInt16(reader["detailpoints"]));
                     }
 
-                    if (userGuid.Equals(Guid.Empty))
+                    if (guid.Equals(Guid.Empty))
                     {
                         _user = gUser;
                         GetUserChats(_user.Guid);

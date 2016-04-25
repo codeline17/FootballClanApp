@@ -28,6 +28,9 @@ namespace Objects
         public IList<Chatroom> Chatrooms { get; set; }
         public bool? IsFirstLogin { get; set; }
         public int Credit2 { get; set; }
+        public int YesterdayPoints { get; set; }
+        public int DetailPoints { get; set; }
+
         public User()
         {
             Chatrooms = new List<Chatroom>();
@@ -54,7 +57,7 @@ namespace Objects
         public User(string username, Guid guid, int credit, int credit2, int clanid, 
             UserDetails userdetails, int points, int predictionsno, int successfulpredictions,
             int lastpredictions, int lastsuccessfulpredictions, int avatarid, int rank, 
-            string nameofclan, Guid sessionid, DateTime birthday, bool? isfirstlogin)
+            string nameofclan, Guid sessionid, DateTime birthday, bool? isfirstlogin, int yesterdaypoints, int detailpoints)
         {
             Username = username;
             Guid = guid;
@@ -74,6 +77,8 @@ namespace Objects
             _birthday = birthday;
             Chatrooms = new List<Chatroom>();
             IsFirstLogin = isfirstlogin;
+            YesterdayPoints = yesterdaypoints;
+            DetailPoints = detailpoints;
         }
     }
 
