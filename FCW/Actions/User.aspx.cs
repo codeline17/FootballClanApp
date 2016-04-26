@@ -171,8 +171,10 @@ namespace FCW.Actions
                         new UserDetails(reader["Email"].ToString(), reader["Address"].ToString(),
                         new City("Tirana")), Convert.ToInt32(reader["Points"]), Convert.ToInt32(reader["tpreds"]),
                         Convert.ToInt32(reader["spreds"]), Convert.ToInt32(reader["lastspreds"]),
-                        Convert.ToInt32(reader["lastsspreds"]), Convert.ToInt32(reader["AvatarId"]), Convert.ToInt32(reader["Rank"]),
-                        reader["NameOfClan"].ToString(), new Guid(), Convert.ToDateTime(reader["Birthday"]), Convert.ToBoolean(Convert.ToInt32(reader["isFirstLogin"])));
+                        Convert.ToInt32(reader["lastsspreds"]), Convert.ToInt32(reader["AvatarId"]),
+                        Convert.ToInt32(reader["Rank"]), reader["NameOfClan"].ToString(), new Guid(reader["SessionId"].ToString()),
+                        Convert.ToDateTime(reader["Birthday"]), Convert.ToBoolean(Convert.ToInt16(reader["isFirstLogin"]))
+                        , Convert.ToInt16(reader["yesterdaypoints"]), Convert.ToInt16(reader["detailpoints"]));
                     }
                     gUser.Chatrooms = GetUserMessagesService(gUser.Guid);
                 }
@@ -419,7 +421,9 @@ namespace FCW.Actions
                                     reader["NameOfClan"].ToString(),
                                     new Guid(),
                                     DateTime.Now,
-                                    false
+                                    false,
+                                    0,
+                                    0
                                 )
                             );
                     }
@@ -432,11 +436,18 @@ namespace FCW.Actions
         }
         private void GetAllUsers()
         {
+            int pageNumber, pageSize;
+            int.TryParse(Request.Params["PageNumber"], out pageNumber);
+            int.TryParse(Request.Params["PageSize"], out pageSize);
+
             using (var conn = new SqlConnection(_connectionstring))
             {
                 using (var cmd = new SqlCommand("UserGetAll", conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@UserGuid", SqlDbType.UniqueIdentifier).Value = _user.Guid;
+                    cmd.Parameters.Add("@PageNumber", SqlDbType.Int).Value = pageNumber;
+                    cmd.Parameters.Add("@PageSize", SqlDbType.Int).Value = pageSize;
 
                     var r = new List<Objects.User>();
                     conn.Open();
@@ -460,7 +471,9 @@ namespace FCW.Actions
                                     reader["NameOfClan"].ToString(),
                                     new Guid(),
                                     DateTime.Now,
-                                    false
+                                    false,
+                                    0,
+                                    0
                                 )
                             );
                     }
@@ -740,15 +753,18 @@ namespace FCW.Actions
         }
         public void RefreshUserDetials(Guid guid)
         {
-            Guid userGuid;
-            Guid.TryParse(Request.Params["UserGuid"], out userGuid);
+            DateTime fromDate = DateTime.Now, toDate = DateTime.Now;
+            DateTime.TryParseExact(Request.Params["fromDateDetails"], "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out fromDate);
+            DateTime.TryParseExact(Request.Params["toDateDetails"], "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out toDate);
+            fromDate = fromDate.Date;
+            toDate = toDate.Date.AddDays(1);
 
             using (var conn = new SqlConnection(_connectionstring))
             {
                 using (var cmd = new SqlCommand("UserGetById", conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@Guid", SqlDbType.UniqueIdentifier).Value = userGuid.Equals(Guid.Empty) ? guid : userGuid;
+                    cmd.Parameters.Add("@Guid", SqlDbType.UniqueIdentifier).Value = guid;
 
                     var gUser = new Objects.User();
                     
@@ -761,11 +777,13 @@ namespace FCW.Actions
                         new UserDetails(reader["Email"].ToString(), reader["Address"].ToString(),
                         new City("Tirana")), Convert.ToInt32(reader["Points"]), Convert.ToInt32(reader["tpreds"]),
                         Convert.ToInt32(reader["spreds"]), Convert.ToInt32(reader["lastspreds"]),
-                        Convert.ToInt32(reader["lastsspreds"]), Convert.ToInt32(reader["AvatarId"]), Convert.ToInt32(reader["Rank"]),
-                        reader["NameOfClan"].ToString(), new Guid(), Convert.ToDateTime(reader["Birthday"]), Convert.ToBoolean(Convert.ToInt32(reader["isFirstLogin"])));
+                        Convert.ToInt32(reader["lastsspreds"]), Convert.ToInt32(reader["AvatarId"]),
+                        Convert.ToInt32(reader["Rank"]), reader["NameOfClan"].ToString(), new Guid(reader["SessionId"].ToString()),
+                        Convert.ToDateTime(reader["Birthday"]), Convert.ToBoolean(Convert.ToInt16(reader["isFirstLogin"]))
+                        , Convert.ToInt16(reader["yesterdaypoints"]), Convert.ToInt16(reader["detailpoints"]));
                     }
 
-                    if (userGuid.Equals(Guid.Empty))
+                    if (guid.Equals(Guid.Empty))
                     {
                         _user = gUser;
                         GetUserChats(_user.Guid);
