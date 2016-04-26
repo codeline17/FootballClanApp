@@ -24,8 +24,8 @@ namespace Smaug
         
         private void GetHighlights()
         {
-            var c = new MyConsole();
-            c.WriteLine("aa");
+            /*var c = new MyConsole();
+            c.WriteLine("aa");*/
         }
 
         private void GetExtendedFixtures()

@@ -107,4 +107,11 @@ namespace Objects
             Name = name;
         }
     }
+
+    public class UserList
+    {
+        public List<User> Users { get; set; }
+        public int PageNumber { get; set; }
+        public int TotalPages { get; set; }
+    }
 }

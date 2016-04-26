@@ -47,28 +47,12 @@
       <HintPath>..\packages\Menulab.RichTextBox.1.1.0\lib\Menulab.RichTextBox.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
-    <Reference Include="System.Web.DynamicData" />
-    <Reference Include="System.Web.Entity" />
-    <Reference Include="System.Web.ApplicationServices" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
-    <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
-    <Reference Include="System.Web.Services" />
-    <Reference Include="System.EnterpriseServices" />
-    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Actions\Paypal.aspx" />
@@ -96,6 +80,29 @@
     <Content Include="style\images\avatars\7.png" />
     <Content Include="style\images\avatars\8.png" />
     <Content Include="style\images\reload.png" />
+    <Content Include="style\images\states\argentina.png" />
+    <Content Include="style\images\states\australia.png" />
+    <Content Include="style\images\states\belgium.png" />
+    <Content Include="style\images\states\brasil.png" />
+    <Content Include="style\images\states\china.png" />
+    <Content Include="style\images\states\denmark.png" />
+    <Content Include="style\images\states\england.png" />
+    <Content Include="style\images\states\france.png" />
+    <Content Include="style\images\states\germany.png" />
+    <Content Include="style\images\states\greece.png" />
+    <Content Include="style\images\states\holland.png" />
+    <Content Include="style\images\states\italy.png" />
+    <Content Include="style\images\states\mexico.png" />
+    <Content Include="style\images\states\norway.png" />
+    <Content Include="style\images\states\poland.png" />
+    <Content Include="style\images\states\portugal.png" />
+    <Content Include="style\images\states\russia.png" />
+    <Content Include="style\images\states\scotland.png" />
+    <Content Include="style\images\states\spain.png" />
+    <Content Include="style\images\states\sweden.png" />
+    <Content Include="style\images\states\turkey.png" />
+    <Content Include="style\images\states\ukraine.png" />
+    <Content Include="style\images\states\usa.png" />
     <Content Include="style\images\toggle.png" />
     <Content Include="style\js\mobileMenu.js" />
     <Content Include="js\prototype.js" />

@@ -754,6 +754,7 @@ namespace FCW.Actions
         public void RefreshUserDetials(Guid guid)
         {
             DateTime fromDate = DateTime.Now, toDate = DateTime.Now;
+            var userguid = Request.Params["userGuid"] != null ? new Guid(Request.Params["userGuid"]) : guid;
             DateTime.TryParseExact(Request.Params["fromDateDetails"], "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out fromDate);
             DateTime.TryParseExact(Request.Params["toDateDetails"], "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out toDate);
             fromDate = fromDate.Date;
@@ -764,7 +765,7 @@ namespace FCW.Actions
                 using (var cmd = new SqlCommand("UserGetById", conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@Guid", SqlDbType.UniqueIdentifier).Value = guid;
+                    cmd.Parameters.Add("@Guid", SqlDbType.UniqueIdentifier).Value = userguid;
 
                     var gUser = new Objects.User();
                     
