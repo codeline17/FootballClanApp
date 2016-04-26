@@ -30,6 +30,7 @@ namespace Objects
         public int Credit2 { get; set; }
         public int YesterdayPoints { get; set; }
         public int DetailPoints { get; set; }
+        public  int TodayPoints { get; set; }
 
         public User()
         {
@@ -57,7 +58,8 @@ namespace Objects
         public User(string username, Guid guid, int credit, int credit2, int clanid, 
             UserDetails userdetails, int points, int predictionsno, int successfulpredictions,
             int lastpredictions, int lastsuccessfulpredictions, int avatarid, int rank, 
-            string nameofclan, Guid sessionid, DateTime birthday, bool? isfirstlogin, int yesterdaypoints, int detailpoints)
+            string nameofclan, Guid sessionid, DateTime birthday, bool? isfirstlogin, int yesterdaypoints, 
+            int detailpoints, int todaypoints)
         {
             Username = username;
             Guid = guid;
@@ -79,6 +81,7 @@ namespace Objects
             IsFirstLogin = isfirstlogin;
             YesterdayPoints = yesterdaypoints;
             DetailPoints = detailpoints;
+            TodayPoints = todaypoints;
         }
     }
 
@@ -113,5 +116,12 @@ namespace Objects
         public List<User> Users { get; set; }
         public int PageNumber { get; set; }
         public int TotalPages { get; set; }
+
+        public UserList(List<User> users, int pagenumber, int totalpages)
+        {
+            Users = users;
+            PageNumber = pagenumber;
+            TotalPages = totalpages;
+        }
     }
 }

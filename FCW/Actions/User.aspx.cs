@@ -174,7 +174,7 @@ namespace FCW.Actions
                         Convert.ToInt32(reader["lastsspreds"]), Convert.ToInt32(reader["AvatarId"]),
                         Convert.ToInt32(reader["Rank"]), reader["NameOfClan"].ToString(), new Guid(reader["SessionId"].ToString()),
                         Convert.ToDateTime(reader["Birthday"]), Convert.ToBoolean(Convert.ToInt16(reader["isFirstLogin"]))
-                        , Convert.ToInt16(reader["yesterdaypoints"]), Convert.ToInt16(reader["detailpoints"]));
+                        , Convert.ToInt16(reader["yesterdaypoints"]), Convert.ToInt16(reader["detailpoints"]), Convert.ToInt16(reader["todaypoints"]));
                     }
                     gUser.Chatrooms = GetUserMessagesService(gUser.Guid);
                 }
@@ -423,6 +423,7 @@ namespace FCW.Actions
                                     DateTime.Now,
                                     false,
                                     0,
+                                    0,
                                     0
                                 )
                             );
@@ -449,13 +450,13 @@ namespace FCW.Actions
                     cmd.Parameters.Add("@PageNumber", SqlDbType.Int).Value = pageNumber;
                     cmd.Parameters.Add("@PageSize", SqlDbType.Int).Value = pageSize;
 
-                    var r = new List<Objects.User>();
+                    var ul = new List<Objects.User>();
                     conn.Open();
                     var reader = cmd.ExecuteReader();
 
                     while (reader.Read())
                     {
-                        r.Add(
+                        ul.Add(
                                 new Objects.User(
                                     reader["UserName"].ToString(),
                                     (Guid)reader["GUID"],
@@ -464,19 +465,25 @@ namespace FCW.Actions
                                     0,
                                     new UserDetails("","",new City("")),
                                     Convert.ToInt32(reader["Points"]),
-                                    Convert.ToInt32(reader["tpreds"]),
-                                    Convert.ToInt32(reader["spreds"]), Convert.ToInt32(reader["lastspreds"]),
-                                    Convert.ToInt32(reader["lastsspreds"]), Convert.ToInt32(reader["AvatarId"]),
+                                    0,
+                                    0,
+                                    0,
+                                    0,
+                                    Convert.ToInt32(reader["AvatarId"]),
                                     Convert.ToInt32(reader["Rank"]),
-                                    reader["NameOfClan"].ToString(),
+                                    "NoClan",
                                     new Guid(),
                                     DateTime.Now,
                                     false,
+                                    0,
                                     0,
                                     0
                                 )
                             );
                     }
+
+                    var r = new UserList(ul, Convert.ToInt16(reader["PageNumber"]),Convert.ToInt16(reader["LastPage"]));
+
                     var json = new JavaScriptSerializer {MaxJsonLength = 4194304};
                     var jsonStr = json.Serialize(r);
                     Response.ClearContent();
@@ -784,7 +791,7 @@ namespace FCW.Actions
                         Convert.ToInt32(reader["lastsspreds"]), Convert.ToInt32(reader["AvatarId"]),
                         Convert.ToInt32(reader["Rank"]), reader["NameOfClan"].ToString(), new Guid(reader["SessionId"].ToString()),
                         Convert.ToDateTime(reader["Birthday"]), Convert.ToBoolean(Convert.ToInt16(reader["isFirstLogin"]))
-                        , Convert.ToInt16(reader["yesterdaypoints"]), Convert.ToInt16(reader["detailpoints"]));
+                        , Convert.ToInt16(reader["yesterdaypoints"]), Convert.ToInt16(reader["detailpoints"]), Convert.ToInt16(reader["todaypoints"]));
                     }
 
                     if (guid.Equals(Guid.Empty))
