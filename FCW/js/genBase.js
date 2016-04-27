@@ -52,6 +52,7 @@ function getUnlocks() {
          case "matches":
              state = true;
              getMatches("w");
+             
              //genMatches();
              break;
          case "predictions":
@@ -81,8 +82,12 @@ function getUnlocks() {
          case "chat":
              getChat("parse");
              break;
+         case "tutorial":
+             tutorial();
+             break;
          default:
              break;
+
      }
 
      if (document.getElementsByClassName("icon-cancel-1").length === 1) {
@@ -155,6 +160,7 @@ function genMatches() {
 
  function genLeadBoard() {
      genLeaderboardTabs();
+     //genGlobals();
  }
 
  function genStore() {

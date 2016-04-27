@@ -1,4 +1,8 @@
-
+.description{
+    font-size: 15px;
+    color: wheat;
+    text-align: center;
+}
 .cssload-loader {
 	width: 146px;
 	height: 146px;
@@ -211,7 +215,7 @@ span.credit {
 }
 
 tr.leader {
-    background: rgba(255, 155, 0, 0.71);
+    background: rgba(255,215,0,0.6);
 }
 
 table#clan-table {
@@ -388,9 +392,10 @@ table.table-hover {
     cursor: pointer;
 }
 
-#livescore-table tbody tr td:first-child, #livescore-table tbody tr td:last-child  {
+.livescore-table tbody tr td:first-child, .livescore-table tbody tr td:last-child  {
     text-align:center;
 }
+
 /*
 #livescore-table tbody tr:first-child {
     background-color:rgba(111, 222, 37, 0.26);
@@ -414,27 +419,27 @@ table.table-hover {
     background-color:rgba(210, 215, 211, 0.68);
 }
 */
-#fTbl thead,#clan-table thead,#livescore-table thead,#uTbl thead,#cTbl thead,#cltable thead{
+#fTbl thead,#clan-table thead,.livescore-table thead,#uTbl thead,#cTbl thead,#cltable thead{
     background: rgba(0,0,0,0.3);
     color: white;
 
 }
-#fTbl thead tr th,#clan-table thead tr th,#livescore-table thead tr th,#uTbl thead,#cTbl thead.#cltable thead tr th{
+#fTbl thead tr th,#clan-table thead tr th,.livescore-table thead tr th,#uTbl thead,#cTbl thead.#cltable thead tr th{
     text-align:center!important;
 }
-#fTbl thead th:last-child,#clan-table thead th:last-child,#livescore-table thead th:last-child,#uTbl thead th:last-child,#cTbl thead th:last-child,#cltable thead th:last-child{
+#fTbl thead th:last-child,#clan-table thead th:last-child,.livescore-table thead th:last-child,#uTbl thead th:last-child,#cTbl thead th:last-child,#cltable thead th:last-child{
     border-radius: 0 10px 0 0;
 }
-#fTbl thead th:first-child,#clan-table thead th:first-child,#livescore-table thead th:first-child,#uTbl thead th:first-child,#cTbl thead th:first-child,#cltable thead th:first-child{
+#fTbl thead th:first-child,#clan-table thead th:first-child,.livescore-table thead th:first-child,#uTbl thead th:first-child,#cTbl thead th:first-child,#cltable thead th:first-child{
     border-radius: 10px 0 0 0;
 }
-#fTbl tbody tr:last-child td:first-child, #clan-table tbody tr:last-child td:first-child,#livescore-table tbody tr:last-child td:first-child,#uTbl tbody tr:last-child td:first-child,#cTbl tbody tr:last-child td:first-child,#cltable tbody tr:last-child td:first-child{
+#fTbl tbody tr:last-child td:first-child, #clan-table tbody tr:last-child td:first-child,.livescore-table tbody tr:last-child td:first-child,#uTbl tbody tr:last-child td:first-child,#cTbl tbody tr:last-child td:first-child,#cltable tbody tr:last-child td:first-child{
     border-radius: 0 0 0 10px;
 }
-#fTbl tbody tr:last-child td:last-child ,#clan-table tbody tr:last-child td:last-child,#livescore-table tbody tr:last-child td:last-child,#uTbl tbody tr:last-child td:last-child,#cTbl tbody tr:last-child td:last-child,#cltable tbody tr:last-child td:last-child{
+#fTbl tbody tr:last-child td:last-child ,#clan-table tbody tr:last-child td:last-child,.livescore-table tbody tr:last-child td:last-child,#uTbl tbody tr:last-child td:last-child,#cTbl tbody tr:last-child td:last-child,#cltable tbody tr:last-child td:last-child{
     border-radius: 0 0 10px 0;
 }
-#fTbl tbody,#clan-table tbody,#livescore-table tbody,#uTbl tbody,#cTbl tbody,#cltable tbody{
+#fTbl tbody,#clan-table tbody,.livescore-table tbody,#uTbl tbody,#cTbl tbody,#cltable tbody{
    background-color:rgba(215, 255, 159, 0.68);
 }
 
@@ -755,4 +760,7 @@ div.chatcontainer {
     text-align:center;
     color:white;
     cursor:pointer;
+}
+.profile{
+    background-color:lightgoldenrodyellow;
 }

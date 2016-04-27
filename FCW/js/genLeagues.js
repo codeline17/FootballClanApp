@@ -15,17 +15,13 @@ function genTabs(tabs, content) {
     if (tabs.length === 0 || content.length === 0 || tabs.length !== content.length) {
         return body;
     }
-
     var tabsEl = cEl("ul").attr("class", "etabs");
     var contentEl = cEl("div").attr("class", "panel-container").attr("style", "overflow: hidden;");
-
     for (var i = 0; i < tabs.length; i++) {
         var cId = makeid();
         var tabEl = cEl("li").listener("click",switchTabs, false).attr("class", "tab").append(cEl("a").attr("href", "#" + cId).tEl(tabs[i].Name));
         tabsEl.append(tabEl);
-
         var contEl = cEl("div").attr("class", "tab-block").attr("id", cId).append(content[i]).attr("style", "display:none;");
-
         contentEl.append(contEl);
     }
     var Pagination = cEl("div").attr("id", "paginationCompetation").attr("class", "pull-right");
@@ -33,9 +29,7 @@ function genTabs(tabs, content) {
     tabsEl.childNodes[0].childNodes[0].className = "active";
     contentEl.childNodes[0].attr("class", "tab-block active").attr("style", "display: block; position: static; visibility: visible;");
     body.append(tabsEl).append(contentEl).append(Pagination);
-
     mainC.append(body);
-
 }
 
 function firstel() {
@@ -53,7 +47,7 @@ function nextel() {
     pageNumber += 1;
     getLeagueData(pageNumber, 100);
 }
-function genLeagueTable(n,u,pagenumber) {
+function genLeagueTable(n,u,pagenumber,i) {
     //User-Points
     //HEADER
     var mTag = cEl("div");
@@ -63,9 +57,8 @@ function genLeagueTable(n,u,pagenumber) {
     }
     var tTitle = cEl("h3").append(cEl("img").attr("src","style/images/leagues/" + img + ".png")).tEl(n);
     var tabTag = document.createElement("table");
-    tabTag.id = "livescore-table";
-    tabTag.className = "table table-hover";
-
+    tabTag.id = "livescore-table"+i;
+    tabTag.className = "table table-hover livescore-table";
     var tHead = document.createElement("thead");
     var hRow = document.createElement("tr");
     hRow.append(cEl("th").append(cEl("span").attr("data-toggle", "tooltip").attr("data-placement", "top").attr("title", "#").tEl("#")));
@@ -79,14 +72,11 @@ function genLeagueTable(n,u,pagenumber) {
         var pg = i - 100;
         var compareGoneUpDown = (j + (pagenumber-1)*100);
         if (pagenumber == 1) {
-           pg = i - 99;
+           pg = i - 99+pagenumber-1;
         }
         else {
-           pg = i - 100;
+           pg = i - 100+pagenumber-1;
         }
-
-        
-        
         var tdRang;
         if (u[j].PreviousLeagueRank > compareGoneUpDown+1) {
             tdRang = cEl("td").tEl(pg ).append(cEl("i").attr("class", "icon-up-dir-1 goneup"));
@@ -98,36 +88,16 @@ function genLeagueTable(n,u,pagenumber) {
         if (pg < 51) {
             tdRang.appendChild(cEl("i").attr("class", "icon-trophy gold"));
         }
-        
         var tdUsername = cEl("td").tEl(u[j].Username ? u[j].Username : u[j].Name);
         var tdPoints = cEl("td").tEl(u[j].Points);
-            var row = cEl("tr").append(tdRang).append(tdUsername).append(tdPoints);//.listener("click", showProfile);
-        var level = getOverAllForm(u[j]);//level
-        var form = getUserForm(u[j]);//form
-        var form1 = genProgressBar(form).attr("style", "display: inline-block;width: 80%;margin-bottom:0px;");
-        var globalRank = u[j].Rank;//globalrank
-        var footballs = u[j].Credit2;//footballs
-        var row2 = cEl("tr").attr("class", "profile-hidden");
-        var row3 = cEl("div").attr("class", "row-fluid")
-            .append(cEl("div").attr("class", "profile-el").tEl("Global Rank: " + globalRank))
-                .append(cEl("div").attr("class", "profile-el").tEl("Level: ").append(cEl("span").attr("class", "total-points label-warning").tEl(level)))
-                        .append(cEl("div").attr("class", "profile-el").tEl("White Balls: " + footballs)).append(cEl("div").attr("class", "profile-form").tEl("Form: ").append(form1));
-        var td1 = cEl("td").attr("colspan","3").append(row3);
-        //row2.append(td1);
-        
-        
-        
+        var guid=u[j].Guid;
+        var row = cEl("tr").wr({Guid:guid}).listener("click",function(){ showProfile(this);}).append(tdRang).append(tdUsername).append(tdPoints);
         row.className = cuser.Username === u[j].Username || cuser.NameOfClan === u[j].Name ? "leader" : "";
-        tBody.append(row);//.append(row2)
-        
-        
+        tBody.append(row);
     }
-
     tabTag.appendChild(tHead);
     tabTag.appendChild(tBody);
-
     mTag.append(tTitle).append(tabTag);
-
     return mTag;
 }
 
@@ -152,40 +122,82 @@ function switchTabs(e) {
 
     this.className = "tab active";
 }
-function showProfile() {
+
+var firstClick = 0;
+var lastClick = 0;
+function showProfile(el) {
+    var id = $(".etabs li.active").index();
+    var guid = el.wrapper.Guid;
+    var rownumber;
     
-    var index = this.rowIndex + 1;
-    var tabela = document.getElementById("livescore-table");
-    var length = tabela.rows.length;
-    
-    if (tabela.rows.item(index).className != "profile-show") {
-        for (var i = 0; i < length; i += 2) {
-            if (i === this.rowIndex) { }
-            else {
-                if (i == 0) {
-                    tabela.rows.item(i).className = "profile-show";
-                } else {
-                    tabela.rows.item(i).className = "profile-hidden";
-                }
-            }
-        }
-    }
-    if (tabela.rows.item(index).className === "profile-show") {
-        tabela.rows.item(index).className = "profile-hidden";
-    } else {
-        tabela.rows.item(index).className = "profile-show";
-    }
+    var table = document.getElementById("livescore-table"+id);
+    var lastTableEl = document.getElementById("livescore-table"+id).rows.length;
+    var todyaDate = getFullDate(new Date(), 0);
+    var lastWeekDate = getFullDate(new Date(), -7);
+    $.post("Actions/User.aspx", { type: "RFR", userGuid: guid, fromDateDetails: lastWeekDate, toDateDetails: todyaDate },
+       function (e) {
+           var livescore = "#livescore-table" + id + " tr";
+           var livescore1 = "#livescore-table"+id+" .profile";
+           if ($(livescore).hasClass("profile")) {
+               $(livescore1).remove();
+           }
+           rownumber = el.rowIndex;
+           if (firstClick == 0) {
+               
+               var e = JSON.parse(e);
+               console.log(e);
+               var level = getOverAllForm(e);//level
+               var form = getUserForm(e);//form
+               var form1 = genProgressBar(form).attr("style", "display: inline-block;width: 80%;margin-bottom:0px;");
+               var globalRank = e.Rank;//globalrank
+               var todayPts = e.TodayPoints;
+               var yesterdayPts = e.YesterdayPoints;
+               var lastWeekPts = e.DetailPoints;;
+               var row3 = cEl("div").attr("class", "row-fluid")
+                   .append(cEl("div").attr("class", "profile-el").tEl("Global Rank: " + globalRank))
+                       .append(cEl("div").attr("class", "profile-el").tEl("Level: ").append(cEl("span").attr("class", "total-points label-warning").tEl(level)))
+                            .append(cEl("div").attr("class", "profile-el").tEl("Today Pts: " + todayPts))
+                                   .append(cEl("div").attr("class", "profile-el").tEl("Yesterday Pts: " + yesterdayPts))
+                                        .append(cEl("div").attr("style", "text-align:center").tEl("Last Week Pts: " + lastWeekPts)).append(cEl("div").attr("class", "profile-form").tEl("Form: ").append(form1));
+               var td1 = cEl("td").attr("colspan", "3").append(row3);
+               var row = table.insertRow(rownumber + 1);
+               row.attr("class", "profile").append(td1);
+               firstClick = 1;
+               lastClick = rownumber;
+           }
+           else if(firstClick==1&&lastClick==rownumber) {
+               firstClick = 0;
+           }
+       else {
+               var e = JSON.parse(e);
+               console.log(e);
+               var level = getOverAllForm(e);//level
+               var form = getUserForm(e);//form
+               var form1 = genProgressBar(form).attr("style", "display: inline-block;width: 80%;margin-bottom:0px;");
+               var globalRank = e.Rank;//globalrank
+               var todayPts = e.TodayPoints;
+               var yesterdayPts = e.YesterdayPoints;
+               var lastWeekPts = e.DetailPoints;;
+               var row3 = cEl("div").attr("class", "row-fluid")
+                    .append(cEl("div").attr("class", "profile-el").tEl("Global Rank: " + globalRank))
+                        .append(cEl("div").attr("class", "profile-el").tEl("Level: ").append(cEl("span").attr("class", "total-points label-warning").tEl(level)))
+                             .append(cEl("div").attr("class", "profile-el").tEl("Today Pts: " + todayPts))
+                                    .append(cEl("div").attr("class", "profile-el").tEl("Yesterday Pts: " + yesterdayPts))
+                                         .append(cEl("div").attr("style", "text-align:center").tEl("Last Week Pts: " + lastWeekPts)).append(cEl("div").attr("class", "profile-form").tEl("Form: ").append(form1));
+               var td1 = cEl("td").attr("colspan", "3").append(row3);
+               var row = table.insertRow(rownumber + 1);
+               row.attr("class", "profile").append(td1);
+               firstClick = 1;
+               lastClick = rownumber;
+           }
+       });
 }
 
-
 function getLeagueData(pagenumber, pagesize) {
-     
-    
-    
     $.post("Actions/User.aspx", { type: 'LDL2', PageNumber: pagenumber, PageSize: pagesize },
 function (e) {
     e = JSON.parse(e);
-   
+    console.log(e);
     var tabs = [];
     var content = [];
     
@@ -194,7 +206,7 @@ function (e) {
             var l = { Name: e[i].Name }
             tabs.push(l);
             var els = e[i].Users.length > 0 ? e[i].Users : e[i].Clans;
-            var c = genLeagueTable(e[i].Name, els,e[i].Page);
+            var c = genLeagueTable(e[i].Name, els,e[i].Page,i);
             content.push(c);
         }
         if (e[i].Page) {

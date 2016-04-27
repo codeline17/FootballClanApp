@@ -29,12 +29,13 @@ function expandMatch(e) {
 
 */
 
-testisfirstlogin();
+//testisfirstlogin();
 
 function expandMyDetails(e) {
     var el = e.target.parentElement;
     //alert(el.rowIndex);
 }
+/*
 function testisfirstlogin() {
     $.post("Actions/User.aspx", { type: "RFR" },
      function (e) {
@@ -138,3 +139,4 @@ function tutorial() {
 
     });
 }
+*/

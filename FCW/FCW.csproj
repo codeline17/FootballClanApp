@@ -66,6 +66,7 @@
     <Content Include="js\genLiveScore.js" />
     <Content Include="js\genMatches.js" />
     <Content Include="js\genTable.js" />
+    <Content Include="js\genTutorial.js" />
     <Content Include="js\genUnlock.js" />
     <Content Include="js\helpers.js" />
     <Content Include="js\manageClan.js" />
@@ -366,6 +367,16 @@
     <Content Include="style\type\fontello.css" />
     <Content Include="style\type\fontello\fontello-social.svg" />
     <Content Include="style\type\fontello\fontello.svg" />
+    <Content Include="style\videos\1.mp4" />
+    <Content Include="style\videos\1.webm" />
+    <Content Include="style\videos\2.mp4" />
+    <Content Include="style\videos\2.webm" />
+    <Content Include="style\videos\3.mp4" />
+    <Content Include="style\videos\3.webm" />
+    <Content Include="style\videos\4.mp4" />
+    <Content Include="style\videos\4.webm" />
+    <Content Include="style\videos\5.mp4" />
+    <Content Include="style\videos\5.webm" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

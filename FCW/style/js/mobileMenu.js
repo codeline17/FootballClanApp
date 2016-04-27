@@ -5,7 +5,7 @@ var dritarja = 0;
 $(document).ready(function () {
     window.addEventListener('resize', resize);
 
-    $('.logo img').click(function () {
+    $('.logo i').click(function () {
         if (windowwidth < 1140 && allowresize == 1) {
             animate();
         }

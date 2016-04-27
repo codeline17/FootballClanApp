@@ -209,7 +209,6 @@ function genLbClanTable(objs, id) {
 
 
         tBody.append(favRow).append(row2);
-        console.log(objs[i]);
     }
 
     mainTag.append(tHead);
@@ -233,6 +232,14 @@ function genGlobal() {
        uObj = JSON.parse(e);
        appendToItem("tbMain", genLbUserTable(uObj, "uTbl"), "-");
        pageToSelf("u");
+   });
+}
+function genGlobals() {
+    var uObj;
+    $.post("Actions/User.aspx", { type: "GAU",PageNumber:pageNumber },
+   function (e) {
+       uObj = JSON.parse(e);
+       console.log(uObj);
    });
 }
 
@@ -311,7 +318,7 @@ function switchLbTabs(e) {
             getFavorites();
             break;
         case "users":
-            genGlobal();
+            genGlobals();
             break;
         case "clans":
             genLbClans();

@@ -31,7 +31,7 @@ namespace FCW.Actions
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.Add("@Username", SqlDbType.VarChar, 20).Value = username.Trim();
                         cmd.Parameters.Add("@Password", SqlDbType.VarChar, 20).Value = password.Trim();
-                        cmd.Parameters.Add("@Email", SqlDbType.VarChar, 20).Value = email.Trim();
+                        cmd.Parameters.Add("@Email", SqlDbType.VarChar, 50).Value = email.Trim();
 
                         conn.Open();
                         var reader = cmd.ExecuteScalar();

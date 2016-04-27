@@ -42,6 +42,7 @@
             <div class="span4 logo pull-left">
                 <a href="#">
                     <img src="style/images/logo.png" /></a>
+                    <i class =" icon-menu"></i>
             </div>
             <div id="balls"></div>
             <div id="avatar">
@@ -76,7 +77,7 @@
                     </a>
                 </li>
                 <li content-type="chat">
-                    <a class="meanclose"><i class="icon-comment icn"></i> Message Board</a>
+                    <a class="meanclose"><i class="icon-comment icn"></i> Global Chat</a>
                 </li>
                 <li content-type="predictions">
                     <a class="meanclose"><i class="icon-magic icn"></i> Past Predictions</a>
@@ -86,6 +87,9 @@
                 </li>
                 <li content-type="store">
                     <a class="meanclose"><i class="icon-basket icn"></i> My Store</a>
+                </li>
+                <li content-type="tutorial">
+                    <a class="meanclose"><i class="icon-videocam icn"></i> Tutorials</a>
                 </li>
             </ul>
             <div id="refreshPage"></div>
@@ -475,6 +479,7 @@
     <script src="js/userdetailsmenu.js"></script>
     <script src="js/manageClan.js"></script>
     <script src="js/expandDetails.js"></script>
+    <script src="js/genTutorial.js"></script>
     
     
 </body>
