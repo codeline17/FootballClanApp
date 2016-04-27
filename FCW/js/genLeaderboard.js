@@ -236,9 +236,10 @@ function genGlobal() {
 }
 function genGlobals() {
     var uObj;
-    $.post("Actions/User.aspx", { type: "GAU",PageNumber:pageNumber },
+    
+    $.post("Actions/User.aspx", { type: "GAU",PageNumber:0,PageSize:100 },
    function (e) {
-       uObj = JSON.parse(e);
+       var uObj = JSON.parse(e);
        console.log(uObj);
    });
 }

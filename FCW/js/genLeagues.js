@@ -145,7 +145,6 @@ function showProfile(el) {
            if (firstClick == 0) {
                
                var e = JSON.parse(e);
-               console.log(e);
                var level = getOverAllForm(e);//level
                var form = getUserForm(e);//form
                var form1 = genProgressBar(form).attr("style", "display: inline-block;width: 80%;margin-bottom:0px;");
@@ -170,7 +169,6 @@ function showProfile(el) {
            }
        else {
                var e = JSON.parse(e);
-               console.log(e);
                var level = getOverAllForm(e);//level
                var form = getUserForm(e);//form
                var form1 = genProgressBar(form).attr("style", "display: inline-block;width: 80%;margin-bottom:0px;");
@@ -197,7 +195,6 @@ function getLeagueData(pagenumber, pagesize) {
     $.post("Actions/User.aspx", { type: 'LDL2', PageNumber: pagenumber, PageSize: pagesize },
 function (e) {
     e = JSON.parse(e);
-    console.log(e);
     var tabs = [];
     var content = [];
     
