@@ -197,7 +197,6 @@ function (e) {
     e = JSON.parse(e);
     var tabs = [];
     var content = [];
-    
     for (var i = 0; i < e.length; i++) {
         if (e[i].Name) {
             var l = { Name: e[i].Name }
