@@ -16,7 +16,7 @@ function appendToItem(id, el, bdt) {
     if (bdt) {
         $('body').off('click', '.pagination li');
         $("#" + el.id).bdt({
-            pageRowCount: 200
+            pageRowCount: 100
         });
     }
 }

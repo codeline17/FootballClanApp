@@ -12,8 +12,7 @@
     width: 50%;
     display: inline-block;
     padding:10px;
-    padding-right: 20px;
-    padding-left: 20px;
+   
 }
 .profile-form{
     width: 100%;
@@ -2415,7 +2414,8 @@ media_tag_5 {
     margin: 0
 }
 .pricing .plan {
-    border: 1px solid #dedede
+    border: 1px solid #dedede;
+    margin-top: 20px;
 }
 
 select {

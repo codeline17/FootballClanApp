@@ -109,7 +109,6 @@ function expandMatch(e) {
 }
 
 function createMatchPanel(e) {
-    console.log(e);
     if (e.Authorized) {
         var panel = cEl("div").attr("class", "row-fluid");
         var sealed = e.Sealed;
@@ -280,7 +279,6 @@ function sendPredictions(e) {
             prd = e.target.options[e.target.selectedIndex].wrapper.attrs;
             break;
     }
-
     if (prd.length < 0)
         return;
 

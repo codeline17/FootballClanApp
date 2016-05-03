@@ -10,13 +10,16 @@ for (var i = 1; i < 42; i++) {
 }
 
 function genClans() {
+    
     var mainC = document.getElementById("mainContainer");
     mainC.innerHTML = "";
 
     $.post("Actions/User.aspx", { type: "GU" },
       function (e) {
+          
           e = JSON.parse(e);
           if (e.ClanId === 0) { //NoClan : Show CreateClan or JoinClan
+             
               //preps
               var tabGroup = cEl("div").attr("class", "tabs tabs-top left tab-container").attr("data-easytabs", "true");
               var tabs = cEl("ul").attr("class", "etabs")
@@ -71,6 +74,7 @@ function genClans() {
               /****************************/
 
           } else if (e.ClanId === -1) {
+              
               mainC.append(cEl("div").attr("class", "alert").tEl("You are waiting to be approved to join a clan.")).append(cEl("a").attr("href", "#").attr("id","RemoveRequest").tEl("Remove Request").listener("click", function () {
                   $.post("Actions/User.aspx", { type: "RMUC", name: cuser.Username, clanName: cuser.NameOfClan },
                     function (c) {
@@ -79,9 +83,9 @@ function genClans() {
                   window.location.reload();
               }));
           } else { //InClan : Show ClanDetails
+            
               $.post("Actions/User.aspx", { type: "CDL", id: e.ClanId },
                   function (c) {
-                      
                       c = JSON.parse(c);
                       contextClan = c;
                       //mainC.append(cEl("h3").tEl(c.Name + "   ").append(cEl("span").attr("class","cups").tEl("0").append(cEl("i").attr("class", "icon-trophy gold"))).append(cEl("small").tEl("[ " + clanPts + " Pts ]")).append(cEl("small").tEl("  [ " + c.Users.length + " of 11 members ]")));
@@ -114,7 +118,7 @@ function genClans() {
 
 function switchCTab(e) {
     var w = e.target.wrapper.Tab;
-    console.log(w);
+    
     $("li.tab").each(function() {
         this.className = this.className.replace(" active", "");
     });
@@ -150,13 +154,20 @@ function genClanHeader(c) {
     for (var i = 0; i < c.Users.length; i++) {
         clanPts += c.Users[i].Points;
     }
+    var changeBadgeClan = "";
+    if (cuser.Username == c.Leader) {
+        changeBadgeClan = cEl("img").attr("class", "img-responsive").attr("width", "50px").attr("src", clanBadgesUrl + c.Image + clanBadgesExt).listener("click", genClanBadges);
+    }
+    else{
+        changeBadgeClan = cEl("img").attr("class", "img-responsive").attr("width", "50px").attr("src", clanBadgesUrl + c.Image + clanBadgesExt);
+    }
     var m = cEl("table").attr("class","clans")
         .append(
             cEl("tr")
             .append(
                 cEl("td").attr("rowspan", "2")
         //.listener("click", editClanBadge)
-                .append(cEl("img").attr("class", "img-responsive").attr("width", "50px").attr("src", clanBadgesUrl + c.Image + clanBadgesExt).listener("click",genClanBadges))
+                .append(changeBadgeClan)
             )
             .append(
                 cEl("td")
@@ -305,7 +316,7 @@ function approveMember(e) {
     var cname = e.target.getAttribute("cel-cname");
     $.post("Actions/User.aspx", { type: "AUC", name: uname, clanName: cname },
         function(c) {
-            console.log(c);
+            
             if (c === "1") {
                 getHeaderInfo();
                 genClans();
@@ -315,9 +326,10 @@ function approveMember(e) {
 
 function removeMember(e) {
     var uname = e.target.getAttribute("cel-uname");
+    
     $.post("Actions/User.aspx", { type: "RMUC", name: uname, clanName: cuser.NameOfClan },
         function (c) {
-            console.log(c);
+            
             if (c === "1") {
                 getHeaderInfo();
                 genClans();

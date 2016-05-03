@@ -41,8 +41,9 @@
         <div class="row">
             <div class="span4 logo pull-left">
                 <a href="#">
-                    <img src="style/images/logo.png" /></a>
+                    <img src="style/images/logo.png" />
                     <i class =" icon-menu"></i>
+                </a>
             </div>
             <div id="balls"></div>
             <div id="avatar">
@@ -82,11 +83,11 @@
                 <li content-type="predictions">
                     <a class="meanclose"><i class="icon-magic icn"></i> Past Predictions</a>
                 </li>
-                <li content-type="unlock">
-                    <a class="meanclose"><i class="icon-lock-open-1 icn"></i> Unlocks</a>
-                </li>
                 <li content-type="store">
                     <a class="meanclose"><i class="icon-basket icn"></i> My Store</a>
+                </li>
+                <li content-type="unlock">
+                    <a class="meanclose"><i class="icon-lock-open-1 icn"></i> Unlocks </a>
                 </li>
                 <li content-type="tutorial">
                     <a class="meanclose"><i class="icon-videocam icn"></i> Tutorials</a>

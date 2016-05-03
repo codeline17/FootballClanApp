@@ -37,13 +37,14 @@ namespace Objects
             Chatrooms = new List<Chatroom>();
         }
 
-        public User(string username, string inclansince, bool isapproved, int points)
+        public User(string username, string inclansince, bool isapproved, int points, Guid guid)
         {
             Username = username;
             InClanSince = inclansince;
             isApproved = isapproved;
             Points = points;
             Chatrooms = new List<Chatroom>();
+            Guid = guid;
         }
 
         public User(string username, int points, int previousleaguerank, Guid guid)

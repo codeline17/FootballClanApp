@@ -145,17 +145,20 @@ function showProfile(el) {
            if (firstClick == 0) {
                
                var e = JSON.parse(e);
+               
                var level = getOverAllForm(e);//level
                var form = getUserForm(e);//form
                var form1 = genProgressBar(form).attr("style", "display: inline-block;width: 80%;margin-bottom:0px;");
                var globalRank = e.Rank;//globalrank
                var todayPts = e.TodayPoints;
                var yesterdayPts = e.YesterdayPoints;
-               var lastWeekPts = e.DetailPoints;;
+               var lastWeekPts = e.DetailPoints;
+               var avatar = e.AvatarId;
                var row3 = cEl("div").attr("class", "row-fluid")
-                   .append(cEl("div").attr("class", "profile-el").tEl("Global Rank: " + globalRank))
-                       .append(cEl("div").attr("class", "profile-el").tEl("Level: ").append(cEl("span").attr("class", "total-points label-warning").tEl(level)))
-                            .append(cEl("div").attr("class", "profile-el").tEl("Today Pts: " + todayPts))
+                   .append(cEl("div").attr("class", "profile-el").append(cEl("img").attr("style", "height:27px;").attr("src", "style/images/avatars/" + avatar + ".png")))
+                        .append(cEl("div").attr("class", "profile-el").tEl("Level: ").append(cEl("span").attr("class", "total-points label-warning").tEl(level)))
+                            .append(cEl("div").attr("class", "profile-el").tEl("Global Rank: " + globalRank))
+                                 .append(cEl("div").attr("class", "profile-el").tEl("Today Pts: " + todayPts))
                                    .append(cEl("div").attr("class", "profile-el").tEl("Yesterday Pts: " + yesterdayPts))
                                         .append(cEl("div").attr("style", "text-align:center").tEl("Last Week Pts: " + lastWeekPts)).append(cEl("div").attr("class", "profile-form").tEl("Form: ").append(form1));
                var td1 = cEl("td").attr("colspan", "3").append(row3);
@@ -176,12 +179,14 @@ function showProfile(el) {
                var todayPts = e.TodayPoints;
                var yesterdayPts = e.YesterdayPoints;
                var lastWeekPts = e.DetailPoints;;
+               var avatar = e.AvatarId;
                var row3 = cEl("div").attr("class", "row-fluid")
-                    .append(cEl("div").attr("class", "profile-el").tEl("Global Rank: " + globalRank))
+                   .append(cEl("div").attr("class", "profile-el").append(cEl("img").attr("style", "height:27px;").attr("src", "style/images/avatars/" + avatar + ".png")))
                         .append(cEl("div").attr("class", "profile-el").tEl("Level: ").append(cEl("span").attr("class", "total-points label-warning").tEl(level)))
-                             .append(cEl("div").attr("class", "profile-el").tEl("Today Pts: " + todayPts))
-                                    .append(cEl("div").attr("class", "profile-el").tEl("Yesterday Pts: " + yesterdayPts))
-                                         .append(cEl("div").attr("style", "text-align:center").tEl("Last Week Pts: " + lastWeekPts)).append(cEl("div").attr("class", "profile-form").tEl("Form: ").append(form1));
+                            .append(cEl("div").attr("class", "profile-el").tEl("Global Rank: " + globalRank))
+                                 .append(cEl("div").attr("class", "profile-el").tEl("Today Pts: " + todayPts))
+                                   .append(cEl("div").attr("class", "profile-el").tEl("Yesterday Pts: " + yesterdayPts))
+                                        .append(cEl("div").attr("style", "text-align:center").tEl("Last Week Pts: " + lastWeekPts)).append(cEl("div").attr("class", "profile-form").tEl("Form: ").append(form1));
                var td1 = cEl("td").attr("colspan", "3").append(row3);
                var row = table.insertRow(rownumber + 1);
                row.attr("class", "profile").append(td1);

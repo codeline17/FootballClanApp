@@ -26,8 +26,106 @@ function genLeaderboardTabs() {
     mainC.append(mainTabs);
 
     getFavorites();
+    var first = cEl("div").attr("id", "firstpageGlobal").attr("style", "display:inline-block").listener("click", firstelGlobal).tEl(" First ");
+    var previous = cEl("div").attr("id", "previousGlobal").attr("style", "display:inline-block").listener("click", previouselGlobal).tEl(" << ");
+    var next = cEl("div").attr("id", "nextGlobal").attr("style", "display:inline-block").listener("click", nextelGlobal).tEl(" >> ");
+    var mypage = cEl("div").attr("id", "mypageGlobal").attr("style", "display:inline-block").tEl(" ");
+    var lastpage = cEl("div").attr("id", "lastpageGlobal").attr("style", "display:inline-block").listener("click", lastellGlobal).tEl(" Last Page ");
+    var Pagination = cEl("div").attr("id", "paginationGlobal").attr("class", "pull-right").attr("style","display:none");
+    Pagination.append(cEl("br")).append(first).append(previous).append(mypage).append(next).append(lastpage);
+    mainC.append(Pagination);
 
 }
+var lastpage;
+function genGlobalUserTable(objs, id) {
+    pageNumber = objs.PageNumber;
+    //Table Tag
+    var mainTag = document.createElement("table");
+    mainTag.id = id;
+    mainTag.className = "table table-hover";
+
+    //Header
+    var head = [{ Title: "Fav", Text: "Fav" }, { Title: "Rank", Text: "Rank" }, { Title: "Username", Text: "User" },
+                { Title: "Points", Text: "Pts" }]; //, { Title: "Level", Text: "Lvl" }, { Title: "Form", Text: "Form" }
+    var tHead = document.createElement("thead");
+    var hRow = document.createElement("tr");
+    for (i = 0; i < head.length; i++) {
+        var hElement = cEl("th").tEl(head[i].Text);
+        hRow.append(hElement);
+    }
+    
+    tHead.append(hRow);
+    var tBody = document.createElement("tbody");
+
+    var first = 0;
+    for (var i = pageNumber * 100; i < objs.Users.length + pageNumber * 100; i++) {
+        var j = i - (pageNumber * 100);
+        var pg = i - 100;
+        if (pageNumber == 1) {
+            pg = i - 99 + pageNumber - 1;
+        }
+        else {
+            pg = i - 100 + pageNumber - 1;
+        }
+        var rank = objs.Users[j].Rank + pageNumber * 100;
+        var favClass;
+        var rowClass = "";
+        var favRow = "";
+        
+            var objusername = objs.Users[j].Username;
+            if (objusername.length > 10) {
+                objusername = objusername.substr(0, 8) + "...";
+            }
+            favClass = favIds.indexOf(objs.Users[j].Username) > -1 ? "icon-star-1" : "icon-star-empty-1";
+            rowClass = objs.Users[j].Username === cuser.Username ? "self" : "regular";
+            favRow = cEl("tr").attr("class", rowClass).wr({ Guid: objs.Users[j].Guid }).listener("click", function () { showFavoritesProfile(this, "uTbl"); });
+        favRow.append(cEl("td").append(cEl("i").wr({ uname: objs.Users[j].Username }).attr("class", favClass + " lbFav").listener("click", toggleFavorite))) //Favorite Star
+                  .append(cEl("td").tEl(pg)) //Rank
+                  .append(cEl("td").tEl(objusername)) //Username
+                  .append(cEl("td").tEl(objs.Users[j].Points)); //Points
+            //.append(cEl("td").tEl(getOverAllForm(objs[i]))) //Level
+            //.append(cEl("td").tEl(getUserForm(objs[i]))); //Form
+        //tBody.append(genSingleMatchRow(matches[j]));
+        tBody.append(favRow);
+    }
+    mainTag.append(tHead);
+    mainTag.append(tBody);
+    pageNumber = objs.PageNumber;
+    document.getElementById("mypageGlobal").innerHTML = pageNumber;
+    document.getElementById("paginationGlobal").attr("style", "display:inline-block");
+    return mainTag;
+}
+
+function firstelGlobal() {
+    pageNumber = 1;
+    genGlobal(pageNumber, 100);
+}
+function previouselGlobal() {
+    if (pageNumber == 1)
+        return;
+    pageNumber -= 1;
+    genGlobal(pageNumber, 100);
+}
+function nextelGlobal() {
+    if (pageNumber == lastpage) {
+        return;
+    }
+    pageNumber += 1;
+    genGlobal(pageNumber, 100);
+
+}
+function lastellGlobal() {
+    pageNumber = lastpage;
+    
+    genGlobal(pageNumber, 100)
+}
+
+
+
+
+
+
+
 
 function genLbUserTable(objs, id) {
     var i = 0;
@@ -49,77 +147,48 @@ function genLbUserTable(objs, id) {
 
     var tBody = document.createElement("tbody");
     
-    
-    for (i = -1; i < objs.length; i++) {
+    var first = 0;
+    for (i = 0; i < objs.length; i++) {
        
-        var favClass ="icon-star-1";
-        var rowClass ="";
+        var favClass;
+        var rowClass = "";
         var favRow = "";
-        var form;
-        var row1;
-        var rowtd;
-        var row3;
-        var football;
-
-
-        if (id === "fTbl" && i === -1) {
-            rowClass = "self";
-            football = cuser.Credit2;
+        if (id === "fTbl" && first == 0 && cuser.Rank < objs[i].Rank) {
+            rowClass1 = "self";
+            football1 = cuser.Credit2;
             var cusername = cuser.Username;
             if (cusername.length > 10) {
                 cusername = cusername.substr(0, 8)+"...";
             }
-            form = genProgressBar(getUserForm(cuser)).attr("style", "display: inline-block;width: 80%;margin-bottom:0px;");
-            row1 = cEl("tr").attr("class", "profile-hidden");
-            rowtd = cEl("td").attr("colspan", "4");
-            row3 = cEl("div").attr("class", "row-fluid")
-                .append(cEl("div").attr("class", "profile-el").tEl("Level: ").append(cEl("span").attr("class", "total-points label-warning").tEl(getOverAllForm(cuser))))
-                       .append(cEl("div").attr("class", "profile-el").tEl("White Balls: "+football)).append(cEl("div").attr("class", "profile-form").tEl("Form: ").append(form));
-
-
-            favRow = cEl("tr").attr("class", rowClass).listener("click", showFavoritesProfile);
-            favRow.append(cEl("td").append(cEl("i").attr("class", favClass + " lbFav").listener("click", toggleFavorite))) //Favorite Star
+            form1 = genProgressBar(getUserForm(cuser)).attr("style", "display: inline-block;width: 80%;margin-bottom:0px;");
+            rowtd1 = cEl("td").attr("colspan", "4");
+            favRow1 = cEl("tr").attr("class", rowClass1).wr({ Guid: cuser.Guid }).listener("click", function () { showFavoritesProfile(this, "fTbl"); });
+            favRow1.append(cEl("td").append(cEl("i").attr("class", favClass + " lbFav").listener("click", toggleFavorite))) //Favorite Star
               .append(cEl("td").tEl(cuser.Rank)) //Rank
               .append(cEl("td").tEl(cusername)) //Username
               .append(cEl("td").tEl(cuser.Points)); //Points
               //.append(cEl("td").tEl(getOverAllForm(cuser))) //Level
             //.append(cEl("td").tEl(getUserForm(cuser))); //Form
-            rowtd.append(row3);
-            row1.append(rowtd);
-            favRow.append(row1);
+            
         }
-        else if (id === "uTbl" && i === -1) {
-            continue;
-        }
-        else if (id === "uTbl" && i !=-1) {
-            var objusername = objs[i].Username;
-            if (objusername.length > 10) {
-                objusername = objusername.substr(0, 8) + "...";
+         
+        else if (id === "fTbl" && first == 0 && cuser.Rank > objs[i].Rank) {
+            rowClass1 = "self";
+            football1 = cuser.Credit2;
+            var cusername = cuser.Username;
+            if (cusername.length > 10) {
+                cusername = cusername.substr(0, 8) + "...";
             }
-        football = objs[i].Credit2;
-        favClass = favIds.indexOf(objs[i].Username) > -1 ? "icon-star-1" : "icon-star-empty-1";
-        rowClass = objs[i].Username === cuser.Username ? "self" : "regular";
+            favRow1 = cEl("tr").attr("class", rowClass1).wr({ Guid: cuser.Guid }).listener("click", function () { showFavoritesProfile(this,"fTbl"); });
+            favRow1.append(cEl("td").append(cEl("i").attr("class", favClass + " lbFav").listener("click", toggleFavorite))) //Favorite Star
+              .append(cEl("td").tEl(cuser.Rank)) //Rank
+              .append(cEl("td").tEl(cusername)) //Username
+              .append(cEl("td").tEl(cuser.Points)); //Points
+            //.append(cEl("td").tEl(getOverAllForm(cuser))) //Level
+            //.append(cEl("td").tEl(getUserForm(cuser))); //Form
 
-        form = genProgressBar(getUserForm(objs[i])).attr("style", "display: inline-block;width: 80%;margin-bottom:0px;");
-        
-        row1 = cEl("tr").attr("class", "profile-hidden");
-        rowtd = cEl("td").attr("colspan", "4");
-        row3 = cEl("div").attr("class", "row-fluid")
-            .append(cEl("div").attr("class", "profile-el").tEl("Level: ").append(cEl("span").attr("class", "total-points label-warning").tEl(getOverAllForm(objs[i]))))
-                   .append(cEl("div").attr("class", "profile-el").tEl("White Balls: "+football)).append(cEl("div").attr("class", "profile-form").tEl("Form: ").append(form));
-
-        favRow = cEl("tr").attr("class", rowClass).listener("click", showGlobalProfile);
-        favRow.append(cEl("td").append(cEl("i").wr({ uname: objs[i].Username }).attr("class", favClass + " lbFav").listener("click", toggleFavorite))) //Favorite Star
-              .append(cEl("td").tEl(objs[i].Rank)) //Rank
-              .append(cEl("td").tEl(objusername)) //Username
-              .append(cEl("td").tEl(objs[i].Points)); //Points
-              //.append(cEl("td").tEl(getOverAllForm(objs[i]))) //Level
-            //.append(cEl("td").tEl(getUserForm(objs[i]))); //Form
-
-            rowtd.append(row3);
-            row1.append(rowtd);
         }
-        else if (id === "fTbl" && i != -1) {
+        if (id === "fTbl"){
             var objusername = objs[i].Username;
             if (objusername.length > 10) {
                 objusername = objusername.substr(0, 8)+"...";
@@ -127,16 +196,7 @@ function genLbUserTable(objs, id) {
             football = objs[i].Credit2;
             favClass = favIds.indexOf(objs[i].Username) > -1 ? "icon-star-1" : "icon-star-empty-1";
             rowClass = objs[i].Username === cuser.Username ? "self" : "regular";
-
-            form = genProgressBar(getUserForm(objs[i])).attr("style", "display: inline-block;width: 80%;margin-bottom:0px;");
-
-            row1 = cEl("tr").attr("class", "profile-hidden");
-            rowtd = cEl("td").attr("colspan", "4");
-            row3 = cEl("div").attr("class", "row-fluid")
-                .append(cEl("div").attr("class", "profile-el").tEl("Level: ").append(cEl("span").attr("class", "total-points label-warning").tEl(getOverAllForm(objs[i]))))
-                       .append(cEl("div").attr("class", "profile-el").tEl("White Balls: " + football)).append(cEl("div").attr("class", "profile-form").tEl("Form: ").append(form));
-
-            favRow = cEl("tr").attr("class", rowClass).listener("click", showFavoritesProfile);
+            favRow = cEl("tr").attr("class", rowClass).wr({ Guid: objs[i].Guid }).listener("click", function () { showFavoritesProfile(this,"fTbl"); });
             favRow.append(cEl("td").append(cEl("i").wr({ uname: objs[i].Username }).attr("class", favClass + " lbFav").listener("click", toggleFavorite))) //Favorite Star
                   .append(cEl("td").tEl(objs[i].Rank)) //Rank
                   .append(cEl("td").tEl(objusername)) //Username
@@ -144,15 +204,44 @@ function genLbUserTable(objs, id) {
             //.append(cEl("td").tEl(getOverAllForm(objs[i]))) //Level
             //.append(cEl("td").tEl(getUserForm(objs[i]))); //Form
 
-            rowtd.append(row3);
-            row1.append(rowtd);
         }
-
+        if (id === "fTbl" && first == 0 && cuser.Rank < objs[i].Rank) {
+            tBody.append(favRow1);
+            first = 1;
+        }
         //tBody.append(genSingleMatchRow(matches[j]));
-        tBody.append(favRow).append(row1);
+        tBody.append(favRow);
+        if (id === "fTbl" && first == 0 && cuser.Rank > objs[i].Rank && i==objs.length-1) {
+            tBody.append(favRow1);
+        }
+        
         
     }
-
+    if (objs.length == 0) {
+        var favClass = "icon-star-1";
+        var rowClass = "";
+        var favRow = "";
+        var form;
+        var row1;
+        var rowtd;
+        var row3;
+        var football;
+        var row2 = "";
+        rowClass1 = "self";
+        football1 = cuser.Credit2;
+        var cusername = cuser.Username;
+        if (cusername.length > 10) {
+            cusername = cusername.substr(0, 8) + "...";
+        }
+        favRow1 = cEl("tr").attr("class", rowClass1).wr({ Guid: cuser.Guid }).listener("click", function () { showFavoritesProfile(this,"fTbl"); });
+        favRow1.append(cEl("td").append(cEl("i").attr("class", favClass + " lbFav").listener("click", toggleFavorite))) //Favorite Star
+          .append(cEl("td").tEl(cuser.Rank)) //Rank
+          .append(cEl("td").tEl(cusername)) //Username
+          .append(cEl("td").tEl(cuser.Points)); //Points
+        //.append(cEl("td").tEl(getOverAllForm(cuser))) //Level
+        //.append(cEl("td").tEl(getUserForm(cuser))); //Form
+        tBody.append(favRow1);
+    }
     mainTag.append(tHead);
     mainTag.append(tBody);
     return mainTag;
@@ -177,8 +266,12 @@ function genLbClanTable(objs, id) {
 
     var tBody = cEl("tbody");
 
-
+    var clanName;
     for (i = 0; i < objs.length; i++) {
+        var clanName = objs[i].Name;
+        if (clanName.length > 10) {
+            clanName = clanName.substr(0, 16) + "...";
+        }
         var avg = objs[i].Points / objs[i].UserCount;
         avg = avg.toFixed(2);
         var rowClass = objs[i].Name === cuser.NameOfClan ? "self" : "regular";
@@ -191,24 +284,12 @@ function genLbClanTable(objs, id) {
         var trophiesNr = cEl("div").attr("class", "pull-right").tEl(objs[i].Trophies.length);
         var clan = cEl("div").attr("class", "pull-left").tEl("Clan avg : ");
         var clanavg = cEl("div").attr("class", "pull-right").tEl(avg);
-        var row3 = cEl("div").attr("class","row-fluid")
-                    .append(cEl("div").attr("class", "profile-el").append(leader).append(leaderName))
-                    .append(cEl("div").attr("class", "profile-el").append(clan).append(clanavg))
-                    .append(cEl("div").attr("class", "profile-el").append(users).append(userCnt))
-                    .append(cEl("div").attr("class", "profile-el").append(trophies).append(trophiesNr))
-                    ;
-        var td = cEl("td").attr("colspan", "3").append(row3);
-        row2.append(td);
-        var favRow = cEl("tr").attr("class", rowClass).listener("click",showClanProfile);
+        var favRow = cEl("tr").attr("class", rowClass);
+        var id = objs[i].Id
         favRow.append(cEl("td").tEl(objs[i].Rank)) //Rank
-            .append(cEl("td").tEl(objs[i].Name)) //Clan Name
+            .append(cEl("td").tEl(objs[i].Name))//.append(cEl("td").append(cEl("img").attr("style", "width:30px; margin-right:30px;").wr({ id: id }).listener("click", function () { showClanProfile(this); }).attr("src", "style/images/clans/" + objs[i].Image + ".png")).append(cEl("span").tEl(clanName))) //Clan NamecEl("td").tEl(objs[i].Name)
             .append(cEl("td").tEl(objs[i].Points)); //Points
-        
-
-
-
-
-        tBody.append(favRow).append(row2);
+        tBody.append(favRow);
     }
 
     mainTag.append(tHead);
@@ -224,23 +305,13 @@ function genTrophyTable() {
                                                       .append(cEl("tr").append(cEl("td")).append(cEl("td")).append(cEl("td")).append(cEl("td")));
     return trTbl;
 }
-
-function genGlobal() {
+function genGlobal(pagenumber,pagesize) {
     var uObj;
-    $.post("Actions/User.aspx", { type: "GAU" },
-   function (e) {
-       uObj = JSON.parse(e);
-       appendToItem("tbMain", genLbUserTable(uObj, "uTbl"), "-");
-       pageToSelf("u");
-   });
-}
-function genGlobals() {
-    var uObj;
-    
-    $.post("Actions/User.aspx", { type: "GAU",PageNumber:0,PageSize:100 },
+    $.post("Actions/User.aspx", { type: "GAU",PageNumber:pagenumber,PageSize:pagesize },
    function (e) {
        var uObj = JSON.parse(e);
-       console.log(uObj);
+       lastpage = uObj.TotalPages-2;
+       appendToItem("tbMain", genGlobalUserTable(uObj, "uTbl"), "-");
    });
 }
 
@@ -301,8 +372,8 @@ function toggleFavorite(e) {
         }
     });
 }
-
 function switchLbTabs(e) {
+    pageNumber = 0;
     var tbs = e.target.parentNode.parentNode.childNodes;
 
     var clicked = e.target.wrapper.el;
@@ -317,15 +388,18 @@ function switchLbTabs(e) {
     switch (clicked) {
         case "favs":
             getFavorites();
+            document.getElementById("paginationGlobal").attr("style", "display:none");
             break;
         case "users":
-            genGlobals();
+            genGlobal(pageNumber,100);
             break;
         case "clans":
             genLbClans();
+            document.getElementById("paginationGlobal").attr("style", "display:none");
             break;
         case "trophies":
             appendToItem("tbMain", genTrophyTable());
+            document.getElementById("paginationGlobal").attr("style", "display:none");
             break;
     }
 }
@@ -352,28 +426,76 @@ function isHidden(el) {
     return (el.style.display === "none");
 }
 
-function showFavoritesProfile(){
-    var index = this.rowIndex + 1;
-    var tabela = document.getElementById("fTbl");
-    var length = tabela.rows.length;
 
-    if (tabela.rows.item(index).className != "profile-show") {
-        for (var i = 0; i < length; i += 2) {
-            if (i === this.rowIndex) { }
-            else {
-                if (i == 0) {
-                    tabela.rows.item(i).className = "profile-show";
-                } else {
-                    tabela.rows.item(i).className = "profile-hidden";
-                }
-            }
-        }
-    }
-    if (tabela.rows.item(index).className === "profile-show") {
-        tabela.rows.item(index).className = "profile-hidden";
-    } else {
-        tabela.rows.item(index).className = "profile-show";
-    }
+function showFavoritesProfile(el, Id) {
+    var id = $(".etabs li.active").index();
+    var guid = el.wrapper.Guid;
+    var rownumber;
+
+    var table = document.getElementById(Id);
+    var lastTableEl = document.getElementById(Id).rows.length;
+    var todyaDate = getFullDate(new Date(), 0);
+    var lastWeekDate = getFullDate(new Date(), -7);
+    $.post("Actions/User.aspx", { type: "RFR", userGuid: guid, fromDateDetails: lastWeekDate, toDateDetails: todyaDate },
+       function (e) {
+           var livescore = "#"+ Id+" tr";
+           var livescore1 = "#"+ Id+" .profile";
+           if ($(livescore).hasClass("profile")) {
+               $(livescore1).remove();
+           }
+           rownumber = el.rowIndex;
+           if (firstClick == 0) {
+
+               var e = JSON.parse(e);
+
+               var level = getOverAllForm(e);//level
+               var form = getUserForm(e);//form
+               var form1 = genProgressBar(form).attr("style", "display: inline-block;width: 80%;margin-bottom:0px;");
+               var globalRank = e.Rank;//globalrank
+               var todayPts = e.TodayPoints;
+               var yesterdayPts = e.YesterdayPoints;
+               var lastWeekPts = e.DetailPoints;
+               var avatar = e.AvatarId;
+               var row3 = cEl("div").attr("class", "row-fluid text-center")
+                   .append(cEl("div").attr("class", "profile-el").append(cEl("img").attr("style", "height:27px;").attr("src", "style/images/avatars/" + avatar + ".png")))
+                        .append(cEl("div").attr("class", "profile-el").tEl("Level: ").append(cEl("span").attr("class", "total-points label-warning").tEl(level)))
+                            .append(cEl("div").attr("class", "profile-el").tEl("Global Rank: " + globalRank))
+                                 .append(cEl("div").attr("class", "profile-el").tEl("Today Pts: " + todayPts))
+                                   .append(cEl("div").attr("class", "profile-el").tEl("Yesterday Pts: " + yesterdayPts))
+                                        .append(cEl("div").attr("style", "text-align:center").tEl("Last Week Pts: " + lastWeekPts)).append(cEl("div").attr("class", "profile-form").tEl("Form: ").append(form1));
+               var td1 = cEl("td").attr("colspan", "4").append(row3);
+               var row = table.insertRow(rownumber + 1);
+               row.attr("class", "profile").append(td1);
+               firstClick = 1;
+               lastClick = rownumber;
+           }
+           else if (firstClick == 1 && lastClick == rownumber) {
+               firstClick = 0;
+           }
+           else {
+               var e = JSON.parse(e);
+               var level = getOverAllForm(e);//level
+               var form = getUserForm(e);//form
+               var form1 = genProgressBar(form).attr("style", "display: inline-block;width: 80%;margin-bottom:0px;");
+               var globalRank = e.Rank;//globalrank
+               var todayPts = e.TodayPoints;
+               var yesterdayPts = e.YesterdayPoints;
+               var lastWeekPts = e.DetailPoints;;
+               var avatar = e.AvatarId;
+               var row3 = cEl("div").attr("class", "row-fluid text-center")
+                   .append(cEl("div").attr("class", "profile-el").append(cEl("img").attr("style", "height:27px;").attr("src", "style/images/avatars/" + avatar + ".png")))
+                        .append(cEl("div").attr("class", "profile-el").tEl("Level: ").append(cEl("span").attr("class", "total-points label-warning").tEl(level)))
+                            .append(cEl("div").attr("class", "profile-el").tEl("Global Rank: " + globalRank))
+                                 .append(cEl("div").attr("class", "profile-el").tEl("Today Pts: " + todayPts))
+                                   .append(cEl("div").attr("class", "profile-el").tEl("Yesterday Pts: " + yesterdayPts))
+                                        .append(cEl("div").attr("style", "text-align:center").tEl("Last Week Pts: " + lastWeekPts)).append(cEl("div").attr("class", "profile-form").tEl("Form: ").append(form1));
+               var td1 = cEl("td").attr("colspan", "4").append(row3);
+               var row = table.insertRow(rownumber + 1);
+               row.attr("class", "profile").append(td1);
+               firstClick = 1;
+               lastClick = rownumber;
+           }
+       });
 }
 function showGlobalProfile() {
     
@@ -399,27 +521,66 @@ function showGlobalProfile() {
         tabela.rows.item(index).className = "profile-show";
     }
 }
-function showClanProfile() {
+/*
+function showClanProfile(id) {
+    var Id = id.wrapper.id;
+    $.post("Actions/User.aspx", { type: "CDL", Id: Id },
+      function (e) {
 
-    var index = this.rowIndex + 1;
-    var tabela = document.getElementById("cTbl");
-    var length = tabela.rows.length;
+          e = JSON.parse(e);
+          contextClan = e;
+          var mainC = cEl("div");
+          mainC.append(genClanHeader(e));
+          var rFluid = document.createElement("div");
+          rFluid.id = "tblContainer";
+          var opts = "";
+          var exGrid = document.getElementById("match-table");
+          if (exGrid) {
+              exGrid.parentNode.removeChild(exGrid);
+          }
+          rFluid.appendChild(genClanTable(e));
+          mainC.appendChild(rFluid);
 
-    if (tabela.rows.item(index).className != "profile-show") {
-        for (var i = 0; i < length; i += 2) {
-            if (i === this.rowIndex) { }
-            else {
-                if (i == 0) {
-                    tabela.rows.item(i).className = "profile-show";
-                } else {
-                    tabela.rows.item(i).className = "profile-hidden";
-                }
-            }
-        }
-    }
-    if (tabela.rows.item(index).className === "profile-show") {
-        tabela.rows.item(index).className = "profile-hidden";
-    } else {
-        tabela.rows.item(index).className = "profile-show";
-    }
-}
+
+
+          var exMd = document.getElementById("clanProfileModal");
+          if (exMd) {
+              exMd.parentNode.removeChild(exMd);
+          }
+          
+          var mdHeader = cEl("div").attr("class", "modal-header").append(cEl("button").attr("type", "button").attr("class", "close").attr("data-dismiss", "modal").attr("aria-label", "Close")
+                      .append(cEl("span").attr("aria-hidden", "true").tEl("x"))).append(cEl("h4").tEl(e.Name));
+
+          var mdFooter = cEl("div").attr("class", "modal-footer").attr("id", "mdFooter");
+          var mdMain = cEl("div").attr("class", "modal fade").attr("id", "clanProfileModal").attr("style","min-height:94vh;top:15px!important;").attr("tabindex", "-1").attr("role", "dialog")
+                  .append(cEl("div").attr("class", "modal-dialog").attr("role", "document")
+                  .append(cEl("div").attr("class", "modal-content").append(mdHeader))
+                  .append(mainC));
+              
+
+          document.body.append(mdMain);
+          
+          $("#nBday").datepicker({
+              format: "dd/mm/yyyy"
+          }).on("changeDate", function (e) {
+              $(".datepicker.dropdown-menu").hide();
+          });
+          $("#clanProfileModal").modal("show");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      });
+   
+}*/

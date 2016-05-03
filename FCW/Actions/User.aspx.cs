@@ -437,9 +437,11 @@ namespace FCW.Actions
         }
         private void GetAllUsers()
         {
-            int pageNumber, pageSize;
+            int pageNumber, pageSize, lastPage = 0;
             int.TryParse(Request.Params["PageNumber"], out pageNumber);
             int.TryParse(Request.Params["PageSize"], out pageSize);
+            var ul = new List<Objects.User>();
+
 
             using (var conn = new SqlConnection(_connectionstring))
             {
@@ -450,7 +452,6 @@ namespace FCW.Actions
                     cmd.Parameters.Add("@PageNumber", SqlDbType.Int).Value = pageNumber;
                     cmd.Parameters.Add("@PageSize", SqlDbType.Int).Value = pageSize;
 
-                    var ul = new List<Objects.User>();
                     conn.Open();
                     var reader = cmd.ExecuteReader();
 
@@ -480,9 +481,12 @@ namespace FCW.Actions
                                     0
                                 )
                             );
+                        lastPage = Convert.ToInt32(reader["LastPage"]);
+                        pageNumber = Convert.ToInt32(reader["PageNumber"]);
                     }
+                    
 
-                    var r = new UserList(ul, Convert.ToInt16(reader["PageNumber"]),Convert.ToInt16(reader["LastPage"]));
+                    var r = new UserList(ul, pageNumber, lastPage);
 
                     var json = new JavaScriptSerializer {MaxJsonLength = 4194304};
                     var jsonStr = json.Serialize(r);
@@ -882,7 +886,8 @@ namespace FCW.Actions
                                 reader["Leader"].ToString(),
                                 Convert.ToInt32(reader["Rank"]),
                                 Convert.ToInt32(reader["Points"]),
-                                Convert.ToInt32(reader["Image"])
+                                Convert.ToInt32(reader["Image"]),
+                                Convert.ToInt32(reader["Id"])
                                 )
                             );
                     }
@@ -917,7 +922,8 @@ namespace FCW.Actions
                                 reader["Leader"].ToString(),
                                 Convert.ToInt32(reader["Rank"]),
                                 Convert.ToInt32(reader["Points"]),
-                                Convert.ToInt32(reader["Image"])
+                                Convert.ToInt32(reader["Image"]),
+                                Convert.ToInt32(reader["Id"])
                                 )
                             );
                     }
@@ -955,7 +961,8 @@ namespace FCW.Actions
                                     reader["UserName"].ToString(),
                                     Convert.ToDateTime(reader["MemberSince"].ToString()).ToString("dd/MM/yyyy"),
                                     Convert.ToBoolean(reader["Approved"]),
-                                    Convert.ToInt16(reader["Points"].ToString())
+                                    Convert.ToInt16(reader["Points"].ToString()),
+                                    new Guid(reader["GUID"].ToString())
                                 )
                                 {
                                     TotalPredictions = Convert.ToInt32(reader["tpreds"]),

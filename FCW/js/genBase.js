@@ -17,13 +17,21 @@ window.onload = function (e) {
     
     //genMatches();
 
-    if (site === "play") {
+    if (site == "play") {
         $("li[content-type]").each(function () {
             if (this.getAttribute("content-type") === "store") {
                 this.parentElement.removeChild(this);
             }
         });
     }
+    else {
+        $("li[content-type]").each(function () {
+            if (this.getAttribute("content-type") === "unlock") {
+                this.parentElement.removeChild(this);
+            }
+        });
+    }
+    
     
 }
 
@@ -74,10 +82,10 @@ function getUnlocks() {
              genLiveScore(getFullDate(new Date()));
              break;
          case "store":
-            genStore();
+            genStoreUnlocks();
              break;
          case "unlock":
-             genUnlocks();
+             genUnlocksMenu();
              break;
          case "chat":
              getChat("parse");
@@ -95,23 +103,6 @@ function getUnlocks() {
      }
 
  }
-
-function genUnlocks() {
-    var mainC = document.getElementById("mainContainer");
-    mainC.innerHTML = "";
-
-    var rootElement = cEl("div").attr("class", "pricing row-fluid");
-
-    for (var i = 0; i < unlocks.length; i++) {
-        
-        rootElement.append(genSingleUnlockElement(unlocks[i].Name, unlocks[i].ExpiresOn));
-    }
-
-    mainC.append(rootElement);
-}
-
-
-
  function getMatches(opt) {
      var date = getFullDate(new Date(), 0);
     $.post("Actions/Fixture.aspx", { type: "PREDS", date: date },
@@ -128,6 +119,7 @@ function genUnlocks() {
                                 trs[i].wrapper = matches[j];
                                 trs[i].innerHTML = genSingleMatchRow(matches[j]).innerHTML;
                             }
+                           
                         }
                     }
                 }
@@ -162,10 +154,68 @@ function genMatches() {
      genLeaderboardTabs();
      //genGlobals();
  }
+ function genStoreUnlocks(){
+     var mainC = document.getElementById("mainContainer");
+     var tabs = cEl("div").attr("class", "tabs tabs-top left tab-container").attr("data-easytabs", "true")
+                            .attr("id", "lbTabs").append(cEl("ul").attr("class", "etabs")
+                            .append(
+                                cEl("li").listener("click", switchStoreTabs, false).attr("class", "tab active").append(cEl("a").wr({ el: "store" }).tEl("Store"))
+                            ).append(
+                                cEl("li").listener("click", switchStoreTabs, false).attr("class", "tab").append(cEl("a").wr({ el: "unlocks" }).tEl("Unlocks"))
+                            ));
+     var tabContainer = cEl("div").attr("class", "panel-container").attr("style", "overflow: hidden;");
 
+     var tbMain = cEl("div").attr("class", "tab-block active").attr("id", "tbMain").attr("style", "display: block; position: static; visibility: visible;");
+
+     tabContainer.append(tbMain);
+
+     tabs.append(tabContainer);
+
+     var mainC = document.getElementById("mainContainer");
+     mainC.append(tabs);
+
+     genStore();
+ }
+ function switchStoreTabs(e) {
+     var tbs = e.target.parentNode.parentNode.childNodes;
+
+     var clicked = e.target.wrapper.el;
+     for (var j = 0; j < tbs.length; j++) {
+         tbs[j].className = tbs[j].className.replace("active", "").replace(" ", "");
+         
+     }
+
+     this.className = "tab active";
+
+     switch (clicked) {
+         case "store":
+             genStore();
+             break;
+         case "unlocks":
+             genUnlocks();
+             break;
+     }
+ }
  function genStore() {
 
      var mainC = document.getElementById("mainContainer");
+     mainC.innerHTML = "";
+     var mainC = document.getElementById("mainContainer");
+     var tabs = cEl("div").attr("class", "tabs tabs-top left tab-container").attr("data-easytabs", "true")
+                            .attr("id", "lbTabs").append(cEl("ul").attr("class", "etabs")
+                            .append(
+                                cEl("li").listener("click", switchStoreTabs, false).attr("class", "tab active").append(cEl("a").wr({ el: "store" }).tEl("Store"))
+                            ).append(
+                                cEl("li").listener("click", switchStoreTabs, false).attr("class", "tab").append(cEl("a").wr({ el: "unlocks" }).tEl("Unlocks"))
+                            ));
+     var tabContainer = cEl("div").attr("class", "panel-container").attr("style", "overflow: hidden;");
+
+     var tbMain = cEl("div").attr("class", "tab-block active").attr("id", "tbMain").attr("style", "display: block; position: static; visibility: visible;");
+
+     tabContainer.append(tbMain);
+
+     tabs.append(tabContainer);
+     mainC.append(tabs);
      var els1 = cEl("div").attr("class", "row-fluid")
          .append(cEl("div").attr("class", "span4").append(cEl("img").attr("width", "100%").attr("src", "style/images/shop_0.jpg"))
          )
@@ -181,6 +231,48 @@ function genMatches() {
          .append(cEl("a").attr("href", "#").listener("click", buyActions).append(cEl("div").attr("class", "span4").append(cEl("img").wr({ itemName: "100balls", btnId: "4TZ2JBBLBCF8S" }).attr("width", "100%").attr("src", "style/images/shop_5.jpg")))
          );
      mainC.append(els1).append(els2);
+ }
+ function genUnlocks() {
+     var mainC = document.getElementById("mainContainer");
+     mainC.innerHTML = "";
+     var mainC = document.getElementById("mainContainer");
+     var tabs = cEl("div").attr("class", "tabs tabs-top left tab-container").attr("data-easytabs", "true")
+                            .attr("id", "lbTabs").append(cEl("ul").attr("class", "etabs")
+                            .append(
+                                cEl("li").listener("click", switchStoreTabs, false).attr("class", "tab").append(cEl("a").wr({ el: "store" }).tEl("Store"))
+                            ).append(
+                                cEl("li").listener("click", switchStoreTabs, false).attr("class", "tab active").append(cEl("a").wr({ el: "unlocks" }).tEl("Unlocks"))
+                            ));
+     var tabContainer = cEl("div").attr("class", "panel-container").attr("style", "overflow: hidden;");
+
+     var tbMain = cEl("div").attr("class", "tab-block active").attr("id", "tbMain").attr("style", "display: block; position: static; visibility: visible;");
+
+     tabContainer.append(tbMain);
+
+     tabs.append(tabContainer);
+     mainC.append(tabs);
+
+     var rootElement = cEl("div").attr("class", "pricing row-fluid");
+
+     for (var i = 0; i < unlocks.length; i++) {
+
+         rootElement.append(genSingleUnlockElement(unlocks[i].Name, unlocks[i].ExpiresOn));
+     }
+
+     mainC.append(rootElement);
+ }
+ function genUnlocksMenu() {
+     var mainC = document.getElementById("mainContainer");
+     mainC.innerHTML = "";
+     var mainC = document.getElementById("mainContainer");
+     var rootElement = cEl("div").attr("class", "pricing row-fluid");
+
+     for (var i = 0; i < unlocks.length; i++) {
+
+         rootElement.append(genSingleUnlockElement(unlocks[i].Name, unlocks[i].ExpiresOn));
+     }
+
+     mainC.append(rootElement);
  }
 
 function buyActions(e) {

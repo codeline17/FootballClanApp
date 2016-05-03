@@ -188,15 +188,10 @@ function genClanTable(e) {
         var form = getUserForm(e.Users[j]);
         var form1 = genProgressBar(form).attr("style", "display: inline-block;width: 80%;margin-bottom:0px;");
         var level = getOverAllForm(e.Users[j]);
-        var row2 = cEl("tr").attr("class","profile-hidden");
-
-        row3 = cEl("td").attr("colspan", "3").append(cEl("div").attr("class", "row-fluid")
-                .append(cEl("div").attr("class", "profile-el").tEl("Level: ").append(cEl("span").attr("class", "total-points label-warning").tEl(level)))
-                        .append(cEl("div").attr("class", "profile-el").tEl("White Balls: ")).append(cEl("div").attr("class", "profile-form").tEl("Form: ").append(form1)));
-
-        row2.append(row3);
-
-        var row = cEl("tr").listener("click", showProfileClan).append(cEl("td").tEl(e.Users[j].Username)).append(cEl("td").tEl(e.Users[j].Rank)).append(cEl("td").tEl(e.Users[j].Points));
+        
+        var guid = e.Users[j].Guid;
+        
+        var row = cEl("tr").wr({ Guid: guid }).listener("click", function () { showProfileClan(this); }).append(cEl("td").tEl(e.Users[j].Username)).append(cEl("td").tEl(e.Users[j].Rank)).append(cEl("td").tEl(e.Users[j].Points));
 
         //.append(cEl("td").tEl(e.Users[j].InClanSince));
         row.className = e.Users[j].Username === e.Leader ? "leader" : "";
@@ -226,7 +221,7 @@ function genClanTable(e) {
 
         
 
-    tBody.append(row).append(row2);
+    tBody.append(row);
     }
         
     mainTag.appendChild(tHead);
@@ -236,28 +231,70 @@ function genClanTable(e) {
 }
 
 
-function showProfileClan() {
-    var index = this.rowIndex + 1;
-    var tabela = document.getElementById("clan-table");
-    var length = tabela.rows.length;
+var firstClick = 0;
+var lastClick = 0;
+function showProfileClan(el) {
+    var guid = el.wrapper.Guid;
+    var rownumber;
     
-
-    if (tabela.rows.item(index).className != "profile-show") {
-        for (var i = 0; i < length; i += 2) {
-            if (i === this.rowIndex) { }
-            else {
-                if (i == 0) {
-                    tabela.rows.item(i).className = "profile-show";
-                } else {
-                    tabela.rows.item(i).className = "profile-hidden";
-                }
-            }
-        }
-    }
-    if (tabela.rows.item(index).className === "profile-show") {
-        tabela.rows.item(index).className = "profile-hidden";
-    } else {
-        tabela.rows.item(index).className = "profile-show";
-        //tabela.rows.item(index).cell.attr("style","display:inline-block!important");
-    }
+    var table = document.getElementById("clan-table");
+    var lastTableEl = document.getElementById("clan-table").rows.length;
+    var todyaDate = getFullDate(new Date(), 0);
+    var lastWeekDate = getFullDate(new Date(), -7);
+    $.post("Actions/User.aspx", { type: "RFR", userGuid: guid, fromDateDetails: lastWeekDate, toDateDetails: todyaDate },
+       function (e) {
+           if ($("#clan-table tr").hasClass("profile")) {
+               $("#clan-table .profile").remove();
+           }
+           rownumber = el.rowIndex;
+           if (firstClick == 0) {
+               var e = JSON.parse(e);
+               var level = getOverAllForm(e);//level
+               var form = getUserForm(e);//form
+               var form1 = genProgressBar(form).attr("style", "display: inline-block;width: 80%;margin-bottom:0px;");
+               var globalRank = e.Rank;//globalrank
+               var todayPts = e.TodayPoints;
+               var yesterdayPts = e.YesterdayPoints;
+               var lastWeekPts = e.DetailPoints;;
+               var avatar = e.AvatarId;
+               var row3 = cEl("div").attr("class", "row-fluid text-center")
+                   .append(cEl("div").attr("class", "profile-el").append(cEl("img").attr("style", "height:27px;").attr("src", "style/images/avatars/" + avatar + ".png")))
+                        .append(cEl("div").attr("class", "profile-el").tEl("Level: ").append(cEl("span").attr("class", "total-points label-warning").tEl(level)))
+                            .append(cEl("div").attr("class", "profile-el").tEl("Global Rank: " + globalRank))
+                                 .append(cEl("div").attr("class", "profile-el").tEl("Today Pts: " + todayPts))
+                                   .append(cEl("div").attr("class", "profile-el").tEl("Yesterday Pts: " + yesterdayPts))
+                                        .append(cEl("div").attr("style", "text-align:center").tEl("Last Week Pts: " + lastWeekPts)).append(cEl("div").attr("class", "profile-form").tEl("Form: ").append(form1));
+               var td1 = cEl("td").attr("colspan", "3").append(row3);
+               var row = table.insertRow(rownumber + 1);
+               row.attr("class", "profile").append(td1);
+               firstClick = 1;
+               lastClick = rownumber;
+           }
+           else if (firstClick == 1 && lastClick == rownumber) {
+               firstClick = 0;
+           }
+           else {
+               var e = JSON.parse(e);
+               var level = getOverAllForm(e);//level
+               var form = getUserForm(e);//form
+               var form1 = genProgressBar(form).attr("style", "display: inline-block;width: 80%;margin-bottom:0px;");
+               var globalRank = e.Rank;//globalrank
+               var todayPts = e.TodayPoints;
+               var yesterdayPts = e.YesterdayPoints;
+               var lastWeekPts = e.DetailPoints;;
+               var avatar = e.AvatarId;
+               var row3 = cEl("div").attr("class", "row-fluid text-center")
+                   .append(cEl("div").attr("class", "profile-el").append(cEl("img").attr("style", "height:27px;").attr("src", "style/images/avatars/" + avatar + ".png")))
+                        .append(cEl("div").attr("class", "profile-el").tEl("Level: ").append(cEl("span").attr("class", "total-points label-warning").tEl(level)))
+                            .append(cEl("div").attr("class", "profile-el").tEl("Global Rank: " + globalRank))
+                                 .append(cEl("div").attr("class", "profile-el").tEl("Today Pts: " + todayPts))
+                                   .append(cEl("div").attr("class", "profile-el").tEl("Yesterday Pts: " + yesterdayPts))
+                                        .append(cEl("div").attr("style", "text-align:center").tEl("Last Week Pts: " + lastWeekPts)).append(cEl("div").attr("class", "profile-form").tEl("Form: ").append(form1));
+               var td1 = cEl("td").attr("colspan", "3").append(row3);
+               var row = table.insertRow(rownumber + 1);
+               row.attr("class", "profile").append(td1);
+               firstClick = 1;
+               lastClick = rownumber;
+           }
+       });
 }

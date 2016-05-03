@@ -5,6 +5,7 @@ namespace Objects
 {
     public class Clan
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public List<User> Users { get; set; }
         public List<Trophy> Trophies { get; set; } 
@@ -27,7 +28,7 @@ namespace Objects
             Trophies = new List<Trophy>();
         }
 
-        public Clan(string name, int usercount, string leader, int rank, int points, int image)
+        public Clan(string name, int usercount, string leader, int rank, int points, int image, int id)
         {
             Name = name;
             UserCount = usercount;
@@ -37,6 +38,7 @@ namespace Objects
             Rank = rank;
             Points = points;
             Image = image;
+            Id = id;
         }
 
         public Clan()
