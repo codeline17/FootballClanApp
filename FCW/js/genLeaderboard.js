@@ -13,18 +13,12 @@ function genLeaderboardTabs() {
                             ).append(
                                 cEl("li").listener("click", switchLbTabs, false).attr("class", "tab").append(cEl("a").wr({el : "trophies"}).attr("id", "lbTrophies").tEl("Trophies"))
                             ));
-
     var tabContainer = cEl("div").attr("class", "panel-container").attr("style", "overflow: hidden;");
-
     var tbMain = cEl("div").attr("class", "tab-block active").attr("id", "tbMain").attr("style", "display: block; position: static; visibility: visible;");
-    
     tabContainer.append(tbMain);
-
     mainTabs.append(tabContainer);
-
     var mainC = document.getElementById("mainContainer");
     mainC.append(mainTabs);
-
     getFavorites();
     var first = cEl("div").attr("id", "firstpageGlobal").attr("style", "display:inline-block").listener("click", firstelGlobal).tEl(" First ");
     var previous = cEl("div").attr("id", "previousGlobal").attr("style", "display:inline-block").listener("click", previouselGlobal).tEl(" << ");
@@ -34,16 +28,17 @@ function genLeaderboardTabs() {
     var Pagination = cEl("div").attr("id", "paginationGlobal").attr("class", "pull-right").attr("style","display:none");
     Pagination.append(cEl("br")).append(first).append(previous).append(mypage).append(next).append(lastpage);
     mainC.append(Pagination);
-
 }
 var lastpage;
 function genGlobalUserTable(objs, id) {
+    var paginationPlugin = document.getElementById("table-footer");
+    document.getElementById("tbMain").removeChild(paginationPlugin);
+   
     pageNumber = objs.PageNumber;
     //Table Tag
     var mainTag = document.createElement("table");
     mainTag.id = id;
     mainTag.className = "table table-hover";
-
     //Header
     var head = [{ Title: "Fav", Text: "Fav" }, { Title: "Rank", Text: "Rank" }, { Title: "Username", Text: "User" },
                 { Title: "Points", Text: "Pts" }]; //, { Title: "Level", Text: "Lvl" }, { Title: "Form", Text: "Form" }
@@ -53,10 +48,8 @@ function genGlobalUserTable(objs, id) {
         var hElement = cEl("th").tEl(head[i].Text);
         hRow.append(hElement);
     }
-    
     tHead.append(hRow);
     var tBody = document.createElement("tbody");
-
     var first = 0;
     for (var i = pageNumber * 100; i < objs.Users.length + pageNumber * 100; i++) {
         var j = i - (pageNumber * 100);
@@ -71,7 +64,6 @@ function genGlobalUserTable(objs, id) {
         var favClass;
         var rowClass = "";
         var favRow = "";
-        
             var objusername = objs.Users[j].Username;
             if (objusername.length > 10) {
                 objusername = objusername.substr(0, 8) + "...";
@@ -100,12 +92,14 @@ function firstelGlobal() {
     pageNumber = 1;
     genGlobal(pageNumber, 100);
 }
+
 function previouselGlobal() {
     if (pageNumber == 1)
         return;
     pageNumber -= 1;
     genGlobal(pageNumber, 100);
 }
+
 function nextelGlobal() {
     if (pageNumber == lastpage) {
         return;
@@ -114,18 +108,12 @@ function nextelGlobal() {
     genGlobal(pageNumber, 100);
 
 }
+
 function lastellGlobal() {
     pageNumber = lastpage;
     
     genGlobal(pageNumber, 100)
 }
-
-
-
-
-
-
-
 
 function genLbUserTable(objs, id) {
     var i = 0;
@@ -133,7 +121,6 @@ function genLbUserTable(objs, id) {
     var mainTag = document.createElement("table");
     mainTag.id = id;
     mainTag.className = "table table-hover";
-
     //Header
     var head = [{ Title: "Fav", Text: "Fav" }, { Title: "Rank", Text: "Rank" }, { Title: "Username", Text: "User" },
                 { Title: "Points", Text: "Pts" }]; //, { Title: "Level", Text: "Lvl" }, { Title: "Form", Text: "Form" }
@@ -144,12 +131,9 @@ function genLbUserTable(objs, id) {
         hRow.append(hElement);
     }
     tHead.append(hRow);
-
     var tBody = document.createElement("tbody");
-    
     var first = 0;
     for (i = 0; i < objs.length; i++) {
-       
         var favClass;
         var rowClass = "";
         var favRow = "";
@@ -171,7 +155,6 @@ function genLbUserTable(objs, id) {
             //.append(cEl("td").tEl(getUserForm(cuser))); //Form
             
         }
-         
         else if (id === "fTbl" && first == 0 && cuser.Rank > objs[i].Rank) {
             rowClass1 = "self";
             football1 = cuser.Credit2;
@@ -184,9 +167,6 @@ function genLbUserTable(objs, id) {
               .append(cEl("td").tEl(cuser.Rank)) //Rank
               .append(cEl("td").tEl(cusername)) //Username
               .append(cEl("td").tEl(cuser.Points)); //Points
-            //.append(cEl("td").tEl(getOverAllForm(cuser))) //Level
-            //.append(cEl("td").tEl(getUserForm(cuser))); //Form
-
         }
         if (id === "fTbl"){
             var objusername = objs[i].Username;
@@ -201,21 +181,15 @@ function genLbUserTable(objs, id) {
                   .append(cEl("td").tEl(objs[i].Rank)) //Rank
                   .append(cEl("td").tEl(objusername)) //Username
                   .append(cEl("td").tEl(objs[i].Points)); //Points
-            //.append(cEl("td").tEl(getOverAllForm(objs[i]))) //Level
-            //.append(cEl("td").tEl(getUserForm(objs[i]))); //Form
-
         }
         if (id === "fTbl" && first == 0 && cuser.Rank < objs[i].Rank) {
             tBody.append(favRow1);
             first = 1;
         }
-        //tBody.append(genSingleMatchRow(matches[j]));
         tBody.append(favRow);
         if (id === "fTbl" && first == 0 && cuser.Rank > objs[i].Rank && i==objs.length-1) {
             tBody.append(favRow1);
         }
-        
-        
     }
     if (objs.length == 0) {
         var favClass = "icon-star-1";
@@ -253,7 +227,6 @@ function genLbClanTable(objs, id) {
     var mainTag = cEl("table");
     mainTag.id = id;
     mainTag.className = "table table-hover";
-
     //Header
     var head = [{ Title: "Rank", Text: "#" }, { Title: "Username", Text: "User" }, { Title: "Points", Text: "Pts" }];
     var tHead = cEl("thead");
@@ -263,9 +236,7 @@ function genLbClanTable(objs, id) {
         hRow.append(hElement);
     }
     tHead.append(hRow);
-
     var tBody = cEl("tbody");
-
     var clanName;
     for (i = 0; i < objs.length; i++) {
         var clanName = objs[i].Name;
@@ -287,11 +258,10 @@ function genLbClanTable(objs, id) {
         var favRow = cEl("tr").attr("class", rowClass);
         var id = objs[i].Id
         favRow.append(cEl("td").tEl(objs[i].Rank)) //Rank
-            .append(cEl("td").tEl(objs[i].Name))//.append(cEl("td").append(cEl("img").attr("style", "width:30px; margin-right:30px;").wr({ id: id }).listener("click", function () { showClanProfile(this); }).attr("src", "style/images/clans/" + objs[i].Image + ".png")).append(cEl("span").tEl(clanName))) //Clan NamecEl("td").tEl(objs[i].Name)
+            .append(cEl("td").append(cEl("img").attr("style", "width:30px; margin-right:30px;").wr({ id: id }).listener("click", function () { showClanProfile(this); }).attr("src", "style/images/clans/" + objs[i].Image + ".png")).append(cEl("span").tEl(clanName))) //Clan NamecEl("td").tEl(objs[i].Name)
             .append(cEl("td").tEl(objs[i].Points)); //Points
         tBody.append(favRow);
     }
-
     mainTag.append(tHead);
     mainTag.append(tBody);
     return mainTag;
@@ -340,16 +310,7 @@ function getFavorites() {
            favIds.push(fObj[i].Username);
        }
        appendToItem("tbMain", genLbUserTable(fObj, "fTbl"), "-");
-       
    });
-}
-
-function getAllUsers() {
-    
-}
-
-function getClanRanking() {
-    
 }
 
 function toggleFavorite(e) {
@@ -365,7 +326,6 @@ function toggleFavorite(e) {
             }
             break;
     }
-
     $.post("Actions/User.aspx", { type: "TGF", FavUname : cc.wrapper.uname },
     function (resp) {
         if (resp === "1") {
@@ -375,16 +335,12 @@ function toggleFavorite(e) {
 function switchLbTabs(e) {
     pageNumber = 0;
     var tbs = e.target.parentNode.parentNode.childNodes;
-
     var clicked = e.target.wrapper.el;
     lbAction = clicked;
-
     for (var j = 0; j < tbs.length; j++) {
         tbs[j].className = tbs[j].className.replace("active", "").replace(" ", "");
     }
-
     this.className = "tab active";
-
     switch (clicked) {
         case "favs":
             getFavorites();
@@ -406,19 +362,17 @@ function switchLbTabs(e) {
 
 function pageToSelf(opt) {
     var pages = document.getElementsByClassName("pagination");
-
     switch (opt) {
         case "u":
-            pages[0].childNodes[Math.floor(cuser.Rank / 100) + 1].childNodes[0].click();
+            pages[0].childNodes[Math.floor(cuser.Rank / 101) + 1].childNodes[0].click();
             break;
         case "c":
             var own = document.getElementsByClassName("self")[0];
             if (own) {
                 var pos = own.childNodes[0].innerText;
-                pages[0].childNodes[Math.floor(pos / 100) + 1].childNodes[0].click();
+                pages[0].childNodes[Math.floor(pos / 101) + 1].childNodes[0].click();
             }
             break;
-            
     }
 }
 
@@ -426,12 +380,10 @@ function isHidden(el) {
     return (el.style.display === "none");
 }
 
-
 function showFavoritesProfile(el, Id) {
     var id = $(".etabs li.active").index();
     var guid = el.wrapper.Guid;
     var rownumber;
-
     var table = document.getElementById(Id);
     var lastTableEl = document.getElementById(Id).rows.length;
     var todyaDate = getFullDate(new Date(), 0);
@@ -445,13 +397,11 @@ function showFavoritesProfile(el, Id) {
            }
            rownumber = el.rowIndex;
            if (firstClick == 0) {
-
                var e = JSON.parse(e);
-
-               var level = getOverAllForm(e);//level
-               var form = getUserForm(e);//form
+               var level = getOverAllForm(e);
+               var form = getUserForm(e);
                var form1 = genProgressBar(form).attr("style", "display: inline-block;width: 80%;margin-bottom:0px;");
-               var globalRank = e.Rank;//globalrank
+               var globalRank = e.Rank;
                var todayPts = e.TodayPoints;
                var yesterdayPts = e.YesterdayPoints;
                var lastWeekPts = e.DetailPoints;
@@ -521,66 +471,38 @@ function showGlobalProfile() {
         tabela.rows.item(index).className = "profile-show";
     }
 }
-/*
+
 function showClanProfile(id) {
     var Id = id.wrapper.id;
-    $.post("Actions/User.aspx", { type: "CDL", Id: Id },
-      function (e) {
-
-          e = JSON.parse(e);
-          contextClan = e;
-          var mainC = cEl("div");
-          mainC.append(genClanHeader(e));
-          var rFluid = document.createElement("div");
-          rFluid.id = "tblContainer";
-          var opts = "";
-          var exGrid = document.getElementById("match-table");
-          if (exGrid) {
-              exGrid.parentNode.removeChild(exGrid);
-          }
-          rFluid.appendChild(genClanTable(e));
-          mainC.appendChild(rFluid);
-
-
-
-          var exMd = document.getElementById("clanProfileModal");
-          if (exMd) {
-              exMd.parentNode.removeChild(exMd);
-          }
-          
-          var mdHeader = cEl("div").attr("class", "modal-header").append(cEl("button").attr("type", "button").attr("class", "close").attr("data-dismiss", "modal").attr("aria-label", "Close")
-                      .append(cEl("span").attr("aria-hidden", "true").tEl("x"))).append(cEl("h4").tEl(e.Name));
-
-          var mdFooter = cEl("div").attr("class", "modal-footer").attr("id", "mdFooter");
-          var mdMain = cEl("div").attr("class", "modal fade").attr("id", "clanProfileModal").attr("style","min-height:94vh;top:15px!important;").attr("tabindex", "-1").attr("role", "dialog")
-                  .append(cEl("div").attr("class", "modal-dialog").attr("role", "document")
-                  .append(cEl("div").attr("class", "modal-content").append(mdHeader))
-                  .append(mainC));
-              
-
-          document.body.append(mdMain);
-          
-          $("#nBday").datepicker({
-              format: "dd/mm/yyyy"
-          }).on("changeDate", function (e) {
-              $(".datepicker.dropdown-menu").hide();
-          });
-          $("#clanProfileModal").modal("show");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      });
-   
-}*/
+        $.post("Actions/User.aspx", { type: "CDL", Id: Id },
+            function (e) {
+                e = JSON.parse(e);
+                    contextClan = e;
+                    var mainC = cEl("div").attr("style", "margin-top:45px");
+                    var rFluid = document.createElement("div");
+                    var opts = "";
+                    var exGrid = document.getElementById("match-table");
+                    var exMd = document.getElementById("clanProfileModal");
+                        mainC.append(genClanHeader(e));
+                        rFluid.id = "tblContainer";
+                        if (exGrid) {
+                            exGrid.parentNode.removeChild(exGrid);
+                                    }
+                        rFluid.appendChild(genClanTable(e));
+                        mainC.appendChild(rFluid);
+                        if (exMd) {
+                        exMd.parentNode.removeChild(exMd);
+                                }      
+                        var mdHeader = cEl("div").attr("class", "modal-header")
+                            .append(cEl("button").attr("type", "button").attr("class", "close").attr("data-dismiss", "modal").attr("aria-label", "Close")
+                                .append(cEl("span").attr("aria-hidden", "true").tEl("x")))
+                                    .append(cEl("h4").tEl("Clan Details"));
+                    var mdFooter = cEl("div").attr("class", "modal-footer").attr("id", "mdFooter");
+                    var mdMain = cEl("div").attr("class", "modal fade").attr("id", "clanProfileModal").attr("style","min-height:94vh;top:15px!important;").attr("tabindex", "-1").attr("role", "dialog")
+                        .append(cEl("div").attr("class", "modal-dialog").attr("role", "document")
+                            .append(cEl("div").attr("class", "modal-content").attr("style","margin-top:20px").append(mdHeader))
+                                .append(mainC));
+                        document.body.append(mdMain);
+                        $("#clanProfileModal").modal("show");
+            });
+}

@@ -40,7 +40,7 @@ box-shadow: inset 0px 0px 0px 3px rgba(0,0,0,0.4);
    background:none;
 }
 div#mainContainer {
-    min-height: 700px;
+    min-height: 800px;
     padding-left:2%;
     padding-right:2%;
 }
@@ -2658,6 +2658,20 @@ select {
 /*	RESPONSIVE
 /*-----------------------------------------------------------------------------------*/
 @media (min-width: 1140px) { 
+    #clanProfileModal{
+        max-width:60%;
+        margin:0 auto;
+    }
+    #clanProfileModal div .modal-header{
+    position: fixed;
+    width: 59.5%;
+    background-color: white;
+    margin-bottom:50px;
+    margin-top : -15px!important;
+    background-color: #2FB175;
+    border-bottom: none;
+    margin-top:-45px!important;
+}
     #myDetails-Menu,#clanDetails-menu,#balls,.mobile-logOut,#refreshPage{
         display:none;
     }
