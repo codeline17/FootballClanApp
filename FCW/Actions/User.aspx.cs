@@ -44,6 +44,9 @@ namespace FCW.Actions
                     case "CHT": //Refresh UserChats
                         GetUserChats(_user.Guid);
                         break;
+                    case "CID": //Refresh UserChats
+                        GetChatroomById(_user.Guid);
+                        break;
                     case "SND": //Refresh UserChats
                         SendMessage(_user.Guid);
                         break;
@@ -226,6 +229,21 @@ namespace FCW.Actions
                 }
             }
         }
+
+        private void GetChatroomById(Guid guid)
+        {
+            var ChatroomId = 0;
+            int.TryParse(Request.Params["ChatroomId"], out ChatroomId);
+
+            var chatroom = GetMessagesByChatroom(ChatroomId);
+
+            var json = new JavaScriptSerializer().Serialize(chatroom);
+
+            Response.ClearContent();
+            Response.ClearHeaders();
+            Response.Write(json);
+        }
+
         private void GetUserChats(Guid guid)
         {
             using (var conn = new SqlConnection(_connectionstring))
