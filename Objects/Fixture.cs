@@ -28,11 +28,11 @@ namespace Objects
         public string StatusSlug { get; set; }
 
 
-        public Fixture(int id, Team hometeam, 
-                        Team awayteam, List<Event> events, 
-                        string minute, Competition league, 
-                        List<Game> games, DateTime starttime, 
-                        bool mSealed, string pack, int homegoals, 
+        public Fixture(int id, Team hometeam,
+                        Team awayteam, List<Event> events,
+                        string minute, Competition league,
+                        List<Game> games, DateTime starttime,
+                        bool mSealed, string pack, int homegoals,
                         int awaygoals, bool authorized, string statusslug)
         {
             ID = id;
@@ -74,11 +74,8 @@ namespace Objects
     public class Event
     {
         public string Type { get; set; }
-
         public int Value { get; set; }
-
         public string Minute { get; set; }
-
         public Event(string type, int value, string minute)
         {
             Type = type;

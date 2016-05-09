@@ -711,7 +711,6 @@ namespace FCW.Actions
             int.TryParse(Request.Params["PageSize"], out pageSize);
             name = Request.Params["Name"];
 
-
             var league = new League();
 
             switch (leagueType)
