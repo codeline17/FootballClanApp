@@ -140,7 +140,7 @@ function genMatches() {
  }
  
  function genLeagues() {
-    
+     tabIdPagination = 0;
      pageNumber = 0;
      getLeagueData(pageNumber,100);
      //isInLeague();
