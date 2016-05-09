@@ -410,6 +410,16 @@
         <p>Position 2 -&gt; 2 Champions League Final Tickets + 175 golden balls</p>
         <p>Position 1 -&gt; a REAL GOLDEN BALL, more than 1.5 KG in Pure Gold + 200 golden balls</p>
         <p>Clan competitions prizes</p>
+        <h5>Clan Battles</h5>
+        <p>This competition lasts about 1 months and is a clan competition for who gets to be the best clan</p>
+        <p>on the Game&hellip; The Points accumulated from all players of the clan will be summed together to</p>
+        <p>make clan points&hellip;</p>
+        <p>Coalition with your friends in this competition in order to become the best Clan and win fantastic</p>
+        <p>prizes below:</p>
+        <p>Clan 3 -&gt; 220 Golden Balls (20 Golden Balls for each player)</p>
+        <p>Clan 2 -&gt; 440$ (40$ for each player)</p>
+        <p>Clan 1 -&gt; 1100$ (100$ for each player)</p>
+
         <h5>Season clan competition SSC</h5>
         <p>This competition lasts about 3 months and is a long clan competition for who gets to be the best clan</p>
         <p>on the Game&hellip; The Points accumulated from all players of the clan will be summed together to</p>
