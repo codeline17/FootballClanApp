@@ -140,9 +140,7 @@ function genMatches() {
  }
  
  function genLeagues() {
-     var animation = cEl("div").attr("class", "cssload-loader").attr("id", "loader").tEl("Loading...");
-     var el = document.getElementById('mainContainer');
-     el.appendChild(animation);
+    
      pageNumber = 0;
      getLeagueData(pageNumber,100);
      //isInLeague();

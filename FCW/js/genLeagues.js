@@ -1,4 +1,5 @@
 ﻿var pageNumber = 0;
+var tabIdPagination = 0;
 function genTabs(tabs, content) {
 
     var mainC = document.getElementById("mainContainer");
@@ -16,38 +17,57 @@ function genTabs(tabs, content) {
         return body;
     }
     var tabsEl = cEl("ul").attr("class", "etabs");
-    var contentEl = cEl("div").attr("class", "panel-container").attr("style", "overflow: hidden;");
+    var contentEl = cEl("div").attr("class", "panel-container").attr("id","leagueTable").attr("style", "overflow: hidden;");
+
     for (var i = 0; i < tabs.length; i++) {
         var cId = makeid();
-        var tabEl = cEl("li").listener("click",switchTabs, false).attr("class", "tab").append(cEl("a").attr("href", "#" + cId).tEl(tabs[i].Name));
-        tabsEl.append(tabEl);
         var contEl = cEl("div").attr("class", "tab-block").attr("id", cId).append(content[i]).attr("style", "display:none;");
         contentEl.append(contEl);
+        if (i == tabIdPagination) {
+            var tabEl = cEl("li").listener("click", switchTabs, false).attr("class", "tab active").append(cEl("a").attr("href", "#" + cId).attr("class", "active").tEl(tabs[i].Name));
+            contentEl.childNodes[i].attr("class", "tab-block active").attr("style", "display: block; position: static; visibility: visible;");
+        } else {
+            var tabEl = cEl("li").listener("click", switchTabs, false).attr("class", "tab").append(cEl("a").attr("href", "#" + cId).tEl(tabs[i].Name));
+            contentEl.childNodes[i].attr("class", "tab-block active").attr("style", "display: none;");
+        }
+        
+        tabsEl.append(tabEl);
+        
     }
     var Pagination = cEl("div").attr("id", "paginationCompetation").attr("class", "pull-right");
-    tabsEl.childNodes[0].className = "tab active";
-    tabsEl.childNodes[0].childNodes[0].className = "active";
-    contentEl.childNodes[0].attr("class", "tab-block active").attr("style", "display: block; position: static; visibility: visible;");
+    //tabsEl.childNodes[0].className = "tab active";
+    //tabsEl.childNodes[0].childNodes[0].className = "active";
+    //alert(tabsEl.childNodes.length);
+    
     body.append(tabsEl).append(contentEl).append(Pagination);
     mainC.append(body);
 }
 
 function firstel() {
     pageNumber = 1;
+    $('html, body').animate({
+        scrollTop: 0
+    }, 0);
     getLeagueData(pageNumber, 100);
     
 }
 function previousel() {
     if (pageNumber == 1)
         return;
+    $('html, body').animate({
+        scrollTop: 0
+    }, 0);
     pageNumber -= 1;
     getLeagueData(pageNumber, 100);
 }
 function nextel() {
+    $('html, body').animate({
+        scrollTop: 0
+    }, 0);
     pageNumber += 1;
     getLeagueData(pageNumber, 100);
 }
-function genLeagueTable(n,u,pagenumber,i) {
+function genLeagueTable(n,u,pagenumber,i,leagueType) {
     //User-Points
     //HEADER
     var mTag = cEl("div");
@@ -90,8 +110,16 @@ function genLeagueTable(n,u,pagenumber,i) {
         }
         var tdUsername = cEl("td").tEl(u[j].Username ? u[j].Username : u[j].Name);
         var tdPoints = cEl("td").tEl(u[j].Points);
-        var guid=u[j].Guid;
-        var row = cEl("tr").wr({Guid:guid}).listener("click",function(){ showProfile(this);}).append(tdRang).append(tdUsername).append(tdPoints);
+        if (leagueType==1){
+            var guid = u[j].Guid;
+            var row = cEl("tr").wr({ Guid: guid }).listener("click", function () { showProfile(this); }).append(tdRang).append(tdUsername).append(tdPoints);
+        }
+        else {
+            var guid = u[j].Id;
+
+            var row = cEl("tr").wr({ id: guid }).listener("click", function () { showClanProfile(this); }).append(tdRang).append(tdUsername).append(tdPoints);
+        }
+        
         row.className = cuser.Username === u[j].Username || cuser.NameOfClan === u[j].Name ? "leader" : "";
         tBody.append(row);
     }
@@ -99,9 +127,13 @@ function genLeagueTable(n,u,pagenumber,i) {
     tabTag.appendChild(tBody);
     mTag.append(tTitle).append(tabTag);
     return mTag;
+    
 }
 
 function switchTabs(e) {
+    tabIdPagination = $(this).index();
+    pageNumber = 0;
+    getLeagueData(pageNumber, 100);
     var tabId = this.childNodes[0].getAttribute("href").replace("#", "");
 
     var cts = document.getElementsByClassName("tab-block");
@@ -121,6 +153,7 @@ function switchTabs(e) {
     }
 
     this.className = "tab active";
+    
 }
 
 var firstClick = 0;
@@ -197,29 +230,41 @@ function showProfile(el) {
 }
 
 function getLeagueData(pagenumber, pagesize) {
+    var loadcontainer = cEl("div").attr("style", "position:fixed;width:100vw;height:100vh;background-color:rgba(0,0,0,0.3);top:40px;left:0;z-index:1000;");
+    
+    var animation = cEl("div").attr("class", "cssload-loader").attr("id", "loader").tEl("Loading...");
+    var el = document.getElementById('mainContainer');
+    if (document.getElementById("leagueTable")) {
+       // document.getElementById("leagueTable").innerHTML = " ";
+       // document.getElementById("paginationCompetation").innerHTML = " ";
+    }
+    loadcontainer.append(animation);
+    el.appendChild(loadcontainer);
     $.post("Actions/User.aspx", { type: 'LDL2', PageNumber: pagenumber, PageSize: pagesize },
 function (e) {
     e = JSON.parse(e);
     var tabs = [];
     var content = [];
     for (var i = 0; i < e.length; i++) {
+       
         if (e[i].Name) {
             var l = { Name: e[i].Name }
             tabs.push(l);
             var els = e[i].Users.length > 0 ? e[i].Users : e[i].Clans;
-            var c = genLeagueTable(e[i].Name, els,e[i].Page,i);
+            var c = genLeagueTable(e[i].Name, els, e[i].Page, i,e[i].LeagueType);
             content.push(c);
+            
         }
         if (e[i].Page) {
             genTabs(tabs, content);
-            pageNumber = e[0].Page;
+            pageNumber = e[tabIdPagination].Page;
             var first = cEl("div").attr("id", "firstpage").attr("style", "display:inline-block").listener("click", firstel).tEl(" First ");
             var previous = cEl("div").attr("id", "previous").attr("style", "display:inline-block").listener("click", previousel).tEl(" << ");
             var next = cEl("div").attr("id", "next").attr("style", "display:inline-block").listener("click", nextel).tEl(" >> ");
             var mypage = cEl("div").attr("id", "mypage").attr("style", "display:inline-block").tEl(" " + pageNumber + " ");
             var Pagination = document.getElementById("paginationCompetation");
             Pagination.append(first).append(previous).append(mypage).append(next);
-            pageNumber = e[i].Page;
+            pageNumber = e[tabIdPagination].Page;
         } else {
 
             var first = cEl("div").attr("id", "firstpage").attr("style", "display:inline-block").listener("click", firstel).tEl(" First ");
