@@ -651,7 +651,8 @@ namespace FCW.Actions
                                     reader["PartName"].ToString(),
                                     Convert.ToInt32(reader["Points"]),
                                     Convert.ToInt32(reader["PRank"]),
-                                    Convert.ToInt32(reader["Image"])
+                                    Convert.ToInt32(reader["Image"]),
+                                    Convert.ToInt32(reader["ClanId"])
                                     )
                                 );
                     }
@@ -756,14 +757,14 @@ namespace FCW.Actions
                         }
                         else if(details)
                         {
-                            league.Clans.Add(
+                            /*league.Clans.Add(
                                 new Clan(
                                     reader["PartName"].ToString(), 
                                     Convert.ToInt32(reader["Points"]), 
                                     Convert.ToInt32(reader["PRank"]),
                                     Convert.ToInt32(reader["Image"])
                                     )
-                                );
+                                );*/
                         }
 
                     }

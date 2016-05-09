@@ -47,12 +47,13 @@ namespace Objects
             Trophies = new List<Trophy>();
         }
 
-        public Clan(string name, int points, int previousleaguerank, int image)
+        public Clan(string name, int points, int previousleaguerank, int image, int id)
         {
             Name = name;
             Points = points;
             PreviousLeagueRank = previousleaguerank;
             Image = image;
+            Id = id;
         }
     }
 }
