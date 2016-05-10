@@ -230,8 +230,7 @@ function showProfile(el) {
 }
 
 function getLeagueData(pagenumber, pagesize) {
-    var loadcontainer = cEl("div").attr("style", "position:fixed;width:100vw;height:100vh;background-color:rgba(0,0,0,0.3);top:40px;left:0;z-index:1000;");
-    
+    var loadcontainer = cEl("div").attr("style", "position:fixed;width:100vw;height:100vh;background-color:rgba(0,0,0,0.3);top:0;left:0;z-index:999;");
     var animation = cEl("div").attr("class", "cssload-loader").attr("id", "loader").tEl("Loading...");
     var el = document.getElementById('mainContainer');
     if (document.getElementById("leagueTable")) {
