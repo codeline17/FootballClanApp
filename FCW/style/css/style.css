@@ -5,6 +5,36 @@
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
+.plan.span4 .features a {
+    background-color: transparent;
+    color:#403838;
+    font-size:12px;
+}
+
+
+
+.prizes .accordion-group{
+    background:none!important;
+}
+.prizes .accordion-group .accordion-heading{
+    background-color:rgba(255, 255, 255, 0.66)!important;
+    border-radius:8px;
+}
+
+.prizes .accordion-group .accordion-heading a:hover h5{
+    color:rgba(255, 106, 0, 0.83);
+}
+
+.prizes .accordion-group #elitetab .accordion-inner,.prizes .accordion-group #eurotab .accordion-inner,.prizes .accordion-group #monthlytab .accordion-inner,.prizes .accordion-group #seasontab .accordion-inner,.prizes .accordion-group #battlesclantab .accordion-inner,.prizes .accordion-group #euroclantab .accordion-inner,.prizes .accordion-group #seasonclantab .accordion-inner,.prizes .accordion-group #yearlyclantab .accordion-inner{
+    background:rgba(255, 255, 255, 0.81);
+    border-radius:8px;
+}
+
+.prizes .accordion-group #elitetab .accordion-inner p,.prizes .accordion-group #eurotab .accordion-inner p,.prizes .accordion-group #monthlytab .accordion-inner p,.prizes .accordion-group #seasontab .accordion-inner p,.prizes .accordion-group #battlesclantab .accordion-inner p,.prizes .accordion-group #euroclantab .accordion-inner p,.prizes .accordion-group #seasonclantab .accordion-inner p,.prizes .accordion-group #yearlyclantab .accordion-inner p{
+    color:rgb(55, 86, 117);
+}
+
+
 .profile-hidden{
     display:none!important;
 }
@@ -24,9 +54,14 @@
     line-height:50px;
     height:auto;
 }
+#leagueTable .tab-block div h3{
+    font-size: 21px;
+    line-height: 8px;
+    color:whitesmoke;
+}
 table.clans{
     border-radius:10px;
-    
+    background-color:rgba(0, 231, 255, 0.15);
     -webkit-box-shadow: inset 0px 0px 0px 3px rgba(0,0,0,0.4);
 -moz-box-shadow: inset 0px 0px 0px 3px rgba(0,0,0,0.4);
 box-shadow: inset 0px 0px 0px 3px rgba(0,0,0,0.4);
@@ -839,7 +874,7 @@ input[type="submit"].btn::-moz-focus-inner {
 }
 .menu ul li.active a {
     background: #FFB74D;
-    color: red;
+    color: red!important;
 }
 .menu ul li.active {
     border-right-color: #FFF
@@ -1459,7 +1494,7 @@ i.contact {
     padding: 13px 25px;
     display: block;
     background: none!important;
-    color: #5c5c5c;
+    color:#74c9be;
     font-size: 14px;
     font-weight: 700;
 }
@@ -1479,8 +1514,10 @@ i.contact {
 }
 .tabs-top .tab a:hover,
 .tabs-top .tab.active a {
-    color: #74c9be;
+    background-color:orange!important; 
+    color:#52645D;
     cursor: pointer;
+    border-radius:8px;
 }
 .tabs-top.tab-container .panel-container {
     position: relative;
@@ -2390,17 +2427,19 @@ media_tag_5 {
 /*	PRICING TABLE
 /*-----------------------------------------------------------------------------------*/
 .pricing {
-    width: 100%;
+   background:none;
+    width: 103%;
     overflow: hidden;
     text-align: center;
     padding-bottom: 10px;
     display: block;
-    color:white;
+    color: white;
+    margin-left: -5px;
 }
 .plan.span4 {
-    background: rgba(251, 237, 54, 0.3);
+    background: #417DC5;
     border-radius: 10px;
-    border-color: rgba(0,0,0,0.4)!important;
+    border-color: rgba(0,0,0,1)!important;
     color:white;
 }
 .plan.span4 h3,.plan.span4 .features{
@@ -2409,7 +2448,14 @@ media_tag_5 {
 }
 .plan.span4 .features{
     border-top:1px solid rgba(0,0,0,0.4);
+    
 }
+.plan.span4 .background-img{
+    background-image: url(/style/images/2.png)!important;
+    background-size: 65px 65px!important;
+    background-repeat: no-repeat!important;
+    background-position: 50%!important;
+    }
 .pricing .btn {
     margin: 0
 }
@@ -2464,7 +2510,11 @@ select {
     padding: 15px 0;
 }
 .pricing .plan h3 {
-    text-transform: uppercase
+    text-transform: uppercase;
+    color: gold!important;
+}
+.pricing .plan div{
+    color: whitesmoke!important;
 }
 .pricing .select {
     background: #f5f5f5;
@@ -2703,6 +2753,7 @@ select {
         position:relative;
         left:40%;
 	}
+   
     body {
 	    background: rgba(59,209,122,1);
 background: -moz-linear-gradient(top, rgba(59,209,122,1) 0%, rgba(41,35,41,0.95) 87%, rgba(41,35,41,0.94) 100%) ;
@@ -3513,6 +3564,9 @@ h4#memberModalLabel{
 
 }
 @media (max-width: 767px) { 
+    .pricing{
+        background: rgba(65, 105, 225, 0.42);
+    }
     .points_span{
     position:relative;
     left:auto;

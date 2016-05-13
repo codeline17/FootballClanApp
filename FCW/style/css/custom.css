@@ -1,3 +1,6 @@
+.row-fluid.prizes .accordion-group {
+    border-radius: 10px;
+}
 .pricing .span4:nth-Child(3n+1) {
     margin-left: 0px;
 }

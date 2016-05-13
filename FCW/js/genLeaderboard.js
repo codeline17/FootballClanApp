@@ -7,9 +7,9 @@ function genLeaderboardTabs() {
                             .append(
                                 cEl("li").listener("click", switchLbTabs, false).attr("class", "tab active").append(cEl("a").wr({el : "favs"}).attr("id", "lbFavorites").tEl("Favorites"))
                             ).append(
-                                cEl("li").listener("click", switchLbTabs, false).attr("class", "tab").append(cEl("a").wr({el : "users"}).attr("id", "lbGlobal").tEl("Global"))
+                                cEl("li").listener("click", switchLbTabs, false).attr("class", "tab").append(cEl("a").wr({el : "users"}).attr("id", "lbGlobal").tEl("All Time Users"))
                             ).append(
-                                cEl("li").listener("click", switchLbTabs, false).attr("class", "tab").append(cEl("a").wr({el : "clans"}).attr("id", "lbClans").tEl("Clans"))
+                                cEl("li").listener("click", switchLbTabs, false).attr("class", "tab").append(cEl("a").wr({el : "clans"}).attr("id", "lbClans").tEl("All Time Clans"))
                             ).append(
                                 cEl("li").listener("click", switchLbTabs, false).attr("class", "tab").append(cEl("a").wr({el : "trophies"}).attr("id", "lbTrophies").tEl("Trophies"))
                             ));

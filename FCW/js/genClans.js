@@ -14,7 +14,7 @@ function genClans() {
     var mainC = document.getElementById("mainContainer");
     mainC.innerHTML = "";
 
-    $.post("Actions/User.aspx", { type: "GU" },
+    $.post("Actions/User.aspx", { type: "RFR" },
       function (e) {
           
           e = JSON.parse(e);

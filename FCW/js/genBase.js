@@ -90,6 +90,9 @@ function getUnlocks() {
          case "chat":
              getChat("parse");
              break;
+         case "prizes":
+             getPrizes();
+             break;
          case "tutorial":
              tutorial();
              break;
@@ -233,7 +236,6 @@ function genMatches() {
  function genUnlocks() {
      var mainC = document.getElementById("mainContainer");
      mainC.innerHTML = "";
-     var mainC = document.getElementById("mainContainer");
      var tabs = cEl("div").attr("class", "tabs tabs-top left tab-container").attr("data-easytabs", "true")
                             .attr("id", "lbTabs").append(cEl("ul").attr("class", "etabs")
                             .append(
@@ -481,4 +483,209 @@ function createPanel(title) {
 }
 function refreshFunction() {
     window.location.reload();
+}
+
+
+function getPrizes() {
+    var mainC = document.getElementById("mainContainer");
+    mainC.innerHTML = "";
+    
+    var tabs = cEl("div").attr("class", "tabs tabs-top left tab-container").attr("data-easytabs", "true")
+                           .attr("id", "lbTabs").append(cEl("ul").attr("class", "etabs")
+                           .append(
+                               cEl("li").listener("click", switchPrizesTabs, false).attr("class", "tab active").append(cEl("a").wr({ el: "playerCompetitions" }).tEl("Player Competitions"))
+                           ).append(
+                               cEl("li").listener("click", switchPrizesTabs, false).attr("class", "tab").append(cEl("a").wr({ el: "clanCompetitons" }).tEl("Clan Competitions"))
+                           ));
+    var tabContainer = cEl("div").attr("class", "panel-container").attr("style", "overflow: hidden;");
+
+    var tbMain = cEl("div").attr("class", "tab-block active").attr("id", "tbMain").attr("style", "display: block; position: static; visibility: visible;");
+
+    tabContainer.append(tbMain);
+
+    tabs.append(tabContainer);
+    mainC.append(tabs);
+    genPlayerPrizes();
+
+}
+
+function genPlayerPrizes() {
+    var mainC = document.getElementById("mainContainer");
+    mainC.innerHTML = "";
+    var tabs = cEl("div").attr("class", "tabs tabs-top left tab-container").attr("data-easytabs", "true")
+                           .attr("id", "lbTabs").append(cEl("ul").attr("class", "etabs")
+                           .append(
+                               cEl("li").listener("click", switchPrizesTabs, false).attr("class", "tab active").append(cEl("a").wr({ el: "playerCompetitions" }).tEl("Player Competitions"))
+                           ).append(
+                               cEl("li").listener("click", switchPrizesTabs, false).attr("class", "tab").append(cEl("a").wr({ el: "clanCompetitions" }).tEl("Clan Competitions"))
+                           ));
+    var tabContainer = cEl("div").attr("class", "panel-container").attr("style", "overflow: hidden;");
+
+    var tbMain = cEl("div").attr("class", "tab-block active").attr("id", "tbMain").attr("style", "display: block; position: static; visibility: visible;");
+
+    tabContainer.append(tbMain);
+
+    tabs.append(tabContainer);
+    mainC.append(tabs);
+
+    
+    var eliteCompetion = cEl("div").append(cEl("p").tEl("Usually during Champions League period we will launch intense weekly competitions ..."))
+        .append(cEl("p").tEl(" These Competitions will last for 7 days up to 20 days and they will dispose prizes as below:"))
+        .append(cEl("ol").append(cEl("li").tEl("Position 50 - 16 -> 20 golden balls"))
+        .append(cEl("li").tEl("Position 15 - 11 -> Footballclans T-Shirt + 25 golden balls"))
+        .append(cEl("li").tEl("Position 10 - 8 -> Smartphone cases + 25 golden balls"))
+        .append(cEl("li").tEl("Position 7 - 4 -> Barca football jesy + 25 golden balls"))
+        .append(cEl("li").tEl("Position 3 -> Nike football shoes + 30 golden balls"))
+        .append(cEl("li").tEl("Position 2 -> Smartphone + 30 golden balls"))
+        .append(cEl("li").tEl("Position 1 -> PS4 + 30 golden balls")));
+
+    var euroCompetition = cEl("div")
+        .append(cEl("p").tEl(" During EURO 2016 there will be a special competition and it will dispose prizes as below:"))
+        .append(cEl("ol").append(cEl("li").tEl("Position 50 - 16 -> 20 golden balls"))
+        .append(cEl("li").tEl("Position 15 - 11 -> Footballclans T-Shirt + 25 golden balls"))
+        .append(cEl("li").tEl("Position 10 - 8 -> Smartphone cases + 25 golden balls"))
+        .append(cEl("li").tEl("Position 7 - 4 -> Barca football jesy + 25 golden balls"))
+        .append(cEl("li").tEl("Position 3 -> Nike football shoes + 30 golden balls"))
+        .append(cEl("li").tEl("Position 2 -> Smartphone + 30 golden balls"))
+        .append(cEl("li").tEl("Position 1 -> PS4 + 30 golden balls")));
+
+    var monthlyCompetition = cEl("div").append(cEl("p").tEl("Every month From August to June there will be a monthly competitions starting on the 1st of the month and ending on the last day of the month."))
+        .append(cEl("p").tEl(" People who accumulate most points during this period will win prizes as below:"))
+        .append(cEl("ol").append(cEl("li").tEl("Position 50 - 16 -> 20 golden balls"))
+        .append(cEl("li").tEl("Position 15 - 11 -> Footballclans T-Shirt + 25 golden balls"))
+        .append(cEl("li").tEl("Position 10 - 8 -> Smartphone cases + 25 golden balls"))
+        .append(cEl("li").tEl("Position 7 - 4 -> Barca football jesy + 25 golden balls"))
+        .append(cEl("li").tEl("Position 3 -> Nike football shoes + 30 golden balls"))
+        .append(cEl("li").tEl("Position 2 -> Smartphone + 30 golden balls"))
+        .append(cEl("li").tEl("Position 1 -> PS4 + 30 golden balls")));
+        
+
+    var seasonCompetition = cEl("div").append(cEl("p").tEl("Every season starting from 1st of August until 31st of June there will be a season Competition which every user will be automatically registered."))
+        .append(cEl("p").tEl(" Whoever accumulates the most points during this period will be winner of the SEASON. The Season winner will receive high publicity and will receive a REAL GOLDEN BALL: All other players will get prizes as below:"))
+        .append(cEl("ol").append(cEl("li").tEl("Position 200-101 -> 50 golden balls"))
+        .append(cEl("li").tEl("Position 100 - 51 -> Smartphone Cases + 60 golden balls"))
+        .append(cEl("li").tEl("Position 50 - 41 -> HATS + 70 golden balls"))
+        .append(cEl("li").tEl("Position 40 - 26 -> Bracelets + 80 golden balls"))
+        .append(cEl("li").tEl("Position 25 - 21 -> Football Jearsey + 90 golden balls"))
+        .append(cEl("li").tEl("Position 20 - 16 -> Original Champions League Football + 100 golden balls"))
+        .append(cEl("li").tEl("Position 15 - 11 -> Football Shoes + 100 golden balls"))
+        .append(cEl("li").tEl("Position 10 - 6 -> Smartphone + 100 golden balls"))
+        .append(cEl("li").tEl("Position 5 - 4 -> Footballclans Golden Bracelet + 150 golden balls"))
+        .append(cEl("li").tEl("Position 3 -> 2 European Super Cup Final + 150 golden balls"))
+        .append(cEl("li").tEl("Position 2 -> 2 Champions League Final Tickets + 175 golden balls"))
+        .append(cEl("li").tEl("Position 1 -> a REAL GOLDEN BALL, more than 1.5 KG in Pure Gold + 200 golden balls")));
+
+    var rootElement = cEl("div").attr("class", "row-fluid");
+    var prizes = cEl("div").attr("class", "row-fluid prizes");
+    prizes.append(
+            genAccordionElement("elitetab", "Elite Player Competition", null, eliteCompetion)
+            )
+        .append(
+            genAccordionElement("eurotab", "Euro 2016 individual", null, euroCompetition)
+            );
+       /* .append(
+            genAccordionElement("monthlytab", "Monthly single competitions MSC", null, monthlyCompetition)
+            ) 
+        .append(
+            genAccordionElement("seasontab", "Season single competition SSC", null, seasonCompetition)
+            );*/
+    rootElement.append(prizes);
+    mainC.append(rootElement);
+
+}
+function genClanPrizes() {
+    var mainC = document.getElementById("mainContainer");
+    mainC.innerHTML = "";
+    var tabs = cEl("div").attr("class", "tabs tabs-top left tab-container").attr("data-easytabs", "true")
+                           .attr("id", "lbTabs").append(cEl("ul").attr("class", "etabs")
+                           .append(
+                               cEl("li").listener("click", switchPrizesTabs, false).attr("class", "tab").append(cEl("a").wr({ el: "playerCompetitions" }).tEl("Player Competitions"))
+                           ).append(
+                               cEl("li").listener("click", switchPrizesTabs, false).attr("class", "tab active").append(cEl("a").wr({ el: "clanCompetitions" }).tEl("Clan Competitions"))
+                           ));
+    var tabContainer = cEl("div").attr("class", "panel-container").attr("style", "overflow: hidden;");
+
+    var tbMain = cEl("div").attr("class", "tab-block active").attr("id", "tbMain").attr("style", "display: block; position: static; visibility: visible;");
+
+    tabContainer.append(tbMain);
+
+    tabs.append(tabContainer);
+    mainC.append(tabs);
+
+
+    var euroClanCompetition = cEl("div")
+        .append(cEl("p").tEl(" During EURO 2016 there will be a special Clan Competition and it will dispose prizes as below:"))
+        .append(cEl("ol").append(cEl("li").tEl("Clan 3 -> 220 Golden Balls (20 Golden Balls for each player)"))
+        .append(cEl("li").tEl("Clan 2 -> 440$ (40$ for each player)"))
+        .append(cEl("li").tEl("Clan 1 -> 1100$ (100$ for each player)")));
+
+
+    var clanBattlesCompetition = cEl("div").append(cEl("p").tEl("This competition lasts about 1 months and is a clan competition for who gets to be the best clan on the Game... The Points accumulated from all players of the clan will be summed together to make clan points..."))
+        .append(cEl("p").tEl(" Coalition with your friends in this competition in order to become the best Clan and win fantastic prizes below:"))
+        .append(cEl("ol").append(cEl("li").tEl("Clan 3 -> 220 Golden Balls (20 Golden Balls for each player)"))
+        .append(cEl("li").tEl("Clan 2 -> 440$ (40$ for each player)"))
+        .append(cEl("li").tEl("Clan 1 -> 1100$ (100$ for each player)")));
+
+
+    var seasonClanCompetition = cEl("div").append(cEl("p").tEl("This competition lasts about 3 months and is a long clan competition for who gets to be the best clan on the Game... The Points accumulated from all players of the clan will be summed together to make clan points..."))
+        .append(cEl("p").tEl(" Coalition with your friends in this competition in order to become the best Clan and win fantastic prizes below:"))
+        .append(cEl("ol").append(cEl("li").tEl("Clan 50 - 41 -> HATS + 50 golden balls"))
+        .append(cEl("li").tEl("Clan 40 - 21 -> Stylish Bracelets + 60 golden balls"))
+        .append(cEl("li").tEl("Clan 20 - 11 -> Favourite Team Football Jearsey + 70 golden balls)"))
+        .append(cEl("li").tEl("Clan 10 - 4 -> Footballclans Golden Bracelet + 80 golden balls"))
+        .append(cEl("li").tEl("Clan 3 - 2 -> Smartphone + 100 golden balls"))
+        .append(cEl("li").tEl("Clan 1 -> a Wonderful IBIZA Vacation EXPERIENCE + 200 golden balls")));
+
+    var yearlyClanCompetition = cEl("div")
+        .append(cEl("ol").append(cEl("li").tEl("Clan 200 - 51 -> 70 golden balls"))
+        .append(cEl("li").tEl("Clan 50 - 41 -> HATS + 50 golden balls"))
+        .append(cEl("li").tEl("Clan 40 - 26 -> Stylish Bracelets + 60 golden balls"))
+        .append(cEl("li").tEl("Clan 25 - 16 -> Favourite Team Football Jearsey + 70 golden balls"))
+        .append(cEl("li").tEl("Clan 15 - 6 -> Footballclans Golden Bracelet + 80 golden balls"))
+        .append(cEl("li").tEl("Clan 5 - 4 -> Smartphone + 100 golden balls"))
+        .append(cEl("li").tEl("Clan 3 - 1 -> a Wonderful Vacation EXPERIENCE + 200 golden balls")));
+
+
+
+
+
+    var rootElement = cEl("div").attr("class", "row-fluid prizes");
+    var prizes = cEl("div").attr("class", "row-fluid");
+    prizes.append(
+            genAccordionElement("battlesclantab", "Clan Battles", null, clanBattlesCompetition)
+            )
+        .append(
+            genAccordionElement("euroclantab", "Euro 2016 clans", null, euroClanCompetition)
+            );
+    /*
+
+        .append(
+            genAccordionElement("seasonclantab", "Season single competition SSC", null, seasonClanCompetition)
+            )
+        .append(
+            genAccordionElement("yearlyclantab", "Yearly clan competition YCC", null, yearlyClanCompetition)
+            ); */
+
+    rootElement.append(prizes);
+    mainC.append(rootElement);
+}
+function switchPrizesTabs(e) {
+    var tbs = e.target.parentNode.parentNode.childNodes;
+
+    var clicked = e.target.wrapper.el;
+    for (var j = 0; j < tbs.length; j++) {
+        tbs[j].className = tbs[j].className.replace("active", "").replace(" ", "");
+
+    }
+
+    this.className = "tab active";
+
+    switch (clicked) {
+        case "playerCompetitions":
+            genPlayerPrizes();
+            break;
+        case "clanCompetitions":
+            genClanPrizes();
+            break;
+    }
 }

@@ -74,11 +74,14 @@
                     <a class="meanclose"><i class="icon-users icn"></i> My Clans</a>
                 </li>
                 <li content-type="leaderboard">
-                    <a class="meanclose"><i class="icon-users-1 icn"></i> Leaderboard
+                    <a class="meanclose"><i class="icon-users-1 icn"></i> Statistics
                     </a>
                 </li>
                 <li content-type="chat">
                     <a class="meanclose"><i class="icon-comment icn"></i> Global Chat</a>
+                </li>
+                <li content-type="prizes">
+                    <a class="meanclose" style="color:gold;"><i class="icon-money icn"></i> Prizes</a>
                 </li>
                 <li content-type="predictions">
                     <a class="meanclose"><i class="icon-magic icn"></i> Past Predictions</a>
@@ -88,7 +91,7 @@
                 </li>
                 <li content-type="unlock">
                     <a class="meanclose"><i class="icon-lock-open-1 icn"></i> Unlocks </a>
-                </li>
+                </li> 
                 <li content-type="tutorial">
                     <a class="meanclose"><i class="icon-videocam icn"></i> Tutorials</a>
                 </li>

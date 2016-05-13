@@ -30,9 +30,9 @@ function genUserDetails() {
         .append(
             genAccordionElement("rulestab", "Rules", null, rliteral)
             )
-        .append(
+        /*.append(
             genAccordionElement("prizestab", "Prizes", null, pliteral)
-            )
+            )*/
         .append(
             genAccordionElement("termscondtab", "Terms And Conditions", null, tcliteral)
             ))).append(btnLogout);

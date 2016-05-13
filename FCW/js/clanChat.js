@@ -71,7 +71,7 @@ function genClanChat() {
     //TODO : Gjenero Tabet
     var clantabGroup = cEl("div").attr("class", "clan-tabs tabs-top ").attr("data-easytabs", "true");
     var clantabs = cEl("ul").attr("class", "etabs")
-        .append(cEl("li").attr("class", "tab active").append(cEl("a").attr("style","text-align:center;").wr({ Tab: "create", ChatroomId: cuser.Chatrooms[1].Id })
+        .append(cEl("li").attr("class", "tab active").append(cEl("a").attr("style", "text-align:center;background:none!important;color:#74c9be;").wr({ Tab: "create", ChatroomId: cuser.Chatrooms[1].Id })
             .tEl("Clan")));
     var msgInput = cEl("div").attr("class", "clanSpan").append(cEl("input").attr("type", "text").attr("class", "msg-input").attr("id", "clan-ixinput" + cuser.Chatrooms[1].Id).wr({ roomid: cuser.Chatrooms[1].Id, roomelement: "0x" + name }).listener("keyup", sendClanMessage)).append(cEl('div').attr("class", "send-msg-btn").listener("click", sendClanMessage2).tEl("Send"));
 

@@ -72,6 +72,7 @@
     <Content Include="js\manageClan.js" />
     <Content Include="js\toggleBagdeClan.js" />
     <Content Include="js\userdetailsmenu.js" />
+    <Content Include="style\images\2.png" />
     <Content Include="style\images\avatars\1.png" />
     <Content Include="style\images\avatars\2.png" />
     <Content Include="style\images\avatars\3.png" />

@@ -32,7 +32,7 @@ function genSingleUnlockElement(name, expirydate) {
                     cEl("div").attr("class", "features").tEl("Unlock this option for all the matches for only " + itemPrice + " Golden Balls")
                     )
             .append(
-                cEl("div").attr("class", "features select").append(cEl("a").listener("click", purchaseOption).wr({ Slug: name }).attr("class", "btn btn-success").tEl("Unlock"))//.tEl("Expires on : " + expirydate)
+                cEl("div").attr("class", "features select background-img").append(cEl("a").listener("click", purchaseOption).wr({ Slug: name }).attr("class", "btn btn-success").tEl("Unlock"))//.tEl("Expires on : " + expirydate)
                 );
     }
 
