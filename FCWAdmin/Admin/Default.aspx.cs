@@ -87,7 +87,7 @@ namespace FCWAdmin.Admin
                     ExtraMatches++;
                     break;
             }
-            lblState.Text = string.Format("[{0} - Normal]    [{1} - Extra]",NormalMatches,ExtraMatches);
+            lblState.Text = $"[{NormalMatches} - Normal]    [{ExtraMatches} - Extra]";
             if (e.Row.RowType == DataControlRowType.DataRow && gdView.EditIndex == e.Row.RowIndex)                
             {               
                 var ddlCities = (DropDownList)e.Row.FindControl("ddlPacks");

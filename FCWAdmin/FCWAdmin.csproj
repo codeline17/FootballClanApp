@@ -106,6 +106,7 @@
     <Content Include="Admin\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Admin\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Admin\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Admin\Reports.aspx" />
     <Content Include="packages.config" />
     <None Include="Properties\PublishProfiles\fcwa.pubxml" />
     <None Include="Properties\PublishProfiles\FCWAdmin.pubxml" />
@@ -165,6 +166,13 @@
     </Compile>
     <Compile Include="Admin\Leagues.aspx.designer.cs">
       <DependentUpon>Leagues.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Reports.aspx.cs">
+      <DependentUpon>Reports.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Reports.aspx.designer.cs">
+      <DependentUpon>Reports.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\Terms.aspx.cs">
       <DependentUpon>Terms.aspx</DependentUpon>

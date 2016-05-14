@@ -73,6 +73,9 @@
                         <a href="Leagues.aspx"><i class="fa fa-fw fa-users"></i> Leagues</a>
                     </li>
                     <li>
+                        <a href="Reports.aspx"><i class="fa fa-fw fa-newspaper-o"></i> Reports</a>
+                    </li>
+                    <li>
                         <a href="Terms.aspx"><i class="fa fa-fw fa-users"></i> Terms</a>
                     </li>
                     <li>
