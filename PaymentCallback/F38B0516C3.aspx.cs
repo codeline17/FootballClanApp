@@ -61,7 +61,7 @@ namespace PaymentCallback
                             CreateTransaction(Request);
                             ConfirmPurchase(
                                 new Guid(Request["custom"].Split('|')[0]),
-                                new Guid(Request["custom"].Split('|')[0]),
+                                new Guid(Request["custom"].Split('|')[1]),
                                 Convert.ToDecimal(Request["mc_gross"]));
                         }
                         //check the payment_status is Completed request["custom"] + ";" + request["mc_gross"];
