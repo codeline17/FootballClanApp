@@ -40,7 +40,7 @@ function (e) {
 }
 var clan = document.getElementById("clanDetails-menu");
 function getClans() {
-    $.post("Actions/User.aspx", { type: "GU" },
+    $.post("Actions/User.aspx", { type: "RFR" },
                   function (e) {
                       e = JSON.parse(e);
                       if (e.ClanId === -1 || e.ClanId === 0) {

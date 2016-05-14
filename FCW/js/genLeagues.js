@@ -1,5 +1,6 @@
 ﻿var pageNumber = 0;
 var tabIdPagination = 0;
+var competitionType;
 function genTabs(tabs, content) {
 
     var mainC = document.getElementById("mainContainer");
@@ -87,6 +88,7 @@ function genLeagueTable(n,u,pagenumber,i,leagueType) {
     tHead.appendChild(hRow);
 
     var tBody = document.createElement("tbody");
+    
     for (var i = pagenumber*100; i < u.length+pagenumber*100; i++) {
         var j = i - (pagenumber * 100);
         var pg = i - 100;
@@ -98,6 +100,7 @@ function genLeagueTable(n,u,pagenumber,i,leagueType) {
            pg = i - 100+pagenumber-1;
         }
         var tdRang;
+
         if (u[j].PreviousLeagueRank > compareGoneUpDown+1) {
             tdRang = cEl("td").tEl(pg ).append(cEl("i").attr("class", "icon-up-dir-1 goneup"));
         } else if (u[j].PreviousLeagueRank < compareGoneUpDown+1) {
@@ -105,7 +108,9 @@ function genLeagueTable(n,u,pagenumber,i,leagueType) {
         } else {
             tdRang = cEl("td").tEl(pg ).append(cEl("i").attr("class", "icon-right-dir-1"));
         }
-        if (pg < 51) {
+        if (pg < 51 && competitionType == 1) {
+            tdRang.appendChild(cEl("i").attr("class", "icon-trophy gold"));
+        } else if (pg < 4 && competitionType == 2) {
             tdRang.appendChild(cEl("i").attr("class", "icon-trophy gold"));
         }
         var tdUsername = cEl("td").tEl(u[j].Username ? u[j].Username : u[j].Name);
@@ -230,8 +235,7 @@ function showProfile(el) {
 }
 
 function getLeagueData(pagenumber, pagesize) {
-    var loadcontainer = cEl("div").attr("style", "position:fixed;width:100vw;height:100vh;background-color:rgba(0,0,0,0.3);top:40px;left:0;z-index:1000;");
-    
+    var loadcontainer = cEl("div").attr("style", "position:fixed;width:100vw;height:100vh;background-color:rgba(0,0,0,0.3);top:0;left:0;z-index:999;");
     var animation = cEl("div").attr("class", "cssload-loader").attr("id", "loader").tEl("Loading...");
     var el = document.getElementById('mainContainer');
     if (document.getElementById("leagueTable")) {
@@ -243,11 +247,13 @@ function getLeagueData(pagenumber, pagesize) {
     $.post("Actions/User.aspx", { type: 'LDL2', PageNumber: pagenumber, PageSize: pagesize },
 function (e) {
     e = JSON.parse(e);
+   
     var tabs = [];
     var content = [];
     for (var i = 0; i < e.length; i++) {
        
         if (e[i].Name) {
+            competitionType = e[tabIdPagination].LeagueType;
             var l = { Name: e[i].Name }
             tabs.push(l);
             var els = e[i].Users.length > 0 ? e[i].Users : e[i].Clans;
@@ -265,6 +271,7 @@ function (e) {
             var Pagination = document.getElementById("paginationCompetation");
             Pagination.append(first).append(previous).append(mypage).append(next);
             pageNumber = e[tabIdPagination].Page;
+            
         } else {
 
             var first = cEl("div").attr("id", "firstpage").attr("style", "display:inline-block").listener("click", firstel).tEl(" First ");
