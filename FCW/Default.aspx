@@ -504,102 +504,6 @@ These terms and conditions shall be governed by and construed in accordance with
     
     </script>
 
-    <script id="PrizesLiteral" type="text/plain">
-        <p>Apple is not involved in any way with this game and it is not a sponsor of this game. Also prizes are not Apple products!</p>
-        <h5>Euro 2016 individual</h5>
-        <p>Position 200-101 -&gt; 50 golden balls</p>
-        <p>Position 100 - 51 -&gt; Smartphone Cases + 60 golden balls</p>
-        <p>Position 50 &ndash; 26 -&gt; FootballClans Bracelets + 80 golden balls</p>
-        <p>Position 25 - 21 -&gt; Euro2016 winner Football Jearsey + 90 golden balls</p>
-        <p>Position 20 &ndash; 11 -&gt; Original ADIDAS Euro2016 Ball + 100 golden balls</p>
-        <p>Position 10 &ndash; 4 -&gt; Portable Media Player + 100 golden balls</p>
-        <p>Position 5 &ndash; 4 -&gt; Footballclans Golden Bracelet in real gold+ 150 golden balls</p>
-        <p>Position 3 -&gt; Smartphone + 100 golden balls</p>
-        <p>Position 2 -&gt; 2 European Super Cup Final, Tickets, traveling + accommodation included + 150</p>
-        <p>golden balls</p>
-        <p>Position 1 -&gt; a REAL GOLDEN BALL + 200 golden balls</p>
-        <h5>Euro 2016 clans</h5>
-        <p>Clan 50 &ndash; 31 -&gt; Euro2016 Winner HATS + 50 golden balls</p>
-        <p>Clan 30 &ndash; 11 -&gt; Stylish Footballclans Bracelets + 60 golden balls</p>
-        <p>Clan 10 &ndash; 4 -&gt; Footballclans Golden Bracelet + 80 golden balls</p>
-        <p>Clan 3 -&gt; Original ADIDAS Euro2016 Ball + 100 golden balls</p>
-        <p>Clan 2 -&gt; Smartphone + 100 golden balls</p>
-        <p>Clan 1 -&gt; a Wonderful GREEK ISLAND Vacation EXPERIENCE, accommodation + travel + 200</p>
-        <p>golden balls</p>
-        <h5>Elite Player Competition</h5>
-        <p>Usually during Champions League period we will launch intense weekly competitions&hellip; These</p>
-        <p>Competitions will last for 7 dasy up to 20 Days and they will dispose prizes as below:</p>
-
-        <p>Position 50 - 16 -&gt; 20 golden balls</p>
-        <p>Position 15 &ndash; 11 -&gt; Footballclans T-Shirt + 25 golden balls</p>
-        <p>Position 10 &ndash; 8 -&gt; Smartphone cases + 25 golden balls</p>
-        <p>Position 7 &ndash; 4 -&gt; Barca football jesy  + 25 golden balls</p>
-        <p>Position 3 -&gt; Nike football shoes + 30 golden balls</p>
-        <p>Position 2 -&gt; Smartphone + 30 golden balls</p>
-        <p>Position 1 -&gt; PS4 + 30 golden balls</p>
-        <h5>Monthly single competitions MSC</h5>
-        <p>Every month From August to June there will be a monthly competitions starting on the 1st of the</p>
-        <p>month and ending on the last day of the month.</p>
-        <p>People who accumulate most points during this period will win prizes as below:</p>
-        <p>Position 40 &ndash; 26 -&gt; 10 golden balls</p>
-        <p>Position 25 - 16 -&gt; 15 golden balls</p>
-        <p>Position 15 &ndash; 11 -&gt; Smartphone cases + 20 golden balls</p>
-        <p>Position 10 &ndash; 6 -&gt; Football Jearsey + 25 golden balls</p>
-        <p>Position 5 &ndash; 4 -&gt; Football Shoes + 30 golden balls</p>
-        <p>Position 3 -&gt; Smartphone + 35 golden balls</p>
-        <p>Position 2 -&gt; Tablet + 40 golden balls</p>
-        <p>Position 1 -&gt; Notebook + 50 goldeballs</p>
-        <h5>Season single competition SSC</h5>
-        <p>Every season starting from 1st of August until 31st of June there will be a season Competition which</p>
-        <p>every user will be automatically registered.</p>
-        <p>Whoever accumulates the most points during this period will be winner of the SEASON. The</p>
-        <p>Season winner will receive high publicity and will receive a REAL GOLDEN BALL: All other</p>
-        <p>players will get prizes as below:</p>
-        <p>Position 200-101 -&gt; 50 golden balls</p>
-        <p>Position 100 - 51 -&gt; Smartphone Cases + 60 golden balls</p>
-        <p>Position 50 &ndash; 41 -&gt; HATS + 70 golden balls</p>
-        <p>Position 40 &ndash; 26 -&gt; Bracelets + 80 golden balls</p>
-        <p>Position 25 - 21 -&gt; Football Jearsey + 90 golden balls</p>
-        <p>Position 20 &ndash; 16 -&gt; Original Champions League Football + 100 golden balls</p>
-        <p>Position 15 &ndash; 11 -&gt; Football Shoes + 100 golden balls</p>
-        <p>Position 10 &ndash; 6 -&gt; Smartphone + 100 golden balls</p>
-        <p>Position 5 &ndash; 4 -&gt; Footballclans Golden Bracelet + 150 golden balls</p>
-        <p>Position 3 -&gt; 2 European Super Cup Final + 150 golden balls</p>
-        <p>Position 2 -&gt; 2 Champions League Final Tickets + 175 golden balls</p>
-        <p>Position 1 -&gt; a REAL GOLDEN BALL, more than 1.5 KG in Pure Gold + 200 golden balls</p>
-        <p>Clan competitions prizes</p>
-        <h5>Clan Battles</h5>
-        <p>This competition lasts about 1 months and is a clan competition for who gets to be the best clan</p>
-        <p>on the Game&hellip; The Points accumulated from all players of the clan will be summed together to</p>
-        <p>make clan points&hellip;</p>
-        <p>Coalition with your friends in this competition in order to become the best Clan and win fantastic</p>
-        <p>prizes below:</p>
-        <p>Clan 3 -&gt; 220 Golden Balls (20 Golden Balls for each player)</p>
-        <p>Clan 2 -&gt; 440$ (40$ for each player)</p>
-        <p>Clan 1 -&gt; 1100$ (100$ for each player)</p>
-
-        <h5>Season clan competition SSC</h5>
-        <p>This competition lasts about 3 months and is a long clan competition for who gets to be the best clan</p>
-        <p>on the Game&hellip; The Points accumulated from all players of the clan will be summed together to</p>
-        <p>make clan points&hellip;</p>
-        <p>Coalition with your friends in this competition in order to become the best Clan and win fantastic</p>
-        <p>prizes below:</p>
-        <p>Clan 50 &ndash; 41 -&gt; HATS + 50 golden balls</p>
-        <p>Clan 40 &ndash; 21 -&gt; Stylish Bracelets + 60 golden balls</p>
-        <p>Clan 20 - 11 -&gt; Favourite Team Football Jearsey + 70 golden balls</p>
-        <p>Clan 10 &ndash; 4 -&gt; Footballclans Golden Bracelet + 80 golden balls</p>
-        <p>Clan 3 - 2 -&gt; Smartphone + 100 golden balls</p>
-        <p>Clan 1 -&gt; a Wonderful IBIZA Vacation EXPERIENCE + 200 golden balls</p>
-        <h5>Yearly clan competition YCC</h5>
-        <p>Clan 200 &ndash;51 -&gt; 70 golden balls</p>
-        <p>Clan 50 &ndash; 41 -&gt; HATS + 50 golden balls</p>
-        <p>Clan 40 &ndash; 26 -&gt; Stylish Bracelets + 60 golden balls</p>
-        <p>Clan 25 - 16 -&gt; Favourite Team Football Jearsey + 70 golden balls</p>
-        <p>Clan 15 &ndash; 6 -&gt; Footballclans Golden Bracelet + 80 golden balls</p>
-        <p>Clan 5 - 4 -&gt; Smartphone + 100 golden balls</p>
-        <p>Clan 3 - 1 -&gt; a Wonderful Vacation EXPERIENCE + 200 golden balls</p>
-    
-    </script>
 
     <script src="js/prototype.js"></script>
     <script src="style/js/jquery.js"></script>
@@ -649,7 +553,5 @@ These terms and conditions shall be governed by and construed in accordance with
     <script src="js/manageClan.js"></script>
     <script src="js/expandDetails.js"></script>
     <script src="js/genTutorial.js"></script>
-    
-    
 </body>
 </html>

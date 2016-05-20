@@ -90,7 +90,8 @@ function genChatArea(room) {
     var messages = room.Messages;
     var cmsg = cEl("div").attr("id", "1x" + room.Id).attr("class","global-messages");
 
-    for (var i = messages.length-1; i >=(messages.length-200); i--) {
+    for (var i = 0 ; i <messages.length; i++) {
+
         cmsg.append(genMessageArea(messages[i]));
     }
 

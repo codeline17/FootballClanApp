@@ -1,3 +1,19 @@
+.unlock-key{
+    min-width: 45px;
+    min-height: 45px;
+    padding-left: 2px;
+    padding-top: 11px;
+    font-size: 22px;
+    color: #5C5C5C;
+}
+.unlockExtra{
+
+    display: inline-block;
+    background-image: url(/style/images/2.png)!important;
+    background-size: 45px 45px!important;
+    background-repeat: no-repeat!important;
+    background-position: 50%!important;
+}
 .row-fluid.prizes .accordion-group {
     border-radius: 10px;
 }

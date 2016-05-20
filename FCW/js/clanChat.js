@@ -70,6 +70,7 @@ function getClanChat(parse, chatroomidcl) {
 function genClanChat() {
     //TODO : Gjenero Tabet
     var clantabGroup = cEl("div").attr("class", "clan-tabs tabs-top ").attr("data-easytabs", "true");
+    var emojis = cEl("span").attr("id", "clan-emoji").tEl("test");
     var clantabs = cEl("ul").attr("class", "etabs")
         .append(cEl("li").attr("class", "tab active").append(cEl("a").attr("style", "text-align:center;background:none!important;color:#74c9be;").wr({ Tab: "create", ChatroomId: cuser.Chatrooms[1].Id })
             .tEl("Clan")));
@@ -97,7 +98,7 @@ function genClanChat() {
 
     clanmainC.appendChild(clantabGroup);
 
-
+    
 }
 
 
@@ -114,7 +115,7 @@ function genClanChatArea(room) {
             clancmsg.append(genClanMessageArea(clanmessages[i]));
         }
     } else {
-        for (var i = clanmessages.length - 1; i >= (clanmessages.length - 200) ; i--) {
+        for (var i = 0; i <= clanmessages.length - 1; i++) {
             clancmsg.append(genClanMessageArea(clanmessages[i]));
         }
     }

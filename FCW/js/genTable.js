@@ -207,9 +207,9 @@ function genClanTable(e) {
                     } else {
                         row.attr("class","not-approved").append(cEl("td").append(
                                 cEl("span").append(
-                                    cEl("i").attr("class", "icon-ok").attr("style", "color:green;font-size:20px;margin-bottom:7px;").attr("cel-uname", cun).attr("cel-cname", cn).listener("click", approveMember)
+                                    cEl("i").attr("class", "icon-ok").attr("style", "color:green;font-size:20px;margin-bottom:7px;padding-right:25px;").attr("cel-uname", cun).attr("cel-cname", cn).listener("click", approveMember)
                                     ).append(
-                                    cEl("i").attr("class", "icon-cancel-1").attr("style", "color:red;font-size:15px;margin-top:7px;margin-bottom:5px;").attr("cel-uname", cun).attr("cel-cname", cn).listener("click", removeMember)
+                                    cEl("i").attr("class", "icon-cancel-1").attr("style", "color:red;font-size:15px;margin-top:4px;margin-bottom:5px;").attr("cel-uname", cun).attr("cel-cname", cn).listener("click", removeMember)
                                 )
                             ));
                     }
