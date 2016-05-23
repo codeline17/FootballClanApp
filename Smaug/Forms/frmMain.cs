@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using Smaug.Data_Access;
+using Smaug.Models;
 using Smaug.Requests;
 using Smaug.Utils;
 
@@ -19,7 +19,7 @@ namespace Smaug
         {
             InitializeComponent();
             GetHighlights();
-
+            GetExtendedFixtures();
         }
         
         private void GetHighlights()
@@ -31,10 +31,10 @@ namespace Smaug
         private void GetExtendedFixtures()
         {
             var doc = Feed.GetExtendedFixtures();
-            foreach (var element in doc.Descendants("league"))
-            {
-                
-            }
+
+            var ef = Helper.FromXml<extended_fixtures>(doc.ToString());
+
+            ef.SaveOrUpdate();
         }
 
         public void AppendText(string text)

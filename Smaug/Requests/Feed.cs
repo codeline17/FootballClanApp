@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml;
 using System.Xml.Linq;
-using Smaug.Utils;
+using System.Xml.Serialization;
+using Smaug.Models;
 
 namespace Smaug.Requests
 {
@@ -31,19 +29,7 @@ namespace Smaug.Requests
             var xml = new XDocument();
             try
             {
-                var request = (HttpWebRequest)WebRequest.Create("url");
-                request.AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip;
-                request.Accept = "application/xml";
-
-                using (var response = (HttpWebResponse)request.GetResponse())
-                {
-                    var statusCode = (int)response.StatusCode;
-                    if (response == null) return xml;
-                    using (var reader = new StreamReader(response.GetResponseStream()))
-                    {
-                        xml = XDocument.Load(reader);
-                    }
-                }
+                xml = XDocument.Load(url);
             }
             catch (Exception ex)
             {
