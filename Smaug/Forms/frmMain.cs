@@ -10,6 +10,7 @@ using Smaug.Data_Access;
 using Smaug.Models;
 using Smaug.Requests;
 using Smaug.Utils;
+using System.Threading;
 
 namespace Smaug
 {
@@ -30,11 +31,16 @@ namespace Smaug
 
         private void GetExtendedFixtures()
         {
-            var doc = Feed.GetExtendedFixtures();
+            ThreadPool.SetMaxThreads(5, 5);
+            foreach (var country in Elements.ExtendedFixturesCountries)
+            {
+                var doc = Feed.GetExtendedFixtures(country);
 
-            var ef = Helper.FromXml<extended_fixtures>(doc.ToString());
+                var ef = Helper.FromXml<extended_fixtures>(doc.ToString());
 
-            ef.SaveOrUpdate();
+                if (ef != null)
+                    ef.SaveOrUpdate();
+            }
         }
 
         public void AppendText(string text)

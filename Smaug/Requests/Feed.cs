@@ -6,6 +6,9 @@ using System.Linq;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 using Smaug.Models;
+using Smaug.Utils;
+using System.Net;
+using System.IO.Compression;
 
 namespace Smaug.Requests
 {
@@ -19,9 +22,9 @@ namespace Smaug.Requests
             return GetXmlFromUrl($"http://www.tipgin.net/datav2/accounts/bsp/soccer/highlights/{days}.xml");
         }
 
-        public static XDocument GetExtendedFixtures()
+        public static XDocument GetExtendedFixtures(string country)
         {
-            return GetXmlFromUrl("http://feed.me/england-demo.xml");
+            return GetXmlFromUrl($"http://www.tipgin.net/datav2/accounts/bsp/soccer/extended_fixtures/{country}.xml");
         }
 
         private static XDocument GetXmlFromUrl(string url)
@@ -29,7 +32,8 @@ namespace Smaug.Requests
             var xml = new XDocument();
             try
             {
-                xml = XDocument.Load(url);
+                var path = Helper.DownloadAndUnGZip(url);
+                xml = XDocument.Load(path);
             }
             catch (Exception ex)
             {

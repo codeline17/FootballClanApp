@@ -728,7 +728,7 @@ namespace Smaug.Models
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class extended_fixturesLeagueStageMatchAway
+    public partial class extended_fixturesLeagueStageMatchAway : BaseTeams
     {
 
         private string et_scoreField;
@@ -2822,7 +2822,7 @@ namespace Smaug.Models
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class extended_fixturesLeagueWeekMatchHome
+    public partial class extended_fixturesLeagueWeekMatchHome : BaseTeams
     {
 
         private string et_scoreField;

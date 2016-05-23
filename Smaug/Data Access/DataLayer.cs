@@ -10,6 +10,7 @@ using NHibernate.Stat;
 using NHibernate.Util;
 using Smaug.Bases;
 using Smaug.Models;
+using Smaug.Utils;
 
 namespace Smaug.Data_Access
 {
@@ -19,26 +20,32 @@ namespace Smaug.Data_Access
 
         public static void SaveOrUpdate(this extended_fixtures ef)
         {
-            foreach (var league in ef.league)
+            if (ef.league != null)
             {
-                //SaveLeague
-                league.SaveOrUpdate();
-
-                if (league.week == null) continue;
+                foreach (var league in ef.league)
                 {
-                    if (league.week.Length <= 0) continue;
-                    foreach (var m in from w in league.week where w.match.Length > 0 from m in w.match select m)
+                    league.Country = ef.country;
+                    //SaveLeague
+                    league.SaveOrUpdate();
+
+                    if (league.week == null) continue;
                     {
-                        m.SaveOrUpdate(league);
+                        if (league.week.Length <= 0) continue;
+                        foreach (var m in from w in league.week where w.match.Length > 0 from m in w.match select m)
+                        {
+                            m.Country = league.Country;
+                            m.SaveOrUpdate(league);
+                        }
                     }
-                }
 
-                if (league.stage == null) continue;
-                {
-                    if (league.stage.Length <= 0) continue;
-                    foreach (var m in from s in league.stage where s.match.Length > 0 from m in s.match select m)
+                    if (league.stage == null) continue;
                     {
-                        m.SaveOrUpdate(league);
+                        if (league.stage.Length <= 0) continue;
+                        foreach (var m in from s in league.stage where s.match.Length > 0 from m in s.match select m)
+                        {
+                            m.Country = league.Country;
+                            m.SaveOrUpdate(league);
+                        }
                     }
                 }
             }
@@ -46,7 +53,9 @@ namespace Smaug.Data_Access
         
         private static void SaveOrUpdate(this extended_fixturesLeagueStageMatch fixture, extended_fixturesLeague league)
         {
+            fixture.home.Country = league.Country;
             fixture.home.SaveOrUpdate();
+            fixture.away.Country = league.Country;
             fixture.away.SaveOrUpdate();
             var dtString = fixture.date + " " + fixture.time;
             var dt = DateTime.ParseExact(dtString.Replace(".", "/"), "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
@@ -57,7 +66,7 @@ namespace Smaug.Data_Access
                 {
                     conn.Open();
                     command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.Add(new SqlParameter("@league_id", int.Parse(league.sub_id.ToString())));
+                    command.Parameters.Add(new SqlParameter("@league_id", int.Parse(league.id.ToString())));
                     command.Parameters.Add(new SqlParameter("@home_id", int.Parse(fixture.home.id.ToString())));
                     command.Parameters.Add(new SqlParameter("@away_id", int.Parse(fixture.away.id.ToString())));
                     command.Parameters.Add(new SqlParameter("@startdate", dt));
@@ -71,10 +80,14 @@ namespace Smaug.Data_Access
 
         private static void SaveOrUpdate(this extended_fixturesLeagueWeekMatch fixture, extended_fixturesLeague league)
         {
+            fixture.home.Country = league.Country;
             fixture.home.SaveOrUpdate();
+            fixture.away.Country = league.Country;
             fixture.away.SaveOrUpdate();
             var dtString = fixture.date + " " + fixture.time;
-            var dt = DateTime.ParseExact(dtString.Replace(".", "/"), "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
+            DateTime dt;
+            if (!DateTime.TryParseExact(dtString.Replace(".", "/"), "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None, out dt))
+                DateTime.TryParseExact(fixture.date, "dd.MM.yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out dt);
 
             using (var conn = new SqlConnection(cString))
             {
@@ -82,7 +95,7 @@ namespace Smaug.Data_Access
                 {
                     conn.Open();
                     command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.Add(new SqlParameter("@league_id", int.Parse(league.sub_id.ToString())));
+                    command.Parameters.Add(new SqlParameter("@league_id", int.Parse(league.id.ToString())));
                     command.Parameters.Add(new SqlParameter("@home_id", int.Parse(fixture.home.id.ToString())));
                     command.Parameters.Add(new SqlParameter("@away_id", int.Parse(fixture.away.id.ToString())));
                     command.Parameters.Add(new SqlParameter("@startdate", dt));
@@ -104,7 +117,7 @@ namespace Smaug.Data_Access
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.Add(new SqlParameter("@Id", int.Parse(league.sub_id.ToString())));
                     command.Parameters.Add(new SqlParameter("@Name", league.name));
-                    command.Parameters.Add(new SqlParameter("@Country", "TestFeed2"));
+                    command.Parameters.Add(new SqlParameter("@Country", league.Country));
                     command.ExecuteNonQuery();
                 }
             }
@@ -120,9 +133,9 @@ namespace Smaug.Data_Access
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.Add(new SqlParameter("@id", int.Parse(team.id.ToString())));
                     command.Parameters.Add(new SqlParameter("@Name", team.name));
-                    command.Parameters.Add(new SqlParameter("@Country", "TestFeed2"));
+                    command.Parameters.Add(new SqlParameter("@Country", team.Country));
                     command.Parameters.Add(new SqlParameter("@Stadium", "NoStadium"));
-                    command.ExecuteNonQuery();
+                    //command.ExecuteNonQuery();
                 }
             }
         }
@@ -137,9 +150,9 @@ namespace Smaug.Data_Access
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.Add(new SqlParameter("@id", int.Parse(team.id.ToString())));
                     command.Parameters.Add(new SqlParameter("@Name", team.name));
-                    command.Parameters.Add(new SqlParameter("@Country", "TestFeed2"));
+                    command.Parameters.Add(new SqlParameter("@Country", team.Country));
                     command.Parameters.Add(new SqlParameter("@Stadium", "NoStadium"));
-                    command.ExecuteNonQuery();
+                    //command.ExecuteNonQuery();
                 }
             }
         }
@@ -154,9 +167,9 @@ namespace Smaug.Data_Access
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.Add(new SqlParameter("@id", int.Parse(team.id.ToString())));
                     command.Parameters.Add(new SqlParameter("@Name", team.name));
-                    command.Parameters.Add(new SqlParameter("@Country", "TestFeed2"));
+                    command.Parameters.Add(new SqlParameter("@Country", team.Country));
                     command.Parameters.Add(new SqlParameter("@Stadium", "NoStadium"));
-                    command.ExecuteNonQuery();
+                    //command.ExecuteNonQuery();
                 }
             }
         }
@@ -171,9 +184,9 @@ namespace Smaug.Data_Access
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.Add(new SqlParameter("@id", int.Parse(team.id.ToString())));
                     command.Parameters.Add(new SqlParameter("@Name", team.name));
-                    command.Parameters.Add(new SqlParameter("@Country", "TestFeed2"));
+                    command.Parameters.Add(new SqlParameter("@Country", team.Country));
                     command.Parameters.Add(new SqlParameter("@Stadium", "NoStadium"));
-                    command.ExecuteNonQuery();
+                    //command.ExecuteNonQuery();
                 }
             }
         }
