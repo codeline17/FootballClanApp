@@ -247,7 +247,9 @@ function getLeagueData(pagenumber, pagesize) {
     $.post("Actions/User.aspx", { type: 'LDL2', PageNumber: pagenumber, PageSize: pagesize },
 function (e) {
     e = JSON.parse(e);
-   
+    if(e.length===0){
+
+    }
     var tabs = [];
     var content = [];
     for (var i = 0; i < e.length; i++) {

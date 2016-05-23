@@ -125,7 +125,7 @@ img.chatimg {
 
 .msg-input {
     margin-bottom:0px;
-    width:75%;
+    width:75%!important;
     display:inline;
     margin-top: 10px;
     margin-left:10px;
@@ -183,9 +183,4 @@ img.chatimg {
         max-width:40%!important;
 
     }
-
-
-
 }
-
-

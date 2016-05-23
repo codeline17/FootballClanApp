@@ -32,7 +32,7 @@ function updateClanBadge() {
 }
     
 
-function genEditBadgeTab() {
+function genEditBadgeTab(imageId) {
     cAv = cuser.AvatarId;
 
 
@@ -44,7 +44,7 @@ function genEditBadgeTab() {
 
     for (var i = 0; i < imgsclan.length; i++) {
         var ael = cEl("img").wr({ id: imgsclan[i] }).attr("src", "style/images/clans/" + imgsclan[i] + ".png").attr("id","clanbadges").listener("click", toggleClanBadges);
-        ael.className = cuser.AvatarId - 1 === i ? "avatars" : "desaturate avatars";
+        ael.className = imageId-1 === i ? "avatars" : "desaturate avatars";
         cbadges.append(ael);
     }
     mdBody.append(cEl("hr")).append(cbadges);
@@ -60,7 +60,7 @@ function genEditBadgeTab() {
     return mdBody;
 }
 
-function genClanBadges() {
+function genClanBadges(imageId) {
     var exMd = document.getElementById("userModal");
     if (exMd) {
         exMd.parentNode.removeChild(exMd);
@@ -75,7 +75,7 @@ function genClanBadges() {
     var mdMain = cEl("div").attr("class", "modal fade").attr("id", "userModal").attr("tabindex", "-1").attr("role", "dialog")
             .append(cEl("div").attr("class", "modal-content").append(mdHeader)
         .append(
-            genEditBadgeTab()
+            genEditBadgeTab(imageId)
             )
         );
    

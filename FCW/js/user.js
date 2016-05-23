@@ -17,10 +17,10 @@ function genUserDetails() {
 
     var tcliteral = cEl("div");
     tcliteral.innerHTML = document.getElementById("TermsAndConditionsLiteral").innerHTML;
-
+    /*
     var pliteral = cEl("div");
     pliteral.innerHTML = document.getElementById("PrizesLiteral").innerHTML;
-
+    */
     var mdMain = cEl("div").attr("class", "modal fade").attr("id", "userModal").attr("tabindex", "-1").attr("role", "dialog")
             .append(cEl("div").attr("class", "modal-dialog").attr("role", "document")
             .append(cEl("div").attr("class", "modal-content").append(mdHeader)
@@ -39,7 +39,6 @@ function genUserDetails() {
    
     document.body.append(mdMain);
     /* EVENT */
-    console.log("kalova");
     $("#nBday").datepicker({
         format: "dd/mm/yyyy"
     }).on("changeDate", function (e) {
@@ -76,10 +75,8 @@ function updateUserDetails() {
     } else if (pwd.value.length > 0 && pwd.value.length < 8) {
         document.getElementById("mdFooter").appendFirst(errorBox("Password should be at least 8 characters long."));
     } else {
-        console.log("hyra");
         $.post("Actions/User.aspx", { type: "UUD", pwd: pwd.value, pwdr: pwdr.value, avid: avid, adress: adress.value, birthday:birthday.value },
         function (c) {
-            console.log(c);
             if (c === "1") {
                 $("#userModal").modal("hide");
                 $("#userModal").remove();

@@ -35,13 +35,13 @@
 }
 
 function getExtraMatchRow() {
-    var tr = cEl("tr").append(
-                        cEl("td").attr("colspan", "6").append(cEl("div").attr("class","row-fluid").append(cEl("div").attr("class","span6 offset3")
+    var tr = cEl("tr").attr("style", "background: #4C4A2D;").append(
+                        cEl("td").attr("colspan", "6").append(cEl("div").attr("class", "row-fluid").append(cEl("div").attr("class", "span6 offset3").attr("style", "text-align: center;margin-bottom: 0px;")
                             .append(
-                            cEl("h5").attr("style", "display:inline-block; margin-right:10px").tEl("Unlock extra matches for only 1 Golden Ball")
+                            cEl("h5").attr("style", "display:inline-block; margin-right:10px;color: #FDD272;").tEl("Unlock extra matches for 1 Golden Ball")
                             )
                             .append(
-                            cEl("a").attr("class", "btn btn-default").append(cEl("i").attr("class","icon-lock-open")).listener("click", purchaseExtraFixtures)
+                            cEl("a").attr("class", "unlockExtra").append(cEl("i").attr("class","icon-lock-open unlock-key")).listener("click", purchaseExtraFixtures)
                             )
                             ))
                );

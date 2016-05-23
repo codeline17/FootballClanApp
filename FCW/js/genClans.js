@@ -83,11 +83,13 @@ function genClans() {
                   window.location.reload();
               }));
           } else { //InClan : Show ClanDetails
-            
+              console.log(e);
               $.post("Actions/User.aspx", { type: "CDL", id: e.ClanId },
                   function (c) {
                       c = JSON.parse(c);
                       contextClan = c;
+                      console.log(c);
+                      console.log(cuser.ClanId);
                       //mainC.append(cEl("h3").tEl(c.Name + "   ").append(cEl("span").attr("class","cups").tEl("0").append(cEl("i").attr("class", "icon-trophy gold"))).append(cEl("small").tEl("[ " + clanPts + " Pts ]")).append(cEl("small").tEl("  [ " + c.Users.length + " of 11 members ]")));
 
                       //mainC.append(cEl("p").append(cEl("a").attr("href","#").attr("cel-uname", cuser.Username).attr("cel-cname", c.Name).tEl("Leave Clan").listener("click", removeMember)));
@@ -103,9 +105,8 @@ function genClans() {
                       }
 
                       // rFluid.innerHTML = tableTxt;
-
                       rFluid.appendChild(genClanTable(c));
-                      rFluid.appendChild(genLeaveClanBtn());
+                      rFluid.appendChild(genLeaveClanBtn(c.Leader));
                       mainC.appendChild(rFluid);
 
                       /***After Event Assignments***/
@@ -145,8 +146,12 @@ function switchCTab(e) {
     }
 }
 
-function genLeaveClanBtn() {
-    return cEl("div").attr("class", "row-fluid").append(cEl("div").attr("class", "span4 offset8").append(cEl("a").attr("class", "btn btn-orange pull-left leave-clan leave-clanBtn").attr("cel-uname",cuser.Username).listener("click", removeMember).tEl("Leave Clan")).append(cEl("a").attr("class", "btn btn-orange pull-right").listener("click", manageClan).tEl("Manage Clan")));
+function genLeaveClanBtn(leader) {
+    if (cuser.Username == leader) {
+    return cEl("div").attr("class", "row-fluid").append(cEl("div").attr("class", "span4 offset8").append(cEl("a").attr("class", "btn btn-orange pull-left leave-clan leave-clanBtn").attr("cel-uname",cuser.Username).listener("click", removeMember).tEl("Leave Clan")).append(cEl("a").attr("class", "btn btn-orange pull-right").listener("click", manageClan).tEl("Manage")));
+    } else {
+        return cEl("div").attr("class", "row-fluid").append(cEl("div").attr("class", "span4 offset8").append(cEl("a").attr("class", "btn btn-orange pull-right leave-clanBtn").attr("cel-uname", cuser.Username).listener("click", removeMember).tEl("Leave Clan")));
+    }
 }
 
 function genClanHeader(c) {
@@ -156,7 +161,7 @@ function genClanHeader(c) {
     }
     var changeBadgeClan = "";
     if (cuser.Username == c.Leader) {
-        changeBadgeClan = cEl("img").attr("class", "img-responsive").attr("width", "50px").attr("src", clanBadgesUrl + c.Image + clanBadgesExt).listener("click", genClanBadges);
+        changeBadgeClan = cEl("img").attr("class", "img-responsive").attr("width", "50px").attr("src", clanBadgesUrl + c.Image + clanBadgesExt).listener("click", function () { genClanBadges(c.Image); });
     }
     else{
         changeBadgeClan = cEl("img").attr("class", "img-responsive").attr("width", "50px").attr("src", clanBadgesUrl + c.Image + clanBadgesExt);
@@ -327,14 +332,24 @@ function approveMember(e) {
 function removeMember(e) {
     var uname = e.target.getAttribute("cel-uname");
     
-    $.post("Actions/User.aspx", { type: "RMUC", name: uname, clanName: cuser.NameOfClan },
-        function (c) {
-            
-            if (c === "1") {
-                getHeaderInfo();
-                genClans();
-            }
-        });
+    var confirmLeave = confirm("Do You Really Want To Leave Your Clan?")
+
+
+
+
+
+    if (confirmLeave) {
+        $.post("Actions/User.aspx", { type: "RMUC", name: uname, clanName: cuser.NameOfClan },
+                function (c) {
+
+                    if (c === "1") {
+                        getHeaderInfo();
+                        genClans();
+                    }
+                });
+    }
+    
+    
 }
 
 function editClanBadge() {
