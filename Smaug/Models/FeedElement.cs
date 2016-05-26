@@ -370,7 +370,7 @@ namespace Smaug.Models
 
         private extended_fixturesLeagueStageMatchHome homeField;
 
-        private extended_fixturesLeagueStageMatchAway awayField;
+        private extended_fixturesLeagueStageMatchHome awayField;
 
         private extended_fixturesLeagueStageMatchHalftime halftimeField;
 
@@ -414,7 +414,7 @@ namespace Smaug.Models
         }
 
         /// <remarks/>
-        public extended_fixturesLeagueStageMatchAway away
+        public extended_fixturesLeagueStageMatchHome away
         {
             get
             {

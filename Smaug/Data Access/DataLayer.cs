@@ -28,23 +28,48 @@ namespace Smaug.Data_Access
                     //SaveLeague
                     league.SaveOrUpdate();
 
-                    if (league.week == null) continue;
+                    if (league.week != null)
                     {
-                        if (league.week.Length <= 0) continue;
-                        foreach (var m in from w in league.week where w.match.Length > 0 from m in w.match select m)
+                        if (league.week.Length > 0)
                         {
-                            m.Country = league.Country;
-                            m.SaveOrUpdate(league);
+                            foreach (var weeks in league.week.Where(w => w.match != null))
+                            {
+                                foreach (var f in weeks.match)
+                                {
+                                    f.SaveOrUpdate(league);
+                                }
+                            }
                         }
                     }
 
-                    if (league.stage == null) continue;
+                    if (league.stage != null)
                     {
-                        if (league.stage.Length <= 0) continue;
-                        foreach (var m in from s in league.stage where s.match.Length > 0 from m in s.match select m)
+                        if (league.stage.Length > 0)
                         {
-                            m.Country = league.Country;
-                            m.SaveOrUpdate(league);
+                            foreach (var stage in league.stage)
+                            {
+                                if (stage.match != null)
+                                {
+                                    foreach (var f in stage.match)
+                                    {
+                                        f.SaveOrUpdate(league);
+                                    }
+                                }
+
+                                if (stage.week != null)
+                                {
+                                    foreach (var w in stage.week)
+                                    {
+                                        if (w.match != null)
+                                        {
+                                            foreach (var m in w.match)
+                                            {
+                                                m.SaveOrUpdate(league);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -73,6 +98,7 @@ namespace Smaug.Data_Access
                     command.Parameters.Add(new SqlParameter("@status", fixture.status));
                     command.Parameters.Add(new SqlParameter("@feed_id", int.Parse(fixture.id.ToString())));
                     command.Parameters.Add(new SqlParameter("@feed_no", "2"));
+                    command.Parameters.Add(new SqlParameter("@static_id", fixture.static_id));
                     command.ExecuteNonQuery();
                 }
             }
@@ -95,18 +121,49 @@ namespace Smaug.Data_Access
                 {
                     conn.Open();
                     command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.Add(new SqlParameter("@league_id", int.Parse(league.id.ToString())));
+                    command.Parameters.Add(new SqlParameter("@league_id", int.Parse(league.sub_id.ToString())));
                     command.Parameters.Add(new SqlParameter("@home_id", int.Parse(fixture.home.id.ToString())));
                     command.Parameters.Add(new SqlParameter("@away_id", int.Parse(fixture.away.id.ToString())));
                     command.Parameters.Add(new SqlParameter("@startdate", dt));
                     command.Parameters.Add(new SqlParameter("@status", fixture.status));
                     command.Parameters.Add(new SqlParameter("@feed_id", int.Parse(fixture.id.ToString())));
                     command.Parameters.Add(new SqlParameter("@feed_no", "2"));
+                    command.Parameters.Add(new SqlParameter("@static_id", fixture.static_id));
                     command.ExecuteNonQuery();
                 }
             }
         }
-        
+
+        private static void SaveOrUpdate(this extended_fixturesLeagueStageWeekMatch fixture, extended_fixturesLeague league)
+        {
+            fixture.home.Country = league.Country;
+            fixture.home.SaveOrUpdate();
+            fixture.away.Country = league.Country;
+            fixture.away.SaveOrUpdate();
+            var dtString = fixture.date + " " + fixture.time;
+            DateTime dt;
+            if (!DateTime.TryParseExact(dtString.Replace(".", "/"), "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None, out dt))
+                DateTime.TryParseExact(fixture.date, "dd.MM.yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out dt);
+
+            using (var conn = new SqlConnection(cString))
+            {
+                using (var command = new SqlCommand("FeedFixtureInsert", conn))
+                {
+                    conn.Open();
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add(new SqlParameter("@league_id", int.Parse(league.sub_id.ToString())));
+                    command.Parameters.Add(new SqlParameter("@home_id", int.Parse(fixture.home.id.ToString())));
+                    command.Parameters.Add(new SqlParameter("@away_id", int.Parse(fixture.away.id.ToString())));
+                    command.Parameters.Add(new SqlParameter("@startdate", dt));
+                    command.Parameters.Add(new SqlParameter("@status", fixture.status));
+                    command.Parameters.Add(new SqlParameter("@feed_id", int.Parse(fixture.id.ToString())));
+                    command.Parameters.Add(new SqlParameter("@feed_no", "2"));
+                    command.Parameters.Add(new SqlParameter("@static_id", fixture.static_id));
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+                
         private static void SaveOrUpdate(this extended_fixturesLeague league)
         {
             using (var conn = new SqlConnection(cString))
@@ -135,7 +192,7 @@ namespace Smaug.Data_Access
                     command.Parameters.Add(new SqlParameter("@Name", team.name));
                     command.Parameters.Add(new SqlParameter("@Country", team.Country));
                     command.Parameters.Add(new SqlParameter("@Stadium", "NoStadium"));
-                    //command.ExecuteNonQuery();
+                    command.ExecuteNonQuery();
                 }
             }
         }
@@ -152,7 +209,7 @@ namespace Smaug.Data_Access
                     command.Parameters.Add(new SqlParameter("@Name", team.name));
                     command.Parameters.Add(new SqlParameter("@Country", team.Country));
                     command.Parameters.Add(new SqlParameter("@Stadium", "NoStadium"));
-                    //command.ExecuteNonQuery();
+                    command.ExecuteNonQuery();
                 }
             }
         }
@@ -169,7 +226,7 @@ namespace Smaug.Data_Access
                     command.Parameters.Add(new SqlParameter("@Name", team.name));
                     command.Parameters.Add(new SqlParameter("@Country", team.Country));
                     command.Parameters.Add(new SqlParameter("@Stadium", "NoStadium"));
-                    //command.ExecuteNonQuery();
+                    command.ExecuteNonQuery();
                 }
             }
         }
@@ -186,9 +243,76 @@ namespace Smaug.Data_Access
                     command.Parameters.Add(new SqlParameter("@Name", team.name));
                     command.Parameters.Add(new SqlParameter("@Country", team.Country));
                     command.Parameters.Add(new SqlParameter("@Stadium", "NoStadium"));
-                    //command.ExecuteNonQuery();
+                    command.ExecuteNonQuery();
                 }
             }
         }
+
+        private static void SaveOrUpdate(this extended_fixturesLeagueStageWeekMatchAway team)
+        {
+            using (var conn = new SqlConnection(cString))
+            {
+                using (var command = new SqlCommand("FeedTeamInsert", conn))
+                {
+                    conn.Open();
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add(new SqlParameter("@id", int.Parse(team.id.ToString())));
+                    command.Parameters.Add(new SqlParameter("@Name", team.name));
+                    command.Parameters.Add(new SqlParameter("@Country", team.Country));
+                    command.Parameters.Add(new SqlParameter("@Stadium", "NoStadium"));
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
+        private static void SaveOrUpdate(this extended_fixturesLeagueStageWeekMatchHome team)
+        {
+            using (var conn = new SqlConnection(cString))
+            {
+                using (var command = new SqlCommand("FeedTeamInsert", conn))
+                {
+                    conn.Open();
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add(new SqlParameter("@id", int.Parse(team.id.ToString())));
+                    command.Parameters.Add(new SqlParameter("@Name", team.name));
+                    command.Parameters.Add(new SqlParameter("@Country", team.Country));
+                    command.Parameters.Add(new SqlParameter("@Stadium", "NoStadium"));
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
+
+        //Highlights
+        public static void SaveOrUpdate(this highlights h)
+        {
+            if (h != null)
+                foreach (var l in h.league)
+                {
+                    foreach (var m in l.match)
+                    {
+                        m.SaveOrUpdate();
+                    }
+                }
+        }
+
+        private static void SaveOrUpdate(this highlightsLeagueMatch m)
+        {
+            using (var conn = new SqlConnection(cString))
+            {
+                using (var command = new SqlCommand("FixtureUpdateOnLiveScore", conn))
+                {
+                    conn.Open();
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add(new SqlParameter("@HomeGoals", int.Parse(m.home.goals.ToString())));
+                    command.Parameters.Add(new SqlParameter("@AwayGoals", int.Parse(m.away.goals.ToString())));
+                    command.Parameters.Add(new SqlParameter("@Status", m.status));
+                    command.Parameters.Add(new SqlParameter("@static_id", m.static_id));
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
+        
     }
 }

@@ -69,7 +69,10 @@
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
     <Compile Include="Bases\BaseTeams.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Models\EFProxy.cs" />
     <Compile Include="Models\FeedElement.cs" />
+    <Compile Include="Models\HighlightElement.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Requests\Feed.cs" />

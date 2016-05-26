@@ -33,9 +33,16 @@ namespace Smaug.Requests
             try
             {
                 var path = Helper.DownloadAndUnGZip(url);
-                xml = XDocument.Load(path);
+                if (path != "")
+                {
+                    xml = XDocument.Load(path);
+                }
+                else
+                    Console.WriteLine(url);
             }
+#pragma warning disable CS0168 // The variable 'ex' is declared but never used
             catch (Exception ex)
+#pragma warning restore CS0168 // The variable 'ex' is declared but never used
             {
                 //
             }

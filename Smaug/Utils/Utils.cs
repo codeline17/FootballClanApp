@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
@@ -14,6 +15,13 @@ namespace Smaug.Utils
     {
         public static string[] ExtendedFixturesCountries = {"albania", "algeria", "andorra", "angola", "argentina", "armenia", "aruba", "australia", "austria", "azerbaijan", "bahrain", "bangladesh", "barbados", "belarus", "belgium", "belize", "bermuda", "bhutan", "bolivia", "bosnia", "botswana", "brazil", "brunei", "bulgaria", "cambodia", "cameroon", "canada", "chile", "china", "chinesetaipei", "colombia", "costarica", "croatia", "cyprus", "czech", "denmark", "ecuador", "egypt", "elsalvador", "england", "estonia", "europe", "faroeislands", "fiji", "finland", "france", "friendly", "gabon", "georgia", "germany", "ghana", "greece", "grenada", "guadeloupe", "guatemala", "haiti", "holland", "honduras", "hongkong", "hungary", "iceland", "india", "indonesia", "international", "iran", "iraq", "ireland", "israel", "italy", "ivorycoast", "jamaica", "japan", "jordan", "kazakhstan", "korea", "kuwait", "latvia", "lebanon", "libya", "lithuania", "luxembourg", "macedonia", "malaysia", "malta", "mexico", "moldova", "montenegro", "morocco", "namibia", "nepal", "newzealand", "nicaragua", "nigeria", "northernireland", "norway", "oman", "pakistan", "panama", "paraguay", "peru", "poland", "portugal", "qatar", "romania", "russia", "sanmarino", "saudiarabia", "scotland", "senegal", "serbia", "singapore", "slovakia", "slovenia", "southafrica", "spain", "sudan", "surinam", "sweden", "switzerland", "syria", "thailand", "trinidadandtobago", "tunisia", "turkey", "uae", "ukraine", "uruguay", "usa", "uzbekistan", "venezuela", "vietnam", "wales", "worldcup", "yemen"};
         public static string CurrentEFCountry;
+        public static ConcurrentBag<EFCountries> EFList { get; set; } = new ConcurrentBag<EFCountries>();
+    }
+
+    public class EFCountries
+    {
+        public string State { get; set; }
+        public bool Checked { get; set; }
     }
     public static class Helper
     {
@@ -36,7 +44,9 @@ namespace Smaug.Utils
                     }
                 }
             }
+#pragma warning disable CS0168 // The variable 'ex' is declared but never used
             catch (Exception ex)
+#pragma warning restore CS0168 // The variable 'ex' is declared but never used
             {
                 //TODO : Handle
             }
@@ -67,7 +77,9 @@ namespace Smaug.Utils
                     r = fName;
                 }
             }
+#pragma warning disable CS0168 // The variable 'ex' is declared but never used
             catch (Exception ex)
+#pragma warning restore CS0168 // The variable 'ex' is declared but never used
             {
                 
             }
