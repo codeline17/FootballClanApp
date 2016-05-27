@@ -19,6 +19,7 @@
     tHead.append(hRow);
 
     //Body
+  
     var tBody = document.createElement("tbody");
     for (var j = 0; j < matches.length; j++) {
         if (!extraRow & !matches[j].Authorized) {

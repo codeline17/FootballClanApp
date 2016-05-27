@@ -83,13 +83,13 @@ function genClans() {
                   window.location.reload();
               }));
           } else { //InClan : Show ClanDetails
-              console.log(e);
+              
               $.post("Actions/User.aspx", { type: "CDL", id: e.ClanId },
                   function (c) {
                       c = JSON.parse(c);
                       contextClan = c;
-                      console.log(c);
-                      console.log(cuser.ClanId);
+                      
+                      
                       //mainC.append(cEl("h3").tEl(c.Name + "   ").append(cEl("span").attr("class","cups").tEl("0").append(cEl("i").attr("class", "icon-trophy gold"))).append(cEl("small").tEl("[ " + clanPts + " Pts ]")).append(cEl("small").tEl("  [ " + c.Users.length + " of 11 members ]")));
 
                       //mainC.append(cEl("p").append(cEl("a").attr("href","#").attr("cel-uname", cuser.Username).attr("cel-cname", c.Name).tEl("Leave Clan").listener("click", removeMember)));
