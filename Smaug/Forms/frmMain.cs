@@ -1,17 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml.Linq;
 using Smaug.Data_Access;
 using Smaug.Models;
 using Smaug.Requests;
 using Smaug.Utils;
 using System.Threading;
-using System.Linq;
 
 namespace Smaug
 {
@@ -41,6 +34,10 @@ namespace Smaug
 
             foreach (var e in Elements.EFList)
             {
+                if (e.State == "international")
+                {
+
+                }
                 ThreadPool.QueueUserWorkItem(new WaitCallback(ProcessEFByCountry), e);
                 Console.WriteLine($"Started a task");  
             }
@@ -68,24 +65,22 @@ namespace Smaug
             {
                 var e = (EFCountries)o;
 
-                if (e.State == "europe")
+                if (e.State == "international")
                 {
 
                 }
                 var doc = Feed.GetExtendedFixtures(e.State);
 
                 var ef = Helper.FromXml<extended_fixtures>(doc.ToString());
-
-                var efProxy = Helper.FromXml<Extended_fixtures>(doc.ToString());
-
+                
                 if (ef != null)
-                    ef.SaveOrUpdate();                
+                    ef.SaveOrUpdate();
             }
 #pragma warning disable CS0168 // The variable 'ex' is declared but never used
             catch (Exception ex)
 #pragma warning restore CS0168 // The variable 'ex' is declared but never used
             {
-
+                Console.WriteLine($"{ex.Message}");
             }
         }
 

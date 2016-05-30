@@ -1,14 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
-using System.Linq;
 using System.Xml.Linq;
-using System.Xml.Serialization;
-using Smaug.Models;
 using Smaug.Utils;
-using System.Net;
-using System.IO.Compression;
 
 namespace Smaug.Requests
 {

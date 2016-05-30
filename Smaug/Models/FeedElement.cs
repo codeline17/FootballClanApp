@@ -1,29 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿/*------------------------------------------------------------------------------
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
+ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+------------------------------------------------------------------------------*/
+
 using Smaug.Bases;
+using System;
 
 namespace Smaug.Models
 {
 
     /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34283")]
     [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
     public partial class extended_fixtures
     {
-
         private extended_fixturesLeague[] leagueField;
-
         private string updatedField;
-
         private string sportField;
-
         private string countryField;
-
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("league")]
         public extended_fixturesLeague[] league
@@ -37,9 +37,8 @@ namespace Smaug.Models
                 this.leagueField = value;
             }
         }
-
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.Xml.Serialization.XmlAttribute()]
         public string updated
         {
             get
@@ -51,9 +50,8 @@ namespace Smaug.Models
                 this.updatedField = value;
             }
         }
-
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.Xml.Serialization.XmlAttribute()]
         public string sport
         {
             get
@@ -65,9 +63,8 @@ namespace Smaug.Models
                 this.sportField = value;
             }
         }
-
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.Xml.Serialization.XmlAttribute()]
         public string country
         {
             get
@@ -80,40 +77,22 @@ namespace Smaug.Models
             }
         }
     }
-
     /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34283")]
     [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
     public partial class extended_fixturesLeague : BaseLeague
     {
-
-        private extended_fixturesLeagueStage[] stageField;
-
         private extended_fixturesLeagueWeek[] weekField;
-
+        private extended_fixturesLeagueStage[] stageField;
         private string nameField;
-
         private string seasonField;
-
-        private ushort idField;
-
-        private ushort sub_idField;
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("stage")]
-        public extended_fixturesLeagueStage[] stage
-        {
-            get
-            {
-                return this.stageField;
-            }
-            set
-            {
-                this.stageField = value;
-            }
-        }
-
+        private long idField;
+        private bool idFieldSpecified;
+        private long sub_idField;
+        private bool sub_idFieldSpecified;
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("week")]
         public extended_fixturesLeagueWeek[] week
@@ -127,9 +106,21 @@ namespace Smaug.Models
                 this.weekField = value;
             }
         }
-
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.Xml.Serialization.XmlElementAttribute("stage")]
+        public extended_fixturesLeagueStage[] stage
+        {
+            get
+            {
+                return this.stageField;
+            }
+            set
+            {
+                this.stageField = value;
+            }
+        }
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttribute()]
         public string name
         {
             get
@@ -141,9 +132,8 @@ namespace Smaug.Models
                 this.nameField = value;
             }
         }
-
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.Xml.Serialization.XmlAttribute()]
         public string season
         {
             get
@@ -155,10 +145,9 @@ namespace Smaug.Models
                 this.seasonField = value;
             }
         }
-
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public ushort id
+        [System.Xml.Serialization.XmlAttribute()]
+        public long id
         {
             get
             {
@@ -169,10 +158,22 @@ namespace Smaug.Models
                 this.idField = value;
             }
         }
-
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public ushort sub_id
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool idSpecified
+        {
+            get
+            {
+                return this.idFieldSpecified;
+            }
+            set
+            {
+                this.idFieldSpecified = value;
+            }
+        }
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttribute()]
+        public long sub_id
         {
             get
             {
@@ -183,2353 +184,31 @@ namespace Smaug.Models
                 this.sub_idField = value;
             }
         }
-    }
-
-    /// <remarks/>
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class extended_fixturesLeagueStage
-    {
-
-        private extended_fixturesLeagueStageAggregate[] aggregateField;
-
-        private extended_fixturesLeagueStageMatch[] matchField;
-
-        private extended_fixturesLeagueStageWeek[] weekField;
-
-        private string nameField;
-
-        private string roundField;
-
-        private uint stage_idField;
-
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("aggregate")]
-        public extended_fixturesLeagueStageAggregate[] aggregate
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool sub_idSpecified
         {
             get
             {
-                return this.aggregateField;
+                return this.sub_idFieldSpecified;
             }
             set
             {
-                this.aggregateField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("match")]
-        public extended_fixturesLeagueStageMatch[] match
-        {
-            get
-            {
-                return this.matchField;
-            }
-            set
-            {
-                this.matchField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("week")]
-        public extended_fixturesLeagueStageWeek[] week
-        {
-            get
-            {
-                return this.weekField;
-            }
-            set
-            {
-                this.weekField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string name
-        {
-            get
-            {
-                return this.nameField;
-            }
-            set
-            {
-                this.nameField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string round
-        {
-            get
-            {
-                return this.roundField;
-            }
-            set
-            {
-                this.roundField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint stage_id
-        {
-            get
-            {
-                return this.stage_idField;
-            }
-            set
-            {
-                this.stage_idField = value;
+                this.sub_idFieldSpecified = value;
             }
         }
     }
-
     /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34283")]
     [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class extended_fixturesLeagueStageAggregate
-    {
-
-        private string firstteamField;
-
-        private string scoreField;
-
-        private string secondteamField;
-
-        private byte winnerField;
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string firstteam
-        {
-            get
-            {
-                return this.firstteamField;
-            }
-            set
-            {
-                this.firstteamField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string score
-        {
-            get
-            {
-                return this.scoreField;
-            }
-            set
-            {
-                this.scoreField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string secondteam
-        {
-            get
-            {
-                return this.secondteamField;
-            }
-            set
-            {
-                this.secondteamField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte winner
-        {
-            get
-            {
-                return this.winnerField;
-            }
-            set
-            {
-                this.winnerField = value;
-            }
-        }
-    }
-
-    /// <remarks/>
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class extended_fixturesLeagueStageMatch : BaseFixtures
-    {
-
-        private extended_fixturesLeagueStageMatchHome homeField;
-
-        private extended_fixturesLeagueStageMatchHome awayField;
-
-        private extended_fixturesLeagueStageMatchHalftime halftimeField;
-
-        private extended_fixturesLeagueStageMatchGoal[] goalsField;
-
-        private extended_fixturesLeagueStageMatchLineups lineupsField;
-
-        private extended_fixturesLeagueStageMatchSubstitutions substitutionsField;
-
-        private string alternate_idField;
-
-        private uint alternate_id_2Field;
-
-        private string dateField;
-
-        private uint idField;
-
-        private string static_idField;
-
-        private string statusField;
-
-        private string timeField;
-
-        private string venueField;
-
-        private string venue_cityField;
-
-        private uint venue_idField;
-
-        /// <remarks/>
-        public extended_fixturesLeagueStageMatchHome home
-        {
-            get
-            {
-                return this.homeField;
-            }
-            set
-            {
-                this.homeField = value;
-            }
-        }
-
-        /// <remarks/>
-        public extended_fixturesLeagueStageMatchHome away
-        {
-            get
-            {
-                return this.awayField;
-            }
-            set
-            {
-                this.awayField = value;
-            }
-        }
-
-        /// <remarks/>
-        public extended_fixturesLeagueStageMatchHalftime halftime
-        {
-            get
-            {
-                return this.halftimeField;
-            }
-            set
-            {
-                this.halftimeField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlArrayItemAttribute("goal", IsNullable = false)]
-        public extended_fixturesLeagueStageMatchGoal[] goals
-        {
-            get
-            {
-                return this.goalsField;
-            }
-            set
-            {
-                this.goalsField = value;
-            }
-        }
-
-        /// <remarks/>
-        public extended_fixturesLeagueStageMatchLineups lineups
-        {
-            get
-            {
-                return this.lineupsField;
-            }
-            set
-            {
-                this.lineupsField = value;
-            }
-        }
-
-        /// <remarks/>
-        public extended_fixturesLeagueStageMatchSubstitutions substitutions
-        {
-            get
-            {
-                return this.substitutionsField;
-            }
-            set
-            {
-                this.substitutionsField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string alternate_id
-        {
-            get
-            {
-                return this.alternate_idField;
-            }
-            set
-            {
-                this.alternate_idField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint alternate_id_2
-        {
-            get
-            {
-                return this.alternate_id_2Field;
-            }
-            set
-            {
-                this.alternate_id_2Field = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string date
-        {
-            get
-            {
-                return this.dateField;
-            }
-            set
-            {
-                this.dateField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint id
-        {
-            get
-            {
-                return this.idField;
-            }
-            set
-            {
-                this.idField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "integer")]
-        public string static_id
-        {
-            get
-            {
-                return this.static_idField;
-            }
-            set
-            {
-                this.static_idField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string status
-        {
-            get
-            {
-                return this.statusField;
-            }
-            set
-            {
-                this.statusField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string time
-        {
-            get
-            {
-                return this.timeField;
-            }
-            set
-            {
-                this.timeField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string venue
-        {
-            get
-            {
-                return this.venueField;
-            }
-            set
-            {
-                this.venueField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string venue_city
-        {
-            get
-            {
-                return this.venue_cityField;
-            }
-            set
-            {
-                this.venue_cityField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint venue_id
-        {
-            get
-            {
-                return this.venue_idField;
-            }
-            set
-            {
-                this.venue_idField = value;
-            }
-        }
-    }
-
-    /// <remarks/>
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class extended_fixturesLeagueStageMatchHome : BaseTeams
-    {
-
-        private string et_scoreField;
-
-        private string ft_scoreField;
-
-        private uint idField;
-
-        private string nameField;
-
-        private string pen_scoreField;
-
-        private string scoreField;
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string et_score
-        {
-            get
-            {
-                return this.et_scoreField;
-            }
-            set
-            {
-                this.et_scoreField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string ft_score
-        {
-            get
-            {
-                return this.ft_scoreField;
-            }
-            set
-            {
-                this.ft_scoreField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint id
-        {
-            get
-            {
-                return this.idField;
-            }
-            set
-            {
-                this.idField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string name
-        {
-            get
-            {
-                return this.nameField;
-            }
-            set
-            {
-                this.nameField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string pen_score
-        {
-            get
-            {
-                return this.pen_scoreField;
-            }
-            set
-            {
-                this.pen_scoreField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string score
-        {
-            get
-            {
-                return this.scoreField;
-            }
-            set
-            {
-                this.scoreField = value;
-            }
-        }
-    }
-
-    /// <remarks/>
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class extended_fixturesLeagueStageMatchAway : BaseTeams
-    {
-
-        private string et_scoreField;
-
-        private string ft_scoreField;
-
-        private uint idField;
-
-        private string nameField;
-
-        private string pen_scoreField;
-
-        private string scoreField;
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string et_score
-        {
-            get
-            {
-                return this.et_scoreField;
-            }
-            set
-            {
-                this.et_scoreField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string ft_score
-        {
-            get
-            {
-                return this.ft_scoreField;
-            }
-            set
-            {
-                this.ft_scoreField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint id
-        {
-            get
-            {
-                return this.idField;
-            }
-            set
-            {
-                this.idField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string name
-        {
-            get
-            {
-                return this.nameField;
-            }
-            set
-            {
-                this.nameField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string pen_score
-        {
-            get
-            {
-                return this.pen_scoreField;
-            }
-            set
-            {
-                this.pen_scoreField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string score
-        {
-            get
-            {
-                return this.scoreField;
-            }
-            set
-            {
-                this.scoreField = value;
-            }
-        }
-    }
-
-    /// <remarks/>
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class extended_fixturesLeagueStageMatchHalftime
-    {
-
-        private string scoreField;
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string score
-        {
-            get
-            {
-                return this.scoreField;
-            }
-            set
-            {
-                this.scoreField = value;
-            }
-        }
-    }
-
-    /// <remarks/>
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class extended_fixturesLeagueStageMatchGoal
-    {
-
-        private string assistField;
-
-        private string minuteField;
-
-        private string playerField;
-
-        private uint playeridField;
-
-        private string scoreField;
-
-        private string teamField;
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string assist
-        {
-            get
-            {
-                return this.assistField;
-            }
-            set
-            {
-                this.assistField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string minute
-        {
-            get
-            {
-                return this.minuteField;
-            }
-            set
-            {
-                this.minuteField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string player
-        {
-            get
-            {
-                return this.playerField;
-            }
-            set
-            {
-                this.playerField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint playerid
-        {
-            get
-            {
-                return this.playeridField;
-            }
-            set
-            {
-                this.playeridField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string score
-        {
-            get
-            {
-                return this.scoreField;
-            }
-            set
-            {
-                this.scoreField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string team
-        {
-            get
-            {
-                return this.teamField;
-            }
-            set
-            {
-                this.teamField = value;
-            }
-        }
-    }
-
-    /// <remarks/>
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class extended_fixturesLeagueStageMatchLineups
-    {
-
-        private extended_fixturesLeagueStageMatchLineupsPlayer[] homeField;
-
-        private extended_fixturesLeagueStageMatchLineupsPlayer1[] awayField;
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlArrayItemAttribute("player", IsNullable = false)]
-        public extended_fixturesLeagueStageMatchLineupsPlayer[] home
-        {
-            get
-            {
-                return this.homeField;
-            }
-            set
-            {
-                this.homeField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlArrayItemAttribute("player", IsNullable = false)]
-        public extended_fixturesLeagueStageMatchLineupsPlayer1[] away
-        {
-            get
-            {
-                return this.awayField;
-            }
-            set
-            {
-                this.awayField = value;
-            }
-        }
-    }
-
-    /// <remarks/>
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class extended_fixturesLeagueStageMatchLineupsPlayer
-    {
-
-        private string bookingField;
-
-        private uint idField;
-
-        private string nameField;
-
-        private byte numberField;
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string booking
-        {
-            get
-            {
-                return this.bookingField;
-            }
-            set
-            {
-                this.bookingField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint id
-        {
-            get
-            {
-                return this.idField;
-            }
-            set
-            {
-                this.idField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string name
-        {
-            get
-            {
-                return this.nameField;
-            }
-            set
-            {
-                this.nameField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte number
-        {
-            get
-            {
-                return this.numberField;
-            }
-            set
-            {
-                this.numberField = value;
-            }
-        }
-    }
-
-    /// <remarks/>
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class extended_fixturesLeagueStageMatchLineupsPlayer1
-    {
-
-        private string bookingField;
-
-        private uint idField;
-
-        private string nameField;
-
-        private byte numberField;
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string booking
-        {
-            get
-            {
-                return this.bookingField;
-            }
-            set
-            {
-                this.bookingField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint id
-        {
-            get
-            {
-                return this.idField;
-            }
-            set
-            {
-                this.idField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string name
-        {
-            get
-            {
-                return this.nameField;
-            }
-            set
-            {
-                this.nameField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte number
-        {
-            get
-            {
-                return this.numberField;
-            }
-            set
-            {
-                this.numberField = value;
-            }
-        }
-    }
-
-    /// <remarks/>
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class extended_fixturesLeagueStageMatchSubstitutions
-    {
-
-        private extended_fixturesLeagueStageMatchSubstitutionsSubstitution[] homeField;
-
-        private extended_fixturesLeagueStageMatchSubstitutionsSubstitution1[] awayField;
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlArrayItemAttribute("substitution", IsNullable = false)]
-        public extended_fixturesLeagueStageMatchSubstitutionsSubstitution[] home
-        {
-            get
-            {
-                return this.homeField;
-            }
-            set
-            {
-                this.homeField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlArrayItemAttribute("substitution", IsNullable = false)]
-        public extended_fixturesLeagueStageMatchSubstitutionsSubstitution1[] away
-        {
-            get
-            {
-                return this.awayField;
-            }
-            set
-            {
-                this.awayField = value;
-            }
-        }
-    }
-
-    /// <remarks/>
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class extended_fixturesLeagueStageMatchSubstitutionsSubstitution
-    {
-
-        private string minuteField;
-
-        private string player_in_bookingField;
-
-        private uint player_in_idField;
-
-        private string player_in_nameField;
-
-        private byte player_in_numberField;
-
-        private string player_out_idField;
-
-        private string player_out_nameField;
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string minute
-        {
-            get
-            {
-                return this.minuteField;
-            }
-            set
-            {
-                this.minuteField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string player_in_booking
-        {
-            get
-            {
-                return this.player_in_bookingField;
-            }
-            set
-            {
-                this.player_in_bookingField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint player_in_id
-        {
-            get
-            {
-                return this.player_in_idField;
-            }
-            set
-            {
-                this.player_in_idField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string player_in_name
-        {
-            get
-            {
-                return this.player_in_nameField;
-            }
-            set
-            {
-                this.player_in_nameField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte player_in_number
-        {
-            get
-            {
-                return this.player_in_numberField;
-            }
-            set
-            {
-                this.player_in_numberField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string player_out_id
-        {
-            get
-            {
-                return this.player_out_idField;
-            }
-            set
-            {
-                this.player_out_idField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string player_out_name
-        {
-            get
-            {
-                return this.player_out_nameField;
-            }
-            set
-            {
-                this.player_out_nameField = value;
-            }
-        }
-    }
-
-    /// <remarks/>
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class extended_fixturesLeagueStageMatchSubstitutionsSubstitution1
-    {
-
-        private string minuteField;
-
-        private string player_in_bookingField;
-
-        private uint player_in_idField;
-
-        private string player_in_nameField;
-
-        private byte player_in_numberField;
-
-        private string player_out_idField;
-
-        private string player_out_nameField;
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string minute
-        {
-            get
-            {
-                return this.minuteField;
-            }
-            set
-            {
-                this.minuteField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string player_in_booking
-        {
-            get
-            {
-                return this.player_in_bookingField;
-            }
-            set
-            {
-                this.player_in_bookingField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint player_in_id
-        {
-            get
-            {
-                return this.player_in_idField;
-            }
-            set
-            {
-                this.player_in_idField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string player_in_name
-        {
-            get
-            {
-                return this.player_in_nameField;
-            }
-            set
-            {
-                this.player_in_nameField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte player_in_number
-        {
-            get
-            {
-                return this.player_in_numberField;
-            }
-            set
-            {
-                this.player_in_numberField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string player_out_id
-        {
-            get
-            {
-                return this.player_out_idField;
-            }
-            set
-            {
-                this.player_out_idField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string player_out_name
-        {
-            get
-            {
-                return this.player_out_nameField;
-            }
-            set
-            {
-                this.player_out_nameField = value;
-            }
-        }
-    }
-
-    /// <remarks/>
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class extended_fixturesLeagueStageWeek
-    {
-
-        private extended_fixturesLeagueStageWeekMatch[] matchField;
-
-        private byte numberField;
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("match")]
-        public extended_fixturesLeagueStageWeekMatch[] match
-        {
-            get
-            {
-                return this.matchField;
-            }
-            set
-            {
-                this.matchField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte number
-        {
-            get
-            {
-                return this.numberField;
-            }
-            set
-            {
-                this.numberField = value;
-            }
-        }
-    }
-
-    /// <remarks/>
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class extended_fixturesLeagueStageWeekMatch
-    {
-
-        private extended_fixturesLeagueStageWeekMatchHome homeField;
-
-        private extended_fixturesLeagueStageWeekMatchAway awayField;
-
-        private extended_fixturesLeagueStageWeekMatchHalftime halftimeField;
-
-        private extended_fixturesLeagueStageWeekMatchGoal[] goalsField;
-
-        private extended_fixturesLeagueStageWeekMatchLineups lineupsField;
-
-        private extended_fixturesLeagueStageWeekMatchSubstitutions substitutionsField;
-
-        private string alternate_idField;
-
-        private uint alternate_id_2Field;
-
-        private string dateField;
-
-        private uint idField;
-
-        private string static_idField;
-
-        private string statusField;
-
-        private string timeField;
-
-        private string venueField;
-
-        private string venue_cityField;
-
-        private uint venue_idField;
-
-        /// <remarks/>
-        public extended_fixturesLeagueStageWeekMatchHome home
-        {
-            get
-            {
-                return this.homeField;
-            }
-            set
-            {
-                this.homeField = value;
-            }
-        }
-
-        /// <remarks/>
-        public extended_fixturesLeagueStageWeekMatchAway away
-        {
-            get
-            {
-                return this.awayField;
-            }
-            set
-            {
-                this.awayField = value;
-            }
-        }
-
-        /// <remarks/>
-        public extended_fixturesLeagueStageWeekMatchHalftime halftime
-        {
-            get
-            {
-                return this.halftimeField;
-            }
-            set
-            {
-                this.halftimeField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlArrayItemAttribute("goal", IsNullable = false)]
-        public extended_fixturesLeagueStageWeekMatchGoal[] goals
-        {
-            get
-            {
-                return this.goalsField;
-            }
-            set
-            {
-                this.goalsField = value;
-            }
-        }
-
-        /// <remarks/>
-        public extended_fixturesLeagueStageWeekMatchLineups lineups
-        {
-            get
-            {
-                return this.lineupsField;
-            }
-            set
-            {
-                this.lineupsField = value;
-            }
-        }
-
-        /// <remarks/>
-        public extended_fixturesLeagueStageWeekMatchSubstitutions substitutions
-        {
-            get
-            {
-                return this.substitutionsField;
-            }
-            set
-            {
-                this.substitutionsField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string alternate_id
-        {
-            get
-            {
-                return this.alternate_idField;
-            }
-            set
-            {
-                this.alternate_idField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint alternate_id_2
-        {
-            get
-            {
-                return this.alternate_id_2Field;
-            }
-            set
-            {
-                this.alternate_id_2Field = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string date
-        {
-            get
-            {
-                return this.dateField;
-            }
-            set
-            {
-                this.dateField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint id
-        {
-            get
-            {
-                return this.idField;
-            }
-            set
-            {
-                this.idField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "integer")]
-        public string static_id
-        {
-            get
-            {
-                return this.static_idField;
-            }
-            set
-            {
-                this.static_idField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string status
-        {
-            get
-            {
-                return this.statusField;
-            }
-            set
-            {
-                this.statusField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string time
-        {
-            get
-            {
-                return this.timeField;
-            }
-            set
-            {
-                this.timeField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string venue
-        {
-            get
-            {
-                return this.venueField;
-            }
-            set
-            {
-                this.venueField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string venue_city
-        {
-            get
-            {
-                return this.venue_cityField;
-            }
-            set
-            {
-                this.venue_cityField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint venue_id
-        {
-            get
-            {
-                return this.venue_idField;
-            }
-            set
-            {
-                this.venue_idField = value;
-            }
-        }
-    }
-
-    /// <remarks/>
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class extended_fixturesLeagueStageWeekMatchHome : BaseTeams
-    {
-
-        private string et_scoreField;
-
-        private string ft_scoreField;
-
-        private uint idField;
-
-        private string nameField;
-
-        private string pen_scoreField;
-
-        private string scoreField;
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string et_score
-        {
-            get
-            {
-                return this.et_scoreField;
-            }
-            set
-            {
-                this.et_scoreField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string ft_score
-        {
-            get
-            {
-                return this.ft_scoreField;
-            }
-            set
-            {
-                this.ft_scoreField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint id
-        {
-            get
-            {
-                return this.idField;
-            }
-            set
-            {
-                this.idField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string name
-        {
-            get
-            {
-                return this.nameField;
-            }
-            set
-            {
-                this.nameField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string pen_score
-        {
-            get
-            {
-                return this.pen_scoreField;
-            }
-            set
-            {
-                this.pen_scoreField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string score
-        {
-            get
-            {
-                return this.scoreField;
-            }
-            set
-            {
-                this.scoreField = value;
-            }
-        }
-    }
-
-    /// <remarks/>
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class extended_fixturesLeagueStageWeekMatchAway : BaseTeams
-    {
-
-        private string et_scoreField;
-
-        private string ft_scoreField;
-
-        private uint idField;
-
-        private string nameField;
-
-        private string pen_scoreField;
-
-        private string scoreField;
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string et_score
-        {
-            get
-            {
-                return this.et_scoreField;
-            }
-            set
-            {
-                this.et_scoreField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string ft_score
-        {
-            get
-            {
-                return this.ft_scoreField;
-            }
-            set
-            {
-                this.ft_scoreField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint id
-        {
-            get
-            {
-                return this.idField;
-            }
-            set
-            {
-                this.idField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string name
-        {
-            get
-            {
-                return this.nameField;
-            }
-            set
-            {
-                this.nameField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string pen_score
-        {
-            get
-            {
-                return this.pen_scoreField;
-            }
-            set
-            {
-                this.pen_scoreField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string score
-        {
-            get
-            {
-                return this.scoreField;
-            }
-            set
-            {
-                this.scoreField = value;
-            }
-        }
-    }
-
-    /// <remarks/>
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class extended_fixturesLeagueStageWeekMatchHalftime
-    {
-
-        private string scoreField;
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string score
-        {
-            get
-            {
-                return this.scoreField;
-            }
-            set
-            {
-                this.scoreField = value;
-            }
-        }
-    }
-
-    /// <remarks/>
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class extended_fixturesLeagueStageWeekMatchGoal
-    {
-
-        private string assistField;
-
-        private string minuteField;
-
-        private string playerField;
-
-        private uint playeridField;
-
-        private string scoreField;
-
-        private string teamField;
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string assist
-        {
-            get
-            {
-                return this.assistField;
-            }
-            set
-            {
-                this.assistField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string minute
-        {
-            get
-            {
-                return this.minuteField;
-            }
-            set
-            {
-                this.minuteField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string player
-        {
-            get
-            {
-                return this.playerField;
-            }
-            set
-            {
-                this.playerField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint playerid
-        {
-            get
-            {
-                return this.playeridField;
-            }
-            set
-            {
-                this.playeridField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string score
-        {
-            get
-            {
-                return this.scoreField;
-            }
-            set
-            {
-                this.scoreField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string team
-        {
-            get
-            {
-                return this.teamField;
-            }
-            set
-            {
-                this.teamField = value;
-            }
-        }
-    }
-
-    /// <remarks/>
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class extended_fixturesLeagueStageWeekMatchLineups
-    {
-
-        private extended_fixturesLeagueStageWeekMatchLineupsPlayer[] homeField;
-
-        private extended_fixturesLeagueStageWeekMatchLineupsPlayer1[] awayField;
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlArrayItemAttribute("player", IsNullable = false)]
-        public extended_fixturesLeagueStageWeekMatchLineupsPlayer[] home
-        {
-            get
-            {
-                return this.homeField;
-            }
-            set
-            {
-                this.homeField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlArrayItemAttribute("player", IsNullable = false)]
-        public extended_fixturesLeagueStageWeekMatchLineupsPlayer1[] away
-        {
-            get
-            {
-                return this.awayField;
-            }
-            set
-            {
-                this.awayField = value;
-            }
-        }
-    }
-
-    /// <remarks/>
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class extended_fixturesLeagueStageWeekMatchLineupsPlayer
-    {
-
-        private string bookingField;
-
-        private uint idField;
-
-        private string nameField;
-
-        private byte numberField;
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string booking
-        {
-            get
-            {
-                return this.bookingField;
-            }
-            set
-            {
-                this.bookingField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint id
-        {
-            get
-            {
-                return this.idField;
-            }
-            set
-            {
-                this.idField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string name
-        {
-            get
-            {
-                return this.nameField;
-            }
-            set
-            {
-                this.nameField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte number
-        {
-            get
-            {
-                return this.numberField;
-            }
-            set
-            {
-                this.numberField = value;
-            }
-        }
-    }
-
-    /// <remarks/>
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class extended_fixturesLeagueStageWeekMatchLineupsPlayer1
-    {
-
-        private string bookingField;
-
-        private uint idField;
-
-        private string nameField;
-
-        private byte numberField;
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string booking
-        {
-            get
-            {
-                return this.bookingField;
-            }
-            set
-            {
-                this.bookingField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint id
-        {
-            get
-            {
-                return this.idField;
-            }
-            set
-            {
-                this.idField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string name
-        {
-            get
-            {
-                return this.nameField;
-            }
-            set
-            {
-                this.nameField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte number
-        {
-            get
-            {
-                return this.numberField;
-            }
-            set
-            {
-                this.numberField = value;
-            }
-        }
-    }
-
-    /// <remarks/>
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class extended_fixturesLeagueStageWeekMatchSubstitutions
-    {
-
-        private extended_fixturesLeagueStageWeekMatchSubstitutionsSubstitution[] homeField;
-
-        private extended_fixturesLeagueStageWeekMatchSubstitutionsSubstitution1[] awayField;
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlArrayItemAttribute("substitution", IsNullable = false)]
-        public extended_fixturesLeagueStageWeekMatchSubstitutionsSubstitution[] home
-        {
-            get
-            {
-                return this.homeField;
-            }
-            set
-            {
-                this.homeField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlArrayItemAttribute("substitution", IsNullable = false)]
-        public extended_fixturesLeagueStageWeekMatchSubstitutionsSubstitution1[] away
-        {
-            get
-            {
-                return this.awayField;
-            }
-            set
-            {
-                this.awayField = value;
-            }
-        }
-    }
-
-    /// <remarks/>
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class extended_fixturesLeagueStageWeekMatchSubstitutionsSubstitution
-    {
-
-        private string minuteField;
-
-        private string player_in_bookingField;
-
-        private uint player_in_idField;
-
-        private string player_in_nameField;
-
-        private byte player_in_numberField;
-
-        private string player_out_idField;
-
-        private string player_out_nameField;
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string minute
-        {
-            get
-            {
-                return this.minuteField;
-            }
-            set
-            {
-                this.minuteField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string player_in_booking
-        {
-            get
-            {
-                return this.player_in_bookingField;
-            }
-            set
-            {
-                this.player_in_bookingField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint player_in_id
-        {
-            get
-            {
-                return this.player_in_idField;
-            }
-            set
-            {
-                this.player_in_idField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string player_in_name
-        {
-            get
-            {
-                return this.player_in_nameField;
-            }
-            set
-            {
-                this.player_in_nameField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte player_in_number
-        {
-            get
-            {
-                return this.player_in_numberField;
-            }
-            set
-            {
-                this.player_in_numberField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string player_out_id
-        {
-            get
-            {
-                return this.player_out_idField;
-            }
-            set
-            {
-                this.player_out_idField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string player_out_name
-        {
-            get
-            {
-                return this.player_out_nameField;
-            }
-            set
-            {
-                this.player_out_nameField = value;
-            }
-        }
-    }
-
-    /// <remarks/>
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class extended_fixturesLeagueStageWeekMatchSubstitutionsSubstitution1
-    {
-
-        private string minuteField;
-
-        private string player_in_bookingField;
-
-        private uint player_in_idField;
-
-        private string player_in_nameField;
-
-        private byte player_in_numberField;
-
-        private string player_out_idField;
-
-        private string player_out_nameField;
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string minute
-        {
-            get
-            {
-                return this.minuteField;
-            }
-            set
-            {
-                this.minuteField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string player_in_booking
-        {
-            get
-            {
-                return this.player_in_bookingField;
-            }
-            set
-            {
-                this.player_in_bookingField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint player_in_id
-        {
-            get
-            {
-                return this.player_in_idField;
-            }
-            set
-            {
-                this.player_in_idField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string player_in_name
-        {
-            get
-            {
-                return this.player_in_nameField;
-            }
-            set
-            {
-                this.player_in_nameField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte player_in_number
-        {
-            get
-            {
-                return this.player_in_numberField;
-            }
-            set
-            {
-                this.player_in_numberField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string player_out_id
-        {
-            get
-            {
-                return this.player_out_idField;
-            }
-            set
-            {
-                this.player_out_idField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string player_out_name
-        {
-            get
-            {
-                return this.player_out_nameField;
-            }
-            set
-            {
-                this.player_out_nameField = value;
-            }
-        }
-    }
-
-    /// <remarks/>
-    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
     public partial class extended_fixturesLeagueWeek
     {
-
         private extended_fixturesLeagueWeekMatch[] matchField;
-
-        private byte numberField;
-
+        private sbyte numberField;
+        private bool numberFieldSpecified;
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("match")]
         public extended_fixturesLeagueWeekMatch[] match
@@ -2543,10 +222,9 @@ namespace Smaug.Models
                 this.matchField = value;
             }
         }
-
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte number
+        [System.Xml.Serialization.XmlAttribute()]
+        public sbyte number
         {
             get
             {
@@ -2557,47 +235,47 @@ namespace Smaug.Models
                 this.numberField = value;
             }
         }
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool numberSpecified
+        {
+            get
+            {
+                return this.numberFieldSpecified;
+            }
+            set
+            {
+                this.numberFieldSpecified = value;
+            }
+        }
     }
-
     /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34283")]
     [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class extended_fixturesLeagueWeekMatch : BaseFixtures
+    public partial class extended_fixturesLeagueWeekMatch
     {
-
         private extended_fixturesLeagueWeekMatchHome homeField;
-
         private extended_fixturesLeagueWeekMatchAway awayField;
-
         private extended_fixturesLeagueWeekMatchHalftime halftimeField;
-
-        private extended_fixturesLeagueWeekMatchGoal[] goalsField;
-
-        private extended_fixturesLeagueWeekMatchLineups lineupsField;
-
-        private extended_fixturesLeagueWeekMatchSubstitutions substitutionsField;
-
+        private string goalsField;
+        private string lineupsField;
+        private string substitutionsField;
         private string alternate_idField;
-
-        private uint alternate_id_2Field;
-
+        private int alternate_id_2Field;
+        private bool alternate_id_2FieldSpecified;
         private string dateField;
-
-        private uint idField;
-
+        private int idField;
+        private bool idFieldSpecified;
         private string static_idField;
-
         private string statusField;
-
         private string timeField;
-
         private string venueField;
-
         private string venue_cityField;
-
-        private uint venue_idField;
-
+        private int venue_idField;
+        private bool venue_idFieldSpecified;
         /// <remarks/>
         public extended_fixturesLeagueWeekMatchHome home
         {
@@ -2610,7 +288,6 @@ namespace Smaug.Models
                 this.homeField = value;
             }
         }
-
         /// <remarks/>
         public extended_fixturesLeagueWeekMatchAway away
         {
@@ -2623,7 +300,6 @@ namespace Smaug.Models
                 this.awayField = value;
             }
         }
-
         /// <remarks/>
         public extended_fixturesLeagueWeekMatchHalftime halftime
         {
@@ -2636,10 +312,8 @@ namespace Smaug.Models
                 this.halftimeField = value;
             }
         }
-
         /// <remarks/>
-        [System.Xml.Serialization.XmlArrayItemAttribute("goal", IsNullable = false)]
-        public extended_fixturesLeagueWeekMatchGoal[] goals
+        public string goals
         {
             get
             {
@@ -2650,9 +324,8 @@ namespace Smaug.Models
                 this.goalsField = value;
             }
         }
-
         /// <remarks/>
-        public extended_fixturesLeagueWeekMatchLineups lineups
+        public string lineups
         {
             get
             {
@@ -2663,9 +336,8 @@ namespace Smaug.Models
                 this.lineupsField = value;
             }
         }
-
         /// <remarks/>
-        public extended_fixturesLeagueWeekMatchSubstitutions substitutions
+        public string substitutions
         {
             get
             {
@@ -2676,9 +348,8 @@ namespace Smaug.Models
                 this.substitutionsField = value;
             }
         }
-
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.Xml.Serialization.XmlAttribute()]
         public string alternate_id
         {
             get
@@ -2690,10 +361,9 @@ namespace Smaug.Models
                 this.alternate_idField = value;
             }
         }
-
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint alternate_id_2
+        [System.Xml.Serialization.XmlAttribute()]
+        public int alternate_id_2
         {
             get
             {
@@ -2704,9 +374,21 @@ namespace Smaug.Models
                 this.alternate_id_2Field = value;
             }
         }
-
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool alternate_id_2Specified
+        {
+            get
+            {
+                return this.alternate_id_2FieldSpecified;
+            }
+            set
+            {
+                this.alternate_id_2FieldSpecified = value;
+            }
+        }
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttribute()]
         public string date
         {
             get
@@ -2718,10 +400,9 @@ namespace Smaug.Models
                 this.dateField = value;
             }
         }
-
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint id
+        [System.Xml.Serialization.XmlAttribute()]
+        public int id
         {
             get
             {
@@ -2732,9 +413,21 @@ namespace Smaug.Models
                 this.idField = value;
             }
         }
-
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute(DataType = "integer")]
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool idSpecified
+        {
+            get
+            {
+                return this.idFieldSpecified;
+            }
+            set
+            {
+                this.idFieldSpecified = value;
+            }
+        }
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttribute(DataType = "integer")]
         public string static_id
         {
             get
@@ -2746,9 +439,8 @@ namespace Smaug.Models
                 this.static_idField = value;
             }
         }
-
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.Xml.Serialization.XmlAttribute()]
         public string status
         {
             get
@@ -2760,9 +452,8 @@ namespace Smaug.Models
                 this.statusField = value;
             }
         }
-
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.Xml.Serialization.XmlAttribute()]
         public string time
         {
             get
@@ -2774,9 +465,8 @@ namespace Smaug.Models
                 this.timeField = value;
             }
         }
-
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.Xml.Serialization.XmlAttribute()]
         public string venue
         {
             get
@@ -2788,9 +478,8 @@ namespace Smaug.Models
                 this.venueField = value;
             }
         }
-
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.Xml.Serialization.XmlAttribute()]
         public string venue_city
         {
             get
@@ -2802,10 +491,9 @@ namespace Smaug.Models
                 this.venue_cityField = value;
             }
         }
-
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint venue_id
+        [System.Xml.Serialization.XmlAttribute()]
+        public int venue_id
         {
             get
             {
@@ -2816,29 +504,38 @@ namespace Smaug.Models
                 this.venue_idField = value;
             }
         }
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool venue_idSpecified
+        {
+            get
+            {
+                return this.venue_idFieldSpecified;
+            }
+            set
+            {
+                this.venue_idFieldSpecified = value;
+            }
+        }
     }
-
     /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34283")]
     [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
     public partial class extended_fixturesLeagueWeekMatchHome : BaseTeams
     {
-
         private string et_scoreField;
-
         private string ft_scoreField;
-
-        private uint idField;
-
+        private int idField;
+        private bool idFieldSpecified;
         private string nameField;
-
         private string pen_scoreField;
-
         private string scoreField;
-
+        private string valueField;
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.Xml.Serialization.XmlAttribute()]
         public string et_score
         {
             get
@@ -2850,9 +547,8 @@ namespace Smaug.Models
                 this.et_scoreField = value;
             }
         }
-
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.Xml.Serialization.XmlAttribute()]
         public string ft_score
         {
             get
@@ -2864,10 +560,9 @@ namespace Smaug.Models
                 this.ft_scoreField = value;
             }
         }
-
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint id
+        [System.Xml.Serialization.XmlAttribute()]
+        public int id
         {
             get
             {
@@ -2878,9 +573,21 @@ namespace Smaug.Models
                 this.idField = value;
             }
         }
-
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool idSpecified
+        {
+            get
+            {
+                return this.idFieldSpecified;
+            }
+            set
+            {
+                this.idFieldSpecified = value;
+            }
+        }
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttribute()]
         public string name
         {
             get
@@ -2892,9 +599,8 @@ namespace Smaug.Models
                 this.nameField = value;
             }
         }
-
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.Xml.Serialization.XmlAttribute()]
         public string pen_score
         {
             get
@@ -2906,9 +612,8 @@ namespace Smaug.Models
                 this.pen_scoreField = value;
             }
         }
-
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.Xml.Serialization.XmlAttribute()]
         public string score
         {
             get
@@ -2920,29 +625,38 @@ namespace Smaug.Models
                 this.scoreField = value;
             }
         }
+        /// <remarks/>
+        [System.Xml.Serialization.XmlTextAttribute()]
+        public string Value
+        {
+            get
+            {
+                return this.valueField;
+            }
+            set
+            {
+                this.valueField = value;
+            }
+        }
     }
-
     /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34283")]
     [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
     public partial class extended_fixturesLeagueWeekMatchAway : BaseTeams
     {
-
         private string et_scoreField;
-
         private string ft_scoreField;
-
-        private uint idField;
-
+        private int idField;
+        private bool idFieldSpecified;
         private string nameField;
-
         private string pen_scoreField;
-
         private string scoreField;
-
+        private string valueField;
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.Xml.Serialization.XmlAttribute()]
         public string et_score
         {
             get
@@ -2954,9 +668,8 @@ namespace Smaug.Models
                 this.et_scoreField = value;
             }
         }
-
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.Xml.Serialization.XmlAttribute()]
         public string ft_score
         {
             get
@@ -2968,10 +681,9 @@ namespace Smaug.Models
                 this.ft_scoreField = value;
             }
         }
-
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint id
+        [System.Xml.Serialization.XmlAttribute()]
+        public int id
         {
             get
             {
@@ -2982,9 +694,21 @@ namespace Smaug.Models
                 this.idField = value;
             }
         }
-
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool idSpecified
+        {
+            get
+            {
+                return this.idFieldSpecified;
+            }
+            set
+            {
+                this.idFieldSpecified = value;
+            }
+        }
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttribute()]
         public string name
         {
             get
@@ -2996,9 +720,8 @@ namespace Smaug.Models
                 this.nameField = value;
             }
         }
-
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.Xml.Serialization.XmlAttribute()]
         public string pen_score
         {
             get
@@ -3010,9 +733,8 @@ namespace Smaug.Models
                 this.pen_scoreField = value;
             }
         }
-
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.Xml.Serialization.XmlAttribute()]
         public string score
         {
             get
@@ -3024,19 +746,32 @@ namespace Smaug.Models
                 this.scoreField = value;
             }
         }
+        /// <remarks/>
+        [System.Xml.Serialization.XmlTextAttribute()]
+        public string Value
+        {
+            get
+            {
+                return this.valueField;
+            }
+            set
+            {
+                this.valueField = value;
+            }
+        }
     }
-
     /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34283")]
     [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
     public partial class extended_fixturesLeagueWeekMatchHalftime
     {
-
         private string scoreField;
-
+        private string valueField;
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.Xml.Serialization.XmlAttribute()]
         public string score
         {
             get
@@ -3048,85 +783,478 @@ namespace Smaug.Models
                 this.scoreField = value;
             }
         }
+        /// <remarks/>
+        [System.Xml.Serialization.XmlTextAttribute()]
+        public string Value
+        {
+            get
+            {
+                return this.valueField;
+            }
+            set
+            {
+                this.valueField = value;
+            }
+        }
     }
-
     /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34283")]
     [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class extended_fixturesLeagueWeekMatchGoal
+    public partial class extended_fixturesLeagueStage
     {
-
-        private string assistField;
-
-        private string minuteField;
-
-        private string playerField;
-
-        private uint playeridField;
-
+        private extended_fixturesLeagueStageMatch[] matchField;
+        private string[] textField;
+        private string nameField;
+        private string roundField;
+        private long stage_idField;
+        private bool stage_idFieldSpecified;
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute("match")]
+        public extended_fixturesLeagueStageMatch[] match
+        {
+            get
+            {
+                return this.matchField;
+            }
+            set
+            {
+                this.matchField = value;
+            }
+        }
+        /// <remarks/>
+        [System.Xml.Serialization.XmlTextAttribute()]
+        public string[] Text
+        {
+            get
+            {
+                return this.textField;
+            }
+            set
+            {
+                this.textField = value;
+            }
+        }
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttribute()]
+        public string name
+        {
+            get
+            {
+                return this.nameField;
+            }
+            set
+            {
+                this.nameField = value;
+            }
+        }
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttribute()]
+        public string round
+        {
+            get
+            {
+                return this.roundField;
+            }
+            set
+            {
+                this.roundField = value;
+            }
+        }
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttribute()]
+        public long stage_id
+        {
+            get
+            {
+                return this.stage_idField;
+            }
+            set
+            {
+                this.stage_idField = value;
+            }
+        }
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool stage_idSpecified
+        {
+            get
+            {
+                return this.stage_idFieldSpecified;
+            }
+            set
+            {
+                this.stage_idFieldSpecified = value;
+            }
+        }
+    }
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34283")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+    public partial class extended_fixturesLeagueStageMatch
+    {
+        private extended_fixturesLeagueStageMatchHome homeField;
+        private extended_fixturesLeagueStageMatchAway awayField;
+        private extended_fixturesLeagueStageMatchHalftime halftimeField;
+        private string goalsField;
+        private string lineupsField;
+        private string substitutionsField;
+        private string alternate_idField;
+        private int alternate_id_2Field;
+        private bool alternate_id_2FieldSpecified;
+        private string dateField;
+        private int idField;
+        private bool idFieldSpecified;
+        private string static_idField;
+        private string statusField;
+        private string timeField;
+        private string venueField;
+        private string venue_cityField;
+        private int venue_idField;
+        private bool venue_idFieldSpecified;
+        /// <remarks/>
+        public extended_fixturesLeagueStageMatchHome home
+        {
+            get
+            {
+                return this.homeField;
+            }
+            set
+            {
+                this.homeField = value;
+            }
+        }
+        /// <remarks/>
+        public extended_fixturesLeagueStageMatchAway away
+        {
+            get
+            {
+                return this.awayField;
+            }
+            set
+            {
+                this.awayField = value;
+            }
+        }
+        /// <remarks/>
+        public extended_fixturesLeagueStageMatchHalftime halftime
+        {
+            get
+            {
+                return this.halftimeField;
+            }
+            set
+            {
+                this.halftimeField = value;
+            }
+        }
+        /// <remarks/>
+        public string goals
+        {
+            get
+            {
+                return this.goalsField;
+            }
+            set
+            {
+                this.goalsField = value;
+            }
+        }
+        /// <remarks/>
+        public string lineups
+        {
+            get
+            {
+                return this.lineupsField;
+            }
+            set
+            {
+                this.lineupsField = value;
+            }
+        }
+        /// <remarks/>
+        public string substitutions
+        {
+            get
+            {
+                return this.substitutionsField;
+            }
+            set
+            {
+                this.substitutionsField = value;
+            }
+        }
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttribute()]
+        public string alternate_id
+        {
+            get
+            {
+                return this.alternate_idField;
+            }
+            set
+            {
+                this.alternate_idField = value;
+            }
+        }
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttribute()]
+        public int alternate_id_2
+        {
+            get
+            {
+                return this.alternate_id_2Field;
+            }
+            set
+            {
+                this.alternate_id_2Field = value;
+            }
+        }
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool alternate_id_2Specified
+        {
+            get
+            {
+                return this.alternate_id_2FieldSpecified;
+            }
+            set
+            {
+                this.alternate_id_2FieldSpecified = value;
+            }
+        }
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttribute()]
+        public string date
+        {
+            get
+            {
+                return this.dateField;
+            }
+            set
+            {
+                this.dateField = value;
+            }
+        }
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttribute()]
+        public int id
+        {
+            get
+            {
+                return this.idField;
+            }
+            set
+            {
+                this.idField = value;
+            }
+        }
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool idSpecified
+        {
+            get
+            {
+                return this.idFieldSpecified;
+            }
+            set
+            {
+                this.idFieldSpecified = value;
+            }
+        }
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttribute(DataType = "integer")]
+        public string static_id
+        {
+            get
+            {
+                return this.static_idField;
+            }
+            set
+            {
+                this.static_idField = value;
+            }
+        }
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttribute()]
+        public string status
+        {
+            get
+            {
+                return this.statusField;
+            }
+            set
+            {
+                this.statusField = value;
+            }
+        }
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttribute()]
+        public string time
+        {
+            get
+            {
+                return this.timeField;
+            }
+            set
+            {
+                this.timeField = value;
+            }
+        }
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttribute()]
+        public string venue
+        {
+            get
+            {
+                return this.venueField;
+            }
+            set
+            {
+                this.venueField = value;
+            }
+        }
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttribute()]
+        public string venue_city
+        {
+            get
+            {
+                return this.venue_cityField;
+            }
+            set
+            {
+                this.venue_cityField = value;
+            }
+        }
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttribute()]
+        public int venue_id
+        {
+            get
+            {
+                return this.venue_idField;
+            }
+            set
+            {
+                this.venue_idField = value;
+            }
+        }
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool venue_idSpecified
+        {
+            get
+            {
+                return this.venue_idFieldSpecified;
+            }
+            set
+            {
+                this.venue_idFieldSpecified = value;
+            }
+        }
+    }
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34283")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+    public partial class extended_fixturesLeagueStageMatchHome : BaseTeams
+    {
+        private string et_scoreField;
+        private string ft_scoreField;
+        private int idField;
+        private bool idFieldSpecified;
+        private string nameField;
+        private string pen_scoreField;
         private string scoreField;
-
-        private string teamField;
-
+        private string valueField;
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string assist
+        [System.Xml.Serialization.XmlAttribute()]
+        public string et_score
         {
             get
             {
-                return this.assistField;
+                return this.et_scoreField;
             }
             set
             {
-                this.assistField = value;
+                this.et_scoreField = value;
             }
         }
-
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string minute
+        [System.Xml.Serialization.XmlAttribute()]
+        public string ft_score
         {
             get
             {
-                return this.minuteField;
+                return this.ft_scoreField;
             }
             set
             {
-                this.minuteField = value;
+                this.ft_scoreField = value;
             }
         }
-
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string player
+        [System.Xml.Serialization.XmlAttribute()]
+        public int id
         {
             get
             {
-                return this.playerField;
+                return this.idField;
             }
             set
             {
-                this.playerField = value;
+                this.idField = value;
             }
         }
-
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint playerid
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool idSpecified
         {
             get
             {
-                return this.playeridField;
+                return this.idFieldSpecified;
             }
             set
             {
-                this.playeridField = value;
+                this.idFieldSpecified = value;
             }
         }
-
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.Xml.Serialization.XmlAttribute()]
+        public string name
+        {
+            get
+            {
+                return this.nameField;
+            }
+            set
+            {
+                this.nameField = value;
+            }
+        }
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttribute()]
+        public string pen_score
+        {
+            get
+            {
+                return this.pen_scoreField;
+            }
+            set
+            {
+                this.pen_scoreField = value;
+            }
+        }
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttribute()]
         public string score
         {
             get
@@ -3138,94 +1266,65 @@ namespace Smaug.Models
                 this.scoreField = value;
             }
         }
-
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string team
+        [System.Xml.Serialization.XmlTextAttribute()]
+        public string Value
         {
             get
             {
-                return this.teamField;
+                return this.valueField;
             }
             set
             {
-                this.teamField = value;
+                this.valueField = value;
             }
         }
     }
-
     /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34283")]
     [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class extended_fixturesLeagueWeekMatchLineups
+    public partial class extended_fixturesLeagueStageMatchAway : BaseTeams
     {
-
-        private extended_fixturesLeagueWeekMatchLineupsPlayer[] homeField;
-
-        private extended_fixturesLeagueWeekMatchLineupsPlayer1[] awayField;
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlArrayItemAttribute("player", IsNullable = false)]
-        public extended_fixturesLeagueWeekMatchLineupsPlayer[] home
-        {
-            get
-            {
-                return this.homeField;
-            }
-            set
-            {
-                this.homeField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlArrayItemAttribute("player", IsNullable = false)]
-        public extended_fixturesLeagueWeekMatchLineupsPlayer1[] away
-        {
-            get
-            {
-                return this.awayField;
-            }
-            set
-            {
-                this.awayField = value;
-            }
-        }
-    }
-
-    /// <remarks/>
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class extended_fixturesLeagueWeekMatchLineupsPlayer
-    {
-
-        private string bookingField;
-
-        private uint idField;
-
+        private string et_scoreField;
+        private string ft_scoreField;
+        private int idField;
+        private bool idFieldSpecified;
         private string nameField;
-
-        private string numberField;
-
+        private string pen_scoreField;
+        private string scoreField;
+        private string valueField;
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string booking
+        [System.Xml.Serialization.XmlAttribute()]
+        public string et_score
         {
             get
             {
-                return this.bookingField;
+                return this.et_scoreField;
             }
             set
             {
-                this.bookingField = value;
+                this.et_scoreField = value;
             }
         }
-
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint id
+        [System.Xml.Serialization.XmlAttribute()]
+        public string ft_score
+        {
+            get
+            {
+                return this.ft_scoreField;
+            }
+            set
+            {
+                this.ft_scoreField = value;
+            }
+        }
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttribute()]
+        public int id
         {
             get
             {
@@ -3236,9 +1335,21 @@ namespace Smaug.Models
                 this.idField = value;
             }
         }
-
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool idSpecified
+        {
+            get
+            {
+                return this.idFieldSpecified;
+            }
+            set
+            {
+                this.idFieldSpecified = value;
+            }
+        }
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttribute()]
         public string name
         {
             get
@@ -3250,373 +1361,81 @@ namespace Smaug.Models
                 this.nameField = value;
             }
         }
-
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string number
+        [System.Xml.Serialization.XmlAttribute()]
+        public string pen_score
         {
             get
             {
-                return this.numberField;
+                return this.pen_scoreField;
             }
             set
             {
-                this.numberField = value;
+                this.pen_scoreField = value;
+            }
+        }
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttribute()]
+        public string score
+        {
+            get
+            {
+                return this.scoreField;
+            }
+            set
+            {
+                this.scoreField = value;
+            }
+        }
+        /// <remarks/>
+        [System.Xml.Serialization.XmlTextAttribute()]
+        public string Value
+        {
+            get
+            {
+                return this.valueField;
+            }
+            set
+            {
+                this.valueField = value;
             }
         }
     }
-
     /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34283")]
     [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class extended_fixturesLeagueWeekMatchLineupsPlayer1
+    public partial class extended_fixturesLeagueStageMatchHalftime
     {
-
-        private string bookingField;
-
-        private uint idField;
-
-        private string nameField;
-
-        private string numberField;
-
+        private string scoreField;
+        private string valueField;
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string booking
+        [System.Xml.Serialization.XmlAttribute()]
+        public string score
         {
             get
             {
-                return this.bookingField;
+                return this.scoreField;
             }
             set
             {
-                this.bookingField = value;
+                this.scoreField = value;
             }
         }
-
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint id
+        [System.Xml.Serialization.XmlTextAttribute()]
+        public string Value
         {
             get
             {
-                return this.idField;
+                return this.valueField;
             }
             set
             {
-                this.idField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string name
-        {
-            get
-            {
-                return this.nameField;
-            }
-            set
-            {
-                this.nameField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string number
-        {
-            get
-            {
-                return this.numberField;
-            }
-            set
-            {
-                this.numberField = value;
+                this.valueField = value;
             }
         }
     }
-
-    /// <remarks/>
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class extended_fixturesLeagueWeekMatchSubstitutions
-    {
-
-        private extended_fixturesLeagueWeekMatchSubstitutionsSubstitution[] homeField;
-
-        private extended_fixturesLeagueWeekMatchSubstitutionsSubstitution1[] awayField;
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlArrayItemAttribute("substitution", IsNullable = false)]
-        public extended_fixturesLeagueWeekMatchSubstitutionsSubstitution[] home
-        {
-            get
-            {
-                return this.homeField;
-            }
-            set
-            {
-                this.homeField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlArrayItemAttribute("substitution", IsNullable = false)]
-        public extended_fixturesLeagueWeekMatchSubstitutionsSubstitution1[] away
-        {
-            get
-            {
-                return this.awayField;
-            }
-            set
-            {
-                this.awayField = value;
-            }
-        }
-    }
-
-    /// <remarks/>
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class extended_fixturesLeagueWeekMatchSubstitutionsSubstitution
-    {
-
-        private string minuteField;
-
-        private string player_in_bookingField;
-
-        private uint player_in_idField;
-
-        private string player_in_nameField;
-
-        private string player_in_numberField;
-
-        private string player_out_idField;
-
-        private string player_out_nameField;
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string minute
-        {
-            get
-            {
-                return this.minuteField;
-            }
-            set
-            {
-                this.minuteField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string player_in_booking
-        {
-            get
-            {
-                return this.player_in_bookingField;
-            }
-            set
-            {
-                this.player_in_bookingField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint player_in_id
-        {
-            get
-            {
-                return this.player_in_idField;
-            }
-            set
-            {
-                this.player_in_idField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string player_in_name
-        {
-            get
-            {
-                return this.player_in_nameField;
-            }
-            set
-            {
-                this.player_in_nameField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string player_in_number
-        {
-            get
-            {
-                return this.player_in_numberField;
-            }
-            set
-            {
-                this.player_in_numberField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string player_out_id
-        {
-            get
-            {
-                return this.player_out_idField;
-            }
-            set
-            {
-                this.player_out_idField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string player_out_name
-        {
-            get
-            {
-                return this.player_out_nameField;
-            }
-            set
-            {
-                this.player_out_nameField = value;
-            }
-        }
-    }
-
-    /// <remarks/>
-    [System.SerializableAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class extended_fixturesLeagueWeekMatchSubstitutionsSubstitution1
-    {
-
-        private string minuteField;
-
-        private string player_in_bookingField;
-
-        private uint player_in_idField;
-
-        private string player_in_nameField;
-
-        private string player_in_numberField;
-
-        private string player_out_idField;
-
-        private string player_out_nameField;
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string minute
-        {
-            get
-            {
-                return this.minuteField;
-            }
-            set
-            {
-                this.minuteField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string player_in_booking
-        {
-            get
-            {
-                return this.player_in_bookingField;
-            }
-            set
-            {
-                this.player_in_bookingField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint player_in_id
-        {
-            get
-            {
-                return this.player_in_idField;
-            }
-            set
-            {
-                this.player_in_idField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string player_in_name
-        {
-            get
-            {
-                return this.player_in_nameField;
-            }
-            set
-            {
-                this.player_in_nameField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string player_in_number
-        {
-            get
-            {
-                return this.player_in_numberField;
-            }
-            set
-            {
-                this.player_in_numberField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string player_out_id
-        {
-            get
-            {
-                return this.player_out_idField;
-            }
-            set
-            {
-                this.player_out_idField = value;
-            }
-        }
-
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string player_out_name
-        {
-            get
-            {
-                return this.player_out_nameField;
-            }
-            set
-            {
-                this.player_out_nameField = value;
-            }
-        }
-    }
-
-
 }

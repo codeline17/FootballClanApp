@@ -1,16 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NHibernate.Stat;
-using NHibernate.Util;
-using Smaug.Bases;
 using Smaug.Models;
-using Smaug.Utils;
 
 namespace Smaug.Data_Access
 {
@@ -24,6 +17,10 @@ namespace Smaug.Data_Access
             {
                 foreach (var league in ef.league)
                 {
+                    if (league.name.ToLower() == "friendlies")
+                    {
+
+                    }
                     league.Country = ef.country;
                     //SaveLeague
                     league.SaveOrUpdate();
@@ -56,7 +53,7 @@ namespace Smaug.Data_Access
                                     }
                                 }
 
-                                if (stage.week != null)
+                                /*if (stage.week != null)
                                 {
                                     foreach (var w in stage.week)
                                     {
@@ -68,7 +65,7 @@ namespace Smaug.Data_Access
                                             }
                                         }
                                     }
-                                }
+                                }*/
                             }
                         }
                     }
@@ -83,7 +80,10 @@ namespace Smaug.Data_Access
             fixture.away.Country = league.Country;
             fixture.away.SaveOrUpdate();
             var dtString = fixture.date + " " + fixture.time;
-            var dt = DateTime.ParseExact(dtString.Replace(".", "/"), "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
+            DateTime dt;
+            if (!DateTime.TryParseExact(dtString.Replace(".", "/"), "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None, out dt))
+                DateTime.TryParseExact(fixture.date, "dd.MM.yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out dt);
+            //Console.WriteLine($"Old {fixture.home.name} - {fixture.away.name}");
 
             using (var conn = new SqlConnection(cString))
             {
@@ -110,6 +110,9 @@ namespace Smaug.Data_Access
             fixture.home.SaveOrUpdate();
             fixture.away.Country = league.Country;
             fixture.away.SaveOrUpdate();
+
+           // Console.WriteLine($"Old {fixture.home.name} - {fixture.away.name}");
+
             var dtString = fixture.date + " " + fixture.time;
             DateTime dt;
             if (!DateTime.TryParseExact(dtString.Replace(".", "/"), "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None, out dt))
@@ -134,13 +137,16 @@ namespace Smaug.Data_Access
             }
         }
 
-        private static void SaveOrUpdate(this extended_fixturesLeagueStageWeekMatch fixture, extended_fixturesLeague league)
+        /*private static void SaveOrUpdate(this extended_fixturesLeagueStageWeekMatch fixture, extended_fixturesLeague league)
         {
             fixture.home.Country = league.Country;
             fixture.home.SaveOrUpdate();
             fixture.away.Country = league.Country;
             fixture.away.SaveOrUpdate();
             var dtString = fixture.date + " " + fixture.time;
+
+            //Console.WriteLine($"Old {fixture.home.name} - {fixture.away.name}");
+
             DateTime dt;
             if (!DateTime.TryParseExact(dtString.Replace(".", "/"), "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None, out dt))
                 DateTime.TryParseExact(fixture.date, "dd.MM.yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out dt);
@@ -162,7 +168,7 @@ namespace Smaug.Data_Access
                     command.ExecuteNonQuery();
                 }
             }
-        }
+        }*/
                 
         private static void SaveOrUpdate(this extended_fixturesLeague league)
         {
@@ -248,7 +254,7 @@ namespace Smaug.Data_Access
             }
         }
 
-        private static void SaveOrUpdate(this extended_fixturesLeagueStageWeekMatchAway team)
+        /*private static void SaveOrUpdate(this extended_fixturesLeagueStageWeekMatchAway team)
         {
             using (var conn = new SqlConnection(cString))
             {
@@ -263,9 +269,9 @@ namespace Smaug.Data_Access
                     command.ExecuteNonQuery();
                 }
             }
-        }
+        }*/
 
-        private static void SaveOrUpdate(this extended_fixturesLeagueStageWeekMatchHome team)
+        /*private static void SaveOrUpdate(this extended_fixturesLeagueStageWeekMatchHome team)
         {
             using (var conn = new SqlConnection(cString))
             {
@@ -280,7 +286,7 @@ namespace Smaug.Data_Access
                     command.ExecuteNonQuery();
                 }
             }
-        }
+        }*/
 
 
         //Highlights
@@ -309,6 +315,25 @@ namespace Smaug.Data_Access
                     command.Parameters.Add(new SqlParameter("@Status", m.status));
                     command.Parameters.Add(new SqlParameter("@static_id", m.static_id));
                     command.ExecuteNonQuery();
+                }
+            }
+        }
+
+
+        //New EFProxy
+        public static void SaveOrUpdate(this EFProxy efp)
+        {
+            foreach (var l in efp.League)
+            {
+                foreach (var s in l.Stage)
+                {
+                    foreach (var a in s.Aggregate)
+                    {
+                        foreach (var m in a.Match)
+                        {
+                            //Console.WriteLine($"EFP {m.Home.Name} - {m.Away.Name}");
+                        }
+                    }
                 }
             }
         }

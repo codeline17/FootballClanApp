@@ -1,0 +1,149 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="extended_fixtures">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="league" maxOccurs="unbounded" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="week" maxOccurs="unbounded" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="match" maxOccurs="unbounded" minOccurs="0">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="home">
+                            <xs:complexType>
+                              <xs:simpleContent>
+                                <xs:extension base="xs:string">
+                                  <xs:attribute type="xs:string" name="et_score" use="optional"/>
+                                  <xs:attribute type="xs:string" name="ft_score" use="optional"/>
+                                  <xs:attribute type="xs:int" name="id" use="optional"/>
+                                  <xs:attribute type="xs:string" name="name" use="optional"/>
+                                  <xs:attribute type="xs:string" name="pen_score" use="optional"/>
+                                  <xs:attribute type="xs:string" name="score" use="optional"/>
+                                </xs:extension>
+                              </xs:simpleContent>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="away">
+                            <xs:complexType>
+                              <xs:simpleContent>
+                                <xs:extension base="xs:string">
+                                  <xs:attribute type="xs:string" name="et_score" use="optional"/>
+                                  <xs:attribute type="xs:string" name="ft_score" use="optional"/>
+                                  <xs:attribute type="xs:int" name="id" use="optional"/>
+                                  <xs:attribute type="xs:string" name="name" use="optional"/>
+                                  <xs:attribute type="xs:string" name="pen_score" use="optional"/>
+                                  <xs:attribute type="xs:string" name="score" use="optional"/>
+                                </xs:extension>
+                              </xs:simpleContent>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="halftime">
+                            <xs:complexType>
+                              <xs:simpleContent>
+                                <xs:extension base="xs:string">
+                                  <xs:attribute type="xs:string" name="score" use="optional"/>
+                                </xs:extension>
+                              </xs:simpleContent>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element type="xs:string" name="goals"/>
+                          <xs:element type="xs:string" name="lineups"/>
+                          <xs:element type="xs:string" name="substitutions"/>
+                        </xs:sequence>
+                        <xs:attribute type="xs:string" name="alternate_id" use="optional"/>
+                        <xs:attribute type="xs:int" name="alternate_id_2" use="optional"/>
+                        <xs:attribute type="xs:string" name="date" use="optional"/>
+                        <xs:attribute type="xs:int" name="id" use="optional"/>
+                        <xs:attribute type="xs:integer" name="static_id" use="optional"/>
+                        <xs:attribute type="xs:string" name="status" use="optional"/>
+                        <xs:attribute type="xs:string" name="time" use="optional"/>
+                        <xs:attribute type="xs:string" name="venue" use="optional"/>
+                        <xs:attribute type="xs:string" name="venue_city" use="optional"/>
+                        <xs:attribute type="xs:int" name="venue_id" use="optional"/>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute type="xs:byte" name="number" use="optional"/>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="stage" maxOccurs="unbounded" minOccurs="0">
+                <xs:complexType mixed="true">
+                  <xs:sequence>
+                    <xs:element name="match" maxOccurs="unbounded" minOccurs="0">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="home">
+                            <xs:complexType>
+                              <xs:simpleContent>
+                                <xs:extension base="xs:string">
+                                  <xs:attribute type="xs:string" name="et_score" use="optional"/>
+                                  <xs:attribute type="xs:string" name="ft_score" use="optional"/>
+                                  <xs:attribute type="xs:int" name="id" use="optional"/>
+                                  <xs:attribute type="xs:string" name="name" use="optional"/>
+                                  <xs:attribute type="xs:string" name="pen_score" use="optional"/>
+                                  <xs:attribute type="xs:string" name="score" use="optional"/>
+                                </xs:extension>
+                              </xs:simpleContent>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="away">
+                            <xs:complexType>
+                              <xs:simpleContent>
+                                <xs:extension base="xs:string">
+                                  <xs:attribute type="xs:string" name="et_score" use="optional"/>
+                                  <xs:attribute type="xs:string" name="ft_score" use="optional"/>
+                                  <xs:attribute type="xs:int" name="id" use="optional"/>
+                                  <xs:attribute type="xs:string" name="name" use="optional"/>
+                                  <xs:attribute type="xs:string" name="pen_score" use="optional"/>
+                                  <xs:attribute type="xs:string" name="score" use="optional"/>
+                                </xs:extension>
+                              </xs:simpleContent>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="halftime">
+                            <xs:complexType>
+                              <xs:simpleContent>
+                                <xs:extension base="xs:string">
+                                  <xs:attribute type="xs:string" name="score" use="optional"/>
+                                </xs:extension>
+                              </xs:simpleContent>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element type="xs:string" name="goals"/>
+                          <xs:element type="xs:string" name="lineups"/>
+                          <xs:element type="xs:string" name="substitutions"/>
+                        </xs:sequence>
+                        <xs:attribute type="xs:string" name="alternate_id" use="optional"/>
+                        <xs:attribute type="xs:int" name="alternate_id_2" use="optional"/>
+                        <xs:attribute type="xs:string" name="date" use="optional"/>
+                        <xs:attribute type="xs:int" name="id" use="optional"/>
+                        <xs:attribute type="xs:integer" name="static_id" use="optional"/>
+                        <xs:attribute type="xs:string" name="status" use="optional"/>
+                        <xs:attribute type="xs:string" name="time" use="optional"/>
+                        <xs:attribute type="xs:string" name="venue" use="optional"/>
+                        <xs:attribute type="xs:string" name="venue_city" use="optional"/>
+                        <xs:attribute type="xs:int" name="venue_id" use="optional"/>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute type="xs:string" name="name" use="optional"/>
+                  <xs:attribute type="xs:string" name="round" use="optional"/>
+                  <xs:attribute type="xs:int" name="stage_id" use="optional"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute type="xs:string" name="name" use="optional"/>
+            <xs:attribute type="xs:string" name="season" use="optional"/>
+            <xs:attribute type="xs:short" name="id" use="optional"/>
+            <xs:attribute type="xs:short" name="sub_id" use="optional"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute type="xs:string" name="updated"/>
+      <xs:attribute type="xs:string" name="sport"/>
+      <xs:attribute type="xs:string" name="country"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

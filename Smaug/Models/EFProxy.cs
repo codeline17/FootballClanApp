@@ -1,9 +1,8 @@
-﻿using System;
-using System.Xml.Serialization;
+﻿using System.Xml.Serialization;
 using System.Collections.Generic;
 namespace Smaug.Models
 {
-    
+
     [XmlRoot(ElementName = "league")]
     public class League
     {
@@ -223,7 +222,7 @@ namespace Smaug.Models
     }
 
     [XmlRoot(ElementName = "extended_fixtures")]
-    public class Extended_fixtures
+    public class EFProxy
     {
         [XmlElement(ElementName = "league")]
         public List<League> League { get; set; }
