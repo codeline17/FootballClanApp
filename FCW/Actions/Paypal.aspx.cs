@@ -98,7 +98,12 @@ namespace FCW.Actions
         private void InsertPurchase(Guid userGuid)
         {
             var itemName = Request.Params["ItemName"];
-
+            var status = Request.Params["status"];
+            if (status==null)
+            {
+                status = "NOSTATUS";
+            }
+            
             using (var conn = new SqlConnection(_connectionstring))
             {
                 using (var cmd = new SqlCommand("PurchaseInsert", conn))
@@ -106,6 +111,7 @@ namespace FCW.Actions
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add("@UserGuid", SqlDbType.UniqueIdentifier).Value = userGuid;
                     cmd.Parameters.Add("@PurchaseName", SqlDbType.VarChar, 10).Value = itemName;
+                    cmd.Parameters.Add("@Status", SqlDbType.VarChar, 50).Value = status;
                     conn.Open();
                     var r = (Guid) cmd.ExecuteScalar();
                     
