@@ -32,7 +32,7 @@ namespace Objects
         public int DetailPoints { get; set; }
         public  int TodayPoints { get; set; }
         public string device_type { get; set; }
-        public string push_id { get; set }
+        public string push_id { get; set; }
 
         public User()
         {
