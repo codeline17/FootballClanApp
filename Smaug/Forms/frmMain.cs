@@ -5,6 +5,8 @@ using Smaug.Models;
 using Smaug.Requests;
 using Smaug.Utils;
 using System.Threading;
+using System.Linq;
+using Smaug.Controller;
 
 namespace Smaug
 {
@@ -71,10 +73,13 @@ namespace Smaug
                 }
                 var doc = Feed.GetExtendedFixtures(e.State);
 
+                FeedController.GeneralParse(doc);
+
                 var ef = Helper.FromXml<extended_fixtures>(doc.ToString());
-                
+
                 if (ef != null)
-                    ef.SaveOrUpdate();
+                    Console.WriteLine("Nope");
+                    //ef.SaveOrUpdate();
             }
 #pragma warning disable CS0168 // The variable 'ex' is declared but never used
             catch (Exception ex)

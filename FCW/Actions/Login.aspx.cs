@@ -54,8 +54,8 @@ namespace FCW.Actions
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add("@username", SqlDbType.VarChar, 20).Value = username;
                     cmd.Parameters.Add("@password", SqlDbType.VarChar, 20).Value = password;
-                    cmd.Parameters.Add("@device_type", SqlDbType.VarChar, 50).Value = device_type;
-                    cmd.Parameters.Add("@push_id", SqlDbType.VarChar, 50).Value = push_id;
+                    cmd.Parameters.Add("@DeviceType", SqlDbType.VarChar, 50).Value = device_type;
+                    cmd.Parameters.Add("@PushId", SqlDbType.VarChar, 50).Value = push_id;
 
                     var user = new Objects.User();
                     conn.Open();
@@ -71,6 +71,8 @@ namespace FCW.Actions
                         Convert.ToInt32(reader["Rank"]), reader["NameOfClan"].ToString(), new Guid(reader["SessionId"].ToString()),
                         Convert.ToDateTime(reader["Birthday"]), Convert.ToBoolean(Convert.ToInt16(reader["isFirstLogin"]))
                         ,Convert.ToInt16(reader["yesterdaypoints"]), Convert.ToInt16(reader["detailpoints"]), Convert.ToInt16(reader["todaypoints"]));
+                        user.DeviceType = reader["DeviceType"].ToString();
+                        user.PushId = reader["PushId"].ToString();
                     }
 
                     var json = new JavaScriptSerializer().Serialize(user);

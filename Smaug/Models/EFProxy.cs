@@ -1,5 +1,7 @@
 ﻿using System.Xml.Serialization;
 using System.Collections.Generic;
+using Smaug.Interfaces;
+
 namespace Smaug.Models
 {
 
@@ -20,10 +22,11 @@ namespace Smaug.Models
 
         [XmlElement(ElementName = "stage")]
         public List<Stage> Stage { get; set; }
+        public string Country { get; set; }
     }
 
     [XmlRoot(ElementName = "home")]
-    public class Home
+    public class Home : ITeam
     {
         [XmlAttribute(AttributeName = "et_score")]
         public string Et_score { get; set; }
@@ -41,10 +44,11 @@ namespace Smaug.Models
         public List<Player> Player { get; set; }
         [XmlElement(ElementName = "substitution")]
         public List<Substitution> Substitution { get; set; }
+        public string Country { get; set; }
     }
 
     [XmlRoot(ElementName = "away")]
-    public class Away
+    public class Away : ITeam
     {
         [XmlAttribute(AttributeName = "et_score")]
         public string Et_score { get; set; }
@@ -62,6 +66,7 @@ namespace Smaug.Models
         public List<Player> Player { get; set; }
         [XmlElement(ElementName = "substitution")]
         public List<Substitution> Substitution { get; set; }
+        public string Country { get; set; }
     }
 
     [XmlRoot(ElementName = "halftime")]
