@@ -37,7 +37,16 @@ namespace FCW.Actions
         {
             var username = Request.Params["username"];
             var password = Request.Params["password"];
-
+            var device_type = Request.Params["device_type"];
+            var push_id = Request.Params["push_id"];
+            if (device_type==null)
+            {
+                device_type = "00000000000000000000000000000000000000000000000000";
+            }
+            if (push_id==null)
+            {
+                push_id = "00000000000000000000000000000000000000000000000000";
+            }
             using (var conn = new SqlConnection(_connectionstring))
             {
                 using (var cmd = new SqlCommand("UserLogin", conn))
@@ -45,6 +54,8 @@ namespace FCW.Actions
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add("@username", SqlDbType.VarChar, 20).Value = username;
                     cmd.Parameters.Add("@password", SqlDbType.VarChar, 20).Value = password;
+                    cmd.Parameters.Add("@device_type", SqlDbType.VarChar, 50).Value = device_type;
+                    cmd.Parameters.Add("@push_id", SqlDbType.VarChar, 50).Value = push_id;
 
                     var user = new Objects.User();
                     conn.Open();
