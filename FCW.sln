@@ -21,6 +21,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Feeds", "Feeds", "{2DD1420A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Smaug", "Smaug\Smaug.csproj", "{73895CD3-0623-4F27-BBFC-913EE19DD1A7}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{88B5F98A-4CFC-4436-B4BC-72598CA04D5A}"
+	ProjectSection(SolutionItems) = preProject
+		Smaug\Samwise.bak = Smaug\Samwise.bak
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
