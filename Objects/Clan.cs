@@ -17,6 +17,8 @@ namespace Objects
         public int Rank { get; set; }
         public int PreviousLeagueRank { get; set; }
         public int Image { get; set; }
+        public int YesterdayPoints { get; set; }
+        public int DetailPoints { get; set; }
 
         public Clan(string name, List<User> users, DateTime createdOn, string leader, int usercount)
         {
