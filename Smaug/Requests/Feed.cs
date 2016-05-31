@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Xml.Linq;
 using Smaug.Utils;
 
@@ -36,7 +37,7 @@ namespace Smaug.Requests
             catch (Exception ex)
 #pragma warning restore CS0168 // The variable 'ex' is declared but never used
             {
-                //
+                Debug.WriteLine($"Could not get XML from URL {url}");
             }
             
             return xml;

@@ -59,22 +59,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bases\BaseFixtures.cs" />
-    <Compile Include="Bases\BaseLeague.cs" />
     <Compile Include="Controller\FeedController.cs" />
-    <Compile Include="Data Access\DataLayer.cs" />
     <Compile Include="Forms\frmMain.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Form1.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="Bases\BaseTeams.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Interfaces\ITeam.cs" />
     <Compile Include="Models\EFProxy.cs" />
-    <Compile Include="Models\FeedElement.cs" />
-    <Compile Include="Models\HighlightElement.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Requests\Feed.cs" />
@@ -102,13 +96,11 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="xsd\soccer-extended-fixtures.xsd">
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup />

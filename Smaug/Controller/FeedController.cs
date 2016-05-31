@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Smaug.Models;
 using System.Xml.Linq;
 using System.Diagnostics;
-using Smaug.Bases;
 using Smaug.Interfaces;
 using Smaug.Utils;
 
@@ -18,18 +15,21 @@ namespace Smaug.Controller
         {
             try
             {
-                if (d == null || d.Root == null)
+                if (d?.Root == null)
                 {
                     Debug.WriteLine("Xml is null");
                     return;
                 }
                 var country = d.Root.Attribute("country").Value; 
 
-                var leagues = d.Root.Descendants("league");
+                var leagues = d.Root.Descendants().Where(de => de.Name == "league" && de.HasAttributes);
                 ProcessLeagues(leagues, country);
 
                 var teams = d.Root.Descendants().Where(de => (de.Name == "home" || de.Name =="away") && de.HasAttributes);
                 ProcessTeams(teams);
+
+                var matches = d.Root.Descendants().Where(de => de.Name == "match" && de.HasAttributes);
+                ProcessMatches(matches);
             }
             catch (Exception e)
             {
@@ -49,17 +49,21 @@ namespace Smaug.Controller
                 switch (t.Name.ToString())
                 {
                     case "home":
-                        var h = new Home();
-                        h.Id = t.Attribute("id").Value;
-                        h.Name = t.Attribute("name").Value;
-                        h.Country = parentLeague ?? "NoLeague";
+                        var h = new Home
+                        {
+                            Id = t.Attribute("id").Value,
+                            Name = t.Attribute("name").Value,
+                            Country = parentLeague ?? "NoLeague"
+                        };
                         teamList.Add(h);
                         break;
                     case "away":
-                        var a = new Home();
-                        a.Id = t.Attribute("id").Value;
-                        a.Name = t.Attribute("name").Value;
-                        a.Country = parentLeague ?? "NoLeague";
+                        var a = new Home
+                        {
+                            Id = t.Attribute("id").Value,
+                            Name = t.Attribute("name").Value,
+                            Country = parentLeague ?? "NoLeague"
+                        };
                         teamList.Add(a);
                         break;
                     default:
@@ -76,24 +80,35 @@ namespace Smaug.Controller
 
         private static void ProcessLeagues(IEnumerable<XElement> leagues, string country)
         {
-            var leagueList = new List<League>();
-
-            foreach (var l in leagues)
+            var leagueList = leagues.Select(l => new League
             {
-                leagueList.Add(
-                   new League
-                   {
-                       Name = l.Attribute("name").Value,
-                       Sub_id = l.Attribute("sub_id").Value != "" ? l.Attribute("sub_id").Value : l.Attribute("id").Value,
-                       Country = country ?? "NoCountry"
-                   }
-                    );
-            }
+                Name = l.Attribute("name").Value, Sub_id = l.Attribute("sub_id").Value != "" ? l.Attribute("sub_id").Value : l.Attribute("id").Value, Country = country ?? "NoCountry"
+            }).ToList();
 
 #if DEBUG
             Debug.WriteLine($"{leagueList.Count()} leagues were found.");
 #endif
             leagueList.SaveOrUpdate();
+        }
+
+        private static void ProcessMatches(IEnumerable<XElement> matches)
+        {
+            var matchList = matches.Select(m => new Match
+            {
+                Static_id = m.Attribute("static_id").Value,
+                HomeId = m.Element("home")?.Attribute("id").Value,
+                AwayId = m.Element("away")?.Attribute("id").Value,
+                Date = m.Attribute("date").Value,
+                Time = m.Attribute("time").Value,
+                Status = m.Attribute("status").Value,
+                Id = m.Attribute("id").Value,
+                LeagueId = m.FindParent("league")?.Attribute("sub_id")?.Value ?? m.FindParent("league")?.Attribute("id")?.Value
+            }).ToList();
+
+#if DEBUG
+            Debug.WriteLine($"{matchList.Count()} matches were found.");
+#endif
+            matchList.SaveOrUpdate();
         }
 
 

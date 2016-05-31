@@ -111,6 +111,9 @@ namespace Smaug.Models
         public Lineups Lineups { get; set; }
         [XmlElement(ElementName = "substitutions")]
         public Substitutions Substitutions { get; set; }
+        public string LeagueId { get; set; }
+        public string HomeId { get; set; }
+        public string AwayId { get; set; }
     }
 
     [XmlRoot(ElementName = "aggregate")]
