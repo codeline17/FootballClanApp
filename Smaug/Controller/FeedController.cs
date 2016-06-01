@@ -37,7 +37,6 @@ namespace Smaug.Controller
                 Debug.WriteLine($"Stack : {e.StackTrace}");
             }
         }
-
         private static void ProcessTeams(IEnumerable<XElement> teams)
         {
             var teamList = new List<ITeam>();
@@ -73,11 +72,10 @@ namespace Smaug.Controller
             }
 
 #if DEBUG
-            Debug.WriteLine($"{teamList.Count()} teams were found.");
+            Debug.WriteLine($"{DateTime.Now.ToString("dd/MM/yyyy HH:mm")} >> {teamList.Count()} teams were found.");
 #endif
             teamList.SaveOrUpdate();
         }
-
         private static void ProcessLeagues(IEnumerable<XElement> leagues, string country)
         {
             var leagueList = leagues.Select(l => new League
@@ -86,11 +84,10 @@ namespace Smaug.Controller
             }).ToList();
 
 #if DEBUG
-            Debug.WriteLine($"{leagueList.Count()} leagues were found.");
+            Debug.WriteLine($"{DateTime.Now.ToString("dd/MM/yyyy HH:mm")} >> {leagueList.Count()} leagues were found.");
 #endif
             leagueList.SaveOrUpdate();
         }
-
         private static void ProcessMatches(IEnumerable<XElement> matches)
         {
             var matchList = matches.Select(m => new Match
@@ -106,11 +103,47 @@ namespace Smaug.Controller
             }).ToList();
 
 #if DEBUG
-            Debug.WriteLine($"{matchList.Count()} matches were found.");
+            Debug.WriteLine($"{DateTime.Now.ToString("dd/MM/yyyy HH:mm")} >> {matchList.Count()} matches were found.");
 #endif
             matchList.SaveOrUpdate();
         }
 
+        //HL
+        public static void HighlightParse(XDocument d)
+        {
+            try
+            {
+                if (d?.Root == null)
+                {
+                    Debug.WriteLine("Xml is null");
+                    return;
+                }
+                var matches = d.Root.Descendants().Where(de => de.Name == "match" && de.HasAttributes);
+                ProcessHLMatches(matches);
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine($"Error : {e.Message}");
+                Debug.WriteLine($"Stack : {e.StackTrace}");
+            }
+        }
 
+        private static void ProcessHLMatches(IEnumerable<XElement> matches)
+        {
+            var matchList = matches.Select(m => new Match
+            {
+                Static_id = m.Attribute("static_id").Value,
+                Status = m.Attribute("status")?.Value ?? "ToGo",
+                Id = m.Attribute("id").Value,
+                HomeGoals = m.Descendants().FirstOrDefault(h => h.HasAttributes && (h.Name == "home" || h.Name == "localteam")).Attribute("score").Value ?? "0",
+                AwayGoals = m.Descendants().FirstOrDefault(h => h.HasAttributes && (h.Name == "away" || h.Name == "visitorteam")).Attribute("score").Value ?? "0"
+            }).ToList();
+
+#if DEBUG
+            Debug.WriteLine($"{DateTime.Now.ToString("dd/MM/yyyy HH:mm")} >> {matchList.Count()} matches were found.");
+#endif
+            matchList.Update();
+
+        }
     }
 }

@@ -24,7 +24,7 @@ namespace Smaug.Utils
                         conn.Open();
                         command.CommandType = CommandType.StoredProcedure;
                         command.Parameters.Add(new SqlParameter("@id", team.GetType().GetProperty("Id").GetValue(team,null)));
-                        command.Parameters.Add(new SqlParameter("@name", team.GetType().GetProperty("name").GetValue(team, null)));
+                        command.Parameters.Add(new SqlParameter("@name", team.GetType().GetProperty("Name").GetValue(team, null)));
                         command.Parameters.Add(new SqlParameter("@Country", team.GetType().GetProperty("Country").GetValue(team, null)));
                         command.Parameters.Add(new SqlParameter("@Stadium", "NoStadium"));
                         try
@@ -52,7 +52,7 @@ namespace Smaug.Utils
                         conn.Open();
                         command.CommandType = CommandType.StoredProcedure;
                         command.Parameters.Add(new SqlParameter("@Id", league.GetType().GetProperty("Sub_id").GetValue(league, null)));
-                        command.Parameters.Add(new SqlParameter("@name", league.GetType().GetProperty("name").GetValue(league, null)));
+                        command.Parameters.Add(new SqlParameter("@name", league.GetType().GetProperty("Name").GetValue(league, null)));
                         command.Parameters.Add(new SqlParameter("@Country", league.GetType().GetProperty("Country").GetValue(league, null)));
                         try
                         {
@@ -99,6 +99,39 @@ namespace Smaug.Utils
                         catch (Exception e)
                         {
                             Debug.WriteLine($"Error in FeedFixtureInsert");
+                            Debug.WriteLine($"Error : {e.Message}");
+                            Debug.WriteLine($"Stack : {e.StackTrace}");
+                        }
+                    }
+                }
+            }
+        }
+        public static void Update(this IList<Match> matches)
+        {
+            foreach (var match in matches)
+            {
+                using (var conn = new SqlConnection(CString))
+                {
+                    using (var command = new SqlCommand("FixtureUpdateOnLiveScore", conn))
+                    {
+                        conn.Open();
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.Add(new SqlParameter("@FixtureId", match.GetType().GetProperty("Id").GetValue(match, null)));
+                        command.Parameters.Add(new SqlParameter("@HomeGoals", match.GetType().GetProperty("HomeGoals").GetValue(match, null)));
+                        command.Parameters.Add(new SqlParameter("@AwayGoals", match.GetType().GetProperty("AwayGoals").GetValue(match, null)));
+                        command.Parameters.Add(new SqlParameter("@Status", ""));
+                        command.Parameters.Add(new SqlParameter("@Static_Id", match.GetType().GetProperty("Static_id").GetValue(match, null)));
+                        try
+                        {
+                            var c = command.ExecuteNonQuery();
+                            if (c > 0)
+                            {
+                                Debug.WriteLine($"Match updated");
+                            }
+                        }
+                        catch (Exception e)
+                        {
+                            Debug.WriteLine($"Error in FixtureUpdateOnLiveScore");
                             Debug.WriteLine($"Error : {e.Message}");
                             Debug.WriteLine($"Stack : {e.StackTrace}");
                         }

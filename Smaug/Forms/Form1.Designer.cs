@@ -35,7 +35,6 @@
             this.tsMain = new System.Windows.Forms.ToolStrip();
             this.btnRefresh = new System.Windows.Forms.ToolStripButton();
             this.tmrEFixtures = new System.Windows.Forms.Timer(this.components);
-            this.tmrHighlights = new System.Windows.Forms.Timer(this.components);
             this.lMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gdMain)).BeginInit();
             this.tsMain.SuspendLayout();
@@ -102,12 +101,6 @@
             this.tmrEFixtures.Interval = 600000;
             this.tmrEFixtures.Tick += new System.EventHandler(this.tmrEFixtures_Tick);
             // 
-            // tmrHighlights
-            // 
-            this.tmrHighlights.Enabled = true;
-            this.tmrHighlights.Interval = 120000;
-            this.tmrHighlights.Tick += new System.EventHandler(this.tmrHighlights_Tick);
-            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -133,7 +126,6 @@
         private System.Windows.Forms.ToolStrip tsMain;
         private System.Windows.Forms.ToolStripButton btnRefresh;
         private System.Windows.Forms.Timer tmrEFixtures;
-        private System.Windows.Forms.Timer tmrHighlights;
     }
 }
 
