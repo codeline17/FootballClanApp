@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Globalization;
 using System.Xml.Linq;
+using System.Linq;
 
 namespace Smaug.Utils
 {
@@ -108,7 +109,7 @@ namespace Smaug.Utils
         }
         public static void Update(this IList<Match> matches)
         {
-            foreach (var match in matches)
+            foreach (var match in matches.Where(m => m.Date == DateTime.Now.ToString("dd.MM.yyyy")))
             {
                 using (var conn = new SqlConnection(CString))
                 {
