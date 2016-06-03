@@ -111,6 +111,10 @@ namespace Smaug.Utils
         {
             foreach (var match in matches.Where(m => m.Date == DateTime.Now.ToString("dd.MM.yyyy")))
             {
+                var dtString = match.Date + " " + match.Time;
+                DateTime dt;
+                if (!DateTime.TryParseExact(dtString.Replace(".", "/"), "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None, out dt))
+                    DateTime.TryParseExact(match.Date, "dd.MM.yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out dt);
                 using (var conn = new SqlConnection(CString))
                 {
                     using (var command = new SqlCommand("FixtureUpdateOnLiveScore", conn))

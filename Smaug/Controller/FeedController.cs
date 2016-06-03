@@ -136,8 +136,9 @@ namespace Smaug.Controller
                 Status = m.Attribute("status")?.Value ?? "ToGo",
                 Id = m.Attribute("id").Value,
                 Date = m.Attribute("date").Value,
-                HomeGoals = m.Descendants().FirstOrDefault(h => h.HasAttributes && (h.Name == "home" || h.Name == "localteam")).Attribute("score").Value ?? "0",
-                AwayGoals = m.Descendants().FirstOrDefault(h => h.HasAttributes && (h.Name == "away" || h.Name == "visitorteam")).Attribute("score").Value ?? "0"
+                Time = m.Attribute("time").Value,
+                HomeGoals = m.Descendants()?.FirstOrDefault(h => h.HasAttributes && (h.Name == "home" || h.Name == "localteam"))?.Attribute("score")?.Value ?? "0",
+                AwayGoals = m.Descendants()?.FirstOrDefault(h => h.HasAttributes && (h.Name == "away" || h.Name == "visitorteam"))?.Attribute("score")?.Value ?? "0"
             }).ToList();
 
 #if DEBUG
