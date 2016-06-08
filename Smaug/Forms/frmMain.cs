@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
-using Smaug.Data_Access;
-using Smaug.Models;
 using Smaug.Requests;
 using Smaug.Utils;
 using System.Threading;
-using System.Linq;
 using Smaug.Controller;
 
 namespace Smaug
@@ -13,21 +10,15 @@ namespace Smaug
     public partial class frmMain : Form
     {
         public frmMain()
-        {
-            
+        {            
             foreach (var c in Elements.ExtendedFixturesCountries)
             {
                 Elements.EFList.Add(new EFCountries { State = c, Checked = false });
             }
 
             InitializeComponent();
-            GetHighlights();
             GetExtendedFixtures();
-        }
-        
-        private void GetHighlights()
-        {
-            ProcessHL();
+            tmrEFixtures.Start();
         }
 
         private void GetExtendedFixtures()
@@ -36,28 +27,10 @@ namespace Smaug
 
             foreach (var e in Elements.EFList)
             {
-                if (e.State == "international")
-                {
-
-                }
                 ThreadPool.QueueUserWorkItem(new WaitCallback(ProcessEFByCountry), e);
-                Console.WriteLine($"Started a task");  
-            }
-        }
-
-        public static void ProcessHL()
-        {
-            try
-            {
-                var doc = Feed.GetHighlights("today");
-                var hl = Helper.FromXml<highlights>(doc.ToString());
-                hl.SaveOrUpdate();
-            }
-#pragma warning disable CS0168 // The variable 'ex' is declared but never used
-            catch (Exception ex)
-#pragma warning restore CS0168 // The variable 'ex' is declared but never used
-            {
-                
+                Console.WriteLine($"{DateTime.Now.ToString("dd/MM/yyyy HH:mm")} Started a task");
+                ThreadPool.QueueUserWorkItem(new WaitCallback(ProcessHLCountry), e);
+                Console.WriteLine($"{DateTime.Now.ToString("dd/MM/yyyy HH:mm")} Started result task");
             }
         }
 
@@ -65,25 +38,25 @@ namespace Smaug
         {
             try
             {
-                var e = (EFCountries)o;
-
-                if (e.State == "international")
-                {
-
-                }
+                var e = (EFCountries)o;                
                 var doc = Feed.GetExtendedFixtures(e.State);
-
                 FeedController.GeneralParse(doc);
-
-                var ef = Helper.FromXml<extended_fixtures>(doc.ToString());
-
-                if (ef != null)
-                    Console.WriteLine("Nope");
-                    //ef.SaveOrUpdate();
             }
-#pragma warning disable CS0168 // The variable 'ex' is declared but never used
             catch (Exception ex)
-#pragma warning restore CS0168 // The variable 'ex' is declared but never used
+            {
+                Console.WriteLine($"{ex.Message}");
+            }
+        }
+
+        public static void ProcessHLCountry(object o)
+        {
+            try
+            {
+                var e = (EFCountries)o;
+                var doc = Feed.GetResults(e.State);
+                FeedController.HighlightParse(doc);
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine($"{ex.Message}");
             }
@@ -111,7 +84,7 @@ namespace Smaug
 
         private void tmrHighlights_Tick(object sender, EventArgs e)
         {
-            GetHighlights();
+            
         }
     }
 }

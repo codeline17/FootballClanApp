@@ -80,9 +80,9 @@ namespace Smaug.Models
     public class Match
     {
         [XmlElement(ElementName = "home")]
-        public Home Home { get; set; }
+        public Home HomeTeam { get; set; }
         [XmlElement(ElementName = "away")]
-        public Away Away { get; set; }
+        public Away AwayTeam { get; set; }
         [XmlElement(ElementName = "halftime")]
         public Halftime Halftime { get; set; }
         [XmlAttribute(AttributeName = "alternate_id")]
@@ -111,6 +111,11 @@ namespace Smaug.Models
         public Lineups Lineups { get; set; }
         [XmlElement(ElementName = "substitutions")]
         public Substitutions Substitutions { get; set; }
+        public string LeagueId { get; set; }
+        public string HomeId { get; set; }
+        public string AwayId { get; set; }
+        public string HomeGoals { get; set; }
+        public string AwayGoals { get; set; }
     }
 
     [XmlRoot(ElementName = "aggregate")]

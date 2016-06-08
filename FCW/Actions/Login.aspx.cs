@@ -54,8 +54,8 @@ namespace FCW.Actions
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add("@username", SqlDbType.VarChar, 20).Value = username;
                     cmd.Parameters.Add("@password", SqlDbType.VarChar, 20).Value = password;
-                    cmd.Parameters.Add("@DeviceType", SqlDbType.VarChar, 50).Value = device_type;
-                    cmd.Parameters.Add("@PushId", SqlDbType.VarChar, 50).Value = push_id;
+                    cmd.Parameters.Add("@DeviceType", SqlDbType.VarChar, 100).Value = device_type;
+                    cmd.Parameters.Add("@PushId", SqlDbType.VarChar, 100).Value = push_id;
 
                     var user = new Objects.User();
                     conn.Open();

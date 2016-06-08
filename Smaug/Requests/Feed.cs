@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Xml.Linq;
 using Smaug.Utils;
 
@@ -6,12 +7,9 @@ namespace Smaug.Requests
 {
     public static class Feed
     {
-        public static XDocument GetHighlights(string days)
+        public static XDocument GetResults(string country)
         {
-            //http://www.tipgin.net/datav2/accounts/bsp/soccer/highlights/d-1.xml
-            days = days == "today" ? days : "d" + days;
-
-            return GetXmlFromUrl($"http://www.tipgin.net/datav2/accounts/bsp/soccer/highlights/{days}.xml");
+            return GetXmlFromUrl($"http://www.tipgin.net/datav2/accounts/bsp/soccer/results/{country}.xml","results");
         }
 
         public static XDocument GetExtendedFixtures(string country)
@@ -19,12 +17,12 @@ namespace Smaug.Requests
             return GetXmlFromUrl($"http://www.tipgin.net/datav2/accounts/bsp/soccer/extended_fixtures/{country}.xml");
         }
 
-        private static XDocument GetXmlFromUrl(string url)
+        private static XDocument GetXmlFromUrl(string url,string type = "extended")
         {
             var xml = new XDocument();
             try
             {
-                var path = Helper.DownloadAndUnGZip(url);
+                var path = Helper.DownloadAndUnGZip(url, type);
                 if (path != "")
                 {
                     xml = XDocument.Load(path);
@@ -36,7 +34,7 @@ namespace Smaug.Requests
             catch (Exception ex)
 #pragma warning restore CS0168 // The variable 'ex' is declared but never used
             {
-                //
+                Debug.WriteLine($"Could not get XML from URL {url}");
             }
             
             return xml;
