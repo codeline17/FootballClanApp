@@ -28,6 +28,6 @@
         
 
     }
-    var mainC = document.getElementById("mainContainer");
+     var mainC = document.getElementById("mainContainer");
     mainC.append(content);
 }
