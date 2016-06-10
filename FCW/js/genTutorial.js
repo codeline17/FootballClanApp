@@ -1,7 +1,7 @@
 ﻿function tutorial() {
     var videos = ["1", "2", "3", "4", "5"];
     var content = cEl("div").attr("id", "videoContainer").attr("class","row");
-    var video0 = cEl("div").attr("class", "description").tEl("How To Create A Clan");
+    var video0 = cEl("div").attr("class", "description").tEl("How to play #1");
     var video1 = cEl("div").attr("class", "description").tEl("How To Predict");
     var video2 = cEl("div").attr("class", "description").tEl("How To Unlock");
     var video3 = cEl("div").attr("class", "description").tEl("How To Join Another Clan");

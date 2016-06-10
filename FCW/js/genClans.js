@@ -331,8 +331,13 @@ function approveMember(e) {
 
 function removeMember(e) {
     var uname = e.target.getAttribute("cel-uname");
+    var confirmLeave;
+    if(uname == cuser.Username){
+         confirmLeave = confirm("Do You Really Want To Leave Your Clan?");
+    } else {
+        confirmLeave = confirm("Do You Really Want To Remove "+uname + "?");
+    }
     
-    var confirmLeave = confirm("Do You Really Want To Leave Your Clan?")
 
 
 
