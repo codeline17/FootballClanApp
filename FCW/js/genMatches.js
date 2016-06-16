@@ -50,6 +50,7 @@ function getExtraMatchRow() {
 }
 
 function genSingleMatchRow(match) {
+    
     var tr = cEl("tr").wr(match).listener("click", expandMatch);
     //MatchName
     tr.append(cEl("td").tEl(match.HomeTeam.Name + " - " + match.AwayTeam.Name));
@@ -58,15 +59,58 @@ function genSingleMatchRow(match) {
     //Fill
     var s = 0;
     for (var i = 0; i < match.Games.length; i++) {
+        
         for (var j = 0; j < match.Games[i].Outcomes.length; j++) {
+            
             if (match.Games[i].Outcomes[j].Selected) {
                 s++;
-            }
+            } 
         }
     }
     tr.append(cEl("td").append(cEl("img").attr("src", "style/images/fill_" + s + ".png").attr("class", "fill img-responsive")));
     //Time
-    var time = match.Sealed ? match.StatusSlug : match.ShortTime;
+    var timezone = (new Date().getTimezoneOffset() / -60) - 2+'';
+    var timezone = timezone.split('.');
+    var ora = match.ShortTime.split(':');
+    var min=0;
+    var ora0 = 0;
+    if (parseInt(timezone[1]) == 5) {
+        min = 30;
+        alert(min);
+    }
+    else if (parseInt(timezone[1])==75){
+        min = 45;
+    } else if (parseInt(timezone[1]) == 15) {
+        min = 15;
+    }
+    if (parseInt(ora[1]) + min>=60) {
+        ora0 = 1;
+        min = min % 60;
+    }
+    
+    
+    var oraFillimit = parseInt(ora[0]) + ora0 + parseInt(timezone[0]);
+    var minFillimit = parseInt(ora[1]) + min;
+    if (oraFillimit>=24) {
+        oraFillimit %= 24;
+    }
+    if (oraFillimit<10) {
+        oraFillimit = "0" + oraFillimit;
+    }
+    if (minFillimit < 10) {
+        minFillimit = "0" + minFillimit;
+    }
+
+    var orandeshjes = oraFillimit +':'+minFillimit;
+    var time = match.Sealed ? match.StatusSlug : orandeshjes;
+    console.log(timezone);
+
+
+
+
+
+
+    console.log(match);
     tr.append(cEl("td").attr("class","text-center").tEl(time));
     //Score
     var score = match.Sealed ? match.HomeGoals + "-" + match.AwayGoals : "-";
@@ -140,6 +184,7 @@ function createMatchPanel(e) {
             var rubRFel = cEl("a").attr("class", "btn btn-default" + addClass).attr("role", "button")
                 .tEl(rubRF.Outcomes[i].Name.replace("[Home]", e.HomeTeam.Name).replace("[Draw]", "Draw").replace("[Away]", e.AwayTeam.Name));
             if (!sealed) {
+               
                 rubRFel.listener("click", sendPredictions).wr({ attrs: e.ID + "|" + rubRF.Slug + "|" + rubRF.Outcomes[i].Name });
             }
             rfDetails.append(rubRFel);
@@ -270,6 +315,7 @@ function genPurchasePanel(game) {
 }
 
 function sendPredictions(e) {
+
     var prd = "";
 
     switch (e.type) {
@@ -285,7 +331,7 @@ function sendPredictions(e) {
 
     var sibs = e.target.parentNode.childNodes;
     for (var i = 0; i < sibs.length; i++) {
-        sibs[i].className = sibs[i].className.replace(" active","");
+        sibs[i].className = sibs[i].className.replace(" active", "");
     }
     e.target.className += " active";
 

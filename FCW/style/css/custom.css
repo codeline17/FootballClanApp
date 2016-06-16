@@ -583,8 +583,12 @@ h3.todays {
     margin-bottom:25px;
 }
 h3.todays img{
-    float: right;
     margin-top: -3px;
+}
+div#nextDay, div#prevDay {
+    font-size: 35px;
+    color: white;
+    cursor:pointer;
 }
 #tblContainer h3 {
     text-align: center;

@@ -83,9 +83,10 @@
                 <li content-type="prizes">
                     <a class="meanclose" style="color:gold;"><i class="icon-money icn"></i> Prizes</a>
                 </li>
-                <li content-type="predictions">
+               <!-- <li content-type="predictions">
                     <a class="meanclose"><i class="icon-magic icn"></i> Past Predictions</a>
                 </li>
+                -->
                 <li content-type="store">
                     <a class="meanclose"><i class="icon-basket icn"></i> My Store</a>
                 </li>
