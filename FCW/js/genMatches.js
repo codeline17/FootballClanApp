@@ -50,7 +50,6 @@ function getExtraMatchRow() {
 }
 
 function genSingleMatchRow(match) {
-    
     var tr = cEl("tr").wr(match).listener("click", expandMatch);
     //MatchName
     tr.append(cEl("td").tEl(match.HomeTeam.Name + " - " + match.AwayTeam.Name));
@@ -103,14 +102,14 @@ function genSingleMatchRow(match) {
 
     var orandeshjes = oraFillimit +':'+minFillimit;
     var time = match.Sealed ? match.StatusSlug : orandeshjes;
-    console.log(timezone);
 
 
 
 
 
 
-    console.log(match);
+
+   
     tr.append(cEl("td").attr("class","text-center").tEl(time));
     //Score
     var score = match.Sealed ? match.HomeGoals + "-" + match.AwayGoals : "-";
