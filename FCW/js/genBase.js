@@ -1,4 +1,6 @@
-window.onload = function (e) {
+﻿window.onload = function (e) {
+    var tomorrowMatches;
+    mode = 'matches';
     var menus = $("li[content-type]");
     for (var i = 0; i < menus.length; i++) {
         menus[i].addEventListener("click", getContent);
@@ -42,9 +44,8 @@ function getUnlocks() {
         });
 }
 
- function getContent(e){
+function getContent(e) {
      var type = this.getAttribute("content-type");
-
      $("li[content-type]").each(function() {
          this.className = "";
      });
@@ -128,11 +129,42 @@ function getUnlocks() {
                 }
             }
         });
-}
+ }
+ function getTomorrowMatches(opt){
+     var date = getFullDate(new Date(), 1);
+     $.post("Actions/Fixture.aspx", { type: "PREDS", date: date },
+         function (e) {
+             tomorrowMatches = JSON.parse(e);
+             if (opt === "w") {
+                 genTomorrowMatches();
+             } else {
+                 var trs = document.getElementsByTagName("tr");
+                 for (var j = 0; j < matches.length; j++) {
+                     for (var i = 0; i < trs.length; i++) {
+                         if (trs[i].wrapper) {
+                             if (trs[i].wrapper.ID === matches[j].ID) {
+                                 trs[i].wrapper = matches[j];
+                                 trs[i].innerHTML = genSingleMatchRow(matches[j]).innerHTML;
+                             }
+                           
+                         }
+                     }
+                 }
+             }
+         });
+ }
 
 function genMatches() {
     genGrid(matches, "nope");
- }
+    
+}
+
+function genTomorrowMatches(){
+    genGrid(tomorrowMatches, "nope");
+    var text = document.getElementById("headerText");
+    text.innerHTML = "Tomorrow Matches";
+    text.append(cEl("div").attr("id", "prevDay").attr("width", "40px").attr("style", "float:left;font-style:normal;transform: rotate(180deg);").listener("click", genMatches).tEl("➜"));
+}
 
  function genPredictions(date) {
      $.post("Actions/Fixture.aspx", { type: "PREDS", date : date },
@@ -369,7 +401,6 @@ function getFixtureName(match) {
 
 function genGrid(matches, date) {
     var mainC = document.getElementById("mainContainer");
-
     if (document.getElementById("tblContainer")) {
         document.getElementById("tblContainer").parentNode.removeChild(document.getElementById("tblContainer"));
     }
@@ -389,9 +420,16 @@ function genGrid(matches, date) {
     }
 
     if (date !== "nope") {
-         pEl = cEl("h3").tEl(date + " - " + totPoints + " pts").attr("style","text-align:center;");
+        pEl = cEl("h3").tEl(date + " - " + totPoints + " pts").attr("style", "text-align:center;").append(cEl("div").attr("id", "prevDay").attr("width", "40px").attr("style", "float:right;font-style:normal;").listener("click", function () {
+            genMatches();
+            var mainContainer = document.getElementById('pastDate');
+            mainContainer.remove();
+        }).tEl("➜"));
     } else {
-        pEl = cEl("h3").attr("class", "todays").tEl("Today - " + totPoints + " points").attr("style", "text-align:center;").append(cEl("img").attr("src", "style/images/reload.png").attr("width", "35px").listener("click", refreshFunction));
+        pEl = cEl("h3").attr("class", "todays").attr("id","headerText").tEl("Today - " + totPoints + " points").attr("style", "text-align:center;")
+            .append(cEl("div").attr("id", "prevDay").attr("width", "40px").attr("style", "float:left;font-style:normal;transform: rotate(180deg);").listener("click", function () { addFilterHead(); genPredictions(getFullDate(new Date(), -1)); }).tEl("➜"))
+                .append(cEl("img").attr("src", "style/images/reload.png").attr("width", "35px").attr("style", "margin-left: 10px;").listener("click", refreshFunction))
+                    .append(cEl("div").attr("id", "nextDay").attr("width", "40px").attr("style", "float:right;font-style:normal;").listener("click", function () { getTomorrowMatches("w") }).tEl("➜"));
     }
 
     rFluid.append(pEl);
@@ -409,7 +447,7 @@ function addFilterHead() {
     var mainC = document.getElementById("mainContainer");
     var filterHead = document.createElement("div");
     filterHead.className = "row";
-
+    filterHead.id = 'pastDate';
     var htmlTxt = "<div class=\"panel panel-default\">\
                             <div class=\"panel-body\">\
                                 <form class=\"form-inline\" role=\"form\">\
@@ -431,7 +469,7 @@ function addFilterHead() {
     }).on("changeDate", function (e) {
         var dt = e.date;
         $('.datepicker.dropdown-menu').hide();
-        if (mode==="predictions") {
+        if (mode==="matches") {
             genPredictions(getFullDate(dt,0));
         }
         else if (mode ==="livescore") {
