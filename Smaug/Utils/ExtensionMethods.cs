@@ -124,7 +124,7 @@ namespace Smaug.Utils
                         command.Parameters.Add(new SqlParameter("@FixtureId", match.GetType().GetProperty("Id").GetValue(match, null)));
                         command.Parameters.Add(new SqlParameter("@HomeGoals", match.GetType().GetProperty("HomeGoals").GetValue(match, null)));
                         command.Parameters.Add(new SqlParameter("@AwayGoals", match.GetType().GetProperty("AwayGoals").GetValue(match, null)));
-                        command.Parameters.Add(new SqlParameter("@Status", ""));
+                        command.Parameters.Add(new SqlParameter("@Status", match.Status));
                         command.Parameters.Add(new SqlParameter("@Static_Id", match.GetType().GetProperty("Static_id").GetValue(match, null)));
                         try
                         {
