@@ -127,7 +127,7 @@ namespace Smaug.Controller
                 Debug.WriteLine($"Stack : {e.StackTrace}");
             }
         }
-
+         
         private static void ProcessHLMatches(IEnumerable<XElement> matches)
         {
             var matchList = matches.Select(m => new Match
@@ -137,8 +137,20 @@ namespace Smaug.Controller
                 Id = m.Attribute("id").Value,
                 Date = m.Attribute("date").Value,
                 Time = m.Attribute("time").Value,
-                HomeGoals = m.Descendants()?.FirstOrDefault(h => h.HasAttributes && (h.Name == "home" || h.Name == "localteam"))?.Attribute("score")?.Value ?? "0",
-                AwayGoals = m.Descendants()?.FirstOrDefault(h => h.HasAttributes && (h.Name == "away" || h.Name == "visitorteam"))?.Attribute("score")?.Value ?? "0"
+                HomeGoals = m.Descendants()?.FirstOrDefault(h => h.HasAttributes && (h.Name == "home" || h.Name == "localteam"))?.Attribute("goals")?.Value.Replace("?","0") ?? "0",
+                AwayGoals = m.Descendants()?.FirstOrDefault(h => h.HasAttributes && (h.Name == "away" || h.Name == "visitorteam"))?.Attribute("goals")?.Value.Replace("?", "0") ?? "0",
+                Events = m.Descendants("events")?.Select(e => new Event
+                {
+                    Minute = e.Descendants()?.FirstOrDefault(mn => mn.HasAttributes && mn.Name == "event")?.Attribute("minute")?.Value,
+                    Type = e.Descendants()?.FirstOrDefault(mn => mn.HasAttributes && mn.Name == "event")?.Attribute("type")?.Value,
+                    Team = e.Descendants()?.FirstOrDefault(mn => mn.HasAttributes && mn.Name == "event")?.Attribute("team")?.Value,
+                    Player = new Player
+                    {
+                        Id = e.Descendants()?.FirstOrDefault(mn => mn.HasAttributes && mn.Name == "event")?.Attribute("playerid")?.Value,
+                        Name = e.Descendants()?.FirstOrDefault(mn => mn.HasAttributes && mn.Name == "event")?.Attribute("player")?.Value,
+                    }
+                }
+                ).ToList()
             }).ToList();
 
 #if DEBUG

@@ -162,5 +162,20 @@ namespace Smaug.Utils
 
             return r;
         }
+
+        public static int ToInt(this string number, int defaultInt)
+        {
+            var resultNum = defaultInt;
+            try
+            {
+                if (!string.IsNullOrEmpty(number))
+                    resultNum = Convert.ToInt32(number);
+            }
+            catch
+            {
+                //Nuthin
+            }
+            return resultNum;
+        }
     }
 }
