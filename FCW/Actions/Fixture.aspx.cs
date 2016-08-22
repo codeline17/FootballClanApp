@@ -278,7 +278,7 @@ namespace FCW.Actions
         {
             Response.ClearContent();
             Response.ClearHeaders();
-            Response.Write(string.Format("{0}|{1}",user.Username, user.Credit));
+            Response.Write($"{user.Username}|{user.Credit}");
         }
     }
 }

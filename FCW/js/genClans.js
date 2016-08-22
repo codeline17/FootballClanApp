@@ -88,7 +88,7 @@ function genClans() {
                   function (c) {
                       c = JSON.parse(c);
                       contextClan = c;
-                      
+                      console.log(c);
                       
                       //mainC.append(cEl("h3").tEl(c.Name + "   ").append(cEl("span").attr("class","cups").tEl("0").append(cEl("i").attr("class", "icon-trophy gold"))).append(cEl("small").tEl("[ " + clanPts + " Pts ]")).append(cEl("small").tEl("  [ " + c.Users.length + " of 11 members ]")));
 
@@ -331,8 +331,13 @@ function approveMember(e) {
 
 function removeMember(e) {
     var uname = e.target.getAttribute("cel-uname");
+    var confirmLeave;
+    if(uname == cuser.Username){
+         confirmLeave = confirm("Do You Really Want To Leave Your Clan?");
+    } else {
+        confirmLeave = confirm("Do You Really Want To Remove "+uname + "?");
+    }
     
-    var confirmLeave = confirm("Do You Really Want To Leave Your Clan?")
 
 
 
