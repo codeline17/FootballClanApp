@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Smaug.Requests;
 using Smaug.Utils;
@@ -9,6 +11,9 @@ namespace Smaug
 {
     public partial class frmMain : Form
     {
+        [DllImport("kernel32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        static extern bool AllocConsole();
         public frmMain()
         {            
             foreach (var c in Elements.ExtendedFixturesCountries)
@@ -17,6 +22,7 @@ namespace Smaug
             }
 
             InitializeComponent();
+            AllocConsole();
             GetExtendedFixtures();
             tmrEFixtures.Start();
         }
@@ -27,11 +33,11 @@ namespace Smaug
 
             foreach (var e in Elements.EFList)
             {
-                ThreadPool.QueueUserWorkItem(new WaitCallback(ProcessEFByCountry), e);
-                Console.WriteLine($"{DateTime.Now.ToString("dd/MM/yyyy HH:mm")} Started a task");
-                ThreadPool.QueueUserWorkItem(new WaitCallback(ProcessHLCountry), e);
-                Console.WriteLine($"{DateTime.Now.ToString("dd/MM/yyyy HH:mm")} Started result task");
+                //ThreadPool.QueueUserWorkItem(new WaitCallback(ProcessEFByCountry), e);
+                //Console.WriteLine($"{DateTime.Now.ToString("dd/MM/yyyy HH:mm")} Started a task");
             }
+            ThreadPool.QueueUserWorkItem(new WaitCallback(ProcessHLCountry),"o");
+            Console.WriteLine($"{DateTime.Now.ToString("dd/MM/yyyy HH:mm")} Started result task");
         }
 
         public static void ProcessEFByCountry(object o)
@@ -52,8 +58,7 @@ namespace Smaug
         {
             try
             {
-                var e = (EFCountries)o;
-                var doc = Feed.GetResults(e.State);
+                var doc = Feed.GetResults();
                 FeedController.HighlightParse(doc);
             }
             catch (Exception ex)

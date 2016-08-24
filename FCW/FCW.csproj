@@ -47,14 +47,17 @@
       <HintPath>..\packages\Menulab.RichTextBox.1.1.0\lib\Menulab.RichTextBox.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Drawing" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web" />
     <Reference Include="System.Configuration" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Actions\Flick.aspx" />
     <Content Include="Actions\Paypal.aspx" />
     <Content Include="Actions\Register.aspx" />
     <Content Include="js\clanChat.js" />
@@ -384,6 +387,13 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Actions\Flick.aspx.cs">
+      <DependentUpon>Flick.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Actions\Flick.aspx.designer.cs">
+      <DependentUpon>Flick.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Actions\Paypal.aspx.cs">
       <DependentUpon>Paypal.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

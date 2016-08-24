@@ -106,10 +106,12 @@
     <Content Include="Admin\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Admin\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Admin\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Admin\Results.aspx" />
     <Content Include="packages.config" />
-    <Content Include="ClassDiagram1.cd" />
     <None Include="Properties\PublishProfiles\fcwa.pubxml" />
     <None Include="Properties\PublishProfiles\FCWAdmin.pubxml" />
+    <None Include="Properties\PublishProfiles\FCWAdminLocal.pubxml" />
+    <None Include="Properties\PublishProfiles\FCWPublish.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -144,7 +146,6 @@
     <Content Include="Admin\js\plugins\morris\morris.min.js" />
     <Content Include="Admin\js\plugins\morris\raphael.min.js" />
     <Content Include="Admin\Leagues.aspx" />
-    <Content Include="Admin\Terms.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -169,12 +170,11 @@
     <Compile Include="Admin\Leagues.aspx.designer.cs">
       <DependentUpon>Leagues.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Admin\Terms.aspx.cs">
-      <DependentUpon>Terms.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
+    <Compile Include="Admin\Results.aspx.cs">
+      <DependentUpon>Results.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Admin\Terms.aspx.designer.cs">
-      <DependentUpon>Terms.aspx</DependentUpon>
+    <Compile Include="Admin\Results.aspx.designer.cs">
+      <DependentUpon>Results.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

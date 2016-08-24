@@ -84,6 +84,11 @@
                     </asp:DropDownList>
                 </EditItemTemplate>
             </asp:TemplateField>
+            <asp:TemplateField>
+                <ItemTemplate>
+                    <a href="#" onclick="javascript:window.open('Admin/Results.aspx?Id=' + <%# Eval("Id") %>, 'Popup', 'width=350,height=300');"> Result </a>
+                </ItemTemplate>
+            </asp:TemplateField>
         </Columns>
         <FooterStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />
         <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />

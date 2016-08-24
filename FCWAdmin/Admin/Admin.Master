@@ -67,16 +67,16 @@
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
                     <li>
-                        <a href="Default.aspx"><i class="fa fa-fw fa-soccer-ball-o"></i> Fixtures</a>
+                        <a href="Admin/Default.aspx"><i class="fa fa-fw fa-soccer-ball-o"></i> Fixtures</a>
                     </li>
                     <li>
-                        <a href="Leagues.aspx"><i class="fa fa-fw fa-users"></i> Leagues</a>
+                        <a href="Admin/Leagues.aspx"><i class="fa fa-fw fa-users"></i> Leagues</a>
                     </li>
                     <li>
-                        <a href="Reports.aspx"><i class="fa fa-fw fa-newspaper-o"></i> Reports</a>
+                        <a href="Admin/Reports.aspx"><i class="fa fa-fw fa-newspaper-o"></i> Reports</a>
                     </li>
                     <li>
-                        <a href="Terms.aspx"><i class="fa fa-fw fa-users"></i> Terms</a>
+                        <a href="Admin/Terms.aspx"><i class="fa fa-fw fa-users"></i> Terms</a>
                     </li>
                     <li>
                         <a href="#"><i class="fa fa-fw fa-table"></i> Live Score</a>

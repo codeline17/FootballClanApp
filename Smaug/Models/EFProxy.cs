@@ -76,6 +76,22 @@ namespace Smaug.Models
         public string Score { get; set; }
     }
 
+    public class Event
+    {
+        public int Id { get; set; }
+        public string Minute { get; set; }
+        public string Type { get; set; }
+        public string Team { get; set; }
+        public Player Player { get; set; }
+    }
+
+    [XmlRoot(ElementName = "events")]
+    public class Events
+    {
+        [XmlElement(ElementName = "event")]
+        public List<Event> Event { get; set; }
+    }
+
     [XmlRoot(ElementName = "match")]
     public class Match
     {
@@ -116,6 +132,7 @@ namespace Smaug.Models
         public string AwayId { get; set; }
         public string HomeGoals { get; set; }
         public string AwayGoals { get; set; }
+        public List<Event> Events { get; set; }
     }
 
     [XmlRoot(ElementName = "aggregate")]
