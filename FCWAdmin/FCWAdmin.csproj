@@ -172,7 +172,6 @@
     </Compile>
     <Compile Include="Admin\Results.aspx.cs">
       <DependentUpon>Results.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Admin\Results.aspx.designer.cs">
       <DependentUpon>Results.aspx</DependentUpon>

@@ -72,7 +72,7 @@ namespace Smaug.Controller
             }
 
 #if DEBUG
-            Debug.WriteLine($"{DateTime.Now.ToString("dd/MM/yyyy HH:mm")} >> {teamList.Count()} teams were found.");
+            Console.WriteLine($"{DateTime.Now.ToString("dd/MM/yyyy HH:mm")} >> {teamList.Count()} teams were found.");
 #endif
             teamList.SaveOrUpdate();
         }
@@ -84,7 +84,7 @@ namespace Smaug.Controller
             }).ToList();
 
 #if DEBUG
-            Debug.WriteLine($"{DateTime.Now.ToString("dd/MM/yyyy HH:mm")} >> {leagueList.Count()} leagues were found.");
+            Console.WriteLine($"{DateTime.Now.ToString("dd/MM/yyyy HH:mm")} >> {leagueList.Count()} leagues were found.");
 #endif
             leagueList.SaveOrUpdate();
         }
@@ -103,7 +103,7 @@ namespace Smaug.Controller
             }).ToList();
 
 #if DEBUG
-            Debug.WriteLine($"{DateTime.Now.ToString("dd/MM/yyyy HH:mm")} >> {matchList.Count()} matches were found.");
+            Console.WriteLine($"{DateTime.Now.ToString("dd/MM/yyyy HH:mm")} >> {matchList.Count()} matches were found.");
 #endif
             matchList.SaveOrUpdate();
         }
