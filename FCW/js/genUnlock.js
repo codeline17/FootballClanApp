@@ -17,6 +17,10 @@ function genSingleUnlockElement(name, expirydate) {
             gName = "CORRECT SCORE";
             itemPrice = 20;
             break;
+        case "PtS":
+            gName = "WHO SCORES";
+            itemPrice = 20;
+            break;
     }
 
     var element = cEl("div").attr("class", "plan span4")

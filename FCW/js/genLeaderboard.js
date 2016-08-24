@@ -30,9 +30,24 @@ function genLeaderboardTabs() {
     mainC.append(Pagination);
 }
 var lastpage;
-function genGlobalUserTable(objs, id) {
-    var paginationPlugin = document.getElementById("table-footer");
-    document.getElementById("tbMain").removeChild(paginationPlugin);
+function genGlobalUserTable(objs, id,type) {
+    var search = document.createElement("div");
+    search.append(cEl('div').attr("class","table-header")
+        .append(cEl('form').attr('class','search-form pull-left')
+                            .append(cEl('div').attr('class','form-group')
+                                    .append(cEl('input').attr("class","form-control")
+                                            .attr("id", "search")
+                                            .attr("placeholder", "Search...")
+                                    )
+                            )
+                    ).append(cEl("a").attr("id", "search-users").attr("style", "padding: 5px; width: 100px;line-height: 30px;background: rgba(255, 69, 0, 0.81);border-radius: 5px;text-align: center;color: white;cursor: pointer;").tEl("Search"))
+            );
+
+
+
+
+
+         
    
     pageNumber = objs.PageNumber;
     //Table Tag
@@ -51,19 +66,20 @@ function genGlobalUserTable(objs, id) {
     tHead.append(hRow);
     var tBody = document.createElement("tbody");
     var first = 0;
-    for (var i = pageNumber * 100; i < objs.Users.length + pageNumber * 100; i++) {
-        var j = i - (pageNumber * 100);
-        var pg = i - 100;
-        if (pageNumber == 1) {
-            pg = i - 99 + pageNumber - 1;
-        }
-        else {
-            pg = i - 100 + pageNumber - 1;
-        }
-        var rank = objs.Users[j].Rank + pageNumber * 100;
-        var favClass;
-        var rowClass = "";
-        var favRow = "";
+    if(type=='normal'){
+        for (var i = pageNumber * 100; i < objs.Users.length + pageNumber * 100; i++) {
+            var j = i - (pageNumber * 100);
+            var pg = i - 100;
+            if (pageNumber == 1) {
+                pg = i - 99 + pageNumber - 1;
+            }
+            else {
+                pg = i - 100 + pageNumber - 1;
+            }
+            var rank = objs.Users[j].Rank + pageNumber * 100;
+            var favClass;
+            var rowClass = "";
+            var favRow = "";
             var objusername = objs.Users[j].Username;
             if (objusername.length > 10) {
                 objusername = objusername.substr(0, 8) + "...";
@@ -71,21 +87,57 @@ function genGlobalUserTable(objs, id) {
             favClass = favIds.indexOf(objs.Users[j].Username) > -1 ? "icon-star-1" : "icon-star-empty-1";
             rowClass = objs.Users[j].Username === cuser.Username ? "self" : "regular";
             favRow = cEl("tr").attr("class", rowClass).wr({ Guid: objs.Users[j].Guid }).listener("click", function () { showFavoritesProfile(this, "uTbl"); });
-        favRow.append(cEl("td").append(cEl("i").wr({ uname: objs.Users[j].Username }).attr("class", favClass + " lbFav").listener("click", toggleFavorite))) //Favorite Star
-                  .append(cEl("td").tEl(pg)) //Rank
-                  .append(cEl("td").tEl(objusername)) //Username
-                  .append(cEl("td").tEl(objs.Users[j].Points)); //Points
+            favRow.append(cEl("td").append(cEl("i").wr({ uname: objs.Users[j].Username }).attr("class", favClass + " lbFav").listener("click", toggleFavorite))) //Favorite Star
+                      .append(cEl("td").tEl(pg)) //Rank
+                      .append(cEl("td").tEl(objusername)) //Username
+                      .append(cEl("td").tEl(objs.Users[j].Points)); //Points
             //.append(cEl("td").tEl(getOverAllForm(objs[i]))) //Level
             //.append(cEl("td").tEl(getUserForm(objs[i]))); //Form
-        //tBody.append(genSingleMatchRow(matches[j]));
-        tBody.append(favRow);
+            //tBody.append(genSingleMatchRow(matches[j]));
+            tBody.append(favRow);
+        }
     }
+    else {
+        for (var i = 0; i < objs.Users.length ; i++) {
+            
+            var rank = objs.Users[i].Rank;
+            var favClass;
+            var rowClass = "";
+            var favRow = "";
+            var objusername = objs.Users[i].Username;
+            if (objusername.length > 10) {
+                objusername = objusername.substr(0, 8) + "...";
+            }
+            favClass = favIds.indexOf(objs.Users[i].Username) > -1 ? "icon-star-1" : "icon-star-empty-1";
+            rowClass = objs.Users[i].Username === cuser.Username ? "self" : "regular";
+            favRow = cEl("tr").attr("class", rowClass).wr({ Guid: objs.Users[i].Guid }).listener("click", function () { showFavoritesProfile(this, "uTbl"); });
+            favRow.append(cEl("td").append(cEl("i").wr({ uname: objs.Users[i].Username }).attr("class", favClass + " lbFav").listener("click", toggleFavorite))) //Favorite Star
+                      .append(cEl("td").tEl(rank)) //Rank
+                      .append(cEl("td").tEl(objusername)) //Username
+                      .append(cEl("td").tEl(objs.Users[i].Points)); //Points
+            //.append(cEl("td").tEl(getOverAllForm(objs[i]))) //Level
+            //.append(cEl("td").tEl(getUserForm(objs[i]))); //Form
+            //tBody.append(genSingleMatchRow(matches[j]));
+            tBody.append(favRow);
+        }
+    }
+    
     mainTag.append(tHead);
     mainTag.append(tBody);
     pageNumber = objs.PageNumber;
     document.getElementById("mypageGlobal").innerHTML = pageNumber;
     document.getElementById("paginationGlobal").attr("style", "display:inline-block");
-    return mainTag;
+    search.append(mainTag);
+    setTimeout(function () {
+
+        $("#search-users").on("click", function () {
+
+            var search = $('#search').val();
+            alert(search);
+            Search(search);
+        });
+    }, 1000);
+    return search;
 }
 
 function firstelGlobal() {
@@ -275,15 +327,32 @@ function genTrophyTable() {
                                                       .append(cEl("tr").append(cEl("td")).append(cEl("td")).append(cEl("td")).append(cEl("td")));
     return trTbl;
 }
+
 function genGlobal(pagenumber,pagesize) {
     var uObj;
+
     $.post("Actions/User.aspx", { type: "GAU",PageNumber:pagenumber,PageSize:pagesize },
    function (e) {
        var uObj = JSON.parse(e);
        lastpage = uObj.TotalPages-2;
-       appendToItem("tbMain", genGlobalUserTable(uObj, "uTbl"), "-");
+       appendToItem("tbMain", genGlobalUserTable(uObj, "uTbl",'normal'));
    });
+
+    
+
+
+    
 }
+function Search(search) {
+    alert();
+    $.post("Actions/User.aspx", { type: "GAS", UserName: search},
+  function (e) {
+      var e = JSON.parse(e);
+
+      appendToItem("tbMain", genGlobalUserTable(e, "uTbl",'search'));
+  });
+}
+
 
 function genLbClans() {
     var cObj;

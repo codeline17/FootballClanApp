@@ -81,6 +81,7 @@
     <Content Include="style\images\avatars\6.png" />
     <Content Include="style\images\avatars\7.png" />
     <Content Include="style\images\avatars\8.png" />
+    <Content Include="style\images\fill_5.png" />
     <Content Include="style\images\reload.png" />
     <Content Include="style\images\states\argentina.png" />
     <Content Include="style\images\states\australia.png" />

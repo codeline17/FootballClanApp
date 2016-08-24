@@ -108,6 +108,9 @@ namespace FCW.Actions
                     case "GLP":
                         GetLeaguePage();
                         break;
+                    case "GAS":
+                        GetAllUsersSearch();
+                        break;
                 }
                 #endregion
             }
@@ -507,6 +510,64 @@ namespace FCW.Actions
                     var r = new UserList(ul, pageNumber, lastPage);
 
                     var json = new JavaScriptSerializer {MaxJsonLength = 4194304};
+                    var jsonStr = json.Serialize(r);
+                    Response.ClearContent();
+                    Response.ClearHeaders();
+                    Response.Write(jsonStr);
+                }
+            }
+        }
+        private void GetAllUsersSearch()
+        {
+
+            string username = Request.Params["UserName"];
+            var ul = new List<Objects.User>();
+
+
+            using (var conn = new SqlConnection(_connectionstring))
+            {
+                using (var cmd = new SqlCommand("UserGetSearch", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@User", SqlDbType.VarChar,20).Value = username;
+
+
+                    conn.Open();
+                    var reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        ul.Add(
+                                new Objects.User(
+                                    reader["UserName"].ToString(),
+                                    (Guid)reader["GUID"],
+                                    0,
+                                    0,
+                                    0,
+                                    new UserDetails("", "", new City("")),
+                                    Convert.ToInt32(reader["Points"]),
+                                    0,
+                                    0,
+                                    0,
+                                    0,
+                                    Convert.ToInt32(reader["AvatarId"]),
+                                    Convert.ToInt32(reader["Rank"]),
+                                    "NoClan",
+                                    new Guid(),
+                                    DateTime.Now,
+                                    false,
+                                    0,
+                                    0,
+                                    0
+                                )
+                            );
+                        
+                    }
+
+
+                    var r = new UserList(ul, 0, 0);
+
+                    var json = new JavaScriptSerializer { MaxJsonLength = 4194304 };
                     var jsonStr = json.Serialize(r);
                     Response.ClearContent();
                     Response.ClearHeaders();

@@ -3618,7 +3618,7 @@ h4#memberModalLabel{
 	[class*="span"],
 	.uneditable-input[class*="span"],
 	.row-fluid [class*="span"] {
-	    margin-bottom: 30px;
+	    /*margin-bottom: 30px;*/
 	    padding: 0 !important;
 	}
 	.tab {

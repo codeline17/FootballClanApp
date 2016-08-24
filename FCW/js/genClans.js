@@ -88,7 +88,6 @@ function genClans() {
                   function (c) {
                       c = JSON.parse(c);
                       contextClan = c;
-                      console.log(c);
                       
                       //mainC.append(cEl("h3").tEl(c.Name + "   ").append(cEl("span").attr("class","cups").tEl("0").append(cEl("i").attr("class", "icon-trophy gold"))).append(cEl("small").tEl("[ " + clanPts + " Pts ]")).append(cEl("small").tEl("  [ " + c.Users.length + " of 11 members ]")));
 

@@ -106,19 +106,13 @@ function genClanChat() {
 
 
 function genClanChatArea(room) {
-
     var clanname = room.Name;
     var clanmessages = room.Messages;
     var clancmsg = cEl("div").attr("id", "1x" + room.Id).attr("class","MessageDiv");
-    if(clanmessages.length-1<=200){
-        for (var i = clanmessages.length - 1; i >= 0 ; i--) {
+        for (var i = 0; i <clanmessages.length ; i++) {
             clancmsg.append(genClanMessageArea(clanmessages[i]));
         }
-    } else {
-        for (var i = 0; i <= clanmessages.length - 1; i++) {
-            clancmsg.append(genClanMessageArea(clanmessages[i]));
-        }
-    }
+    
     
 
     var rr = cEl("div").attr("class", "row-fluid")

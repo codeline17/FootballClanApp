@@ -1,7 +1,6 @@
 ﻿function genMatchRows(matches, id) {
     //Aux
     var extraRow = false;
-
     //Table Tag
     var mainTag = document.createElement("table");
     mainTag.id = id;
@@ -19,7 +18,7 @@
     tHead.append(hRow);
 
     //Body
-  
+   
     var tBody = document.createElement("tbody");
     for (var j = 0; j < matches.length; j++) {
         if (!extraRow & !matches[j].Authorized) {
@@ -39,7 +38,7 @@ function getExtraMatchRow() {
     var tr = cEl("tr").attr("style", "background: #4C4A2D;").append(
                         cEl("td").attr("colspan", "6").append(cEl("div").attr("class", "row-fluid").append(cEl("div").attr("class", "span6 offset3").attr("style", "text-align: center;margin-bottom: 0px;")
                             .append(
-                            cEl("h5").attr("style", "display:inline-block; margin-right:10px;color: #FDD272;").tEl("Unlock extra matches for 1 Golden Ball")
+                            cEl("h5").attr("style", "display:inline-block; margin-right:10px;color: #FDD272;").tEl("Unlock today extra matches for 1 Golden Ball")
                             )
                             .append(
                             cEl("a").attr("class", "unlockExtra").append(cEl("i").attr("class","icon-lock-open unlock-key")).listener("click", purchaseExtraFixtures)
@@ -158,12 +157,14 @@ function createMatchPanel(e) {
         var sealed = e.Sealed;
         var addClass;
         var i = 0;
-        
+ 
         var rubRF = e.Games[0];
         var rubLPG = e.Games[1];
         var rubTG = e.Games[2];
         var rubCS = e.Games[3];
-        var lpgrow, tgrow, csrow;
+        var rubWS = e.Games[4];
+        console.log(e.Games);
+        var lpgrow, tgrow, csrow, wsrow;
 
         //------------------------RF---------------------
         var rfName = cEl("h4").attr("class", "text-center").tEl("Match Result");
@@ -280,13 +281,51 @@ function createMatchPanel(e) {
             }
             csrow = cEl("div").attr("class", "span4").append(cs).append(csDetails);
         }
+        if (rubWS) {
+            if (rubWS.Authorized) {
+                var wsName = cEl("h4").attr("class", "text-center").tEl("Who Scores");
+                if (rubWS.Evaluated) {
+                    if (rubWS.PointsWon > 0) {
+                        wsName.append(cEl("i").attr("class", "icon-ok wonGame"));
+                    }
+                    else {
+                        wsName.append(cEl("i").attr("class", "icon-cancel-1 lostGame"));
+                    }
+                }
+                var ws = cEl("div").attr("class", "row-fluid").append(wsName);
+                var wsDetails = cEl("select").attr("class", "CS").append(cEl("option").tEl("---"));
+                if (!sealed) {
+                    wsDetails.listener("change", sendPredictions);
+                }
+                else {
+                    wsDetails.setAttribute("disabled", "disabled");
+                }
+                for (i = 0; i < rubWS.Outcomes.length; i++) {
+                    var wsEl = cEl("option").tEl(rubWS.Outcomes[i].Name);
+                    wsEl.selected = rubWS.Outcomes[i].Selected;
+                    if (!sealed) {
+                        wsEl.wr({ attrs: e.ID + "|" + rubWS.Slug + "|" + rubWS.Outcomes[i].Name });
+                    }
+                    wsDetails.append(wsEl);
+                }
+                wsrow = cEl("div").attr("class", "span4").append(ws).append(wsDetails);
+            }
+        }
+        
 
         lpgrow = lpgrow ? lpgrow : genPurchasePanel(rubLPG);
         tgrow = tgrow ? tgrow : genPurchasePanel(rubTG);
         csrow = csrow ? csrow : genPurchasePanel(rubCS);
+        if (rubWS) {
+            console.log(rubWS);
+            wsrow = wsrow ? wsrow : genPurchasePanel(rubWS);
+        }
 
         //------------------------RT---------------------
         var rtrow = cEl("div").attr("class", "row-fluid").append(lpgrow).append(tgrow).append(csrow);
+        if(rubWS){
+            rtrow.append(wsrow);
+        }
 
         panel.append(rfrow).append(cEl("hr")).append(rtrow);
         return panel;
@@ -341,6 +380,7 @@ function sendPredictions(e) {
 
 function purchaseOption(e) {
     var slug = e.target.wrapper.Slug;
+    alert(slug);
     $.post("Actions/User.aspx", { type: "PO", Slug: slug },
         function (r) {
             if (r === "1") {

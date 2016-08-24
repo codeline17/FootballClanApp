@@ -130,7 +130,8 @@ function getContent(e) {
             }
         });
  }
- function getTomorrowMatches(opt){
+ function getTomorrowMatches(opt) {
+     console.log();
      var date = getFullDate(new Date(), 1);
      $.post("Actions/Fixture.aspx", { type: "PREDS", date: date },
          function (e) {
@@ -298,7 +299,7 @@ function genTomorrowMatches(){
      mainC.innerHTML = "";
      var mainC = document.getElementById("mainContainer");
      var rootElement = cEl("div").attr("class", "pricing row-fluid");
-
+     console.log(unlocks);
      for (var i = 0; i < unlocks.length; i++) {
 
          rootElement.append(genSingleUnlockElement(unlocks[i].Name, unlocks[i].ExpiresOn));
@@ -553,9 +554,9 @@ function genPlayerPrizes() {
     var tabs = cEl("div").attr("class", "tabs tabs-top left tab-container").attr("data-easytabs", "true")
                            .attr("id", "lbTabs").append(cEl("ul").attr("class", "etabs")
                            .append(
-                               cEl("li").listener("click", switchPrizesTabs, false).attr("class", "tab active").append(cEl("a").wr({ el: "playerCompetitions" }).tEl("Player Competitions"))
+                               cEl("li").listener("click", switchPrizesTabs, false).attr("class", "tab active").append(cEl("a").wr({ el: "playerCompetitions" }).tEl("Champions Cup"))
                            ).append(
-                               cEl("li").listener("click", switchPrizesTabs, false).attr("class", "tab").append(cEl("a").wr({ el: "clanCompetitions" }).tEl("Clan Competitions"))
+                               cEl("li").listener("click", switchPrizesTabs, false).attr("class", "tab").append(cEl("a").wr({ el: "clanCompetitions" }).tEl("Clans Cup"))
                            ));
     var tabContainer = cEl("div").attr("class", "panel-container").attr("style", "overflow: hidden;");
 
@@ -570,13 +571,11 @@ function genPlayerPrizes() {
     var eliteCompetion = cEl("div").append(cEl("p").tEl("Usually during Champions League period we will launch intense weekly competitions ..."))
         .append(cEl("p").tEl(" These Competitions will last for 7 days up to 20 days and they will dispose prizes as below:"))
         .append(cEl("ol").attr("style", "list-style-type:none;")
-        .append(cEl("li").tEl("Position 1 -> PS4 + 30 golden balls"))
-        .append(cEl("li").tEl("Position 2 -> Smartphone + 30 golden balls"))
-        .append(cEl("li").tEl("Position 3 -> Nike football shoes + 30 golden balls"))
-        .append(cEl("li").tEl("Position 7 - 4 -> Barca football jesy + 25 golden balls"))
-        .append(cEl("li").tEl("Position 10 - 8 -> Smartphone cases + 25 golden balls"))
-        .append(cEl("li").tEl("Position 15 - 11 -> Footballclans T-Shirt + 25 golden balls"))
-        .append(cEl("li").tEl("Position 50 - 16 -> 20 golden balls"))
+        .append(cEl("li").tEl("Position 1 -> Smart Tablet + 20 golden balls"))
+        .append(cEl("li").tEl("Position 4 - 2 -> Favourite Team Jersey + 20 golden balls"))
+        .append(cEl("li").tEl("Position 10 - 5 -> Footballclans T-Shirt + 20 golden balls"))
+        .append(cEl("li").tEl("Position 15 - 11 -> Mobile Phone Cover + 20 golden balls"))
+        .append(cEl("li").tEl("Position 30 - 16 -> 20 golden balls"))
         );
 
     var euroCompetition = cEl("div")
@@ -622,9 +621,6 @@ function genPlayerPrizes() {
     var prizes = cEl("div").attr("class", "row-fluid prizes");
     prizes.append(
             genAccordionElementa("elitetab", "Elite Player Competition", null, eliteCompetion)
-            )
-        .append(
-            genAccordionElement("eurotab", "Euro 2016 individual", null, euroCompetition)
             );
        /* .append(
             genAccordionElement("monthlytab", "Monthly single competitions MSC", null, monthlyCompetition)
@@ -659,18 +655,18 @@ function genClanPrizes() {
     var euroClanCompetition = cEl("div")
         .append(cEl("p").tEl(" During EURO 2016 there will be a special Clan Competition and it will dispose prizes as below:"))
         .append(cEl("ol").attr("style", "list-style-type:none;")
-        .append(cEl("li").tEl("Clan 1 -> 1100$ (100$ for each player)"))
-        .append(cEl("li").tEl("Clan 2 -> 440$ (40$ for each player)"))
-        .append(cEl("li").tEl("Clan 3 -> 220 Golden Balls (20 Golden Balls for each player)"))
+        .append(cEl("li").tEl("Clan 1 -> 550$ (50$ for each player)"))
+        .append(cEl("li").tEl("Clan 2 -> 330$ (30$ for each player)"))
+        .append(cEl("li").tEl("Clan 3 -> 220$ (20$ for each player)"))
         );
 
 
     var clanBattlesCompetition = cEl("div").append(cEl("p").tEl("This competition lasts about 1 months and is a clan competition for who gets to be the best clan on the Game... The Points accumulated from all players of the clan will be summed together to make clan points..."))
         .append(cEl("p").tEl(" Coalition with your friends in this competition in order to become the best Clan and win fantastic prizes below:"))
         .append(cEl("ol").attr("style","list-style-type:none;")
-        .append(cEl("li").tEl("Clan 1 -> 1100$ (100$ for each player)"))
-        .append(cEl("li").tEl("Clan 2 -> 440$ (40$ for each player)"))
-        .append(cEl("li").tEl("Clan 3 -> 220 Golden Balls (20 Golden Balls for each player)")));
+        .append(cEl("li").tEl("Clan 1 -> 550$ (50$ for each player)"))
+        .append(cEl("li").tEl("Clan 2 -> 330$ (30$ for each player)"))
+        .append(cEl("li").tEl("Clan 3 -> 220$ (20$ for each player)")));
 
 
     var seasonClanCompetition = cEl("div").append(cEl("p").tEl("This competition lasts about 3 months and is a long clan competition for who gets to be the best clan on the Game... The Points accumulated from all players of the clan will be summed together to make clan points..."))
@@ -699,9 +695,6 @@ function genClanPrizes() {
     var prizes = cEl("div").attr("class", "row-fluid");
     prizes.append(
             genAccordionElementa("battlesclantab", "Clan Battles", null, clanBattlesCompetition)
-            )
-        .append(
-            genAccordionElement("euroclantab", "Euro 2016 clans", null, euroClanCompetition)
             );
     /*
 
