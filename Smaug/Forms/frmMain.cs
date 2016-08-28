@@ -33,11 +33,11 @@ namespace Smaug
 
             foreach (var e in Elements.EFList)
             {
-                //ThreadPool.QueueUserWorkItem(new WaitCallback(ProcessEFByCountry), e);
-                //Console.WriteLine($"{DateTime.Now.ToString("dd/MM/yyyy HH:mm")} Started a task");
+                ThreadPool.QueueUserWorkItem(new WaitCallback(ProcessEFByCountry), e);
+                ConsoleWrite($"{DateTime.Now.ToString("dd/MM/yyyy HH:mm")} Started a task");
             }
             ThreadPool.QueueUserWorkItem(new WaitCallback(ProcessHLCountry),"o");
-            Console.WriteLine($"{DateTime.Now.ToString("dd/MM/yyyy HH:mm")} Started result task");
+            ConsoleWrite($"{DateTime.Now.ToString("dd/MM/yyyy HH:mm")} Started result task");
         }
 
         public static void ProcessEFByCountry(object o)
@@ -52,6 +52,11 @@ namespace Smaug
             {
                 Console.WriteLine($"{ex.Message}");
             }
+        }
+
+        public static void ConsoleWrite(string s)
+        {
+            Console.WriteLine($"{DateTime.Now.ToString("dd/MM/yyyy hh:mm")} >> {s}");
         }
 
         public static void ProcessHLCountry(object o)

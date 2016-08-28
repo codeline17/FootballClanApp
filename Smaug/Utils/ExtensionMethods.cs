@@ -30,7 +30,11 @@ namespace Smaug.Utils
                         command.Parameters.Add(new SqlParameter("@Stadium", "NoStadium"));
                         try
                         {
-                            command.ExecuteNonQuery();
+                            var c = command.ExecuteNonQuery();
+                            if (c > 0)
+                            {
+                                frmMain.ConsoleWrite($"U shtua nje ekip");
+                            }
                         }
                         catch (Exception e)
                         {
@@ -77,7 +81,7 @@ namespace Smaug.Utils
                 DateTime dt;
                 if (!DateTime.TryParseExact(dtString.Replace(".", "/"), "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture, DateTimeStyles.None, out dt))
                     DateTime.TryParseExact(match.Date, "dd.MM.yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out dt);
-
+                
                 using (var conn = new SqlConnection(CString))
                 {
                     using (var command = new SqlCommand("FeedFixtureInsert", conn))
@@ -95,7 +99,11 @@ namespace Smaug.Utils
                         command.Parameters.Add(new SqlParameter("@static_id", match.GetType().GetProperty("Static_id").GetValue(match, null)));
                         try
                         {
-                            command.ExecuteNonQuery();
+                            var c = command.ExecuteNonQuery();
+                            if (c > 0)
+                            {
+                                frmMain.ConsoleWrite($"{DateTime.Now.ToString("dd/MM/yyyy hh:mm")} : Shtova {match.HomeTeam.Name} - {match.AwayTeam.Name}");
+                            }
                         }
                         catch (Exception e)
                         {
@@ -218,6 +226,12 @@ namespace Smaug.Utils
                 //Nuthin
             }
             return resultNum;
+        }
+
+        public static IEnumerable<TSource> DistinctBy<TSource, TKey> (this IEnumerable<TSource> source, Func<TSource, TKey> keySelector)
+        {
+            var seenKeys = new HashSet<TKey>();
+            return source.Where(element => seenKeys.Add(keySelector(element)));
         }
     }
 }

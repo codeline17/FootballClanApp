@@ -75,7 +75,7 @@ namespace Smaug.Controller
 #if DEBUG
             Console.WriteLine($"{DateTime.Now.ToString("dd/MM/yyyy HH:mm")} >> {teamList.Count()} teams were found.");
 #endif
-            teamList.SaveOrUpdate();
+            teamList.DistinctBy(t => t.GetType().GetProperty("Id").GetValue(t,null)).ToList().SaveOrUpdate();
         }
         private static void ProcessLeagues(IEnumerable<XElement> leagues, string country)
         {

@@ -10,19 +10,20 @@ namespace Smaug.Requests
         public static XDocument GetResults()
         {
             //return GetXmlFromUrl($"http://www.tipgin.net/datav2/accounts/bsp/soccer/results/{country}.xml","results");
-            return GetXmlFromUrl($"http://www.tipgin.net/datav2/accounts/bsp/soccer/livescore/d-1.xml","results");
+           /* return GetXmlFromUrl($"http://www.tipgin.net/datav2/accounts/bsp/soccer/livescore/d-1.xml","results");
             return GetXmlFromUrl($"http://www.tipgin.net/datav2/accounts/bsp/soccer/livescore/d-2.xml","results");
             return GetXmlFromUrl($"http://www.tipgin.net/datav2/accounts/bsp/soccer/livescore/d-3.xml","results");
             return GetXmlFromUrl($"http://www.tipgin.net/datav2/accounts/bsp/soccer/livescore/d-4.xml","results");
             return GetXmlFromUrl($"http://www.tipgin.net/datav2/accounts/bsp/soccer/livescore/d-5.xml","results");
             return GetXmlFromUrl($"http://www.tipgin.net/datav2/accounts/bsp/soccer/livescore/d-6.xml","results");
-            return GetXmlFromUrl($"http://www.tipgin.net/datav2/accounts/bsp/soccer/livescore/d-7.xml","results");
+            return GetXmlFromUrl($"http://www.tipgin.net/datav2/accounts/bsp/soccer/livescore/d-7.xml","results");*/
             return GetXmlFromUrl($"http://www.tipgin.net/datav2/accounts/bsp/soccer/livescore/livescore.xml","results");
         }
 
         public static XDocument GetExtendedFixtures(string country)
         {
             //return GetXmlFromUrl($"http://www.tipgin.net/datav2/accounts/bsp/soccer/extended_fixtures/{country}.xml");
+
             return GetXmlFromUrl($"http://www.tipgin.net/datav2/accounts/bsp/soccer/fixtures/{country}.xml");
         }
 
