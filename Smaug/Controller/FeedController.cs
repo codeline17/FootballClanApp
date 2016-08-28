@@ -4,6 +4,7 @@ using System.Linq;
 using Smaug.Models;
 using System.Xml.Linq;
 using System.Diagnostics;
+using NHibernate.Util;
 using Smaug.Interfaces;
 using Smaug.Utils;
 
@@ -17,7 +18,7 @@ namespace Smaug.Controller
             {
                 if (d?.Root == null)
                 {
-                    Debug.WriteLine("Xml is null");
+                    Console.WriteLine("Xml is null");
                     return;
                 }
                 var country = d.Root.Attribute("country").Value; 
@@ -33,8 +34,8 @@ namespace Smaug.Controller
             }
             catch (Exception e)
             {
-                Debug.WriteLine($"Error : {e.Message}");
-                Debug.WriteLine($"Stack : {e.StackTrace}");
+                Console.WriteLine($"Error : {e.Message}");
+                Console.WriteLine($"Stack : {e.StackTrace}");
             }
         }
         private static void ProcessTeams(IEnumerable<XElement> teams)
@@ -66,7 +67,7 @@ namespace Smaug.Controller
                         teamList.Add(a);
                         break;
                     default:
-                        Debug.WriteLine($"Special node name : {t.Name.ToString()}");
+                        Console.WriteLine($"Special node name : {t.Name.ToString()}");
                         break;
                 }
             }
@@ -115,7 +116,7 @@ namespace Smaug.Controller
             {
                 if (d?.Root == null)
                 {
-                    Debug.WriteLine("Xml is null");
+                    Console.WriteLine("Xml is null");
                     return;
                 }
                 var matches = d.Root.Descendants().Where(de => de.Name == "match" && de.HasAttributes);
@@ -123,8 +124,8 @@ namespace Smaug.Controller
             }
             catch (Exception e)
             {
-                Debug.WriteLine($"Error : {e.Message}");
-                Debug.WriteLine($"Stack : {e.StackTrace}");
+                Console.WriteLine($"Error : {e.Message}");
+                Console.WriteLine($"Stack : {e.StackTrace}");
             }
         }
          
@@ -139,22 +140,23 @@ namespace Smaug.Controller
                 Time = m.Attribute("time").Value,
                 HomeGoals = m.Descendants()?.FirstOrDefault(h => h.HasAttributes && (h.Name == "home" || h.Name == "localteam"))?.Attribute("goals")?.Value.Replace("?","0") ?? "0",
                 AwayGoals = m.Descendants()?.FirstOrDefault(h => h.HasAttributes && (h.Name == "away" || h.Name == "visitorteam"))?.Attribute("goals")?.Value.Replace("?", "0") ?? "0",
-                Events = m.Descendants("events")?.Select(e => new Event
+                Events = m.Descendants("event")?.Select(e => new Event
                 {
-                    Minute = e.Descendants()?.FirstOrDefault(mn => mn.HasAttributes && mn.Name == "event")?.Attribute("minute")?.Value,
-                    Type = e.Descendants()?.FirstOrDefault(mn => mn.HasAttributes && mn.Name == "event")?.Attribute("type")?.Value,
-                    Team = e.Descendants()?.FirstOrDefault(mn => mn.HasAttributes && mn.Name == "event")?.Attribute("team")?.Value,
+                    Id = e.Attribute("id")?.Value.ToInt(0) ?? 0,
+                    Minute = e.Attribute("minute")?.Value,
+                    Type = e.Attribute("type")?.Value,
+                    Team = e.Attribute("team")?.Value,
                     Player = new Player
                     {
-                        Id = e.Descendants()?.FirstOrDefault(mn => mn.HasAttributes && mn.Name == "event")?.Attribute("playerid")?.Value,
-                        Name = e.Descendants()?.FirstOrDefault(mn => mn.HasAttributes && mn.Name == "event")?.Attribute("player")?.Value,
+                        Id = e.Attribute("playerid")?.Value,
+                        Name = e.Attribute("player")?.Value,
                     }
                 }
                 ).ToList()
             }).ToList();
 
 #if DEBUG
-            Debug.WriteLine($"{DateTime.Now.ToString("dd/MM/yyyy HH:mm")} >> {matchList.Count()} matches were found.");
+            Console.WriteLine($"{DateTime.Now.ToString("dd/MM/yyyy HH:mm")} >> {matchList.Count()} matches were found.");
 #endif
             matchList.Update();
 

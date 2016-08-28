@@ -34,9 +34,9 @@ namespace Smaug.Utils
                         }
                         catch (Exception e)
                         {
-                            Debug.WriteLine($"Error in FeedTeamInsert");
-                            Debug.WriteLine($"Error : {e.Message}");
-                            Debug.WriteLine($"Stack : {e.StackTrace}");
+                            Console.WriteLine($"Error in FeedTeamInsert");
+                            Console.WriteLine($"Error : {e.Message}");
+                            Console.WriteLine($"Stack : {e.StackTrace}");
                         }
                     }
                 }
@@ -61,9 +61,9 @@ namespace Smaug.Utils
                         }
                         catch (Exception e)
                         {
-                            Debug.WriteLine($"Error in FeedLeagueInsert");
-                            Debug.WriteLine($"Error : {e.Message}");
-                            Debug.WriteLine($"Stack : {e.StackTrace}");
+                            Console.WriteLine($"Error in FeedLeagueInsert");
+                            Console.WriteLine($"Error : {e.Message}");
+                            Console.WriteLine($"Stack : {e.StackTrace}");
                         }
                     }
                 }
@@ -99,9 +99,49 @@ namespace Smaug.Utils
                         }
                         catch (Exception e)
                         {
-                            Debug.WriteLine($"Error in FeedFixtureInsert");
-                            Debug.WriteLine($"Error : {e.Message}");
-                            Debug.WriteLine($"Stack : {e.StackTrace}");
+                            Console.WriteLine($"Error in FeedFixtureInsert");
+                            Console.WriteLine($"Error : {e.Message}");
+                            Console.WriteLine($"Stack : {e.StackTrace}");
+                        }
+                    }
+                }
+            }
+        }
+
+        public static void UpdateEvents(this Match match)
+        {
+            foreach (var e in match.Events)
+            {
+                using (var conn = new SqlConnection(CString))
+                {
+                    using (var command = new SqlCommand("EventUpdateOnLiveScore", conn))
+                    {
+                        conn.Open();
+                        command.CommandType = CommandType.StoredProcedure;
+                        if (match.Static_id == "24081623421402348626")
+                        {
+                            
+                        }
+                        command.Parameters.Add(new SqlParameter("@Id", e.Id));
+                        command.Parameters.Add(new SqlParameter("@Static_Id", match.Static_id));
+                        command.Parameters.Add(new SqlParameter("@Minute", e.Minute));
+                        command.Parameters.Add(new SqlParameter("@Type", e.Type));
+                        command.Parameters.Add(new SqlParameter("@Team", e.Team));
+                        command.Parameters.Add(new SqlParameter("@PlayerId", e.Player.Id));
+                        command.Parameters.Add(new SqlParameter("@PlayerName", e.Player.Name.Replace("(pen.)","").Replace("(o.g.)","").Trim()));
+                        try
+                        {
+                            var c = command.ExecuteNonQuery();
+                           if (c > 0)
+                            {
+                                Console.WriteLine($"Event updated");
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine($"Error in EventUpdateOnLiveScore");
+                            Console.WriteLine($"Error : {ex.Message}");
+                            Console.WriteLine($"Stack : {ex.StackTrace}");
                         }
                     }
                 }
@@ -109,7 +149,8 @@ namespace Smaug.Utils
         }
         public static void Update(this IList<Match> matches)
         {
-            foreach (var match in matches.Where(m => m.Date == DateTime.Now.ToString("dd.MM.yyyy")))
+            //foreach (var match in matches.Where(m => m.Date == DateTime.Now.ToString("dd.MM.yyyy")))
+            foreach (var match in matches)
             {
                 var dtString = match.Date + " " + match.Time;
                 DateTime dt;
@@ -129,16 +170,17 @@ namespace Smaug.Utils
                         try
                         {
                             var c = command.ExecuteNonQuery();
+                            match.UpdateEvents();
                             if (c > 0)
                             {
-                                Debug.WriteLine($"Match updated");
+                                Console.WriteLine($"Match updated");
                             }
                         }
                         catch (Exception e)
                         {
-                            Debug.WriteLine($"Error in FixtureUpdateOnLiveScore");
-                            Debug.WriteLine($"Error : {e.Message}");
-                            Debug.WriteLine($"Stack : {e.StackTrace}");
+                            Console.WriteLine($"Error in FixtureUpdateOnLiveScore");
+                            Console.WriteLine($"Error : {e.Message}");
+                            Console.WriteLine($"Stack : {e.StackTrace}");
                         }
                     }
                 }
